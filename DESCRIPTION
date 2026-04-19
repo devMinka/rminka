@@ -25,7 +25,7 @@ Suggests:
     knitr,
     leaflet,
     mockery,
-    rmarkdown (>= 2.25),
+    rmarkdown,
     testthat (>= 3.0.0),
     tidyselect
 VignetteBuilder: 

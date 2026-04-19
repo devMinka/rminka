@@ -1,0 +1,217 @@
+---
+title: "Introduction to rminka"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to rminka}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  # para CRAN pon eval=FALSE en los chunks que llaman a la API
+  # de momento lo dejamos TRUE para que veas que funciona
+  eval = TRUE
+)
+
+library(dplyr)
+library(tibble)
+library(rminka)
+library(sf)
+library(leaflet)
+library(htmltools)
+#library(magick)
+
+```
+
+```{r leaflet-css, echo=FALSE, results='asis'}
+# solve CSS errors
+cat('
+<style>
+.leaflet-container img.leaflet-marker-icon,
+.leaflet-container img.leaflet-marker-shadow {
+  max-width: none !important;
+  max-height: none !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.leaflet-popup-content img {
+  max-width: 250px !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+</style>
+')
+```
+
+This document introduces you to rminka basic set of tools, and shows you how to 
+apply them to obtain your desired information.
+Once you’ve installed, read vignette("rminka") to learn more.
+
+We will develop an example based on a project: Biomarato Tarragona 2025. 
+The example will focus on this project and one of its participants, Xavier Salvador. 
+As the example progresses, we will use the different types of functions from the package.
+
+
+### - Project Queries 
+
+- **<u>mnk_proj_byname</u>**
+
+Initially, only the project name is known, so a search will be performed to find 
+the project ID (project_id). The `mnk_proj_byname` function will be used for this purpose. 
+A generic search will be conducted using the text "biomarato 2025".
+
+
+
+```{r project1, include = TRUE , echo=TRUE}
+prj_names <- mnk_proj_byname("biomarato 2025")
+
+prj_names 
+
+# For this example 
+
+prj_names[,c(1:2)]
+
+```
+- **<u>mnk_proj_info</u>**
+ 
+   Retrieves detailed project information using its known ID.
+```{r project_info, include = TRUE , echo=TRUE}
+
+prj_info <- mnk_proj_info(419)
+
+prj_info
+
+```
+- **<u>mnk_proj_user</u>**
+
+It´s posible to known the users explicited subscribed in this projects using 
+this function
+
+```{r project_info_user, include = TRUE , echo=TRUE}
+
+prj_user <- mnk_proj_user(419)
+
+prj_user
+
+```
+
+  - **<u>mnk_proj_obs</u>**
+
+Retrieves 
+
+```{r project_obs:proj, include = TRUE , echo=TRUE}
+
+prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
+
+prj_obs[2:14]
+
+```
+
+
+### - User Queries  
+  
+ - **<u>mnk_user_byname</u>**
+
+```{r user_name, include = TRUE , echo=TRUE}
+
+user_name <- mnk_user_byname("xavi")
+
+user_name
+
+```
+
+
+- **<u>mnk_proj_info</u>**
+ 
+   Retrieves detailed project information using its known ID.
+   
+```{r user_info, include = TRUE , echo=TRUE}
+
+user_info <- mnk_user_info(4)
+
+user_info
+
+```
+
+
+ - **<u>mnk_user_proj</u>**
+ 
+```{r user_project, include = TRUE , echo=TRUE}
+
+user_project <- mnk_user_proj(4)
+
+user_project
+
+```
+
+
+ - **<u> mnk_user_obs</u>**
+
+```{r user_obs, include = TRUE , echo=TRUE}
+
+user_obs <- mnk_user_obs(user_id= 4, year = 2025, month = 8)
+
+user_obs
+
+```
+
+
+### - Place Queries
+
+ - **<u>mnk_place_byname</u>**
+
+```{r place_name, include = TRUE , echo=TRUE}
+library(rminka)
+
+places <- mnk_place_byname("Forum")
+places[,1:6]
+
+```
+
+ - **<u>mnk_place_sf</u>**
+ 
+
+```{r place_sf, include = TRUE , echo=TRUE}
+
+library(sf)
+library(leaflet)
+
+
+# 1. Downloading the geometry 
+place <- mnk_place_sf(253)
+
+# 2. Drawing the map
+ forum_sf <-leaflet(place) |>
+                addProviderTiles("OpenStreetMap", group = "OSM") |>
+                addProviderTiles("Esri.WorldImagery", group = "Satélite") |>
+                addPolygons(
+                  color = "#2c4fb8",
+                  weight = 2,
+                  opacity = 1,
+                  fillOpacity = 0.4,
+                  label = ~name, # information added from previous function
+                  highlightOptions = highlightOptions(weight = 3, bringToFront = TRUE)
+                ) |>
+                addLayersControl(baseGroups = c("Satélite", "OSM")) 
+ forum_sf
+
+```
+
+ - **<u>mnk_places_obs</u>**
+ 
+```{r places_obs, include = TRUE , echo=TRUE}
+
+obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2)
+
+obs_place
+
+#Turning the dataframe into an sf object with the mnk_obs_sf() function
+
+obs_sf <- mnk_obs_sf(obs_place,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
+
+# Preparing the obtained data for later display in the marker popup
