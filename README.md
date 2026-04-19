@@ -125,7 +125,7 @@ You can install the development version of rminka from
 
 ``` r
 # install.packages("pak")
-pak::pak("Raiservi/rminka")
+pak::pak("devMinka/rminka")
 ```
 
 ## Using rminka
@@ -134,10 +134,10 @@ If you are new to `rminka` you are better off starting with a starting
 web page of `rminka` in the github page of the project.
 
 1.  The main page directions is [rminka
-    website](https://raiservi.github.io/rminka/)
+    website](https://devMinka.github.io/rminka/)
 
 2.  The starting web page is [rminka
-    starting](https://raiservi.github.io/rminka/articles/introduction-to-rminka.html)
+    starting](https://devMinka.github.io/rminka/articles/introduction-to-rminka.html)
 
 ## Getting help
 
