@@ -146,9 +146,25 @@ If you encounter a clear bug, please file an issue with a minimal
 reproducible example on
 [GitHub](https://github.com/tidyverse/dplyr/issues).
 
-\## Code of Conduct
+## Code of Conduct
 
 Please note that the rminka project is released with a [Contributor Code
 of
 Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+for guidelines.
+
+To contribute:
+
+1.  Fork the repo and create your branch from `main`.
+2.  If you’ve added code, add tests.
+3.  Ensure the test suite passes: `devtools::test()`.
+4.  Make sure `R CMD check` is clean: `devtools::check()`.
+5.  Submit a pull request.
+
+For bugs or feature requests, please file an issue first to discuss what
+you would like to change.
