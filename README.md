@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/github/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://codecov.io/github/devMinka/rminka)
+[![codecov](https://codecov.io/gh/devMinka/rminka/branch/main/graph/badge.svg)](https://app.codecov.io/gh/devMinka/rminka)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
