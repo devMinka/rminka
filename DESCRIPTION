@@ -21,6 +21,7 @@ Imports:
     stringr,
     tibble
 Suggests: 
+    htmltools,
     httptest,
     knitr,
     leaflet,

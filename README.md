@@ -145,3 +145,10 @@ There are two main places to get help with `rminka`:
 If you encounter a clear bug, please file an issue with a minimal
 reproducible example on
 [GitHub](https://github.com/tidyverse/dplyr/issues).
+
+\## Code of Conduct
+
+Please note that the rminka project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
