@@ -1,0 +1,252 @@
+# rminka [![Logo de rminka](reference/figures/logo1.png)](https://raiservi.github.io/rminka/)
+
+[![GitHub
+release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
+[![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://devminka.github.io/rminka/LICENSE)
+[![Contributor
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://devminka.github.io/rminka/code_of_conduct.md)
+
+## Usage
+
+Minka is a citizen science platform created by the research group
+[EMBIMOS](https://www.icm.csic.es/en/research-group/embimos) of the
+[Institut de Cienciès del Mar (ICM-CSIC)](https://icm.csic.es/en). The
+platform is open for all users to create their projects, collaborate on
+others, help the community with identifications or simply upload
+observations that will be validated with the help of the community and
+that can be used, in the future, to contribute openly to science and the
+improvement of the environment.  
+The link to access Minka’s website is <https://minka-sdg.org/>
+
+The goals of the `rminka` package are:
+
+1.  Directly access the data stored in the Minka platform to be able to
+    process them with R through the API.
+
+2.  Treat the data to be able to use them directly with other packages
+    such as `vegan`, `dismo`, `labdsv` or others.
+
+## Overview
+
+`rminka` is a toolkit for interacting with the [Minka
+API](https://api.minka-sdg.org/v1/docs/), providing a consistent set of
+functions to help you query and retrieve biodiversity data. The
+package’s functions are grouped by the type of data they return:
+
+**a) User Queries:** Functions to find users and their contributed
+observations.
+
+- [`mnk_user_byname()`](https://devminka.github.io/rminka/reference/mnk_user_byname.md):
+  Finds a user’s ID ( user_id) from their approximate login name.
+- [`mnk_user_info()`](https://devminka.github.io/rminka/reference/mnk_user_info.md):
+  Retrieves detailed user information using its known ID (user_id)
+- [`mnk_user_proj()`](https://devminka.github.io/rminka/reference/mnk_user_proj.md):
+  Find the projects to which a user has explicitly subscribed based on
+  their user_id.
+- [`mnk_user_obs()`](https://devminka.github.io/rminka/reference/mnk_user_obs.md):
+  Retrieves all observations contributed by that user for a given year (
+  all the year or only a specific month) from their user_id.
+
+**b) Project Queries:** A set of complementary functions to find
+projects and their associated observations.
+
+- [`mnk_proj_byname()`](https://devminka.github.io/rminka/reference/mnk_proj_byname.md):
+  Finds a project’s ID (project_id) using an approximate project name.
+- [`mnk_proj_info()`](https://devminka.github.io/rminka/reference/mnk_proj_info.md):
+  Retrieves detailed project information using its known ID
+  (project_id).
+- [`mnk_proj_user()`](https://devminka.github.io/rminka/reference/mnk_proj_user.md):
+  Find the users, and associated metadata, explicitly subscribed to a
+  given project by the project_id.
+- [`mnk_proj_obs()`](https://devminka.github.io/rminka/reference/mnk_proj_obs.md):
+  Fetches all observations for a specific year within that project.
+
+**c) Place Queries:** Functions to find places and retrieve their
+spatial data.
+
+- [`mnk_place_byname()`](https://devminka.github.io/rminka/reference/mnk_place_byname.md):
+  Finds the place´s ID (place_id) for a location using an approximate
+  place name.
+- [`mnk_place_sf()`](https://devminka.github.io/rminka/reference/mnk_place_sf.md):
+  Returns the `sf` geometry for a place given its place_id, ready for
+  plotting with packages like `ggplot2` or `leaflet`.
+- [`mnk_place_obs()`](https://devminka.github.io/rminka/reference/mnk_place_obs.md):
+  Retrieves all observations for a place for a given year (all the year
+  or only a specific month) from their place_id .
+
+**d) Observation Queries:** A variety of functions to fetch observation
+data based on different parameters.
+
+- [`mnk_obs_id()`](https://devminka.github.io/rminka/reference/mnk_obs_id.md):
+  Retrieves a single observation’s complete data using its unique ID
+  (id).
+- [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md):
+  Fetches observations based on various parameters for a full year, a
+  specific month, or a single day.
+- [`mnk_obs_byday()`](https://devminka.github.io/rminka/reference/mnk_obs_byday.md):
+  Retrieves all observations within a date range in the same year.
+
+**e) Auxiliary functions:** A set of functions with different utilities
+that complement Minka’s observational data and help in processing them
+when used in other R packages (`vegan`, `dismo`, `labdsv` or others).
+
+- [`export_mnk_qgis()`](https://devminka.github.io/rminka/reference/export_mnk_qgis.md):
+  Converts one or more `sf` layers with different geometry types (points
+  and polygons) to GeoPackage (.gpkg) format usualy used in Qgis. By
+  default, it uses CRS=4326 (WGS 84), but the same function can
+  transform to a different CRS.
+- [`mnk_obs_sf()`](https://devminka.github.io/rminka/reference/mnk_obs_sf.md):
+  This function converts a Minka observation tibble into a geometric sf
+  layer. The same function allows you to select what information it will
+  contain (none by default). It also uses CRS=4326 (WGS 84) by default,
+  but the same function can transform it to a different CRS.
+- [`get_wrm_tax()`](https://devminka.github.io/rminka/reference/get_wrm_tax.md):
+  Retrieves the complete taxonomy and additional data (e.g., marine or
+  terrestrial ) from [WoRMS](https://www.marinespecies.org/) for a given
+  scientific name.
+- [`shrt_name()`](https://devminka.github.io/rminka/reference/shrt_name.md):
+  Returns the CEP name (abbreviated scientific name) with separation
+  point, given a scientific name.
+
+These functions are designed to be used together. For queries that span
+multiple years, you can easily loop through the years of interest, run
+the appropriate function, and then combine the resulting tibbles with
+[`dplyr::bind_rows()`](https://dplyr.tidyverse.org/reference/bind_rows.html).
+
+## Installation
+
+You can install the development version of rminka from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("devMinka/rminka")
+```
+
+## Using rminka
+
+If you are new to `rminka` you are better off starting with a starting
+web page of `rminka` in the github page of the project.
+
+1.  The main page directions is [rminka
+    website](https://devMinka.github.io/rminka/)
+
+2.  The starting web page is [rminka
+    starting](https://devMinka.github.io/rminka/articles/introduction-to-rminka.html)
+
+## Getting help
+
+There are two main places to get help with `rminka`:
+
+1.  The [RStudio community](https://forum.posit.co/) is a friendly place
+    to ask any questions about R.
+
+2.  [Stack Overflow](https://stackoverflow.com/) is a great source of
+    answers to common R questions. It is also a great place to get help,
+    once you have created a reproducible example that illustrates your
+    problem.
+
+If you encounter a clear bug, please file an issue with a minimal
+reproducible example on
+[GitHub](https://github.com/tidyverse/dplyr/issues).
+
+## Code of Conduct
+
+Please note that the rminka project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## Contributing
+
+Contributions are welcome! Please see
+[CONTRIBUTING.md](https://devminka.github.io/rminka/CONTRIBUTING.md) for
+guidelines.
+
+To contribute:
+
+1.  Fork the repo and create your branch from `main`.
+2.  If you’ve added code, add tests.
+3.  Ensure the test suite passes: `devtools::test()`.
+4.  Make sure `R CMD check` is clean: `devtools::check()`.
+5.  Submit a pull request.
+
+For bugs or feature requests, please file an issue first to discuss what
+you would like to change.
+
+# Package index
+
+## Project Queries
+
+A set of complementary functions to find projects and their associated
+observations.
+
+- [`mnk_proj_byname()`](https://devminka.github.io/rminka/reference/mnk_proj_byname.md)
+  : Search Minka Projects by Name
+- [`mnk_proj_info()`](https://devminka.github.io/rminka/reference/mnk_proj_info.md)
+  : Get Metadata for a Minka Project
+- [`mnk_proj_user()`](https://devminka.github.io/rminka/reference/mnk_proj_user.md)
+  : Get Project Users With Metadata
+- [`mnk_proj_obs()`](https://devminka.github.io/rminka/reference/mnk_proj_obs.md)
+  : Download Project Observations by Year
+
+## User Queries
+
+Functions to find users and their contributed observations.
+
+- [`mnk_user_byname()`](https://devminka.github.io/rminka/reference/mnk_user_byname.md)
+  : Search Minka Users by Login Name
+- [`mnk_user_info()`](https://devminka.github.io/rminka/reference/mnk_user_info.md)
+  : Get Information About a Specific Minka User
+- [`mnk_user_proj()`](https://devminka.github.io/rminka/reference/mnk_user_proj.md)
+  : Projects Subscribed by a Minka User
+- [`mnk_user_obs()`](https://devminka.github.io/rminka/reference/mnk_user_obs.md)
+  : Download User Observations by Year
+
+## Place Queries
+
+Functions to find places and retrieve their spatial data and their
+associated observations.
+
+- [`mnk_place_byname()`](https://devminka.github.io/rminka/reference/mnk_place_byname.md)
+  : Search Minka Place by Name
+- [`mnk_place_sf()`](https://devminka.github.io/rminka/reference/mnk_place_sf.md)
+  : Get Minka Place as sf Object
+- [`mnk_place_obs()`](https://devminka.github.io/rminka/reference/mnk_place_obs.md)
+  : Download Place Observations by Year
+
+## Observation Queries
+
+A variety of functions to fetch observation data based on different
+parameters.
+
+- [`mnk_obs_id()`](https://devminka.github.io/rminka/reference/mnk_obs_id.md)
+  : Get Minka Observation Details
+- [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)
+  : Download Minka Observations
+- [`mnk_obs_byday()`](https://devminka.github.io/rminka/reference/mnk_obs_byday.md)
+  : Download Minka Observations by Date Range
+
+## Auxiliary functions
+
+A set of functions with different utilities that complement Minka’s
+observational data and help in processing them when used in other R
+packages (`vegan`, `dismo`, `labdsv` or others).
+
+- [`export_mnk_qgis()`](https://devminka.github.io/rminka/reference/export_mnk_qgis.md)
+  : Export sf Minka Objects to a GeoPackage for QGIS
+- [`mnk_obs_sf()`](https://devminka.github.io/rminka/reference/mnk_obs_sf.md)
+  : Convert Minka Observations to sf
+- [`get_wrm_tax()`](https://devminka.github.io/rminka/reference/get_wrm_tax.md)
+  : Get WoRMS Taxonomy
+- [`shrt_name()`](https://devminka.github.io/rminka/reference/shrt_name.md)
+  : Generate Short Name from Scientific Name
+
+# Articles
+
+### All vignettes
+
+- [Introduction to
+  rminka](https://devminka.github.io/rminka/articles/introduction-to-rminka.md):
