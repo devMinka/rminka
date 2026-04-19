@@ -11,14 +11,15 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Last
 commit](https://img.shields.io/github/last-commit/devMinka/rminka?style=flat-square)](https://github.com/devMinka/rminka/commits/main)
-<!-- Badges principales --> [\[GitHub
-release\](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
-[\[Contributors\](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
-[\[License: GPL
-v3\](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[\[Contributor
-Covenant\](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
-<!-- badges: end -->
+
+[![GitHub
+release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
+[![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Contributor
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+<!-- badges: end --> <!-- badges: end -->
 
 ## Usage
 
