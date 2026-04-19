@@ -1,0 +1,142 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# rminka <a href="https://raiservi.github.io/rminka/"><img src="man/figures/logo1.png" alt="Logo de rminka" align="right" height="138" /></a>
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+## Usage
+
+Minka is a citizen science platform created by the research group
+[EMBIMOS](https://www.icm.csic.es/en/research-group/embimos) of the
+[Institut de Cienciès del Mar (ICM-CSIC)](https://icm.csic.es/en). The
+platform is open for all users to create their projects, collaborate on
+others, help the community with identifications or simply upload
+observations that will be validated with the help of the community and
+that can be used, in the future, to contribute openly to science and the
+improvement of the environment. <br> The link to access Minka’s website
+is <https://minka-sdg.org/>
+
+The goals of the `rminka` package are:
+
+1.  Directly access the data stored in the Minka platform to be able to
+    process them with R through the API.
+
+2.  Treat the data to be able to use them directly with other packages
+    such as `vegan`, `dismo`, `labdsv` or others.
+
+## Overview
+
+`rminka` is a toolkit for interacting with the [Minka
+API](https://api.minka-sdg.org/v1/docs/), providing a consistent set of
+functions to help you query and retrieve biodiversity data. The
+package’s functions are grouped by the type of data they return:
+
+**a) User Queries:** Functions to find users and their contributed
+observations.
+
+- `mnk_user_byname()`: Finds a user’s ID ( user_id) from their
+  approximate login name.
+- `mnk_user_info()`: Retrieves detailed user information using its known
+  ID (user_id)
+- `mnk_user_proj()`: Find the projects to which a user has explicitly
+  subscribed based on their user_id.
+- `mnk_user_obs()`: Retrieves all observations contributed by that user
+  for a given year ( all the year or only a specific month) from their
+  user_id.
+
+**b) Project Queries:** A set of complementary functions to find
+projects and their associated observations.
+
+- `mnk_proj_byname()`: Finds a project’s ID (project_id) using an
+  approximate project name.
+- `mnk_proj_info()`: Retrieves detailed project information using its
+  known ID (project_id).
+- `mnk_proj_user()`: Find the users, and associated metadata, explicitly
+  subscribed to a given project by the project_id.
+- `mnk_proj_obs()`: Fetches all observations for a specific year within
+  that project.
+
+**c) Place Queries:** Functions to find places and retrieve their
+spatial data.
+
+- `mnk_place_byname()`: Finds the place´s ID (place_id) for a location
+  using an approximate place name.
+- `mnk_place_sf()`: Returns the `sf` geometry for a place given its
+  place_id, ready for plotting with packages like `ggplot2` or
+  `leaflet`.
+- `mnk_place_obs()`: Retrieves all observations for a place for a given
+  year (all the year or only a specific month) from their place_id .
+
+**d) Observation Queries:** A variety of functions to fetch observation
+data based on different parameters.
+
+- `mnk_obs_id()`: Retrieves a single observation’s complete data using
+  its unique ID (id).
+- `mnk_obs()`: Fetches observations based on various parameters for a
+  full year, a specific month, or a single day.
+- `mnk_obs_byday()`: Retrieves all observations within a date range in
+  the same year.
+
+**e) Auxiliary functions:** A set of functions with different utilities
+that complement Minka’s observational data and help in processing them
+when used in other R packages (`vegan`, `dismo`, `labdsv` or others).
+
+- `export_mnk_qgis()`: Converts one or more `sf` layers with different
+  geometry types (points and polygons) to GeoPackage (.gpkg) format
+  usualy used in Qgis. By default, it uses CRS=4326 (WGS 84), but the
+  same function can transform to a different CRS.
+- `mnk_obs_sf()`: This function converts a Minka observation tibble into
+  a geometric sf layer. The same function allows you to select what
+  information it will contain (none by default). It also uses CRS=4326
+  (WGS 84) by default, but the same function can transform it to a
+  different CRS.
+- `get_wrm_tax()`: Retrieves the complete taxonomy and additional data
+  (e.g., marine or terrestrial ) from
+  [WoRMS](https://www.marinespecies.org/) for a given scientific name.
+- `shrt_name()`: Returns the CEP name (abbreviated scientific name) with
+  separation point, given a scientific name.
+
+These functions are designed to be used together. For queries that span
+multiple years, you can easily loop through the years of interest, run
+the appropriate function, and then combine the resulting tibbles with
+`dplyr::bind_rows()`.
+
+## Installation
+
+You can install the development version of rminka from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("Raiservi/rminka")
+```
+
+## Using rminka
+
+If you are new to `rminka` you are better off starting with a starting
+web page of `rminka` in the github page of the project.
+
+1.  The main page directions is [rminka
+    website](https://raiservi.github.io/rminka/)
+
+2.  The starting web page is [rminka
+    starting](https://raiservi.github.io/rminka/articles/introduction-to-rminka.html)
+
+## Getting help
+
+There are two main places to get help with `rminka`:
+
+1.  The [RStudio community](https://forum.posit.co/) is a friendly place
+    to ask any questions about R.
+
+2.  [Stack Overflow](https://stackoverflow.com/) is a great source of
+    answers to common R questions. It is also a great place to get help,
+    once you have created a reproducible example that illustrates your
+    problem.
+
+If you encounter a clear bug, please file an issue with a minimal
+reproducible example on
+[GitHub](https://github.com/tidyverse/dplyr/issues).
