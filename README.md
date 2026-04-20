@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://img.shields.io/codecov/c/github/devMinka/rminka/master.svg)](https://app.codecov.io/gh/devMinka/rminka)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Last
 commit](https://img.shields.io/github/last-commit/devMinka/rminka/master?style=flat-square)](https://github.com/devMinka/rminka/commits/master)
 [![GitHub
