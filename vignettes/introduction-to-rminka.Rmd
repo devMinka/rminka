@@ -215,3 +215,58 @@ obs_place
 obs_sf <- mnk_obs_sf(obs_place,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
 
 # Preparing the obtained data for later display in the marker popup
+
+popup_final <-  paste0( "ID: <a href='", obs_sf$uri, "' target='_blank'>",obs_sf$id , "</a><br>",
+                        "Specie:", obs_sf$taxon_name, "<br>",
+                        "Observer: ", obs_sf$user_login,"<br>",
+                        "Date:", obs_sf$observed_on, "<br>",
+                        "<a href= '", obs_sf$url_picture, "' target='_blank'><img src='", 
+                        obs_sf$url_picture, "' style='margin-top:2px;border-radius:4px;'> </a> ")
+#finally plotins
+
+leaflet(obs_sf) %>%
+  addTiles() %>%
+  addMarkers(lng = ~longitude,
+             lat = ~latitude,
+             popup = popup_final)
+
+
+ forum_sf |>
+  addMarkers(data = obs_sf, popup = ~popup_final)
+
+```
+
+
+### - Observation Queries
+
+ - **<u>mnk_obs_id</u>**
+
+```{r obs_id, include = TRUE , echo=TRUE}
+
+obs_id <- mnk_obs_id(id = 553028)
+
+obs_id
+
+```
+
+ - **<u>mnk_obs</u>**
+ 
+```{r obs, include = TRUE , echo=TRUE}
+
+#In this example don´t show messages in console (quiet= TRUE)
+
+obs <- mnk_obs(taxon_name= "Diplodus sargus", year=2025, user_id=6,quiet = TRUE)
+
+obs[,c(1,21,2,10,11,16,27)]
+
+obs
+
+
+```
+
+ - **<u>mnk_obs_byday</u>**
+ 
+ ### - Auxiliary functions
+
+ 
+
