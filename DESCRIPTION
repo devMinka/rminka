@@ -1,7 +1,7 @@
 Type: Package
 Package: rminka
 Title: Get Direct Access to Minka Data
-Version: 0.1.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Ramon", "Servitje", , "rservitje25@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0001-8701-8953"))
