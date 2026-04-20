@@ -139,7 +139,7 @@ user_name
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
 #> 2     4 xasalva           "xavi salvador…              81451 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1071 2023-07-28 13:27:50
+#> 4   857 xavibou           "Xavi Bou"                    1079 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
@@ -156,7 +156,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81451                409441
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81451                409715
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -305,4 +305,83 @@ obs_place
 obs_sf <- mnk_obs_sf(obs_place,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
 
 # Preparing the obtained data for later display in the marker popup
+
+popup_final <-  paste0( "ID: <a href='", obs_sf$uri, "' target='_blank'>",obs_sf$id , "</a><br>",
+                        "Specie:", obs_sf$taxon_name, "<br>",
+                        "Observer: ", obs_sf$user_login,"<br>",
+                        "Date:", obs_sf$observed_on, "<br>",
+                        "<a href= '", obs_sf$url_picture, "' target='_blank'><img src='", 
+                        obs_sf$url_picture, "' style='margin-top:2px;border-radius:4px;'> </a> ")
+#finally plotins
+
+leaflet(obs_sf) %>%
+  addTiles() %>%
+  addMarkers(lng = ~longitude,
+             lat = ~latitude,
+             popup = popup_final)
 ```
+
+``` r
+
+
+ forum_sf |>
+  addMarkers(data = obs_sf, popup = ~popup_final)
+```
+
+### - Observation Queries
+
+- ***mnk_obs_id***
+
+``` r
+
+obs_id <- mnk_obs_id(id = 553028)
+
+obs_id
+#> # A tibble: 1 × 166
+#>   quality_grade time_observed_at       taxon_geoprivacy annotations uuid      id
+#>   <chr>         <chr>                  <lgl>            <list>      <chr>  <int>
+#> 1 research      2025-08-22T12:22:00+0… NA               <list [0]>  b106… 553028
+#> # ℹ 160 more variables: cached_votes_total <int>,
+#> #   identifications_most_agree <lgl>, species_guess <chr>,
+#> #   identifications_most_disagree <lgl>, tags <list>,
+#> #   positional_accuracy <int>, comments_count <int>, site_id <int>,
+#> #   created_time_zone <chr>, license_code <chr>, observed_time_zone <chr>,
+#> #   quality_metrics <list>, public_positional_accuracy <int>,
+#> #   reviewed_by <list>, oauth_application_id <lgl>, flags <list>, …
+```
+
+- ***mnk_obs***
+
+``` r
+
+#In this example don´t show messages in console (quiet= TRUE)
+
+obs <- mnk_obs(taxon_name= "Diplodus sargus", year=2025, user_id=6,quiet = TRUE)
+
+obs[,c(1,21,2,10,11,16,27)]
+#> # A tibble: 3 × 7
+#>       id taxon_min_ancestry           observed_on latitude longitude url_picture
+#>    <int> <chr>                        <chr>          <dbl>     <dbl> <chr>      
+#> 1 553024 1,2,4,3,264553,264556,343,1… 2025-08-22      40.9     0.827 https://mi…
+#> 2 551995 1,2,4,3,264553,264556,343,1… 2025-08-21      40.9     0.842 https://mi…
+#> 3 540977 1,2,4,3,264553,264556,343,1… 2025-08-11      40.9     0.829 https://mi…
+#> # ℹ 1 more variable: user_login <chr>
+
+obs
+#> # A tibble: 3 × 27
+#>       id observed_on  year month  week   day  hour created_at         updated_at
+#>    <int> <chr>       <int> <int> <int> <int> <int> <chr>              <chr>     
+#> 1 553024 2025-08-22   2025     8    34    22    12 2025-08-22T15:26:… 2025-08-2…
+#> 2 551995 2025-08-21   2025     8    34    21    12 2025-08-21T16:49:… 2025-08-2…
+#> 3 540977 2025-08-11   2025     8    33    11    13 2025-08-11T18:04:… 2025-08-1…
+#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
+#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
+#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
+#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
+#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
+#> #   user_id <int>, user_login <chr>
+```
+
+- ***mnk_obs_byday***
+
+\### - Auxiliary functions
