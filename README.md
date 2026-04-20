@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rminka <a href="https://raiservi.github.io/rminka/"><img src="man/figures/logo1.png" alt="Logo de rminka" align="right" height="138" /></a>
+# rminka <a href="https://devminka.github.io/rminka/"><img src="man/figures/logo1.png" alt="Logo de rminka" align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -11,7 +11,6 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Last
 commit](https://img.shields.io/github/last-commit/devMinka/rminka/master?style=flat-square)](https://github.com/devMinka/rminka/commits/master)
-
 [![GitHub
 release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
 [![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
@@ -19,6 +18,7 @@ release](https://img.shields.io/github/v/release/devMinka/rminka?include_prerele
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Contributor
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19666782.svg)](https://doi.org/10.5281/zenodo.19666782)
 <!-- badges: end -->
 
 ## Usage

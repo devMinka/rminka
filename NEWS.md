@@ -1,4 +1,4 @@
 # rminka 0.1.0.9000
 
-* First public version of `rminka`.
-* Migration of the all the functions from rminka5 (private repository).
+* Initial public release.
+* Complete migration of functionality from the private rminka5 repository.
