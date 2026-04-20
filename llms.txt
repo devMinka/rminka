@@ -1,12 +1,4 @@
-# rminka [![Logo de rminka](reference/figures/logo1.png)](https://raiservi.github.io/rminka/)
-
-[![GitHub
-release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
-[![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
-[![License: GPL
-v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://devminka.github.io/rminka/LICENSE)
-[![Contributor
-Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://devminka.github.io/rminka/code_of_conduct.md)
+# rminka [![Logo de rminka](reference/figures/logo1.png)](https://devminka.github.io/rminka/)
 
 ## Usage
 

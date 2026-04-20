@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/devMinka/rminka/blob/v0.1.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/devMinka/rminka/blob/master/DESCRIPTION)
 
 Servitje R (2026). *rminka: Get Direct Access to Minka Data*. R package
 version 0.1.0, <https://github.com/devMinka/rminka>.
