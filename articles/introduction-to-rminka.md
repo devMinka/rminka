@@ -4,19 +4,16 @@ This document introduces you to rminka basic set of tools, and shows you
 how to apply them to obtain your desired information. Once you’ve
 installed, read vignette(“rminka”) to learn more.
 
-We will develop an example based on a project: Biomarato Tarragona 2025.
-The example will focus on this project and one of its participants,
-Xavier Salvador. As the example progresses, we will use the different
-types of functions from the package.
-
 ### - Project Queries
+
+Project-related functions will be illustrated using the project
+Biomarató Tarragona 2025.
 
 - ***mnk_proj_byname***
 
-Initially, only the project name is known, so a search will be performed
-to find the project ID (project_id). The `mnk_proj_byname` function will
-be used for this purpose. A generic search will be conducted using the
-text “biomarato 2025”.
+Initially, only the project name is known, so a search is performed to
+retrieve the corresponding project ID. This is done with
+mnk_proj_byname(). Here we use the query “biomarato 2025”.
 
 ``` r
 prj_names <- mnk_proj_byname("biomarato 2025")
@@ -46,7 +43,9 @@ prj_names[,c(1:2)]
 
 - ***mnk_proj_info***
 
-  Retrieves detailed project information using its known ID.
+Once the project ID is known, detailed information can be retrieved with
+mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is
+419.
 
 ``` r
 
@@ -61,8 +60,8 @@ prj_info
 
 - ***mnk_proj_user***
 
-It´s posible to known the users explicited subscribed in this projects
-using this function
+Users explicitly subscribed to a project can be retrieved with
+mnk_proj_user() using the project ID
 
 ``` r
 
@@ -81,7 +80,7 @@ prj_user
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
 #>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4454
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27205
+#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27449
 #> # ℹ 14 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
 #> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,
@@ -89,9 +88,59 @@ prj_user
 #> #   universal_search_rank <int>
 ```
 
+Note: The simplest way to retrieve all participants in a project —
+including those who are not subscribed — is to download the project’s
+observations with
+[`mnk_proj_obs()`](https://devminka.github.io/rminka/reference/mnk_proj_obs.md)
+and then extract the unique values of user_login. Each observation
+includes the observer’s login, so the set of distinct logins corresponds
+to the project’s participants.
+
+If the project lasts only one year, or if you are only interested in the
+participants from a single month, a single function call is sufficient.
+For example, project 419 ran in 2025, so all its observations can be
+obtained with `mnk_proj_obs(419, year = 2025)`:
+
+``` r
+
+library(rminka)
+library(dplyr)
+
+# 1. Download all observations for the project in may 2025
+
+obs_2025 <- mnk_proj_obs(419,year=2025, mont=5, quiet = TRUE)
+
+# 2. Extract the unique participants
+
+participants_may_2025 <- obs_2025 %>%
+  distinct(user_login) %>%
+  arrange(user_login)
+
+participants_may_2025
+#> # A tibble: 30 × 1
+#>    user_login          
+#>    <chr>               
+#>  1 aci                 
+#>  2 albertvim           
+#>  3 allbluediving       
+#>  4 bertinhaco          
+#>  5 biosub              
+#>  6 elibonfill          
+#>  7 elisenda_casabona   
+#>  8 evararo             
+#>  9 francesca           
+#> 10 hectorserranocereijo
+#> # ℹ 20 more rows
+```
+
 - ***mnk_proj_obs***
 
-Retrieves
+Returns all observations for a project within a selected year, and
+optionally within a specific month. For the Biomarató Tarragona 2025
+(project ID 419), observations for the entire year are obtained with
+`mnk_proj_obs(419, year = 2025)`, while observations for a single month
+— for example, May — are obtained with
+`mnk_proj_obs(419, year = 2025, month = 5)`.
 
 ``` r
 
@@ -126,7 +175,15 @@ prj_obs[2:14]
 
 ### - User Queries
 
+User-related functions will be illustrated using the user Xavier
+Salvador.
+
 - ***mnk_user_byname***
+
+Initially, only an approximate name is known, so a search is performed
+to retrieve the corresponding user_login. For this example, we start
+with the query “xavi”, which returns a list of possible logins. The
+desired user — Xavier Salvador — is then selected from that list.
 
 ``` r
 
@@ -139,14 +196,15 @@ user_name
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
 #> 2     4 xasalva           "xavi salvador…              81451 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1079 2023-07-28 13:27:50
+#> 4   857 xavibou           "Xavi Bou"                    1083 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
 
-- ***mnk_proj_info***
+- ***mnk_user_info***
 
-  Retrieves detailed project information using its known ID.
+Once the user ID is known, detailed information can be retrieved with
+mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is 4
 
 ``` r
 
@@ -156,13 +214,20 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81451                409715
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81451                411434
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
 ```
 
 - ***mnk_user_proj***
+
+mnk_user_proj() returns the projects to which a user is explicitly
+subscribed, given the user ID. For Xavier Salvador (user ID 4), the list
+is obtained with `mnk_user_proj(4)`.
+
+Note: Projects in which a user has contributed observations but is not
+formally subscribed cannot be retrieved directly in R.
 
 ``` r
 
@@ -185,6 +250,13 @@ user_project
 ```
 
 - ***mnk_user_obs***
+
+Returns all observations for a user within a selected year, and
+optionally within a specific month. For Xavier Salvador (user ID 4),
+observations for the entire year are obtained with
+`mnk_user_obs(4, year = 2025)`, while observations for a single month,
+for example May, are obtained with
+`mnk_user_obs(4, year = 2025, month = 5)`.
 
 ``` r
 
@@ -223,7 +295,13 @@ user_obs
 
 ### - Place Queries
 
+Place-related functions will be illustrated using the place Piscines del
+Fòrum
+
 - ***mnk_place_byname***
+
+Initially, only the place name ( but not exactly) is known, so a search
+will be performed to find the place ID
 
 ``` r
 library(rminka)
@@ -268,15 +346,7 @@ place <- mnk_place_sf(253)
 
 ``` r
 
-obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2)
-#> --- STARTING DOWNLOAD FOR MONTH: February 2025 ---
-#> 
-#> --- Evaluating month: February 2025 ---
-#> The month of February has 529 records.
-#>  -> Total <= 10,000. Downloading month in one go...
-#> 
-#> --- FINISHING... ---
-#> Download complete! A total of 529 records were obtained.
+obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
 
 obs_place
 #> # A tibble: 529 × 27
@@ -385,3 +455,9 @@ obs
 - ***mnk_obs_byday***
 
 \### - Auxiliary functions
+
+rminka includes helper functions that support the main queries. These
+include tools to convert observation tables into sf objects for mapping,
+to resolve taxonomic information, and to prepare data for visualization.
+They are designed to connect API results directly with standard R
+workflows for analysis and reporting.
