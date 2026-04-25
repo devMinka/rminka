@@ -300,8 +300,12 @@ Fòrum
 
 - ***mnk_place_byname***
 
-Initially, only the place name ( but not exactly) is known, so a search
-will be performed to find the place ID
+Initially, only an approximate place name is known, so a search is
+performed to retrieve the corresponding place ID. For this example, we
+start with the query “forum”, which returns a list of possible places.
+The project actually uses “Piscinas del Forum”, which does not match the
+initial assumption, so it is recommended to try several searches with
+different terms until the desired place is identified.
 
 ``` r
 library(rminka)
@@ -316,6 +320,15 @@ places[,1:6]
 ```
 
 - ***mnk_place_sf***
+
+Returns the sf geometry for a place given its place ID. Once the place
+ID is known, the geometry can be retrieved with mnk_place_sf(). For
+Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
+
+In the example the geometry is visualized with the leaflet package using
+the function’s default projection, WGS84 (EPSG:4326), the standard used
+by Google Maps. Note that the returned sf object already includes the
+place name as an attribute.
 
 ``` r
 
@@ -343,6 +356,16 @@ place <- mnk_place_sf(253)
 ```
 
 - ***mnk_places_obs***
+
+Returns all observations recorded within a place within a selected year,
+and optionally within a specific month. The result is returned as a data
+frame without geometry. For Piscines del Fòrum, observations for
+february 2025 are obtained with
+`mnk_places_obs(place_id, year = 2025, month =2)`.
+
+Although the output has no geometry, it can be converted to an sf object
+with the helper function mnk_obs_sf(). The resulting points can then be
+mapped with the leaflet package.
 
 ``` r
 
@@ -402,6 +425,11 @@ leaflet(obs_sf) %>%
 
 - ***mnk_obs_id***
 
+Returns a single observation given its observation ID. This function is
+seldom used in practice, as observation IDs are not usually known
+beforehand. For completeness, an observation can be retrieved with
+mnk_obs_id(id = 553028)
+
 ``` r
 
 obs_id <- mnk_obs_id(id = 553028)
@@ -422,28 +450,103 @@ obs_id
 
 - ***mnk_obs***
 
+This is the core function of the package. It is highly versatile and
+allows searches by project, user, place, date, week number, taxon, or
+geographic area. Previous examples have already covered searches by
+project, user and place, so here we focus on two cases not yet shown:
+search by taxon and search by bounding box.
+
+Taxon search. Observations for the genus Raja and for the species Raja
+brachyura during 2025 are obtained with taxon_name = “Raja” and
+taxon_name = “Raja brachyura” respectively.
+
+Bounding-box search. Observations within a rectangular area are
+retrieved by supplying the coordinates of the southwest and northeast
+corners. For example, to search around Platja de Sant Sebastià in
+Barcelona, define the bounding box and pass it to mnk_obs().
+
+Two important notes apply to all mnk_obs() calls:
+
+When the query is executed, a message reports the total number of
+observations found. If this number exceeds 10,000, only the first 10,000
+are downloaded by default. To retrieve all records, set limit_download =
+FALSE.
+
+For validated data, it is recommended to use quality = “research”.
+
 ``` r
 
 #In this example don´t show messages in console (quiet= TRUE)
 
-obs <- mnk_obs(taxon_name= "Diplodus sargus", year=2025, user_id=6,quiet = TRUE)
+obs <- mnk_obs(taxon_name= "Raja", year=2025, user_id=4,quiet = TRUE)
 
 obs[,c(1,21,2,10,11,16,27)]
-#> # A tibble: 3 × 7
-#>       id taxon_min_ancestry           observed_on latitude longitude url_picture
-#>    <int> <chr>                        <chr>          <dbl>     <dbl> <chr>      
-#> 1 553024 1,2,4,3,264553,264556,343,1… 2025-08-22      40.9     0.827 https://mi…
-#> 2 551995 1,2,4,3,264553,264556,343,1… 2025-08-21      40.9     0.842 https://mi…
-#> 3 540977 1,2,4,3,264553,264556,343,1… 2025-08-11      40.9     0.829 https://mi…
+#> # A tibble: 38 × 7
+#>        id taxon_min_ancestry          observed_on latitude longitude url_picture
+#>     <int> <chr>                       <chr>          <dbl>     <dbl> <chr>      
+#>  1 414056 1,2,4,177,708,2290,11990,3… 2025-01-24      42.0      3.23 https://mi…
+#>  2 427152 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…
+#>  3 427148 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…
+#>  4 427142 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…
+#>  5 427141 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…
+#>  6 427140 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…
+#>  7 422169 1,2,4,177,708,2290,11990,3… 2025-02-27      41.7      2.94 https://mi…
+#>  8 420087 1,2,4,177,708,2290,11990    2025-02-21      41.9      3.21 https://mi…
+#>  9 429445 1,2,4,177,708,2290,11990,3… 2025-03-27      41.7      2.94 https://mi…
+#> 10 429443 1,2,4,177,708,2290,11990,3… 2025-03-26      41.7      2.94 https://mi…
+#> # ℹ 28 more rows
 #> # ℹ 1 more variable: user_login <chr>
 
 obs
-#> # A tibble: 3 × 27
+#> # A tibble: 38 × 27
+#>        id observed_on  year month  week   day  hour created_at        updated_at
+#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
+#>  1 414056 2025-01-24   2025     1     4    24     0 2025-01-29T10:04… 2025-01-2…
+#>  2 427152 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
+#>  3 427148 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-2…
+#>  4 427142 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
+#>  5 427141 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
+#>  6 427140 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
+#>  7 422169 2025-02-27   2025     2     9    27    20 2025-02-28T11:17… 2025-02-2…
+#>  8 420087 2025-02-21   2025     2     8    21    15 2025-02-21T15:14… 2025-02-2…
+#>  9 429445 2025-03-27   2025     3    13    27    21 2025-03-30T18:52… 2025-03-3…
+#> 10 429443 2025-03-26   2025     3    13    26    21 2025-03-30T18:52… 2025-03-3…
+#> # ℹ 28 more rows
+#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
+#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
+#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
+#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
+#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
+#> #   user_id <int>, user_login <chr>
+
+obs <- mnk_obs(taxon_name= "Raja brachyura", year=2023, user_id=4,quiet = TRUE)
+
+obs[,c(1,21,2,10,11,16,27)]
+#> # A tibble: 8 × 7
+#>       id taxon_min_ancestry           observed_on latitude longitude url_picture
+#>    <int> <chr>                        <chr>          <dbl>     <dbl> <chr>      
+#> 1 107825 1,2,4,177,708,2290,11990,35… 2023-01-20      41.9      3.21 https://mi…
+#> 2 110045 1,2,4,177,708,2290,11990,35… 2023-02-17      41.7      2.94 https://mi…
+#> 3 108780 1,2,4,177,708,2290,11990,35… 2023-02-01      41.7      2.94 https://mi…
+#> 4 207525 1,2,4,177,708,2290,11990,35… 2023-11-25      41.9      3.21 https://mi…
+#> 5 211384 1,2,4,177,708,2290,11990,35… 2023-12-21      41.7      2.94 https://mi…
+#> 6 211381 1,2,4,177,708,2290,11990,35… 2023-12-20      41.7      2.94 https://mi…
+#> 7 210709 1,2,4,177,708,2290,11990,35… 2023-12-16      41.7      2.94 https://mi…
+#> 8 210705 1,2,4,177,708,2290,11990,35… 2023-12-16      41.7      2.94 https://mi…
+#> # ℹ 1 more variable: user_login <chr>
+
+obs
+#> # A tibble: 8 × 27
 #>       id observed_on  year month  week   day  hour created_at         updated_at
 #>    <int> <chr>       <int> <int> <int> <int> <int> <chr>              <chr>     
-#> 1 553024 2025-08-22   2025     8    34    22    12 2025-08-22T15:26:… 2025-08-2…
-#> 2 551995 2025-08-21   2025     8    34    21    12 2025-08-21T16:49:… 2025-08-2…
-#> 3 540977 2025-08-11   2025     8    33    11    13 2025-08-11T18:04:… 2025-08-1…
+#> 1 107825 2023-01-20   2023     1     3    20    12 2023-01-27T12:06:… 2023-12-2…
+#> 2 110045 2023-02-17   2023     2     7    17    21 2023-02-21T09:40:… 2023-12-2…
+#> 3 108780 2023-02-01   2023     2     5     1    13 2023-02-09T13:34:… 2023-12-2…
+#> 4 207525 2023-11-25   2023    11    47    25    12 2023-12-04T17:22:… 2023-12-2…
+#> 5 211384 2023-12-21   2023    12    51    21    18 2023-12-22T10:26:… 2023-12-2…
+#> 6 211381 2023-12-20   2023    12    51    20    18 2023-12-22T10:26:… 2023-12-2…
+#> 7 210709 2023-12-16   2023    12    50    16    19 2023-12-18T10:16:… 2023-12-2…
+#> 8 210705 2023-12-16   2023    12    50    16    19 2023-12-18T10:15:… 2023-12-2…
 #> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
 #> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
 #> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
@@ -454,7 +557,15 @@ obs
 
 - ***mnk_obs_byday***
 
-\### - Auxiliary functions
+Works like
+[`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)
+but uses an explicit date interval instead of year or month parameters.
+The interval is defined by:
+
+d1: start date in ‘yyyy-mm-dd’ format d2: end date in ‘yyyy-mm-dd’
+format
+
+### - Auxiliary functions
 
 rminka includes helper functions that support the main queries. These
 include tools to convert observation tables into sf objects for mapping,

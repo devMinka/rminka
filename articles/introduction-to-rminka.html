@@ -374,8 +374,12 @@ del Fòrum</p>
 <ul>
 <li><strong><u>mnk_place_byname</u></strong></li>
 </ul>
-<p>Initially, only the place name ( but not exactly) is known, so a
-search will be performed to find the place ID</p>
+<p>Initially, only an approximate place name is known, so a search is
+performed to retrieve the corresponding place ID. For this example, we
+start with the query “forum”, which returns a list of possible places.
+The project actually uses “Piscinas del Forum”, which does not match the
+initial assumption, so it is recommended to try several searches with
+different terms until the desired place is identified.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/devMinka/rminka" class="external-link">rminka</a></span><span class="op">)</span></span>
 <span></span>
@@ -389,6 +393,14 @@ search will be performed to find the place ID</p>
 <ul>
 <li><strong><u>mnk_place_sf</u></strong></li>
 </ul>
+<p>Returns the sf geometry for a place given its place ID. Once the
+place ID is known, the geometry can be retrieved with mnk_place_sf().
+For Piscinas del Forum, the geometry is obtained with
+<code>mnk_place_sf(253)</code>.</p>
+<p>In the example the geometry is visualized with the leaflet package
+using the function’s default projection, WGS84 (EPSG:4326), the standard
+used by Google Maps. Note that the returned sf object already includes
+the place name as an attribute.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
@@ -416,6 +428,14 @@ search will be performed to find the place ID</p>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,"OSM",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satélite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[2.228,2.2309,2.2298,2.231,2.2291,2.2285,2.2267,2.2259,2.2243,2.2249,2.2275,2.228],"lat":[41.4054,41.4082,41.4091,41.4117,41.4112,41.4115,41.4118,41.4109,41.4089,41.4075,41.4057,41.4054]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#2c4fb8","weight":2,"opacity":1,"fill":true,"fillColor":"#2c4fb8","fillOpacity":0.4,"smoothFactor":1,"noClip":false},null,null,"Piscinas del Forum FECDAS",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"weight":3,"bringToFront":true}]},{"method":"addLayersControl","args":[["Satélite","OSM"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]}],"limits":{"lat":[41.4054,41.4118],"lng":[2.2243,2.231]}},"evals":[],"jsHooks":[]}</script><ul>
 <li><strong><u>mnk_places_obs</u></strong></li>
 </ul>
+<p>Returns all observations recorded within a place within a selected
+year, and optionally within a specific month. The result is returned as
+a data frame without geometry. For Piscines del Fòrum, observations for
+february 2025 are obtained with
+<code>mnk_places_obs(place_id, year = 2025, month =2)</code>.</p>
+<p>Although the output has no geometry, it can be converted to an sf
+object with the helper function mnk_obs_sf(). The resulting points can
+then be mapped with the leaflet package.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">obs_place</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_place_obs.html">mnk_place_obs</a></span><span class="op">(</span>place_id <span class="op">=</span> <span class="fl">253</span>, year <span class="op">=</span> <span class="fl">2025</span>, month <span class="op">=</span> <span class="fl">2</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -476,6 +496,10 @@ search will be performed to find the place ID</p>
 <ul>
 <li><strong><u>mnk_obs_id</u></strong></li>
 </ul>
+<p>Returns a single observation given its observation ID. This function
+is seldom used in practice, as observation IDs are not usually known
+beforehand. For completeness, an observation can be retrieved with
+mnk_obs_id(id = 553028)</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">obs_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_id.html">mnk_obs_id</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">553028</span><span class="op">)</span></span>
@@ -495,28 +519,98 @@ search will be performed to find the place ID</p>
 <ul>
 <li><strong><u>mnk_obs</u></strong></li>
 </ul>
+<p>This is the core function of the package. It is highly versatile and
+allows searches by project, user, place, date, week number, taxon, or
+geographic area. Previous examples have already covered searches by
+project, user and place, so here we focus on two cases not yet shown:
+search by taxon and search by bounding box.</p>
+<p>Taxon search. Observations for the genus Raja and for the species
+Raja brachyura during 2025 are obtained with taxon_name = “Raja” and
+taxon_name = “Raja brachyura” respectively.</p>
+<p>Bounding-box search. Observations within a rectangular area are
+retrieved by supplying the coordinates of the southwest and northeast
+corners. For example, to search around Platja de Sant Sebastià in
+Barcelona, define the bounding box and pass it to mnk_obs().</p>
+<p>Two important notes apply to all mnk_obs() calls:</p>
+<p>When the query is executed, a message reports the total number of
+observations found. If this number exceeds 10,000, only the first 10,000
+are downloaded by default. To retrieve all records, set limit_download =
+FALSE.</p>
+<p>For validated data, it is recommended to use quality =
+“research”.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">#In this example don´t show messages in console (quiet= TRUE)</span></span>
 <span></span>
-<span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs.html">mnk_obs</a></span><span class="op">(</span>taxon_name<span class="op">=</span> <span class="st">"Diplodus sargus"</span>, year<span class="op">=</span><span class="fl">2025</span>, user_id<span class="op">=</span><span class="fl">6</span>,quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs.html">mnk_obs</a></span><span class="op">(</span>taxon_name<span class="op">=</span> <span class="st">"Raja"</span>, year<span class="op">=</span><span class="fl">2025</span>, user_id<span class="op">=</span><span class="fl">4</span>,quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">21</span>,<span class="fl">2</span>,<span class="fl">10</span>,<span class="fl">11</span>,<span class="fl">16</span>,<span class="fl">27</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 7</span></span></span>
-<span><span class="co">#&gt;       id taxon_min_ancestry           observed_on latitude longitude url_picture</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">553</span>024 1,2,4,3,264553,264556,343,1… 2025-08-22      40.9     0.827 https://mi…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">551</span>995 1,2,4,3,264553,264556,343,1… 2025-08-21      40.9     0.842 https://mi…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="text-decoration: underline;">540</span>977 1,2,4,3,264553,264556,343,1… 2025-08-11      40.9     0.829 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 7</span></span></span>
+<span><span class="co">#&gt;        id taxon_min_ancestry          observed_on latitude longitude url_picture</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">414</span>056 1,2,4,177,708,2290,11990,3… 2025-01-24      42.0      3.23 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">427</span>152 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">427</span>148 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">427</span>142 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">427</span>141 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">427</span>140 1,2,4,177,708,2290,11990,3… 2025-02-19      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">422</span>169 1,2,4,177,708,2290,11990,3… 2025-02-27      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">420</span>087 1,2,4,177,708,2290,11990    2025-02-21      41.9      3.21 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">429</span>445 1,2,4,177,708,2290,11990,3… 2025-03-27      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">429</span>443 1,2,4,177,708,2290,11990,3… 2025-03-26      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: user_login &lt;chr&gt;</span></span></span>
 <span></span>
 <span><span class="va">obs</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 27</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 38 × 27</span></span></span>
+<span><span class="co">#&gt;        id observed_on  year month  week   day  hour created_at        updated_at</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">414</span>056 2025-01-24   <span style="text-decoration: underline;">2</span>025     1     4    24     0 2025-01-29T10:04… 2025-01-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">427</span>152 2025-02-19   <span style="text-decoration: underline;">2</span>025     2     8    19    20 2025-03-19T10:19… 2025-03-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">427</span>148 2025-02-19   <span style="text-decoration: underline;">2</span>025     2     8    19    20 2025-03-19T10:19… 2025-03-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">427</span>142 2025-02-19   <span style="text-decoration: underline;">2</span>025     2     8    19    20 2025-03-19T10:19… 2025-03-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">427</span>141 2025-02-19   <span style="text-decoration: underline;">2</span>025     2     8    19    20 2025-03-19T10:19… 2025-03-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">427</span>140 2025-02-19   <span style="text-decoration: underline;">2</span>025     2     8    19    20 2025-03-19T10:19… 2025-03-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">422</span>169 2025-02-27   <span style="text-decoration: underline;">2</span>025     2     9    27    20 2025-02-28T11:17… 2025-02-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">420</span>087 2025-02-21   <span style="text-decoration: underline;">2</span>025     2     8    21    15 2025-02-21T15:14… 2025-02-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">429</span>445 2025-03-27   <span style="text-decoration: underline;">2</span>025     3    13    27    21 2025-03-30T18:52… 2025-03-3…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">429</span>443 2025-03-26   <span style="text-decoration: underline;">2</span>025     3    13    26    21 2025-03-30T18:52… 2025-03-3…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 28 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 18 more variables: latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   positional_accuracy &lt;int&gt;, geoprivacy &lt;chr&gt;, obscured &lt;lgl&gt;, uri &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   url_picture &lt;chr&gt;, quality_grade &lt;chr&gt;, taxon_id &lt;int&gt;, taxon_name &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   taxon_rank &lt;chr&gt;, taxon_min_ancestry &lt;chr&gt;, taxon_endemic &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   taxon_threatened &lt;lgl&gt;, taxon_introduced &lt;lgl&gt;, taxon_native &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   user_id &lt;int&gt;, user_login &lt;chr&gt;</span></span></span>
+<span></span>
+<span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs.html">mnk_obs</a></span><span class="op">(</span>taxon_name<span class="op">=</span> <span class="st">"Raja brachyura"</span>, year<span class="op">=</span><span class="fl">2023</span>, user_id<span class="op">=</span><span class="fl">4</span>,quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">obs</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">21</span>,<span class="fl">2</span>,<span class="fl">10</span>,<span class="fl">11</span>,<span class="fl">16</span>,<span class="fl">27</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 7</span></span></span>
+<span><span class="co">#&gt;       id taxon_min_ancestry           observed_on latitude longitude url_picture</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">107</span>825 1,2,4,177,708,2290,11990,35… 2023-01-20      41.9      3.21 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">110</span>045 1,2,4,177,708,2290,11990,35… 2023-02-17      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="text-decoration: underline;">108</span>780 1,2,4,177,708,2290,11990,35… 2023-02-01      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="text-decoration: underline;">207</span>525 1,2,4,177,708,2290,11990,35… 2023-11-25      41.9      3.21 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="text-decoration: underline;">211</span>384 1,2,4,177,708,2290,11990,35… 2023-12-21      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">211</span>381 1,2,4,177,708,2290,11990,35… 2023-12-20      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> <span style="text-decoration: underline;">210</span>709 1,2,4,177,708,2290,11990,35… 2023-12-16      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> <span style="text-decoration: underline;">210</span>705 1,2,4,177,708,2290,11990,35… 2023-12-16      41.7      2.94 https://mi…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: user_login &lt;chr&gt;</span></span></span>
+<span></span>
+<span><span class="va">obs</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 27</span></span></span>
 <span><span class="co">#&gt;       id observed_on  year month  week   day  hour created_at         updated_at</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">553</span>024 2025-08-22   <span style="text-decoration: underline;">2</span>025     8    34    22    12 2025-08-22T15:26:… 2025-08-2…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">551</span>995 2025-08-21   <span style="text-decoration: underline;">2</span>025     8    34    21    12 2025-08-21T16:49:… 2025-08-2…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="text-decoration: underline;">540</span>977 2025-08-11   <span style="text-decoration: underline;">2</span>025     8    33    11    13 2025-08-11T18:04:… 2025-08-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="text-decoration: underline;">107</span>825 2023-01-20   <span style="text-decoration: underline;">2</span>023     1     3    20    12 2023-01-27T12:06:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="text-decoration: underline;">110</span>045 2023-02-17   <span style="text-decoration: underline;">2</span>023     2     7    17    21 2023-02-21T09:40:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="text-decoration: underline;">108</span>780 2023-02-01   <span style="text-decoration: underline;">2</span>023     2     5     1    13 2023-02-09T13:34:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="text-decoration: underline;">207</span>525 2023-11-25   <span style="text-decoration: underline;">2</span>023    11    47    25    12 2023-12-04T17:22:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="text-decoration: underline;">211</span>384 2023-12-21   <span style="text-decoration: underline;">2</span>023    12    51    21    18 2023-12-22T10:26:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">211</span>381 2023-12-20   <span style="text-decoration: underline;">2</span>023    12    51    20    18 2023-12-22T10:26:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> <span style="text-decoration: underline;">210</span>709 2023-12-16   <span style="text-decoration: underline;">2</span>023    12    50    16    19 2023-12-18T10:16:… 2023-12-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> <span style="text-decoration: underline;">210</span>705 2023-12-16   <span style="text-decoration: underline;">2</span>023    12    50    16    19 2023-12-18T10:15:… 2023-12-2…</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 18 more variables: latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   positional_accuracy &lt;int&gt;, geoprivacy &lt;chr&gt;, obscured &lt;lgl&gt;, uri &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   url_picture &lt;chr&gt;, quality_grade &lt;chr&gt;, taxon_id &lt;int&gt;, taxon_name &lt;chr&gt;,</span></span></span>
@@ -526,7 +620,14 @@ search will be performed to find the place ID</p>
 <ul>
 <li><strong><u>mnk_obs_byday</u></strong></li>
 </ul>
-<p>### - Auxiliary functions</p>
+<p>Works like <code><a href="../reference/mnk_obs.html">mnk_obs()</a></code> but uses an explicit date interval
+instead of year or month parameters. The interval is defined by:</p>
+<p>d1: start date in ‘yyyy-mm-dd’ format d2: end date in ‘yyyy-mm-dd’
+format</p>
+</div>
+<div class="section level3">
+<h3 id="auxiliary-functions">- Auxiliary functions<a class="anchor" aria-label="anchor" href="#auxiliary-functions"></a>
+</h3>
 <p>rminka includes helper functions that support the main queries. These
 include tools to convert observation tables into sf objects for mapping,
 to resolve taxonomic information, and to prepare data for visualization.
