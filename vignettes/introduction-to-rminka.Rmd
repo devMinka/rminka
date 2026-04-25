@@ -52,20 +52,14 @@ This document introduces you to rminka basic set of tools, and shows you how to
 apply them to obtain your desired information.
 Once you’ve installed, read vignette("rminka") to learn more.
 
-We will develop an example based on a project: Biomarato Tarragona 2025. 
-The example will focus on this project and one of its participants, Xavier Salvador. 
-As the example progresses, we will use the different types of functions from the package.
-
 
 ### - Project Queries 
 
+Project-related functions will be illustrated using the project Biomarató Tarragona 2025.
+
 - **<u>mnk_proj_byname</u>**
 
-Initially, only the project name is known, so a search will be performed to find 
-the project ID (project_id). The `mnk_proj_byname` function will be used for this purpose. 
-A generic search will be conducted using the text "biomarato 2025".
-
-
+Initially, only the project name is known, so a search is performed to retrieve the corresponding project ID. This is done with mnk_proj_byname(). Here we use the query "biomarato 2025".
 
 ```{r project1, include = TRUE , echo=TRUE}
 prj_names <- mnk_proj_byname("biomarato 2025")
@@ -79,7 +73,8 @@ prj_names[,c(1:2)]
 ```
 - **<u>mnk_proj_info</u>**
  
-   Retrieves detailed project information using its known ID.
+Once the project ID is known, detailed information can be retrieved with mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is 419.
+
 ```{r project_info, include = TRUE , echo=TRUE}
 
 prj_info <- mnk_proj_info(419)
@@ -89,8 +84,7 @@ prj_info
 ```
 - **<u>mnk_proj_user</u>**
 
-It´s posible to known the users explicited subscribed in this projects using 
-this function
+Users explicitly subscribed to a project can be retrieved with mnk_proj_user() using the project ID
 
 ```{r project_info_user, include = TRUE , echo=TRUE}
 
@@ -99,10 +93,33 @@ prj_user <- mnk_proj_user(419)
 prj_user
 
 ```
+Note: The simplest way to retrieve all participants in a project — including those who are not subscribed — is to download the project's observations with `mnk_proj_obs()` and then extract the unique values of user_login. Each observation includes the observer's login, so the set of distinct logins corresponds to the project's participants.
+
+If the project lasts only one year, or if you are only interested in the participants from a single month, a single function call is sufficient. For example, project 419 ran in 2025, so all its observations can be obtained with `mnk_proj_obs(419, year = 2025)`:
+
+```{r project_info_user2, include = TRUE , echo=TRUE, eval=TRUE}
+
+library(rminka)
+library(dplyr)
+
+# 1. Download all observations for the project in may 2025
+
+obs_2025 <- mnk_proj_obs(419,year=2025, mont=5, quiet = TRUE)
+
+# 2. Extract the unique participants
+
+participants_may_2025 <- obs_2025 %>%
+  distinct(user_login) %>%
+  arrange(user_login)
+
+participants_may_2025
+
+```
+
 
   - **<u>mnk_proj_obs</u>**
 
-Retrieves 
+Returns all observations for a project within a selected year, and optionally within a specific month. For the Biomarató Tarragona 2025 (project ID 419), observations for the entire year are obtained with `mnk_proj_obs(419, year = 2025)`, while observations for a single month — for example, May — are obtained with `mnk_proj_obs(419, year = 2025, month = 5)`.
 
 ```{r project_obs:proj, include = TRUE , echo=TRUE}
 
@@ -114,8 +131,12 @@ prj_obs[2:14]
 
 
 ### - User Queries  
+
+User-related functions will be illustrated using the user Xavier Salvador.
   
  - **<u>mnk_user_byname</u>**
+ 
+Initially, only an approximate name is known, so a search is performed to retrieve the corresponding user_login. For this example, we start with the query "xavi", which returns a list of possible logins. The desired user — Xavier Salvador — is then selected from that list.
 
 ```{r user_name, include = TRUE , echo=TRUE}
 
@@ -126,9 +147,9 @@ user_name
 ```
 
 
-- **<u>mnk_proj_info</u>**
+- **<u>mnk_user_info</u>**
  
-   Retrieves detailed project information using its known ID.
+Once the user ID is known, detailed information can be retrieved with mnk_user_info(). For Xavier Salvador (login "xasalva"), the user ID is 4
    
 ```{r user_info, include = TRUE , echo=TRUE}
 
@@ -141,6 +162,10 @@ user_info
 
  - **<u>mnk_user_proj</u>**
  
+ mnk_user_proj() returns the projects to which a user is explicitly subscribed, given the user ID. For Xavier Salvador (user ID 4), the list is obtained with `mnk_user_proj(4)`.
+
+Note: Projects in which a user has contributed observations but is not formally subscribed cannot be retrieved directly in R.
+ 
 ```{r user_project, include = TRUE , echo=TRUE}
 
 user_project <- mnk_user_proj(4)
@@ -151,6 +176,8 @@ user_project
 
 
  - **<u> mnk_user_obs</u>**
+ 
+Returns all observations for a user within a selected year, and optionally within a specific month. For Xavier Salvador (user ID 4), observations for the entire year are obtained with `mnk_user_obs(4, year = 2025)`, while observations for a single month, for example May, are obtained with `mnk_user_obs(4, year = 2025, month = 5)`.
 
 ```{r user_obs, include = TRUE , echo=TRUE}
 
@@ -163,7 +190,11 @@ user_obs
 
 ### - Place Queries
 
+Place-related functions will be illustrated using the place  Piscines del Fòrum
+ 
  - **<u>mnk_place_byname</u>**
+ 
+Initially, only the place name ( but not exactly) is known, so a search will be performed to find the place ID
 
 ```{r place_name, include = TRUE , echo=TRUE}
 library(rminka)
@@ -206,7 +237,7 @@ place <- mnk_place_sf(253)
  
 ```{r places_obs, include = TRUE , echo=TRUE}
 
-obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2)
+obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
 
 obs_place
 
@@ -268,5 +299,6 @@ obs
  
  ### - Auxiliary functions
 
+rminka includes helper functions that support the main queries. These include tools to convert observation tables into sf objects for mapping, to resolve taxonomic information, and to prepare data for visualization. They are designed to connect API results directly with standard R workflows for analysis and reporting.
  
 
