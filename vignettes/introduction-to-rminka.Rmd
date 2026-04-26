@@ -13,8 +13,10 @@ knitr::opts_chunk$set(
   comment = "#>",
   # para CRAN pon eval=FALSE en los chunks que llaman a la API
   # de momento lo dejamos TRUE para que veas que funciona
-  eval = TRUE
-)
+  eval = TRUE,
+  fig.align = "center",   # centered
+  out.width = "900px"   # fixed size
+  )
 
 library(dplyr)
 library(tibble)
@@ -22,14 +24,15 @@ library(rminka)
 library(sf)
 library(leaflet)
 library(htmltools)
-#library(magick)
+library(magick)
 
 ```
 
-```{r leaflet-css, echo=FALSE, results='asis'}
-# solve CSS errors
-cat('
+```{r leaflet-css, echo=FALSE, results='asis'} 
+
+cat('  
 <style>
+/*  solve css error marker */
 .leaflet-container img.leaflet-marker-icon,
 .leaflet-container img.leaflet-marker-shadow {
   max-width: none !important;
@@ -44,10 +47,28 @@ cat('
   display: block;
   margin: 0 auto;
 }
+
+/* leaflet center and size  */
+.leaflet, .html-widget {
+  width: 900px !important;
+  height: 550px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}
+
+/* image center and size  */
+img {
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 900px !important;
+  height: auto !important;
+}
 </style>
 ')
-```
 
+```
 This document introduces you to rminka basic set of tools, and shows you how to 
 apply them to obtain your desired information.
 Once you’ve installed, read vignette("rminka") to learn more.
@@ -57,7 +78,7 @@ Once you’ve installed, read vignette("rminka") to learn more.
 
 Project-related functions will be illustrated using the project Biomarató Tarragona 2025.
 
-- **<u>mnk_proj_byname</u>**
+#### **- `mnk_proj_byname()`**
 
 Initially, only the project name is known, so a search is performed to retrieve the corresponding project ID. This is done with mnk_proj_byname(). Here we use the query "biomarato 2025".
 
@@ -71,23 +92,21 @@ prj_names
 prj_names[,c(1:2)]
 
 ```
-- **<u>mnk_proj_info</u>**
+### **`mnk_proj_info()`**
  
 Once the project ID is known, detailed information can be retrieved with mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is 419.
 
 ```{r project_info, include = TRUE , echo=TRUE}
-
 prj_info <- mnk_proj_info(419)
 
 prj_info
 
 ```
-- **<u>mnk_proj_user</u>**
+#### **- `mnk_proj_user()`**
 
 Users explicitly subscribed to a project can be retrieved with mnk_proj_user() using the project ID
 
 ```{r project_info_user, include = TRUE , echo=TRUE}
-
 prj_user <- mnk_proj_user(419)
 
 prj_user
@@ -98,10 +117,6 @@ Note: The simplest way to retrieve all participants in a project — including t
 If the project lasts only one year, or if you are only interested in the participants from a single month, a single function call is sufficient. For example, project 419 ran in 2025, so all its observations can be obtained with `mnk_proj_obs(419, year = 2025)`:
 
 ```{r project_info_user2, include = TRUE , echo=TRUE, eval=TRUE}
-
-library(rminka)
-library(dplyr)
-
 # 1. Download all observations for the project in may 2025
 
 obs_2025 <- mnk_proj_obs(419,year=2025, mont=5, quiet = TRUE)
@@ -117,12 +132,11 @@ participants_may_2025
 ```
 
 
-  - **<u>mnk_proj_obs</u>**
+#### **- `mnk_proj_obs()`**
 
 Returns all observations for a project within a selected year, and optionally within a specific month. For the Biomarató Tarragona 2025 (project ID 419), observations for the entire year are obtained with `mnk_proj_obs(419, year = 2025)`, while observations for a single month — for example, May — are obtained with `mnk_proj_obs(419, year = 2025, month = 5)`.
 
 ```{r project_obs:proj, include = TRUE , echo=TRUE}
-
 prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
 
 prj_obs[2:14]
@@ -134,7 +148,7 @@ prj_obs[2:14]
 
 User-related functions will be illustrated using the user Xavier Salvador.
   
- - **<u>mnk_user_byname</u>**
+#### **- `mnk_user_byname()`**
  
 Initially, only an approximate name is known, so a search is performed to retrieve the corresponding user_login. For this example, we start with the query "xavi", which returns a list of possible logins. The desired user — Xavier Salvador — is then selected from that list.
 
@@ -147,12 +161,11 @@ user_name
 ```
 
 
-- **<u>mnk_user_info</u>**
+#### **- `mnk_user_info()`**
  
 Once the user ID is known, detailed information can be retrieved with mnk_user_info(). For Xavier Salvador (login "xasalva"), the user ID is 4
    
 ```{r user_info, include = TRUE , echo=TRUE}
-
 user_info <- mnk_user_info(4)
 
 user_info
@@ -160,14 +173,13 @@ user_info
 ```
 
 
- - **<u>mnk_user_proj</u>**
+#### **- `mnk_user_proj()`**
  
  mnk_user_proj() returns the projects to which a user is explicitly subscribed, given the user ID. For Xavier Salvador (user ID 4), the list is obtained with `mnk_user_proj(4)`.
 
 Note: Projects in which a user has contributed observations but is not formally subscribed cannot be retrieved directly in R.
  
 ```{r user_project, include = TRUE , echo=TRUE}
-
 user_project <- mnk_user_proj(4)
 
 user_project
@@ -175,12 +187,11 @@ user_project
 ```
 
 
- - **<u> mnk_user_obs</u>**
+#### **- `mnk_user_obs()`**
  
 Returns all observations for a user within a selected year, and optionally within a specific month. For Xavier Salvador (user ID 4), observations for the entire year are obtained with `mnk_user_obs(4, year = 2025)`, while observations for a single month, for example May, are obtained with `mnk_user_obs(4, year = 2025, month = 5)`.
 
 ```{r user_obs, include = TRUE , echo=TRUE}
-
 user_obs <- mnk_user_obs(user_id= 4, year = 2025, month = 8)
 
 user_obs
@@ -192,34 +203,30 @@ user_obs
 
 Place-related functions will be illustrated using the place  Piscines del Fòrum
  
- - **<u>mnk_place_byname</u>**
+#### **- `mnk_place_byname()`**
  
 Initially, only an approximate place name is known, so a search is performed to retrieve the corresponding place ID. For this example, we start with the query "forum", which returns a list of possible places. The project actually uses "Piscinas del Forum", which does not match the initial assumption, so it is recommended to try several searches with different terms until the desired place is identified.
 
 ```{r place_name, include = TRUE , echo=TRUE}
-library(rminka)
-
 places <- mnk_place_byname("Forum")
+
 places[,1:6]
 
 ```
 
- - **<u>mnk_place_sf</u>**
+#### **- `mnk_place_sf()`**
  
 Returns the sf geometry for a place given its place ID. Once the place ID is known, the geometry can be retrieved with mnk_place_sf(). For Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
 
 In the example the geometry is visualized with the leaflet package using the function's default projection, WGS84 (EPSG:4326), the standard used by Google Maps. Note that the returned sf object already includes the place name as an attribute.
 
 ```{r place_sf, include = TRUE , echo=TRUE}
-
-library(sf)
-library(leaflet)
-
-
 # 1. Downloading the geometry 
+
 place <- mnk_place_sf(253)
 
 # 2. Drawing the map
+
  forum_sf <-leaflet(place) %>%
                 addProviderTiles("OpenStreetMap", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
@@ -236,13 +243,12 @@ place <- mnk_place_sf(253)
 
 ```
 
- - **<u>mnk_places_obs</u>**
+#### **- `mnk_places_obs()`**
 
 Returns all observations recorded within a place within a selected year, and optionally within a specific month. The result is returned as a data frame without geometry. For Piscines del Fòrum, observations for february  2025 are obtained with `mnk_places_obs(place_id, year = 2025, month =2)`.
 
 Although the output has no geometry, it can be converted to an sf object with the helper function mnk_obs_sf(). The resulting points can then be mapped with the leaflet package.
 
- 
 ```{r places_obs, include = TRUE , echo=TRUE}
 
 obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
@@ -284,7 +290,7 @@ leaflet(obs_sf) %>%
 
 ### - Observation Queries
 
- - **<u>mnk_obs_id</u>**
+#### **- `mnk_obs_id()`**
  
 Returns a single observation given its observation ID. This function is seldom used in practice, as observation IDs are not usually known beforehand. For completeness, an observation can be retrieved with mnk_obs_id(id = 553028)
 
@@ -296,17 +302,17 @@ obs_id
 
 ```
 
- - **<u>mnk_obs</u>**
+#### **- ´mnk_obs()`**
  
- This is the core function of the package. It is highly versatile and allows searches by project, user, place, date, week number, taxon, or geographic area. Previous examples have already covered searches by project, user and place, so here we focus on two cases not yet shown: search by taxon and search by bounding box.
+ This is the core function of the package. It is highly versatile and allows searches by project, user, place, date, week number, taxon, or geographic area. Previous examples have already covered searches by project, user and place, so here we focus on two cases not yet shown: a) search by taxon and b) search by bounding box.
 
-Taxon search. Observations for the genus Raja and for the species Raja brachyura during 2025 are obtained with taxon_name = "Raja" and taxon_name = "Raja brachyura" respectively.
+a) <u>Taxon search</u>. Observations for the genus Raja and for the species Raja brachyura during 2025 are obtained with taxon_name = "Raja" and taxon_name = "Raja brachyura" respectively.
 
 Two important notes apply to all mnk_obs() calls:
 
 When the query is executed, a message reports the total number of observations found. If this number exceeds 10,000, only the first 10,000 are downloaded by default. To retrieve all records, set limit_download = FALSE.
 
-For validated data, it is recommended to use quality = "research".
+To retrieve only validated records, use quality = "research".
 
 ```{r obs, include = TRUE , echo=TRUE}
 
@@ -314,49 +320,57 @@ For validated data, it is recommended to use quality = "research".
 
 # Get observations for genus Raja in 2025 by user Xavier Salvador ( user_id=4)
 
-obs <- mnk_obs(taxon_name = "Raja", year = 2025, user_id = 4, quiet = TRUE)
+obs <- mnk_obs(taxon_name = "Raja", year = 2025, user_id = 4, quiet = TRUE, 
+               quality = "research")
 
 obs # show full dataframe
 
-# Get observations for species Raja brachyura in 2023 by user Ramonservitje
+# Get observations for species Raja brachyura in 2023 by user Xasalva (user_id= 4)
+
 obs_brachyura <- mnk_obs(taxon_name = "Raja brachyura", year = 2023, user_id = 4, 
-                         quiet = TRUE)
+                         quiet = TRUE, quality = "research")
 
 obs_brachyura[, c(1,2, 10, 11, 16, 27)]  # show selected columns
 
-# Images from observations can be visualized and printed using the magick package and the observation's url_picture.
+```
+Images from observations can be visualized and printed using the magick package and the observation's url_picture as follow.
 
-library(magick) # load image package
+```{r brachyura-pic, echo=TRUE, out.width='85%', fig.align='center', fig.alt="Raja undulata observed by Xavier Salvador"}
+
+# Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
+
+obs_undulata <- mnk_obs(taxon_name = "Raja undulata", year = 2022, user_id = 4, 
+                         quiet = TRUE, quality = "research")
 
 # select 3rd observation and get picture URL (url_picture)
 
-url_pic_brachyura <- as.character(obs_brachyura$url_picture[3]) # force to character (avoid factor)
+url_pic_undulata <- as.character(obs_undulata$url_picture[3])
 
 # read image directly from URL
 
-img_brachyura <- image_read(url_pic_brachyura )
+img_undulata <- image_read(url_pic_undulata )
 
-  # add copyright caption at bottom
-  img_brachyura <- image_annotate(
-    img_brachyura,
+  # add copyright caption at top
+  img_undulata <- image_annotate(
+    img_undulata,
     "© Xavier Salvador",
-    size = 10, # text size
-    gravity = "northwest", # position at bottom
-    color = "white", # text color
+    size = 10, 
+    gravity = "northwest", 
+    color = "white", 
   ) 
 
 # display image in the document
 
-img_brachyura
+img_undulata
 
 ```
 
-Bounding-box search. Observations within a rectangular area are retrieved by supplying the coordinates of the southwest and northeast corners. For example, to search around Platja de Sant Sebastià in Barcelona, define the bounding box and pass it to mnk_obs().
+b) <u>Bounding-box search</u>. Observations within a rectangular area are retrieved by supplying the coordinates of the southwest and northeast corners. For example, to search around Platja de Sant Sebastià in Barcelona, define the bounding box and pass it to mnk_obs().
 
 ```{r obs_1, include = TRUE , echo=TRUE}
 # read shapefile using relative path 
 
-sf_obj <- st_read("data/Espigo_W.shp", quiet = TRUE)
+sf_obj <- st_read("data/espigo_w.shp", quiet = TRUE)
 
 # ensure WGS84 for leaflet (standard for web maps)
 
@@ -381,7 +395,7 @@ bounds <- leaflet(sf_bounds) %>%
 bounds# display map in document
 
 obs_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
-                      bounds = sf_bounds , quiet = TRUE)
+                      bounds = sf_bounds , quality = "research", quiet = TRUE)
 
 obs_bounds
 
@@ -409,7 +423,7 @@ bounds %>%
 ```
 
 
- - **<u>mnk_obs_byday</u>**
+#### **- `mnk_obs_byday()`**
  
 Works like `mnk_obs()` but uses an explicit date interval instead of year or month parameters. The interval is defined by:
 
@@ -421,4 +435,3 @@ d2: end date in 'yyyy-mm-dd' format
 
 rminka includes helper functions that support the main queries. These include tools to convert observation tables into sf objects for mapping, to resolve taxonomic information, and to prepare data for visualization. They are designed to connect API results directly with standard R workflows for analysis and reporting.
  
-
