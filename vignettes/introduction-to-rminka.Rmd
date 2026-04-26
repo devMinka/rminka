@@ -78,7 +78,7 @@ Once you’ve installed, read vignette("rminka") to learn more.
 
 Project-related functions will be illustrated using the project Biomarató Tarragona 2025.
 
-### **- `mnk_proj_byname()`**
+### ●`mnk_proj_byname()`
 
 Initially, only the project name is known, so a search is performed to retrieve the corresponding project ID. This is done with mnk_proj_byname(). Here we use the query "biomarato 2025".
 
@@ -92,7 +92,7 @@ prj_names
 prj_names[,c(1:2)]
 
 ```
-### **`mnk_proj_info()`**
+### ●`mnk_proj_info()`
  
 Once the project ID is known, detailed information can be retrieved with mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is 419.
 
@@ -102,7 +102,7 @@ prj_info <- mnk_proj_info(419)
 prj_info
 
 ```
-#### **- `mnk_proj_user()`**
+### ●`mnk_proj_user()`
 
 Users explicitly subscribed to a project can be retrieved with mnk_proj_user() using the project ID
 
@@ -132,7 +132,7 @@ participants_may_2025
 ```
 
 
-### **- `mnk_proj_obs()`**
+### ●`mnk_proj_obs()`
 
 Returns all observations for a project within a selected year, and optionally within a specific month. For the Biomarató Tarragona 2025 (project ID 419), observations for the entire year are obtained with `mnk_proj_obs(419, year = 2025)`, while observations for a single month — for example, May — are obtained with `mnk_proj_obs(419, year = 2025, month = 5)`.
 
@@ -148,7 +148,7 @@ prj_obs[2:14]
 
 User-related functions will be illustrated using the user Xavier Salvador.
   
-### **- `mnk_user_byname()`**
+### ●`mnk_user_byname()`
  
 Initially, only an approximate name is known, so a search is performed to retrieve the corresponding user_login. For this example, we start with the query "xavi", which returns a list of possible logins. The desired user — Xavier Salvador — is then selected from that list.
 
@@ -161,7 +161,7 @@ user_name
 ```
 
 
-### **- `mnk_user_info()`**
+### ●`mnk_user_info()`
  
 Once the user ID is known, detailed information can be retrieved with mnk_user_info(). For Xavier Salvador (login "xasalva"), the user ID is 4
    
@@ -173,7 +173,7 @@ user_info
 ```
 
 
-### **- `mnk_user_proj()`**
+### ●`mnk_user_proj()`
  
  mnk_user_proj() returns the projects to which a user is explicitly subscribed, given the user ID. For Xavier Salvador (user ID 4), the list is obtained with `mnk_user_proj(4)`.
 
@@ -187,7 +187,7 @@ user_project
 ```
 
 
-### **- `mnk_user_obs()`**
+### ●`mnk_user_obs()`
  
 Returns all observations for a user within a selected year, and optionally within a specific month. For Xavier Salvador (user ID 4), observations for the entire year are obtained with `mnk_user_obs(4, year = 2025)`, while observations for a single month, for example May, are obtained with `mnk_user_obs(4, year = 2025, month = 5)`.
 
@@ -203,7 +203,7 @@ user_obs
 
 Place-related functions will be illustrated using the place  Piscines del Fòrum
  
-### **- `mnk_place_byname()`**
+### ●`mnk_place_byname()`
  
 Initially, only an approximate place name is known, so a search is performed to retrieve the corresponding place ID. For this example, we start with the query "forum", which returns a list of possible places. The project actually uses "Piscinas del Forum", which does not match the initial assumption, so it is recommended to try several searches with different terms until the desired place is identified.
 
@@ -214,7 +214,7 @@ places[,1:6]
 
 ```
 
-### **- `mnk_place_sf()`**
+### ●`mnk_place_sf()`
  
 Returns the sf geometry for a place given its place ID. Once the place ID is known, the geometry can be retrieved with mnk_place_sf(). For Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
 
@@ -243,7 +243,7 @@ place <- mnk_place_sf(253)
 
 ```
 
-### **- `mnk_places_obs()`**
+### ●`mnk_places_obs()`
 
 Returns all observations recorded within a place within a selected year, and optionally within a specific month. The result is returned as a data frame without geometry. For Piscines del Fòrum, observations for february  2025 are obtained with `mnk_places_obs(place_id, year = 2025, month =2)`.
 
@@ -290,7 +290,7 @@ leaflet(obs_sf) %>%
 
 ### - Observation Queries
 
-### **- `mnk_obs_id()`**
+### ●`mnk_obs_id()`
  
 Returns a single observation given its observation ID. This function is seldom used in practice, as observation IDs are not usually known beforehand. For completeness, an observation can be retrieved with mnk_obs_id(id = 553028)
 
@@ -302,7 +302,7 @@ obs_id
 
 ```
 
-### **- ´mnk_obs()`**
+### ●`mnk_obs()`
  
  This is the core function of the package. It is highly versatile and allows searches by project, user, place, date, week number, taxon, or geographic area. Two important notes apply to all `mnk_obs()` calls:
 
@@ -421,7 +421,7 @@ bounds %>%
 ```
 
 
-### ● [`mnk_obs_byday()`]
+### ●`mnk_obs_byday()`
  
 Works like `mnk_obs()` but uses an explicit date interval instead of year or month parameters. The interval is defined by:
 
