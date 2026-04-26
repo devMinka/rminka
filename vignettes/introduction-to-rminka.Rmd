@@ -366,7 +366,7 @@ b) <u>Bounding-box search</u>. Observations within a rectangular area are retrie
 ```{r obs_1, include = TRUE , echo=TRUE}
 # read shapefile using relative path 
 
-shp <- system.file("extdata", "espigo_w.shp", package = "rminka", mustWork = TRUE)
+shp <- "../inst/extdata/espigo_w.shp"
 
 espigo <- sf::st_read(shp, quiet = TRUE)
 
