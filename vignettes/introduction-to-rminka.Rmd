@@ -74,13 +74,13 @@ apply them to obtain your desired information.
 Once you’ve installed, read vignette("rminka") to learn more.
 
 
-### - Project Queries 
+### <u>- Project Queries </u>
 
 Project-related functions will be illustrated using the project Biomarató Tarragona 2025.
 
-### ●`mnk_proj_byname()`
+### ● `mnk_proj_byname()`
 
-Initially, only the project name is known, so a search is performed to retrieve the corresponding project ID. This is done with mnk_proj_byname(). Here we use the query "biomarato 2025".
+Initially, only the project name is known, so a search is performed to retrieve the corresponding project ID. This is done with `mnk_proj_byname()`. Here we use the query "biomarato 2025".
 
 ```{r project1, include = TRUE , echo=TRUE}
 prj_names <- mnk_proj_byname("biomarato 2025")
@@ -92,9 +92,9 @@ prj_names
 prj_names[,c(1:2)]
 
 ```
-### ●`mnk_proj_info()`
+### ● `mnk_proj_info()`
  
-Once the project ID is known, detailed information can be retrieved with mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is 419.
+Once the project ID is known, detailed information can be retrieved with `mnk_proj_info()`. For the Biomarató Tarragona 2025, the project ID is 419.
 
 ```{r project_info, include = TRUE , echo=TRUE}
 prj_info <- mnk_proj_info(419)
@@ -102,9 +102,9 @@ prj_info <- mnk_proj_info(419)
 prj_info
 
 ```
-### ●`mnk_proj_user()`
+### ● `mnk_proj_user()`
 
-Users explicitly subscribed to a project can be retrieved with mnk_proj_user() using the project ID
+Users explicitly subscribed to a project can be retrieved with `mnk_proj_user()` using the project ID
 
 ```{r project_info_user, include = TRUE , echo=TRUE}
 prj_user <- mnk_proj_user(419)
@@ -132,7 +132,7 @@ participants_may_2025
 ```
 
 
-### ●`mnk_proj_obs()`
+### ● `mnk_proj_obs()`
 
 Returns all observations for a project within a selected year, and optionally within a specific month. For the Biomarató Tarragona 2025 (project ID 419), observations for the entire year are obtained with `mnk_proj_obs(419, year = 2025)`, while observations for a single month — for example, May — are obtained with `mnk_proj_obs(419, year = 2025, month = 5)`.
 
@@ -144,11 +144,11 @@ prj_obs[2:14]
 ```
 
 
-### - User Queries  
+### <u>- User Queries</u>  
 
 User-related functions will be illustrated using the user Xavier Salvador.
   
-### ●`mnk_user_byname()`
+### ● `mnk_user_byname()`
  
 Initially, only an approximate name is known, so a search is performed to retrieve the corresponding user_login. For this example, we start with the query "xavi", which returns a list of possible logins. The desired user — Xavier Salvador — is then selected from that list.
 
@@ -161,7 +161,7 @@ user_name
 ```
 
 
-### ●`mnk_user_info()`
+### ● `mnk_user_info()`
  
 Once the user ID is known, detailed information can be retrieved with mnk_user_info(). For Xavier Salvador (login "xasalva"), the user ID is 4
    
@@ -173,9 +173,9 @@ user_info
 ```
 
 
-### ●`mnk_user_proj()`
+### ● `mnk_user_proj()`
  
- mnk_user_proj() returns the projects to which a user is explicitly subscribed, given the user ID. For Xavier Salvador (user ID 4), the list is obtained with `mnk_user_proj(4)`.
+ `mnk_user_proj()` returns the projects to which a user is explicitly subscribed, given the user ID. For Xavier Salvador (user ID 4), the list is obtained with `mnk_user_proj(4)`.
 
 Note: Projects in which a user has contributed observations but is not formally subscribed cannot be retrieved directly in R.
  
@@ -187,7 +187,7 @@ user_project
 ```
 
 
-### ●`mnk_user_obs()`
+### ● `mnk_user_obs()`
  
 Returns all observations for a user within a selected year, and optionally within a specific month. For Xavier Salvador (user ID 4), observations for the entire year are obtained with `mnk_user_obs(4, year = 2025)`, while observations for a single month, for example May, are obtained with `mnk_user_obs(4, year = 2025, month = 5)`.
 
@@ -199,11 +199,11 @@ user_obs
 ```
 
 
-### - Place Queries
+### <u>- Place Queries</u>
 
 Place-related functions will be illustrated using the place  Piscines del Fòrum
  
-### ●`mnk_place_byname()`
+### ● `mnk_place_byname()`
  
 Initially, only an approximate place name is known, so a search is performed to retrieve the corresponding place ID. For this example, we start with the query "forum", which returns a list of possible places. The project actually uses "Piscinas del Forum", which does not match the initial assumption, so it is recommended to try several searches with different terms until the desired place is identified.
 
@@ -214,9 +214,9 @@ places[,1:6]
 
 ```
 
-### ●`mnk_place_sf()`
+### ● `mnk_place_sf()`
  
-Returns the sf geometry for a place given its place ID. Once the place ID is known, the geometry can be retrieved with mnk_place_sf(). For Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
+Returns the sf geometry for a place given its place ID. Once the place ID is known, the geometry can be retrieved with `mnk_place_sf()`. For Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
 
 In the example the geometry is visualized with the leaflet package using the function's default projection, WGS84 (EPSG:4326), the standard used by Google Maps. Note that the returned sf object already includes the place name as an attribute.
 
@@ -243,11 +243,11 @@ place <- mnk_place_sf(253)
 
 ```
 
-### ●`mnk_places_obs()`
+### ● `mnk_places_obs()`
 
 Returns all observations recorded within a place within a selected year, and optionally within a specific month. The result is returned as a data frame without geometry. For Piscines del Fòrum, observations for february  2025 are obtained with `mnk_places_obs(place_id, year = 2025, month =2)`.
 
-Although the output has no geometry, it can be converted to an sf object with the helper function mnk_obs_sf(). The resulting points can then be mapped with the leaflet package.
+Although the output has no geometry, it can be converted to an `sf` object with the helper function `mnk_obs_sf()`. The resulting points can then be mapped with the leaflet package.
 
 ```{r places_obs, include = TRUE , echo=TRUE}
 
@@ -288,11 +288,11 @@ leaflet(obs_sf) %>%
 
 ```
 
-### - Observation Queries
+### <u>- Observation Queries</u>
 
 ### ●`mnk_obs_id()`
  
-Returns a single observation given its observation ID. This function is seldom used in practice, as observation IDs are not usually known beforehand. For completeness, an observation can be retrieved with mnk_obs_id(id = 553028)
+Returns a single observation given its observation ID. This function is seldom used in practice, as observation IDs are not usually known beforehand.
 
 ```{r obs_id, include = TRUE , echo=TRUE}
 
@@ -302,7 +302,7 @@ obs_id
 
 ```
 
-### ●`mnk_obs()`
+### ● `mnk_obs()`
  
  This is the core function of the package. It is highly versatile and allows searches by project, user, place, date, week number, taxon, or geographic area. Two important notes apply to all `mnk_obs()` calls:
 
@@ -364,7 +364,7 @@ img_undulata
 b) <u>Bounding-box search</u>. Observations within a rectangular area are retrieved by supplying the coordinates of the southwest and northeast corners. For example, to search around Platja de Sant Sebastià in Barcelona, define the bounding box and pass it to `mnk_obs()`.
 
 ```{r obs_1, include = TRUE , echo=TRUE}
-# read shapefile using relative path 
+# read shapefile of  study area using relative path 
 
 shp <- "../inst/extdata/espigo_w.shp"
 
@@ -372,28 +372,69 @@ espigo <- sf::st_read(shp, quiet = TRUE)
 
 # ensure WGS84 for leaflet (standard for web maps)
 
-sf_bounds <- st_transform(espigo, 4326)
+bounds <- st_transform(espigo, 4326)
 
-# create interactive map
+```
+Similarly, the area can also be defined by a vector from two points, Pmax and Pmin, 
+where the area is defined as:
 
-bounds <- leaflet(sf_bounds) %>%
+`bounds <- c(ymax, xmax, ymin, xmin)`
+
+Applied to the Espigo del W example, this would be:
+
+`bounds <-c(41.371239, 2.193971, 41.368182, 2.189147)`
+
+The two points, pmax and pmin, will be displayed together with the study area
+of the Espigo del W in leaflet to help understand how the bounds parameter works.
+
+```{r bounds, include = TRUE , echo=TRUE}
+
+#Pmin
+xmin <- 2.189147
+ymin <- 41.368182
+
+#Pmax
+xmax <- 2.193971
+ymax <- 41.371239
+
+pts <- data.frame(
+  id = c("Pmin", "Pmax"),
+  lng = c(xmin, xmax),
+  lat = c(ymin, ymax)
+)
+
+# create interactive map for visualising the study area and the two points
+
+bound <- leaflet() %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addProviderTiles("OpenStreetMap", group = "OSM") %>%
-                addPolygons(
-                            color = "#2c4fb8",
-                            weight = 2,
-                            opacity = 1,
-                            fillOpacity = 0.4,
-                            popup = "Espigo W",
-                            highlightOptions = highlightOptions(weight = 3, 
-                                                                bringToFront =TRUE)) %>%
-                
+                addCircleMarkers(             
+                         data = pts,
+                          radius = 20,
+                          color = "cyan", 
+                          weight = 2, 
+                          fillOpacity = 0.7,
+                          label = ~id,          
+                          popup = ~paste0("<b>", id, "</b><br>",
+                                          "lon: ", round(lng, 6), "<br>",
+                                          "lat: ", round(lat, 6))) %>%
+                addPolygons(data =    bounds,
+                          color = "#2c4fb8",
+                          weight = 2,
+                          opacity = 1,
+                          fillOpacity = 0.4,
+                          label = "Bound Espigo W",
+                          popup = "Bound Espigo W",
+                          highlightOptions = highlightOptions(weight = 3, 
+                                                              bringToFront =TRUE)) %>%
                 addLayersControl(baseGroups = c("Satélite", "OSM"))
 
-bounds# display map in document
+bound  # display map in document
+
+#Obtaining the observations within the study area
 
 obs_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
-                      bounds = sf_bounds , quality = "research", quiet = TRUE)
+                      bounds = bounds , quality = "research", quiet = TRUE)
 
 obs_bounds
 
@@ -415,21 +456,30 @@ popup_final_torpedo <-  paste0( "ID: <a href='", obs_bounds_sf$uri,
 
 #final plot
 
-bounds %>%
+bound %>%
   addMarkers(data = obs_bounds_sf, popup = ~popup_final_torpedo)
 
 ```
 
 
-### ●`mnk_obs_byday()`
+### ● `mnk_obs_byday()`
  
 Works like `mnk_obs()` but uses an explicit date interval instead of year or month parameters. The interval is defined by:
 
 `d1`: start date in 'yyyy-mm-dd' format
 `d2`: end date in 'yyyy-mm-dd' format
 
+```{r obs_byday, include = TRUE ,echo=TRUE}
+# Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
 
-### - Auxiliary functions
+obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
+                             d2= "2024-05-25", quiet = TRUE, quality = "research")
+
+obs_undulata_2024
+
+```
+
+### <u>- Auxiliary functions</u>
 
 rminka includes helper functions that support the main queries. These include tools to convert observation tables into sf objects for mapping, to resolve taxonomic information, and to prepare data for visualization. They are designed to connect API results directly with standard R workflows for analysis and reporting.
  
