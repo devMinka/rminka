@@ -71,7 +71,7 @@ prj_user
 #> # A tibble: 24 × 16
 #>       id login          name              created_at          observations_count
 #>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              81789
+#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              81797
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
 #>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11159
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
@@ -189,7 +189,7 @@ user_name
 #>      id login             name            observations_count created_at         
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              81789 2021-04-16 10:44:11
+#> 2     4 xasalva           "xavi salvador…              81797 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
 #> 4   857 xavibou           "Xavi Bou"                    1083 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
@@ -208,7 +208,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81789                412468
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81797                412591
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -686,7 +686,7 @@ The interval is defined by:
 format
 
 ``` r
-# Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
+#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.
 
 obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
                              d2= "2024-05-25", quiet = TRUE, quality = "research")
@@ -715,8 +715,10 @@ obs_undulata_2024
 
 ### *- Auxiliary functions*
 
-rminka includes helper functions that support the main queries. These
-include tools to convert observation tables into sf objects for mapping,
-to resolve taxonomic information, and to prepare data for visualization.
-They are designed to connect API results directly with standard R
-workflows for analysis and reporting.
+### ● `mnk_obs_sf()`
+
+### ● `export_mnk_qgis()`
+
+### ● `get_wrm_tax()`
+
+### ● `shrt_name()`
