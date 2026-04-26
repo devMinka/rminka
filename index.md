@@ -1,4 +1,4 @@
-# rminka [![Logo de rminka](reference/figures/logo1.png)](https://devminka.github.io/rminka/)
+# rminka
 
 ## Usage
 
