@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   # de momento lo dejamos TRUE para que veas que funciona
   eval = TRUE,
   fig.align = "center",   # centered
-  out.width = "900px"   # fixed size
+  out.width = "600px"   # fixed size
   )
 
 library(dplyr)
@@ -42,7 +42,7 @@ cat('
   box-shadow: none !important;
 }
 .leaflet-popup-content img {
-  max-width: 250px !important;
+  max-width: 200px !important;
   height: auto !important;
   display: block;
   margin: 0 auto;
@@ -470,7 +470,7 @@ Works like `mnk_obs()` but uses an explicit date interval instead of year or mon
 `d2`: end date in 'yyyy-mm-dd' format
 
 ```{r obs_byday, include = TRUE ,echo=TRUE}
-# Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
+#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.
 
 obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
                              d2= "2024-05-25", quiet = TRUE, quality = "research")
@@ -481,5 +481,15 @@ obs_undulata_2024
 
 ### <u>- Auxiliary functions</u>
 
-rminka includes helper functions that support the main queries. These include tools to convert observation tables into sf objects for mapping, to resolve taxonomic information, and to prepare data for visualization. They are designed to connect API results directly with standard R workflows for analysis and reporting.
+### ● `mnk_obs_sf()`
+
+### ● `export_mnk_qgis()`
+
+### ● `get_wrm_tax()`
+
+### ● `shrt_name()`
+
+
+
+
  
