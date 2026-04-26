@@ -38,5 +38,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-URL: https://github.com/devMinka/rminka, https://github.com/devminka/rminka
+URL: https://devminka.github.io/rminka/, https://github.com/devminka/rminka
 BugReports: https://github.com/devMinka/rminka/issues

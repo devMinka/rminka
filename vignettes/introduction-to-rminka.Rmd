@@ -421,7 +421,7 @@ bounds %>%
 ```
 
 
-### [`mnk_obs_byday()`]
+### ● [`mnk_obs_byday()`]
  
 Works like `mnk_obs()` but uses an explicit date interval instead of year or month parameters. The interval is defined by:
 

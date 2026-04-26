@@ -4,6 +4,10 @@ template:
   bootstrap: 5
   bootswatch: sandstone
 
+downlit:
+  local_packages:
+        - rminka
+
 navbar:
   structure:
     left: [intro, reference, articles, changelog]
