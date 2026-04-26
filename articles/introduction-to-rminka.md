@@ -555,7 +555,7 @@ Salvador](introduction-to-rminka_files/figure-html/brachyura-pic-1.png)
 ``` r
 # read shapefile using relative path 
 
-shp <- system.file("extdata", "espigo_w.shp", package = "rminka", mustWork = TRUE)
+shp <- "../inst/extdata/espigo_w.shp"
 
 espigo <- sf::st_read(shp, quiet = TRUE)
 
