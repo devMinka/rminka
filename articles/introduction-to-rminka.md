@@ -9,7 +9,7 @@ installed, read vignette(“rminka”) to learn more.
 Project-related functions will be illustrated using the project
 Biomarató Tarragona 2025.
 
-### **- `mnk_proj_byname()`**
+### ●`mnk_proj_byname()`
 
 Initially, only the project name is known, so a search is performed to
 retrieve the corresponding project ID. This is done with
@@ -41,7 +41,7 @@ prj_names[,c(1:2)]
 #> 5   424 BioMARatona 2025
 ```
 
-### **`mnk_proj_info()`**
+### ●`mnk_proj_info()`
 
 Once the project ID is known, detailed information can be retrieved with
 mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is
@@ -57,7 +57,7 @@ prj_info
 #> 1   419 BioMARató 2025 (Ta… 2025-03-2…             24      249 biom… La BioMARa…
 ```
 
-#### **- `mnk_proj_user()`**
+### ●`mnk_proj_user()`
 
 Users explicitly subscribed to a project can be retrieved with
 mnk_proj_user() using the project ID
@@ -127,7 +127,7 @@ participants_may_2025
 #> # ℹ 20 more rows
 ```
 
-### **- `mnk_proj_obs()`**
+### ●`mnk_proj_obs()`
 
 Returns all observations for a project within a selected year, and
 optionally within a specific month. For the Biomarató Tarragona 2025
@@ -171,7 +171,7 @@ prj_obs[2:14]
 User-related functions will be illustrated using the user Xavier
 Salvador.
 
-### **- `mnk_user_byname()`**
+### ●`mnk_user_byname()`
 
 Initially, only an approximate name is known, so a search is performed
 to retrieve the corresponding user_login. For this example, we start
@@ -194,7 +194,7 @@ user_name
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
 
-### **- `mnk_user_info()`**
+### ●`mnk_user_info()`
 
 Once the user ID is known, detailed information can be retrieved with
 mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is 4
@@ -212,7 +212,7 @@ user_info
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
 ```
 
-### **- `mnk_user_proj()`**
+### ●`mnk_user_proj()`
 
 mnk_user_proj() returns the projects to which a user is explicitly
 subscribed, given the user ID. For Xavier Salvador (user ID 4), the list
@@ -240,7 +240,7 @@ user_project
 #> 10   181 BM-PortSalvi                "El projec… bm-p… http…      367 2023-09-1…
 ```
 
-### **- `mnk_user_obs()`**
+### ●`mnk_user_obs()`
 
 Returns all observations for a user within a selected year, and
 optionally within a specific month. For Xavier Salvador (user ID 4),
@@ -288,7 +288,7 @@ user_obs
 Place-related functions will be illustrated using the place Piscines del
 Fòrum
 
-### **- `mnk_place_byname()`**
+### ●`mnk_place_byname()`
 
 Initially, only an approximate place name is known, so a search is
 performed to retrieve the corresponding place ID. For this example, we
@@ -308,7 +308,7 @@ places[,1:6]
 #> 2      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
 ```
 
-### **- `mnk_place_sf()`**
+### ●`mnk_place_sf()`
 
 Returns the sf geometry for a place given its place ID. Once the place
 ID is known, the geometry can be retrieved with mnk_place_sf(). For
@@ -341,7 +341,7 @@ place <- mnk_place_sf(253)
  forum_sf
 ```
 
-### **- `mnk_places_obs()`**
+### ●`mnk_places_obs()`
 
 Returns all observations recorded within a place within a selected year,
 and optionally within a specific month. The result is returned as a data
@@ -416,7 +416,7 @@ leaflet(obs_sf) %>%
 
 ### - Observation Queries
 
-### **- `mnk_obs_id()`**
+### ●`mnk_obs_id()`
 
 Returns a single observation given its observation ID. This function is
 seldom used in practice, as observation IDs are not usually known
@@ -441,7 +441,7 @@ obs_id
 #> #   reviewed_by <list>, oauth_application_id <lgl>, flags <list>, …
 ```
 
-### **- ´mnk_obs()\`**
+### ●`mnk_obs()`
 
 This is the core function of the package. It is highly versatile and
 allows searches by project, user, place, date, week number, taxon, or
@@ -627,7 +627,7 @@ bounds %>%
   addMarkers(data = obs_bounds_sf, popup = ~popup_final_torpedo)
 ```
 
-### ● \[`mnk_obs_byday()`\]
+### ●`mnk_obs_byday()`
 
 Works like
 [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)

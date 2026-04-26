@@ -120,8 +120,7 @@ installed, read vignette(“rminka”) to learn more.</p>
 Biomarató Tarragona 2025.</p>
 </div>
 <div class="section level3">
-<h3 id="mnk_proj_byname">
-<strong>- <code>mnk_proj_byname()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_proj_byname"></a>
+<h3 id="mnk_proj_byname">●<code>mnk_proj_byname()</code><a class="anchor" aria-label="anchor" href="#mnk_proj_byname"></a>
 </h3>
 <p>Initially, only the project name is known, so a search is performed
 to retrieve the corresponding project ID. This is done with
@@ -152,8 +151,7 @@ mnk_proj_byname(). Here we use the query “biomarato 2025”.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   424 BioMARatona 2025</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_proj_info">
-<strong><code>mnk_proj_info()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_proj_info"></a>
+<h3 id="mnk_proj_info">●<code>mnk_proj_info()</code><a class="anchor" aria-label="anchor" href="#mnk_proj_info"></a>
 </h3>
 <p>Once the project ID is known, detailed information can be retrieved
 with mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID
@@ -166,10 +164,10 @@ is 419.</p>
 <span><span class="co">#&gt;      id title               created_at subscrib_users place_id slug  description</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   419 BioMARató 2025 (Ta… 2025-03-2…             24      249 biom… La BioMARa…</span></span></code></pre></div>
-<div class="section level4">
-<h4 id="mnk_proj_user">
-<strong>- <code>mnk_proj_user()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_proj_user"></a>
-</h4>
+</div>
+<div class="section level3">
+<h3 id="mnk_proj_user">●<code>mnk_proj_user()</code><a class="anchor" aria-label="anchor" href="#mnk_proj_user"></a>
+</h3>
 <p>Users explicitly subscribed to a project can be retrieved with
 mnk_proj_user() using the project ID</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -232,10 +230,8 @@ observations can be obtained with
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> hectorserranocereijo</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 20 more rows</span></span></span></code></pre></div>
 </div>
-</div>
 <div class="section level3">
-<h3 id="mnk_proj_obs">
-<strong>- <code>mnk_proj_obs()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_proj_obs"></a>
+<h3 id="mnk_proj_obs">●<code>mnk_proj_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_proj_obs"></a>
 </h3>
 <p>Returns all observations for a project within a selected year, and
 optionally within a specific month. For the Biomarató Tarragona 2025
@@ -279,8 +275,7 @@ single month — for example, May — are obtained with
 Salvador.</p>
 </div>
 <div class="section level3">
-<h3 id="mnk_user_byname">
-<strong>- <code>mnk_user_byname()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_user_byname"></a>
+<h3 id="mnk_user_byname">●<code>mnk_user_byname()</code><a class="anchor" aria-label="anchor" href="#mnk_user_byname"></a>
 </h3>
 <p>Initially, only an approximate name is known, so a search is
 performed to retrieve the corresponding user_login. For this example, we
@@ -303,8 +298,7 @@ list.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">17</span>242 xavisanjuan        <span style="color: #BB0000;">NA</span>                            390 2025-07-20 <span style="color: #949494;">16:21:42</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_user_info">
-<strong>- <code>mnk_user_info()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_user_info"></a>
+<h3 id="mnk_user_info">●<code>mnk_user_info()</code><a class="anchor" aria-label="anchor" href="#mnk_user_info"></a>
 </h3>
 <p>Once the user ID is known, detailed information can be retrieved with
 mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is
@@ -322,8 +316,7 @@ mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is
 <span><span class="co">#&gt; <span style="color: #949494;">#   roles &lt;list&gt;, spam &lt;lgl&gt;, suspended &lt;lgl&gt;, universal_search_rank &lt;int&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_user_proj">
-<strong>- <code>mnk_user_proj()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_user_proj"></a>
+<h3 id="mnk_user_proj">●<code>mnk_user_proj()</code><a class="anchor" aria-label="anchor" href="#mnk_user_proj"></a>
 </h3>
 <p>mnk_user_proj() returns the projects to which a user is explicitly
 subscribed, given the user ID. For Xavier Salvador (user ID 4), the list
@@ -349,8 +342,7 @@ not formally subscribed cannot be retrieved directly in R.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>   181 BM-PortSalvi                <span style="color: #949494;">"</span>El projec… bm-p… http…      367 2023-09-1…</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_user_obs">
-<strong>- <code>mnk_user_obs()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_user_obs"></a>
+<h3 id="mnk_user_obs">●<code>mnk_user_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_user_obs"></a>
 </h3>
 <p>Returns all observations for a user within a selected year, and
 optionally within a specific month. For Xavier Salvador (user ID 4),
@@ -398,8 +390,7 @@ single month, for example May, are obtained with
 del Fòrum</p>
 </div>
 <div class="section level3">
-<h3 id="mnk_place_byname">
-<strong>- <code>mnk_place_byname()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_place_byname"></a>
+<h3 id="mnk_place_byname">●<code>mnk_place_byname()</code><a class="anchor" aria-label="anchor" href="#mnk_place_byname"></a>
 </h3>
 <p>Initially, only an approximate place name is known, so a search is
 performed to retrieve the corresponding place ID. For this example, we
@@ -418,8 +409,7 @@ different terms until the desired place is identified.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      257 platja-banys-del-forum    Plat… 1.28<span style="color: #949494;">e</span><span style="color: #BB0000;">-5</span> Platja Bany…             41.4</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_place_sf">
-<strong>- <code>mnk_place_sf()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_place_sf"></a>
+<h3 id="mnk_place_sf">●<code>mnk_place_sf()</code><a class="anchor" aria-label="anchor" href="#mnk_place_sf"></a>
 </h3>
 <p>Returns the sf geometry for a place given its place ID. Once the
 place ID is known, the geometry can be retrieved with mnk_place_sf().
@@ -453,8 +443,7 @@ the place name as an attribute.</p>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,"OSM",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satélite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[2.228,2.2309,2.2298,2.231,2.2291,2.2285,2.2267,2.2259,2.2243,2.2249,2.2275,2.228],"lat":[41.4054,41.4082,41.4091,41.4117,41.4112,41.4115,41.4118,41.4109,41.4089,41.4075,41.4057,41.4054]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#2c4fb8","weight":2,"opacity":1,"fill":true,"fillColor":"#2c4fb8","fillOpacity":0.4,"smoothFactor":1,"noClip":false},null,null,"Piscinas del Forum FECDAS",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"weight":3,"bringToFront":true}]},{"method":"addLayersControl","args":[["Satélite","OSM"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]}],"limits":{"lat":[41.4054,41.4118],"lng":[2.2243,2.231]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level3">
-<h3 id="mnk_places_obs">
-<strong>- <code>mnk_places_obs()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_places_obs"></a>
+<h3 id="mnk_places_obs">●<code>mnk_places_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_places_obs"></a>
 </h3>
 <p>Returns all observations recorded within a place within a selected
 year, and optionally within a specific month. The result is returned as
@@ -530,8 +519,7 @@ then be mapped with the leaflet package.</p>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="mnk_obs_id">
-<strong>- <code>mnk_obs_id()</code></strong><a class="anchor" aria-label="anchor" href="#mnk_obs_id"></a>
+<h3 id="mnk_obs_id">●<code>mnk_obs_id()</code><a class="anchor" aria-label="anchor" href="#mnk_obs_id"></a>
 </h3>
 <p>Returns a single observation given its observation ID. This function
 is seldom used in practice, as observation IDs are not usually known
@@ -555,8 +543,7 @@ mnk_obs_id(id = 553028)</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   reviewed_by &lt;list&gt;, oauth_application_id &lt;lgl&gt;, flags &lt;list&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="mnk_obs">
-<strong>- ´mnk_obs()`</strong><a class="anchor" aria-label="anchor" href="#mnk_obs"></a>
+<h3 id="mnk_obs">●<code>mnk_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_obs"></a>
 </h3>
 <p>This is the core function of the package. It is highly versatile and
 allows searches by project, user, place, date, week number, taxon, or
@@ -738,7 +725,7 @@ in Barcelona, define the bounding box and pass it to
 <script type="application/json" data-for="htmlwidget-1fb4450895fe099f74a1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satélite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["OpenStreetMap",null,"OSM",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[2.189147492529663,2.189147492529663,2.193970935445459,2.193970935445459,2.189147492529663],"lat":[41.36818200769558,41.37123854731169,41.37123854731169,41.36818200769558,41.36818200769558]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#2c4fb8","weight":2,"opacity":1,"fill":true,"fillColor":"#2c4fb8","fillOpacity":0.4,"smoothFactor":1,"noClip":false},"Espigo W",null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"weight":3,"bringToFront":true}]},{"method":"addLayersControl","args":[["Satélite","OSM"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addMarkers","args":[[41.3704639012,41.3704639012,41.3704639012,41.370511939,41.3705605201,41.3704639023,41.3704639023],[2.1912289177,2.1912289177,2.1912289177,2.1915954366,2.1911323592,2.1907568493,2.1907568493],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["ID: <a href='https://minka-sdg.org/observations/244605' target='_blank'>244605<\/a><br>Specie:Torpedo torpedo<br>Observer: underwaterbarcelona<br>Date:2024-03-22<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/328574/square.jpeg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/328574/square.jpeg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/244604' target='_blank'>244604<\/a><br>Specie:Torpedo torpedo<br>Observer: underwaterbarcelona<br>Date:2024-03-22<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/328568/square.jpeg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/328568/square.jpeg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/244594' target='_blank'>244594<\/a><br>Specie:Torpedo torpedo<br>Observer: underwaterbarcelona<br>Date:2024-03-22<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/328536/square.jpeg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/328536/square.jpeg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/304290' target='_blank'>304290<\/a><br>Specie:Torpedo torpedo<br>Observer: jaume<br>Date:2024-07-20<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/406831/square.jpeg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/406831/square.jpeg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/301613' target='_blank'>301613<\/a><br>Specie:Torpedo torpedo<br>Observer: jaume<br>Date:2024-07-16<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/403520/square.jpeg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/403520/square.jpeg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/315533' target='_blank'>315533<\/a><br>Specie:Torpedo torpedo<br>Observer: jaume<br>Date:2024-08-01<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/420931/square.jpg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/420931/square.jpg' style='margin-top:2px;border-radius:4px;'> <\/a> ","ID: <a href='https://minka-sdg.org/observations/315527' target='_blank'>315527<\/a><br>Specie:Torpedo torpedo<br>Observer: jaume<br>Date:2024-08-01<br><a href= 'https://minka-sdg.org/attachments/local_photos/files/420916/square.jpg' target='_blank'><img src='https://minka-sdg.org/attachments/local_photos/files/420916/square.jpg' style='margin-top:2px;border-radius:4px;'> <\/a> "],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[41.36818200769558,41.37123854731169],"lng":[2.189147492529663,2.193970935445459]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level3">
-<h3 id="mnk_obs_byday">● [<code>mnk_obs_byday()</code>]<a class="anchor" aria-label="anchor" href="#mnk_obs_byday"></a>
+<h3 id="mnk_obs_byday">●<code>mnk_obs_byday()</code><a class="anchor" aria-label="anchor" href="#mnk_obs_byday"></a>
 </h3>
 <p>Works like <code><a href="../reference/mnk_obs.html">mnk_obs()</a></code> but uses an explicit date interval
 instead of year or month parameters. The interval is defined by:</p>
