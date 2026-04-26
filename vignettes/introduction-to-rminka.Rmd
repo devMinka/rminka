@@ -366,9 +366,9 @@ b) <u>Bounding-box search</u>. Observations within a rectangular area are retrie
 ```{r obs_1, include = TRUE , echo=TRUE}
 # read shapefile using relative path 
 
-shp_path <- "data/espigo_w.shp"
+shp <- system.file("extdata", "espigo_w.shp", package = "rminka", mustWork = TRUE)
 
-espigo <- sf::st_read(shp_path, quiet = TRUE)
+espigo <- sf::st_read(shp, quiet = TRUE)
 
 # ensure WGS84 for leaflet (standard for web maps)
 
