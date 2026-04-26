@@ -4,16 +4,17 @@ This document introduces you to rminka basic set of tools, and shows you
 how to apply them to obtain your desired information. Once you’ve
 installed, read vignette(“rminka”) to learn more.
 
-### - Project Queries
+### *- Project Queries*
 
 Project-related functions will be illustrated using the project
 Biomarató Tarragona 2025.
 
-### ●`mnk_proj_byname()`
+### ● `mnk_proj_byname()`
 
 Initially, only the project name is known, so a search is performed to
 retrieve the corresponding project ID. This is done with
-mnk_proj_byname(). Here we use the query “biomarato 2025”.
+[`mnk_proj_byname()`](https://devminka.github.io/rminka/reference/mnk_proj_byname.md).
+Here we use the query “biomarato 2025”.
 
 ``` r
 prj_names <- mnk_proj_byname("biomarato 2025")
@@ -41,11 +42,11 @@ prj_names[,c(1:2)]
 #> 5   424 BioMARatona 2025
 ```
 
-### ●`mnk_proj_info()`
+### ● `mnk_proj_info()`
 
 Once the project ID is known, detailed information can be retrieved with
-mnk_proj_info(). For the Biomarató Tarragona 2025, the project ID is
-419.
+[`mnk_proj_info()`](https://devminka.github.io/rminka/reference/mnk_proj_info.md).
+For the Biomarató Tarragona 2025, the project ID is 419.
 
 ``` r
 prj_info <- mnk_proj_info(419)
@@ -57,10 +58,11 @@ prj_info
 #> 1   419 BioMARató 2025 (Ta… 2025-03-2…             24      249 biom… La BioMARa…
 ```
 
-### ●`mnk_proj_user()`
+### ● `mnk_proj_user()`
 
 Users explicitly subscribed to a project can be retrieved with
-mnk_proj_user() using the project ID
+[`mnk_proj_user()`](https://devminka.github.io/rminka/reference/mnk_proj_user.md)
+using the project ID
 
 ``` r
 prj_user <- mnk_proj_user(419)
@@ -69,9 +71,9 @@ prj_user
 #> # A tibble: 24 × 16
 #>       id login          name              created_at          observations_count
 #>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              81451
+#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              81789
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
-#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11059
+#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11159
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
 #>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                578
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
@@ -127,7 +129,7 @@ participants_may_2025
 #> # ℹ 20 more rows
 ```
 
-### ●`mnk_proj_obs()`
+### ● `mnk_proj_obs()`
 
 Returns all observations for a project within a selected year, and
 optionally within a specific month. For the Biomarató Tarragona 2025
@@ -166,12 +168,12 @@ prj_obs[2:14]
 #> #   geoprivacy <chr>, obscured <lgl>
 ```
 
-### - User Queries
+### *- User Queries*
 
 User-related functions will be illustrated using the user Xavier
 Salvador.
 
-### ●`mnk_user_byname()`
+### ● `mnk_user_byname()`
 
 Initially, only an approximate name is known, so a search is performed
 to retrieve the corresponding user_login. For this example, we start
@@ -187,14 +189,14 @@ user_name
 #>      id login             name            observations_count created_at         
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              81451 2021-04-16 10:44:11
+#> 2     4 xasalva           "xavi salvador…              81789 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
 #> 4   857 xavibou           "Xavi Bou"                    1083 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
 
-### ●`mnk_user_info()`
+### ● `mnk_user_info()`
 
 Once the user ID is known, detailed information can be retrieved with
 mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is 4
@@ -206,17 +208,18 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81451                412139
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81789                412468
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
 ```
 
-### ●`mnk_user_proj()`
+### ● `mnk_user_proj()`
 
-mnk_user_proj() returns the projects to which a user is explicitly
-subscribed, given the user ID. For Xavier Salvador (user ID 4), the list
-is obtained with `mnk_user_proj(4)`.
+[`mnk_user_proj()`](https://devminka.github.io/rminka/reference/mnk_user_proj.md)
+returns the projects to which a user is explicitly subscribed, given the
+user ID. For Xavier Salvador (user ID 4), the list is obtained with
+`mnk_user_proj(4)`.
 
 Note: Projects in which a user has contributed observations but is not
 formally subscribed cannot be retrieved directly in R.
@@ -240,7 +243,7 @@ user_project
 #> 10   181 BM-PortSalvi                "El projec… bm-p… http…      367 2023-09-1…
 ```
 
-### ●`mnk_user_obs()`
+### ● `mnk_user_obs()`
 
 Returns all observations for a user within a selected year, and
 optionally within a specific month. For Xavier Salvador (user ID 4),
@@ -283,12 +286,12 @@ user_obs
 #> #   user_id <int>, user_login <chr>
 ```
 
-### - Place Queries
+### *- Place Queries*
 
 Place-related functions will be illustrated using the place Piscines del
 Fòrum
 
-### ●`mnk_place_byname()`
+### ● `mnk_place_byname()`
 
 Initially, only an approximate place name is known, so a search is
 performed to retrieve the corresponding place ID. For this example, we
@@ -308,11 +311,13 @@ places[,1:6]
 #> 2      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
 ```
 
-### ●`mnk_place_sf()`
+### ● `mnk_place_sf()`
 
 Returns the sf geometry for a place given its place ID. Once the place
-ID is known, the geometry can be retrieved with mnk_place_sf(). For
-Piscinas del Forum, the geometry is obtained with `mnk_place_sf(253)`.
+ID is known, the geometry can be retrieved with
+[`mnk_place_sf()`](https://devminka.github.io/rminka/reference/mnk_place_sf.md).
+For Piscinas del Forum, the geometry is obtained with
+`mnk_place_sf(253)`.
 
 In the example the geometry is visualized with the leaflet package using
 the function’s default projection, WGS84 (EPSG:4326), the standard used
@@ -341,7 +346,7 @@ place <- mnk_place_sf(253)
  forum_sf
 ```
 
-### ●`mnk_places_obs()`
+### ● `mnk_places_obs()`
 
 Returns all observations recorded within a place within a selected year,
 and optionally within a specific month. The result is returned as a data
@@ -349,9 +354,10 @@ frame without geometry. For Piscines del Fòrum, observations for
 february 2025 are obtained with
 `mnk_places_obs(place_id, year = 2025, month =2)`.
 
-Although the output has no geometry, it can be converted to an sf object
-with the helper function mnk_obs_sf(). The resulting points can then be
-mapped with the leaflet package.
+Although the output has no geometry, it can be converted to an `sf`
+object with the helper function
+[`mnk_obs_sf()`](https://devminka.github.io/rminka/reference/mnk_obs_sf.md).
+The resulting points can then be mapped with the leaflet package.
 
 ``` r
 
@@ -414,14 +420,13 @@ leaflet(obs_sf) %>%
   addMarkers(data = obs_sf, popup = ~popup_final)
 ```
 
-### - Observation Queries
+### *- Observation Queries*
 
 ### ●`mnk_obs_id()`
 
 Returns a single observation given its observation ID. This function is
 seldom used in practice, as observation IDs are not usually known
-beforehand. For completeness, an observation can be retrieved with
-mnk_obs_id(id = 553028)
+beforehand.
 
 ``` r
 
@@ -441,7 +446,7 @@ obs_id
 #> #   reviewed_by <list>, oauth_application_id <lgl>, flags <list>, …
 ```
 
-### ●`mnk_obs()`
+### ● `mnk_obs()`
 
 This is the core function of the package. It is highly versatile and
 allows searches by project, user, place, date, week number, taxon, or
@@ -553,7 +558,7 @@ Salvador](introduction-to-rminka_files/figure-html/brachyura-pic-1.png)
     [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md).
 
 ``` r
-# read shapefile using relative path 
+# read shapefile of  study area using relative path 
 
 shp <- "../inst/extdata/espigo_w.shp"
 
@@ -561,31 +566,74 @@ espigo <- sf::st_read(shp, quiet = TRUE)
 
 # ensure WGS84 for leaflet (standard for web maps)
 
-sf_bounds <- st_transform(espigo, 4326)
+bounds <- st_transform(espigo, 4326)
+```
 
-# create interactive map
+Similarly, the area can also be defined by a vector from two points,
+Pmax and Pmin, where the area is defined as:
 
-bounds <- leaflet(sf_bounds) %>%
+`bounds <- c(ymax, xmax, ymin, xmin)`
+
+Applied to the Espigo del W example, this would be:
+
+`bounds <-c(41.371239, 2.193971, 41.368182, 2.189147)`
+
+The two points, pmax and pmin, will be displayed together with the study
+area of the Espigo del W in leaflet to help understand how the bounds
+parameter works.
+
+``` r
+
+#Pmin
+xmin <- 2.189147
+ymin <- 41.368182
+
+#Pmax
+xmax <- 2.193971
+ymax <- 41.371239
+
+pts <- data.frame(
+  id = c("Pmin", "Pmax"),
+  lng = c(xmin, xmax),
+  lat = c(ymin, ymax)
+)
+
+# create interactive map for visualising the study area and the two points
+
+bound <- leaflet() %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addProviderTiles("OpenStreetMap", group = "OSM") %>%
-                addPolygons(
-                            color = "#2c4fb8",
-                            weight = 2,
-                            opacity = 1,
-                            fillOpacity = 0.4,
-                            popup = "Espigo W",
-                            highlightOptions = highlightOptions(weight = 3, 
-                                                                bringToFront =TRUE)) %>%
-                
+                addCircleMarkers(             
+                         data = pts,
+                          radius = 20,
+                          color = "cyan", 
+                          weight = 2, 
+                          fillOpacity = 0.7,
+                          label = ~id,          
+                          popup = ~paste0("<b>", id, "</b><br>",
+                                          "lon: ", round(lng, 6), "<br>",
+                                          "lat: ", round(lat, 6))) %>%
+                addPolygons(data =    bounds,
+                          color = "#2c4fb8",
+                          weight = 2,
+                          opacity = 1,
+                          fillOpacity = 0.4,
+                          label = "Bound Espigo W",
+                          popup = "Bound Espigo W",
+                          highlightOptions = highlightOptions(weight = 3, 
+                                                              bringToFront =TRUE)) %>%
                 addLayersControl(baseGroups = c("Satélite", "OSM"))
+#> Assuming "lng" and "lat" are longitude and latitude, respectively
 
-bounds# display map in document
+bound  # display map in document
 ```
 
 ``` r
 
+#Obtaining the observations within the study area
+
 obs_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
-                      bounds = sf_bounds , quality = "research", quiet = TRUE)
+                      bounds = bounds , quality = "research", quiet = TRUE)
 
 obs_bounds
 #> # A tibble: 7 × 27
@@ -623,11 +671,11 @@ popup_final_torpedo <-  paste0( "ID: <a href='", obs_bounds_sf$uri,
 
 #final plot
 
-bounds %>%
+bound %>%
   addMarkers(data = obs_bounds_sf, popup = ~popup_final_torpedo)
 ```
 
-### ●`mnk_obs_byday()`
+### ● `mnk_obs_byday()`
 
 Works like
 [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)
@@ -637,7 +685,35 @@ The interval is defined by:
 `d1`: start date in ‘yyyy-mm-dd’ format `d2`: end date in ‘yyyy-mm-dd’
 format
 
-### - Auxiliary functions
+``` r
+# Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
+
+obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
+                             d2= "2024-05-25", quiet = TRUE, quality = "research")
+
+obs_undulata_2024
+#> # A tibble: 10 × 29
+#>        id observed_on  year month  week   day  hour created_at        updated_at
+#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
+#>  1 457257 2024-02-17   2024     2     7    17    10 2025-05-20T10:44… 2025-05-2…
+#>  2 271165 2024-05-12   2024     5    19    12    11 2024-05-22T20:31… 2025-03-1…
+#>  3 270617 2024-05-11   2024     5    19    11    22 2024-05-21T22:52… 2024-05-2…
+#>  4 264653 2024-05-08   2024     5    19     8    21 2024-05-09T14:08… 2025-03-1…
+#>  5 253086 2024-04-15   2024     4    16    15    19 2024-04-16T18:19… 2024-04-1…
+#>  6 232230 2024-02-18   2024     2     7    18    10 2024-02-24T10:38… 2025-03-1…
+#>  7 230658 2024-02-18   2024     2     7    18    11 2024-02-19T19:25… 2024-02-2…
+#>  8 230538 2024-02-18   2024     2     7    18    10 2024-02-19T14:36… 2024-02-2…
+#>  9 229797 2024-02-18   2024     2     7    18    10 2024-02-18T21:41… 2024-02-1…
+#> 10 222442 2024-02-03   2024     2     5     3    11 2024-02-06T18:34… 2025-03-1…
+#> # ℹ 20 more variables: latitude <dbl>, longitude <dbl>,
+#> #   positional_accuracy <int>, geoprivacy <lgl>, obscured <lgl>, uri <chr>,
+#> #   photo_url_square <chr>, photo_url_medium <chr>, quality_grade <chr>,
+#> #   species_guess <chr>, taxon_id <int>, taxon_name <chr>, taxon_rank <chr>,
+#> #   taxon_min_ancestry <chr>, taxon_endemic <lgl>, taxon_threatened <lgl>,
+#> #   taxon_introduced <lgl>, taxon_native <lgl>, user_id <int>, user_login <chr>
+```
+
+### *- Auxiliary functions*
 
 rminka includes helper functions that support the main queries. These
 include tools to convert observation tables into sf objects for mapping,
