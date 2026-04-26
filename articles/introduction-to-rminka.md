@@ -627,7 +627,7 @@ bounds %>%
   addMarkers(data = obs_bounds_sf, popup = ~popup_final_torpedo)
 ```
 
-### **- `mnk_obs_byday()`**
+### \[`mnk_obs_byday()`\]
 
 Works like
 [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)
