@@ -481,7 +481,13 @@ obs_undulata_2024
 
 ### <u>- Auxiliary functions</u>
 
+The examples below show how the helper functions work. The first two use the *Torpedo torpedo* observations at the W Hotel breakwater from the previous sections. The last two use separate, specific examples.
+
 ### ● `mnk_obs_sf()`
+
+This function converts an observations data frame into a spatial layer in sf format.
+The function takes the latitude/longitude columns returned by `mnk_obs` or by any other function in the rminka package that returns an observations data frame — such as `mnk_proj_obs` or `mnk_user_obs` — and converts them into an sf POINT layer. By default the geometry is returned in CRS EPSG:4326 (WGS84), but you can specify any CRS you need via the crs argument.
+Its basic usage has already been shown briefly in previous sections. Here we develop a detailed example using the *Torpedo torpedo* observations at the espigó Hotel W.
 
 ### ● `export_mnk_qgis()`
 
