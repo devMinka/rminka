@@ -756,7 +756,7 @@ torpedo* observations at the espigó Hotel W.
 ``` r
 
 
-#The following arguments (taxon_name, observed_on, user_login, quality_grade, url_picture, uri) are the attribute fields you want to keep from the original Minka data frame. 
+#The following arguments (id, taxon_name, observed_on, user_login, quality_grade, url_picture, uri) are the attribute fields you want to keep from the original Minka data frame. 
 #Only these columns will be retained in the resulting sf object, together with the geometry.
 
 #The crs = 25831 parameter overrides the default EPSG:4326. 
@@ -764,7 +764,7 @@ torpedo* observations at the espigó Hotel W.
 #which is the official projected CRS for Catalonia. 
 #This is useful for distance calculations and for matching local cartography
 
-obs_utm <- mnk_obs_sf(obs_torpedo_bounds, taxon_name,
+obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade, url_picture,
                       uri, crs = 25831)
 
@@ -796,8 +796,16 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) |>
     radius = 6,
     color = "#ff6600",
     fillOpacity = 0.9,
-    popup = obs_utm$user_login
-  ) 
+    popup =  paste0( "ID: <a href='", obs_utm$uri,
+                        "' target='_blank'>",obs_utm$id , "</a><br>",
+                        "Specie:", obs_utm$taxon_name, "<br>",
+                        "Observer: ", obs_utm$user_login,"<br>",
+                        "Quality:", obs_utm$quality_grade,"<br>",
+                        "Date:", obs_utm$observed_on, "<br>",
+                        "<a href= '", obs_utm$url_picture, 
+                        "' target='_blank'><img src='", 
+                        obs_utm$url_picture, 
+                        "' style='margin-top:2px;border-radius:4px;'> </a> "))
 #> Warning: sf layer is not long-lat data
 #> Warning: sf layer has inconsistent datum (+proj=utm +zone=31 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs).
 #> Need '+proj=longlat +datum=WGS84'
