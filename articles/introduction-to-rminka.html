@@ -286,8 +286,7 @@ start with the query “xavi”, which returns a list of possible logins.
 The desired user — Xavier Salvador — is then selected from that
 list.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">user_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_user_byname.html">mnk_user_byname</a></span><span class="op">(</span><span class="st">"xavi"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">user_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_user_byname.html">mnk_user_byname</a></span><span class="op">(</span><span class="st">"xavi"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">user_name</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
@@ -296,7 +295,7 @@ list.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    47 xavi               <span style="color: #BB0000;">NA</span>                              6 2022-05-06 <span style="color: #949494;">10:47:06</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4 xasalva           <span style="color: #949494;">"</span>xavi salvador…              <span style="text-decoration: underline;">82</span>371 2021-04-16 <span style="color: #949494;">10:44:11</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">1</span>178 xparellada        <span style="color: #949494;">"</span>Xavier Parell…                670 2023-10-31 <span style="color: #949494;">09:07:52</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   857 xavibou           <span style="color: #949494;">"</span>Xavi Bou<span style="color: #949494;">"</span>                    <span style="text-decoration: underline;">1</span>085 2023-07-28 <span style="color: #949494;">13:27:50</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   857 xavibou           <span style="color: #949494;">"</span>Xavi Bou<span style="color: #949494;">"</span>                    <span style="text-decoration: underline;">1</span>087 2023-07-28 <span style="color: #949494;">13:27:50</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">1</span>042 xavi-de-yzaguirre <span style="color: #949494;">""</span>                             459 2023-09-26 <span style="color: #949494;">13:18:42</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">17</span>242 xavisanjuan        <span style="color: #BB0000;">NA</span>                            390 2025-07-20 <span style="color: #949494;">16:21:42</span></span></span></code></pre></div>
 </div>
@@ -459,8 +458,7 @@ february 2025 are obtained with
 <code><a href="../reference/mnk_obs_sf.html">mnk_obs_sf()</a></code>. The resulting points can then be mapped with
 the leaflet package.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">obs_place</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_place_obs.html">mnk_place_obs</a></span><span class="op">(</span>place_id <span class="op">=</span> <span class="fl">253</span>, year <span class="op">=</span> <span class="fl">2025</span>, month <span class="op">=</span> <span class="fl">2</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">obs_place</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_place_obs.html">mnk_place_obs</a></span><span class="op">(</span>place_id <span class="op">=</span> <span class="fl">253</span>, year <span class="op">=</span> <span class="fl">2025</span>, month <span class="op">=</span> <span class="fl">2</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs_place</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 529 × 27</span></span></span>
@@ -531,8 +529,7 @@ the leaflet package.</p>
 is seldom used in practice, as observation IDs are not usually known
 beforehand.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">obs_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_id.html">mnk_obs_id</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">553028</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">obs_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_id.html">mnk_obs_id</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">553028</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs_id</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 166</span></span></span>
@@ -673,8 +670,7 @@ Pmax and Pmin, where the area is defined as:</p>
 study area of the Espigo del W in leaflet to help understand how the
 bounds parameter works.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co">#Pmin</span></span>
+<code class="sourceCode R"><span><span class="co">#Pmin</span></span>
 <span><span class="va">xmin</span> <span class="op">&lt;-</span> <span class="fl">2.189147</span></span>
 <span><span class="va">ymin</span> <span class="op">&lt;-</span> <span class="fl">41.368182</span></span>
 <span></span>
@@ -823,8 +819,7 @@ argument. Its basic usage has already been shown briefly in previous
 sections. Here we develop a detailed example using the <em>Torpedo
 torpedo</em> observations at the espigó Hotel W.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">obs_utm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_torpedo_bounds</span>, <span class="va">id</span>, <span class="va">taxon_name</span>,</span>
+<code class="sourceCode R"><span><span class="va">obs_utm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_torpedo_bounds</span>, <span class="va">id</span>, <span class="va">taxon_name</span>,</span>
 <span>                      <span class="va">observed_on</span>, <span class="va">user_login</span>, <span class="va">quality_grade</span>, <span class="va">url_picture</span>,</span>
 <span>                      <span class="va">uri</span>, crs <span class="op">=</span> <span class="fl">25831</span><span class="op">)</span></span>
 <span></span>
@@ -890,8 +885,7 @@ removes list-columns that GDAL cannot write, and transforms features to
 the target CRS.</p>
 <p>We will apply it to the two examples from the previous section.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>observations <span class="op">=</span><span class="va">obs_utm</span> ,file<span class="op">=</span><span class="st">"shape"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>observations <span class="op">=</span><span class="va">obs_utm</span> ,file<span class="op">=</span><span class="st">"shape"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#In this first example we export the observations layer from the previous step (obs_utm)</span></span>
 <span><span class="co">#as a single point layer named "observations". The output file is named "shape" — the .gpkg</span></span>
@@ -905,25 +899,95 @@ the target CRS.</p>
 <span><span class="co">#into the same GeoPackage:</span></span>
 <span></span>
 <span><span class="co"># *  places_forum — a polygon defining the Forum pools area, saved as layer "zone"</span></span>
+<span></span>
 <span><span class="co"># * obs_sf — point observations from the Forum pools, saved as layer "observations"</span></span>
-<span><span class="co">#Both layers are stored in forum.gpkg inside the "examples" folder:</span></span></code></pre></div>
+<span><span class="co">#Both layers are stored in forum.gpkg inside the "examples" folder.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="get_wrm_tax">● <code>get_wrm_tax()</code><a class="anchor" aria-label="anchor" href="#get_wrm_tax"></a>
 </h3>
+<p>This function downloads taxonomic information from the World Register
+of Marine Species <a href="https://www.marinespecies.org/" class="external-link">(WoRMS)</a>
+for a given scientific name. Two examples are provided to illustrate its
+practical use, particularly when working with tibbles returned by
+observation functions. In these cases, the goal is to obtain the
+observations tibble enriched with the complete taxonomy for each
+recorded species, including its marine,its freshwater, brackish, or
+extinct status.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<code class="sourceCode R"><span><span class="co">#First example – single species</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/get_wrm_tax.html">get_wrm_tax</a></span><span class="op">(</span><span class="st">"Diplodus sargus"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 14</span></span></span>
 <span><span class="co">#&gt;   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus</span></span>
 <span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        <span style="text-decoration: underline;">127</span>053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: isMarine &lt;lgl&gt;, isBrackish &lt;lgl&gt;, isFreshwater &lt;lgl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   isTerrestrial &lt;lgl&gt;, isExtinct &lt;lgl&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   isTerrestrial &lt;lgl&gt;, isExtinct &lt;lgl&gt;</span></span></span>
+<span></span>
+<span><span class="co">#The taxonomy and metadata are retrieved for a single species, Diplodus sargus.</span></span>
+<span></span>
+<span><span class="co">#Second example – community taxonomy</span></span>
+<span><span class="co">#The taxonomy is retrieved for all species observed in the previous `mnk_place_ob` </span></span>
+<span><span class="co">#call — all species recorded in the Forum pools area during February 2025 (obs_place).</span></span>
+<span></span>
+<span><span class="va">taxon_unic</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">taxon_name</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">distinct</span><span class="op">(</span><span class="va">taxon_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">pull</span><span class="op">(</span><span class="va">taxon_name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">taxonomy_df</span> <span class="op">&lt;-</span> <span class="fu">map_dfr</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">taxon_unic</span>, <span class="va">taxon_unic</span><span class="op">)</span>,  </span>
+<span>  <span class="op">~</span> <span class="fu"><a href="../reference/get_wrm_tax.html">get_wrm_tax</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span>,</span>
+<span>  .id <span class="op">=</span> <span class="st">"taxon_name"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; No taxon found for the scientific name: 'Life'.</span></span>
+<span><span class="co">#&gt; No taxon found for the scientific name: 'Ichthyaetus audouinii'.</span></span>
+<span></span>
+<span><span class="co">#The complete observations tibble for the Forum pools can be rebuilt with taxonomy #information by performing a left_join() between obs_place and the taxonomy dataframe.</span></span>
+<span></span>
+<span><span class="va">obs_place_tax</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">taxonomy_df</span>, by <span class="op">=</span> <span class="st">"taxon_name"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="shrt_name">● <code>shrt_name()</code><a class="anchor" aria-label="anchor" href="#shrt_name"></a>
 </h3>
+<p>This function creates a standardized abbreviation from a scientific
+name. In the following example it is used to generate a bar plot of
+observation frequencies for the species in the “obs_place” tibble, with
+the abbreviated names making the chart easier to read.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Create standardized abbreviations for scientific names</span></span>
+<span></span>
+<span><span class="va">obs_place</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    shrt_tax_name <span class="op">=</span> <span class="fu">map_chr</span><span class="op">(</span><span class="va">taxon_name</span>, <span class="op">~</span> <span class="op">{</span></span>
+<span>      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">||</span> <span class="va">.x</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="cn">NA_character_</span> <span class="kw">else</span> <span class="fu"><a href="../reference/shrt_name.html">shrt_name</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span><span class="co">#Count observations per abbreviated species and keep top 10</span></span>
+<span></span>
+<span><span class="va">freq_top10</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">shrt_tax_name</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>          <span class="co"># remove missing names</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">shrt_tax_name</span>, name <span class="op">=</span> <span class="st">"n_obs"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>    <span class="co"># count occurrences</span></span>
+<span>  <span class="fu">slice_max</span><span class="op">(</span><span class="va">n_obs</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>                <span class="co"># keep the 10 most frequent</span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="va">n_obs</span><span class="op">)</span>   </span>
+<span></span>
+<span><span class="co">#Plot horizontal bar chart of observation frequency</span></span>
+<span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">freq_top10</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">n_obs</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">shrt_tax_name</span>, <span class="va">n_obs</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">geom_col</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">n_obs</span><span class="op">)</span>, hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># add n as label</span></span>
+<span>        <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu">expansion</span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># make room for labels</span></span>
+<span>        <span class="fu">labs</span><span class="op">(</span></span>
+<span>              x <span class="op">=</span> <span class="st">"Number of observations"</span>,</span>
+<span>              y <span class="op">=</span> <span class="st">"Species (abbreviated)"</span>,</span>
+<span>              title <span class="op">=</span> <span class="st">"Observation frequency"</span>,</span>
+<span>              subtitle <span class="op">=</span> <span class="st">" Forum February 2025"</span></span>
+<span>            <span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu">theme_minimal</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introduction-to-rminka_files/figure-html/shrt_name%20-1.png" class="r-plt" alt="" width="600px" style="display: block; margin: auto;"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

@@ -187,7 +187,6 @@ desired user — Xavier Salvador — is then selected from that list.
 
 ``` r
 
-
 user_name <- mnk_user_byname("xavi")
 
 user_name
@@ -197,7 +196,7 @@ user_name
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
 #> 2     4 xasalva           "xavi salvador…              82371 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1085 2023-07-28 13:27:50
+#> 4   857 xavibou           "Xavi Bou"                    1087 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
@@ -372,7 +371,6 @@ The resulting points can then be mapped with the leaflet package.
 
 ``` r
 
-
 obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
 
 obs_place
@@ -442,7 +440,6 @@ seldom used in practice, as observation IDs are not usually known
 beforehand.
 
 ``` r
-
 
 obs_id <- mnk_obs_id(id = 553028)
 
@@ -601,7 +598,6 @@ parameter works.
 
 ``` r
 
-
 #Pmin
 xmin <- 2.189147
 ymin <- 41.368182
@@ -755,7 +751,6 @@ torpedo* observations at the espigó Hotel W.
 
 ``` r
 
-
 obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade, url_picture,
                       uri, crs = 25831)
@@ -823,7 +818,6 @@ We will apply it to the two examples from the previous section.
 
 ``` r
 
-
 export_mnk_qgis(observations =obs_utm ,file="shape")
 
 #In this first example we export the observations layer from the previous step (obs_utm)
@@ -838,14 +832,24 @@ export_mnk_qgis(zone = places_forum , observations = obs_sf,
 #into the same GeoPackage:
 
 # *  places_forum — a polygon defining the Forum pools area, saved as layer "zone"
+
 # * obs_sf — point observations from the Forum pools, saved as layer "observations"
-#Both layers are stored in forum.gpkg inside the "examples" folder:
+#Both layers are stored in forum.gpkg inside the "examples" folder.
 ```
 
 ### ● `get_wrm_tax()`
 
+This function downloads taxonomic information from the World Register of
+Marine Species [(WoRMS)](https://www.marinespecies.org/) for a given
+scientific name. Two examples are provided to illustrate its practical
+use, particularly when working with tibbles returned by observation
+functions. In these cases, the goal is to obtain the observations tibble
+enriched with the complete taxonomy for each recorded species, including
+its marine,its freshwater, brackish, or extinct status.
+
 ``` r
 
+#First example – single species
 
 get_wrm_tax("Diplodus sargus")
 #> # A tibble: 1 × 14
@@ -854,6 +858,71 @@ get_wrm_tax("Diplodus sargus")
 #> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…
 #> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
 #> #   isTerrestrial <lgl>, isExtinct <lgl>
+
+#The taxonomy and metadata are retrieved for a single species, Diplodus sargus.
+
+#Second example – community taxonomy
+#The taxonomy is retrieved for all species observed in the previous `mnk_place_ob` 
+#call — all species recorded in the Forum pools area during February 2025 (obs_place).
+
+taxon_unic <- obs_place %>%
+  filter(!is.na(taxon_name)) %>%
+  distinct(taxon_name) %>%
+  pull(taxon_name)
+
+taxonomy_df <- map_dfr(
+  setNames(taxon_unic, taxon_unic),  
+  ~ get_wrm_tax(.x),
+  .id = "taxon_name"
+)
+#> No taxon found for the scientific name: 'Life'.
+#> No taxon found for the scientific name: 'Ichthyaetus audouinii'.
+
+#The complete observations tibble for the Forum pools can be rebuilt with taxonomy #information by performing a left_join() between obs_place and the taxonomy dataframe.
+
+obs_place_tax <- obs_place %>%
+  left_join(taxonomy_df, by = "taxon_name")
 ```
 
 ### ● `shrt_name()`
+
+This function creates a standardized abbreviation from a scientific
+name. In the following example it is used to generate a bar plot of
+observation frequencies for the species in the “obs_place” tibble, with
+the abbreviated names making the chart easier to read.
+
+``` r
+
+#Create standardized abbreviations for scientific names
+
+obs_place <- obs_place %>%
+  mutate(
+    shrt_tax_name = map_chr(taxon_name, ~ {
+      if (is.na(.x) || .x == "") NA_character_ else shrt_name(.x)
+    })
+  )
+  
+#Count observations per abbreviated species and keep top 10
+
+freq_top10 <- obs_place %>%
+  filter(!is.na(shrt_tax_name)) %>%          # remove missing names
+  count(shrt_tax_name, name = "n_obs") %>%    # count occurrences
+  slice_max(n_obs, n = 10) %>%                # keep the 10 most frequent
+  arrange(n_obs)   
+
+#Plot horizontal bar chart of observation frequency
+
+ggplot(freq_top10, aes(x = n_obs, y = reorder(shrt_tax_name, n_obs))) +
+        geom_col(fill = "steelblue") +
+        geom_text(aes(label = n_obs), hjust = -0.2, size = 3.5) +  # add n as label
+        scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +  # make room for labels
+        labs(
+              x = "Number of observations",
+              y = "Species (abbreviated)",
+              title = "Observation frequency",
+              subtitle = " Forum February 2025"
+            ) +
+        theme_minimal(base_size = 12)
+```
+
+![](introduction-to-rminka_files/figure-html/shrt_name%20-1.png)
