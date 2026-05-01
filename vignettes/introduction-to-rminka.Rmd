@@ -50,8 +50,9 @@ cat('
 
 /* leaflet center and size  */
 .leaflet, .html-widget {
-  width: 900px !important;
-  height: 550px !important;
+  width:100% !important;
+  height: 60vh !important;   /* 60% de la altura de la ventana */
+  max-height: 500px;    
   margin-left: auto !important;
   margin-right: auto !important;
   display: block !important;
@@ -481,6 +482,7 @@ obs_undulata_2024
 
 ```
 
+
 ### <u>- Auxiliary functions</u>
 
 The examples below show how the helper functions work. The first two use the *Torpedo torpedo* observations at the Espigó Hotel W from the previous sections. The last two use separate, specific examples.
@@ -491,19 +493,19 @@ This function converts an observations data frame into a spatial layer in sf for
 The function takes the latitude/longitude columns returned by `mnk_obs` or by any other function in the rminka package that returns an observations data frame — such as `mnk_proj_obs` or `mnk_user_obs` — and converts them into an sf POINT layer. By default the geometry is returned in CRS EPSG:4326 (WGS84), but you can specify any CRS you need via the crs argument.
 Its basic usage has already been shown briefly in previous sections. Here we develop a detailed example using the *Torpedo torpedo* observations at the espigó Hotel W.
 
-```{r sf_obs, include = TRUE ,echo=TRUE}
+```{r sf_obs, include = TRUE ,echo=TRUE,message=FALSE, warning=FALSE}
 
-#The following arguments (id, taxon_name, observed_on, user_login, quality_grade, url_picture, uri) are the attribute fields you want to keep from the original Minka data frame. 
-#Only these columns will be retained in the resulting sf object, together with the geometry.
+obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
+                      observed_on, user_login, quality_grade, url_picture,
+                      uri, crs = 25831)
+
+# The input obs_torpedo_bounds is a data frame with the full set of observation records. The #function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login, #quality_grade, url_picture, uri); these are preserved in the output sf object together with #the generated geometry in obs_utm.
 
 #The crs = 25831 parameter overrides the default EPSG:4326. 
 #Here we request the output directly in EPSG:25831 – ETRS89 / UTM zone 31N, 
 #which is the official projected CRS for Catalonia. 
 #This is useful for distance calculations and for matching local cartography
 
-obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
-                      observed_on, user_login, quality_grade, url_picture,
-                      uri, crs = 25831)
 
 # Leaflet natively works in Web Mercator (EPSG:3857). To visualize data in UTM, 
 #you must change the map's base CRS:
@@ -520,29 +522,29 @@ crs25831 <- leafletCRS(
 #You need a WMS that serves imagery in the same CRS. 
 #Here we use the Institut Cartogràfic i Geològic de Catalunya (ICGC) service.
 
-
-leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) |>
-  addWMSTiles(
-    "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wms",
-    layers = "orto",
-    options = WMSTileOptions(format = "image/png", transparent = TRUE, version = "1.3.0")
-  ) |>
-  # ¡aquí NO usamos data = obs_utm!
-  addCircleMarkers(
-    data = obs_utm,  # Y en metros UTM
-    radius = 6,
-    color = "#ff6600",
-    fillOpacity = 0.9,
-    popup =  paste0( "ID: <a href='", obs_utm$uri,
-                        "' target='_blank'>",obs_utm$id , "</a><br>",
-                        "Specie:", obs_utm$taxon_name, "<br>",
-                        "Observer: ", obs_utm$user_login,"<br>",
-                        "Quality:", obs_utm$quality_grade,"<br>",
-                        "Date:", obs_utm$observed_on, "<br>",
-                        "<a href= '", obs_utm$url_picture, 
-                        "' target='_blank'><img src='", 
-                        obs_utm$url_picture, 
-                        "' style='margin-top:2px;border-radius:4px;'> </a> "))
+leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
+  
+      addWMSTiles(
+        "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wms",
+        layers = "orto",
+        options = WMSTileOptions(format = "image/png", 
+                                 transparent = TRUE, version = "1.3.0")) %>%
+    
+      addCircleMarkers(
+        data = obs_utm, 
+        radius = 6,
+        color = "red",
+        fillOpacity = 0.9,
+        popup =  paste0( "ID: <a href='", obs_utm$uri,
+                            "' target='_blank'>",obs_utm$id , "</a><br>",
+                            "Specie:", obs_utm$taxon_name, "<br>",
+                            "Observer: ", obs_utm$user_login,"<br>",
+                            "Quality:", obs_utm$quality_grade,"<br>",
+                            "Date:", obs_utm$observed_on, "<br>",
+                            "<a href= '", obs_utm$url_picture, 
+                            "' target='_blank'><img src='", 
+                            obs_utm$url_picture, 
+                            "' style='margin-top:2px;border-radius:4px;'> </a> "))
 ```
 
 ### ● `export_mnk_qgis()`
