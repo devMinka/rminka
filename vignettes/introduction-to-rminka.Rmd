@@ -633,7 +633,7 @@ freq_top10 <- obs_place %>%
 
 ggplot(freq_top10, aes(x = n_obs, y = reorder(shrt_tax_name, n_obs))) +
         geom_col(fill = "steelblue") +
-        geom_text(aes(label = n_obs), hjust = -0.2, size = 3.5) +  # add n as label
+        geom_text(aes(label = n_obs), hjust = -0.2, size = 1) +  # add n as label
         scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +  # make room for labels
         labs(
               x = "Number of observations",
