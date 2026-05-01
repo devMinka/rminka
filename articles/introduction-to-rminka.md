@@ -338,11 +338,11 @@ place name as an attribute.
 
 # 1. Downloading the geometry 
 
-place <- mnk_place_sf(253)
+place_forum <- mnk_place_sf(253)
 
 # 2. Drawing the map
 
- forum_sf <-leaflet(place) %>%
+ forum_sf <-leaflet(place_forum) %>%
                 addProviderTiles("OpenStreetMap", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addPolygons(
@@ -760,7 +760,10 @@ obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade, url_picture,
                       uri, crs = 25831)
 
-# The input obs_torpedo_bounds is a data frame with the full set of observation records. The #function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login, #quality_grade, url_picture, uri); these are preserved in the output sf object together with #the generated geometry in obs_utm.
+# The input obs_torpedo_bounds is a data frame with the full set of observation records. The
+#function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login,
+#quality_grade, url_picture, uri); these are preserved in the output sf object together with
+#the generated geometry in obs_utm.
 
 #The crs = 25831 parameter overrides the default EPSG:4326. 
 #Here we request the output directly in EPSG:25831 – ETRS89 / UTM zone 31N, 
@@ -809,6 +812,15 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
 ```
 
 ### ● `export_mnk_qgis()`
+
+``` r
+
+
+export_mnk_qgis(observations =obs_utm ,file="shape")
+
+export_mnk_qgis(zone = places_forum , observations = obs_sf,
+file = "C:/examples/forum.gpkg")
+```
 
 ### ● `get_wrm_tax()`
 

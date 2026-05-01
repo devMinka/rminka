@@ -426,11 +426,11 @@ the place name as an attribute.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Downloading the geometry </span></span>
 <span></span>
-<span><span class="va">place</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_place_sf.html">mnk_place_sf</a></span><span class="op">(</span><span class="fl">253</span><span class="op">)</span></span>
+<span><span class="va">place_forum</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_place_sf.html">mnk_place_sf</a></span><span class="op">(</span><span class="fl">253</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 2. Drawing the map</span></span>
 <span></span>
-<span> <span class="va">forum_sf</span> <span class="op">&lt;-</span><span class="fu">leaflet</span><span class="op">(</span><span class="va">place</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span> <span class="va">forum_sf</span> <span class="op">&lt;-</span><span class="fu">leaflet</span><span class="op">(</span><span class="va">place_forum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>                <span class="fu">addProviderTiles</span><span class="op">(</span><span class="st">"OpenStreetMap"</span>, group <span class="op">=</span> <span class="st">"OSM"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>                <span class="fu">addProviderTiles</span><span class="op">(</span><span class="st">"Esri.WorldImagery"</span>, group <span class="op">=</span> <span class="st">"Satélite"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>                <span class="fu">addPolygons</span><span class="op">(</span></span>
@@ -828,7 +828,10 @@ torpedo</em> observations at the espigó Hotel W.</p>
 <span>                      <span class="va">observed_on</span>, <span class="va">user_login</span>, <span class="va">quality_grade</span>, <span class="va">url_picture</span>,</span>
 <span>                      <span class="va">uri</span>, crs <span class="op">=</span> <span class="fl">25831</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># The input obs_torpedo_bounds is a data frame with the full set of observation records. The #function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login, #quality_grade, url_picture, uri); these are preserved in the output sf object together with #the generated geometry in obs_utm.</span></span>
+<span><span class="co"># The input obs_torpedo_bounds is a data frame with the full set of observation records. The</span></span>
+<span><span class="co">#function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login,</span></span>
+<span><span class="co">#quality_grade, url_picture, uri); these are preserved in the output sf object together with</span></span>
+<span><span class="co">#the generated geometry in obs_utm.</span></span>
 <span></span>
 <span><span class="co">#The crs = 25831 parameter overrides the default EPSG:4326. </span></span>
 <span><span class="co">#Here we request the output directly in EPSG:25831 – ETRS89 / UTM zone 31N, </span></span>
@@ -880,6 +883,12 @@ torpedo</em> observations at the espigó Hotel W.</p>
 <div class="section level3">
 <h3 id="export_mnk_qgis">● <code>export_mnk_qgis()</code><a class="anchor" aria-label="anchor" href="#export_mnk_qgis"></a>
 </h3>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>observations <span class="op">=</span><span class="va">obs_utm</span> ,file<span class="op">=</span><span class="st">"shape"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>zone <span class="op">=</span> <span class="va">places_forum</span> , observations <span class="op">=</span> <span class="va">obs_sf</span>,</span>
+<span>file <span class="op">=</span> <span class="st">"C:/examples/forum.gpkg"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="get_wrm_tax">● <code>get_wrm_tax()</code><a class="anchor" aria-label="anchor" href="#get_wrm_tax"></a>
