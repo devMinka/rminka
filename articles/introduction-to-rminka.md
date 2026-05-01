@@ -197,7 +197,7 @@ user_name
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
 #> 2     4 xasalva           "xavi salvador…              82371 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1083 2023-07-28 13:27:50
+#> 4   857 xavibou           "Xavi Bou"                    1085 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
@@ -813,15 +813,47 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
 
 ### ● `export_mnk_qgis()`
 
+This function writes one or more sf objects to a GeoPackage (.gpkg),
+creating one layer per object. It is designed for a smooth GIS workflow
+( specialy QGIS): it ensures valid geometries, drops Z/M dimensions,
+removes list-columns that GDAL cannot write, and transforms features to
+the target CRS.
+
+We will apply it to the two examples from the previous section.
+
 ``` r
 
 
 export_mnk_qgis(observations =obs_utm ,file="shape")
 
+#In this first example we export the observations layer from the previous step (obs_utm)
+#as a single point layer named "observations". The output file is named "shape" — the .gpkg
+#extension is added automatically.Because no path is specified, the file shape.gpkg is saved
+#in the current R working directory of the project.
+
 export_mnk_qgis(zone = places_forum , observations = obs_sf,
-file = "C:/examples/forum.gpkg")
+                file = "C:/examples/forum.gpkg")
+
+#In the second example export several layers at once. Here we write two layers 
+#into the same GeoPackage:
+
+# *  places_forum — a polygon defining the Forum pools area, saved as layer "zone"
+# * obs_sf — point observations from the Forum pools, saved as layer "observations"
+#Both layers are stored in forum.gpkg inside the "examples" folder:
 ```
 
 ### ● `get_wrm_tax()`
+
+``` r
+
+
+get_wrm_tax("Diplodus sargus")
+#> # A tibble: 1 × 14
+#>   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus
+#>           <int> <chr>           <chr>   <chr>    <chr>  <chr> <chr> <chr>  <chr>
+#> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…
+#> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
+#> #   isTerrestrial <lgl>, isExtinct <lgl>
+```
 
 ### ● `shrt_name()`

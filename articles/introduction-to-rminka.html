@@ -296,7 +296,7 @@ list.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    47 xavi               <span style="color: #BB0000;">NA</span>                              6 2022-05-06 <span style="color: #949494;">10:47:06</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     4 xasalva           <span style="color: #949494;">"</span>xavi salvador…              <span style="text-decoration: underline;">82</span>371 2021-04-16 <span style="color: #949494;">10:44:11</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">1</span>178 xparellada        <span style="color: #949494;">"</span>Xavier Parell…                670 2023-10-31 <span style="color: #949494;">09:07:52</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   857 xavibou           <span style="color: #949494;">"</span>Xavi Bou<span style="color: #949494;">"</span>                    <span style="text-decoration: underline;">1</span>083 2023-07-28 <span style="color: #949494;">13:27:50</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   857 xavibou           <span style="color: #949494;">"</span>Xavi Bou<span style="color: #949494;">"</span>                    <span style="text-decoration: underline;">1</span>085 2023-07-28 <span style="color: #949494;">13:27:50</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">1</span>042 xavi-de-yzaguirre <span style="color: #949494;">""</span>                             459 2023-09-26 <span style="color: #949494;">13:18:42</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">17</span>242 xavisanjuan        <span style="color: #BB0000;">NA</span>                            390 2025-07-20 <span style="color: #949494;">16:21:42</span></span></span></code></pre></div>
 </div>
@@ -883,16 +883,43 @@ torpedo</em> observations at the espigó Hotel W.</p>
 <div class="section level3">
 <h3 id="export_mnk_qgis">● <code>export_mnk_qgis()</code><a class="anchor" aria-label="anchor" href="#export_mnk_qgis"></a>
 </h3>
+<p>This function writes one or more sf objects to a GeoPackage (.gpkg),
+creating one layer per object. It is designed for a smooth GIS workflow
+( specialy QGIS): it ensures valid geometries, drops Z/M dimensions,
+removes list-columns that GDAL cannot write, and transforms features to
+the target CRS.</p>
+<p>We will apply it to the two examples from the previous section.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>observations <span class="op">=</span><span class="va">obs_utm</span> ,file<span class="op">=</span><span class="st">"shape"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">#In this first example we export the observations layer from the previous step (obs_utm)</span></span>
+<span><span class="co">#as a single point layer named "observations". The output file is named "shape" — the .gpkg</span></span>
+<span><span class="co">#extension is added automatically.Because no path is specified, the file shape.gpkg is saved</span></span>
+<span><span class="co">#in the current R working directory of the project.</span></span>
+<span></span>
 <span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>zone <span class="op">=</span> <span class="va">places_forum</span> , observations <span class="op">=</span> <span class="va">obs_sf</span>,</span>
-<span>file <span class="op">=</span> <span class="st">"C:/examples/forum.gpkg"</span><span class="op">)</span></span></code></pre></div>
+<span>                file <span class="op">=</span> <span class="st">"C:/examples/forum.gpkg"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#In the second example export several layers at once. Here we write two layers </span></span>
+<span><span class="co">#into the same GeoPackage:</span></span>
+<span></span>
+<span><span class="co"># *  places_forum — a polygon defining the Forum pools area, saved as layer "zone"</span></span>
+<span><span class="co"># * obs_sf — point observations from the Forum pools, saved as layer "observations"</span></span>
+<span><span class="co">#Both layers are stored in forum.gpkg inside the "examples" folder:</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="get_wrm_tax">● <code>get_wrm_tax()</code><a class="anchor" aria-label="anchor" href="#get_wrm_tax"></a>
 </h3>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/get_wrm_tax.html">get_wrm_tax</a></span><span class="op">(</span><span class="st">"Diplodus sargus"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 14</span></span></span>
+<span><span class="co">#&gt;   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus</span></span>
+<span><span class="co">#&gt;           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        <span style="text-decoration: underline;">127</span>053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: isMarine &lt;lgl&gt;, isBrackish &lt;lgl&gt;, isFreshwater &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   isTerrestrial &lt;lgl&gt;, isExtinct &lt;lgl&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="shrt_name">● <code>shrt_name()</code><a class="anchor" aria-label="anchor" href="#shrt_name"></a>
