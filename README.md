@@ -15,7 +15,7 @@ commit](https://img.shields.io/github/last-commit/devMinka/rminka/master?style=f
 release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
 [![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
 [![License: GPL
-v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Contributor
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19666782.svg)](https://doi.org/10.5281/zenodo.19666782)
