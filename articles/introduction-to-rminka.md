@@ -78,7 +78,7 @@ prj_user
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
 #>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11219
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
-#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                578
+#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                591
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
@@ -651,10 +651,10 @@ bound  # display map in document
 
 #Obtaining the observations within the study area
 
-obs_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
+obs_torpedo_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
                       bounds = bounds , quality = "research", quiet = TRUE)
 
-obs_bounds
+obs_torpedo_bounds
 #> # A tibble: 7 × 27
 #>       id observed_on  year month  week   day  hour created_at         updated_at
 #>    <int> <chr>       <int> <int> <int> <int> <int> <chr>              <chr>     
@@ -672,9 +672,11 @@ obs_bounds
 #> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
 #> #   user_id <int>, user_login <chr>
 
-#Turning the dataframe into an sf object with the mnk_obs_sf() function
+#Turning the dataframe into an sf object with the mnk_obs_sf() function and 
+#selecting some fields ("id","taxon_name","observed_on",.....) from the original
+#data frame for to show later in leaflet popups.
 
-obs_bounds_sf <- mnk_obs_sf(obs_bounds,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
+obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
 
 # Preparing the obtained data for later display in the marker popup
 
@@ -736,7 +738,7 @@ obs_undulata_2024
 ### *- Auxiliary functions*
 
 The examples below show how the helper functions work. The first two use
-the *Torpedo torpedo* observations at the W Hotel breakwater from the
+the *Torpedo torpedo* observations at the Espigó Hotel W from the
 previous sections. The last two use separate, specific examples.
 
 ### ● `mnk_obs_sf()`
@@ -750,6 +752,56 @@ returned in CRS EPSG:4326 (WGS84), but you can specify any CRS you need
 via the crs argument. Its basic usage has already been shown briefly in
 previous sections. Here we develop a detailed example using the *Torpedo
 torpedo* observations at the espigó Hotel W.
+
+``` r
+
+
+#The following arguments (taxon_name, observed_on, user_login, quality_grade, url_picture, uri) are the attribute fields you want to keep from the original Minka data frame. 
+#Only these columns will be retained in the resulting sf object, together with the geometry.
+
+#The crs = 25831 parameter overrides the default EPSG:4326. 
+#Here we request the output directly in EPSG:25831 – ETRS89 / UTM zone 31N, 
+#which is the official projected CRS for Catalonia. 
+#This is useful for distance calculations and for matching local cartography
+
+obs_utm <- mnk_obs_sf(obs_torpedo_bounds, taxon_name,
+                      observed_on, user_login, quality_grade, url_picture,
+                      uri, crs = 25831)
+
+# Leaflet natively works in Web Mercator (EPSG:3857). To visualize data in UTM, 
+#you must change the map's base CRS:
+
+crs25831 <- leafletCRS(
+  crsClass = "L.Proj.CRS",
+  code = "EPSG:25831",
+  proj4def = "+proj=utm +zone=31 +ellps=GRS80 +units=m +no_defs",
+  resolutions = c(8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1,0.5),
+  origin = c(0, 9000000)
+)
+
+# Because the map is no longer in 3857, you cannot use standard OSM tiles. 
+#You need a WMS that serves imagery in the same CRS. 
+#Here we use the Institut Cartogràfic i Geològic de Catalunya (ICGC) service.
+
+
+leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) |>
+  addWMSTiles(
+    "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wms",
+    layers = "orto",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE, version = "1.3.0")
+  ) |>
+  # ¡aquí NO usamos data = obs_utm!
+  addCircleMarkers(
+    data = obs_utm,  # Y en metros UTM
+    radius = 6,
+    color = "#ff6600",
+    fillOpacity = 0.9,
+    popup = obs_utm$user_login
+  ) 
+#> Warning: sf layer is not long-lat data
+#> Warning: sf layer has inconsistent datum (+proj=utm +zone=31 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs).
+#> Need '+proj=longlat +datum=WGS84'
+```
 
 ### ● `export_mnk_qgis()`
 
