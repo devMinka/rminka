@@ -17,6 +17,7 @@ retrieve the corresponding project ID. This is done with
 Here we use the query “biomarato 2025”.
 
 ``` r
+
 prj_names <- mnk_proj_byname("biomarato 2025")
 
 prj_names 
@@ -49,6 +50,7 @@ Once the project ID is known, detailed information can be retrieved with
 For the Biomarató Tarragona 2025, the project ID is 419.
 
 ``` r
+
 prj_info <- mnk_proj_info(419)
 
 prj_info
@@ -65,21 +67,22 @@ Users explicitly subscribed to a project can be retrieved with
 using the project ID
 
 ``` r
+
 prj_user <- mnk_proj_user(419)
 
 prj_user
 #> # A tibble: 24 × 16
 #>       id login          name              created_at          observations_count
 #>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              81797
+#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              82371
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
-#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11159
+#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11219
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
 #>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                578
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4454
+#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4470
 #> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27553
 #> # ℹ 14 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
@@ -102,6 +105,7 @@ For example, project 419 ran in 2025, so all its observations can be
 obtained with `mnk_proj_obs(419, year = 2025)`:
 
 ``` r
+
 # 1. Download all observations for the project in may 2025
 
 obs_2025 <- mnk_proj_obs(419,year=2025, mont=5, quiet = TRUE)
@@ -139,6 +143,7 @@ optionally within a specific month. For the Biomarató Tarragona 2025
 `mnk_proj_obs(419, year = 2025, month = 5)`.
 
 ``` r
+
 prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
 #> --- STARTING DOWNLOAD FOR MONTH: May 2025 ---
 #> 
@@ -182,6 +187,7 @@ desired user — Xavier Salvador — is then selected from that list.
 
 ``` r
 
+
 user_name <- mnk_user_byname("xavi")
 
 user_name
@@ -189,7 +195,7 @@ user_name
 #>      id login             name            observations_count created_at         
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              81797 2021-04-16 10:44:11
+#> 2     4 xasalva           "xavi salvador…              82371 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
 #> 4   857 xavibou           "Xavi Bou"                    1083 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
@@ -202,13 +208,14 @@ Once the user ID is known, detailed information can be retrieved with
 mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is 4
 
 ``` r
+
 user_info <- mnk_user_info(4)
 
 user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              81797                412591
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              82371                413594
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -225,6 +232,7 @@ Note: Projects in which a user has contributed observations but is not
 formally subscribed cannot be retrieved directly in R.
 
 ``` r
+
 user_project <- mnk_user_proj(4)
 
 user_project
@@ -253,6 +261,7 @@ for example May, are obtained with
 `mnk_user_obs(4, year = 2025, month = 5)`.
 
 ``` r
+
 user_obs <- mnk_user_obs(user_id= 4, year = 2025, month = 8)
 #> --- STARTING DOWNLOAD FOR MONTH: August 2025 ---
 #> 
@@ -301,6 +310,7 @@ initial assumption, so it is recommended to try several searches with
 different terms until the desired place is identified.
 
 ``` r
+
 places <- mnk_place_byname("Forum")
 
 places[,1:6]
@@ -325,6 +335,7 @@ by Google Maps. Note that the returned sf object already includes the
 place name as an attribute.
 
 ``` r
+
 # 1. Downloading the geometry 
 
 place <- mnk_place_sf(253)
@@ -360,6 +371,7 @@ object with the helper function
 The resulting points can then be mapped with the leaflet package.
 
 ``` r
+
 
 obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
 
@@ -414,6 +426,7 @@ leaflet(obs_sf) %>%
 
 ``` r
 
+
 #  Observations plus place maping
 
  forum_sf %>%
@@ -429,6 +442,7 @@ seldom used in practice, as observation IDs are not usually known
 beforehand.
 
 ``` r
+
 
 obs_id <- mnk_obs_id(id = 553028)
 
@@ -469,6 +483,7 @@ search by bounding box.
     and `taxon_name = "Raja brachyura"` respectively.
 
 ``` r
+
 #In this example don´t show messages in console (quiet= TRUE)
 
 # Get observations for genus Raja in 2025 by user Xavier Salvador ( user_id=4)
@@ -521,6 +536,7 @@ Images from observations can be visualized and printed using the magick
 package and the observation’s `url_picture` as follow.
 
 ``` r
+
 # Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
 
 obs_undulata <- mnk_obs(taxon_name = "Raja undulata", year = 2022, user_id = 4, 
@@ -558,6 +574,7 @@ Salvador](introduction-to-rminka_files/figure-html/brachyura-pic-1.png)
     [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md).
 
 ``` r
+
 # read shapefile of  study area using relative path 
 
 shp <- "../inst/extdata/espigo_w.shp"
@@ -583,6 +600,7 @@ area of the Espigo del W in leaflet to help understand how the bounds
 parameter works.
 
 ``` r
+
 
 #Pmin
 xmin <- 2.189147
@@ -629,6 +647,7 @@ bound  # display map in document
 ```
 
 ``` r
+
 
 #Obtaining the observations within the study area
 
@@ -686,6 +705,7 @@ The interval is defined by:
 format
 
 ``` r
+
 #Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.
 
 obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
@@ -715,7 +735,21 @@ obs_undulata_2024
 
 ### *- Auxiliary functions*
 
+The examples below show how the helper functions work. The first two use
+the *Torpedo torpedo* observations at the W Hotel breakwater from the
+previous sections. The last two use separate, specific examples.
+
 ### ● `mnk_obs_sf()`
+
+This function converts an observations data frame into a spatial layer
+in sf format. The function takes the latitude/longitude columns returned
+by `mnk_obs` or by any other function in the rminka package that returns
+an observations data frame — such as `mnk_proj_obs` or `mnk_user_obs` —
+and converts them into an sf POINT layer. By default the geometry is
+returned in CRS EPSG:4326 (WGS84), but you can specify any CRS you need
+via the crs argument. Its basic usage has already been shown briefly in
+previous sections. Here we develop a detailed example using the *Torpedo
+torpedo* observations at the espigó Hotel W.
 
 ### ● `export_mnk_qgis()`
 
