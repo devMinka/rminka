@@ -756,17 +756,17 @@ torpedo* observations at the espigó Hotel W.
 ``` r
 
 
-#The following arguments (id, taxon_name, observed_on, user_login, quality_grade, url_picture, uri) are the attribute fields you want to keep from the original Minka data frame. 
-#Only these columns will be retained in the resulting sf object, together with the geometry.
+obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
+                      observed_on, user_login, quality_grade, url_picture,
+                      uri, crs = 25831)
+
+# The input obs_torpedo_bounds is a data frame with the full set of observation records. The #function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login, #quality_grade, url_picture, uri); these are preserved in the output sf object together with #the generated geometry in obs_utm.
 
 #The crs = 25831 parameter overrides the default EPSG:4326. 
 #Here we request the output directly in EPSG:25831 – ETRS89 / UTM zone 31N, 
 #which is the official projected CRS for Catalonia. 
 #This is useful for distance calculations and for matching local cartography
 
-obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
-                      observed_on, user_login, quality_grade, url_picture,
-                      uri, crs = 25831)
 
 # Leaflet natively works in Web Mercator (EPSG:3857). To visualize data in UTM, 
 #you must change the map's base CRS:
@@ -783,32 +783,29 @@ crs25831 <- leafletCRS(
 #You need a WMS that serves imagery in the same CRS. 
 #Here we use the Institut Cartogràfic i Geològic de Catalunya (ICGC) service.
 
-
-leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) |>
-  addWMSTiles(
-    "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wms",
-    layers = "orto",
-    options = WMSTileOptions(format = "image/png", transparent = TRUE, version = "1.3.0")
-  ) |>
-  # ¡aquí NO usamos data = obs_utm!
-  addCircleMarkers(
-    data = obs_utm,  # Y en metros UTM
-    radius = 6,
-    color = "#ff6600",
-    fillOpacity = 0.9,
-    popup =  paste0( "ID: <a href='", obs_utm$uri,
-                        "' target='_blank'>",obs_utm$id , "</a><br>",
-                        "Specie:", obs_utm$taxon_name, "<br>",
-                        "Observer: ", obs_utm$user_login,"<br>",
-                        "Quality:", obs_utm$quality_grade,"<br>",
-                        "Date:", obs_utm$observed_on, "<br>",
-                        "<a href= '", obs_utm$url_picture, 
-                        "' target='_blank'><img src='", 
-                        obs_utm$url_picture, 
-                        "' style='margin-top:2px;border-radius:4px;'> </a> "))
-#> Warning: sf layer is not long-lat data
-#> Warning: sf layer has inconsistent datum (+proj=utm +zone=31 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs).
-#> Need '+proj=longlat +datum=WGS84'
+leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
+  
+      addWMSTiles(
+        "https://geoserveis.icgc.cat/servei/catalunya/mapa-base/wms",
+        layers = "orto",
+        options = WMSTileOptions(format = "image/png", 
+                                 transparent = TRUE, version = "1.3.0")) %>%
+    
+      addCircleMarkers(
+        data = obs_utm, 
+        radius = 6,
+        color = "red",
+        fillOpacity = 0.9,
+        popup =  paste0( "ID: <a href='", obs_utm$uri,
+                            "' target='_blank'>",obs_utm$id , "</a><br>",
+                            "Specie:", obs_utm$taxon_name, "<br>",
+                            "Observer: ", obs_utm$user_login,"<br>",
+                            "Quality:", obs_utm$quality_grade,"<br>",
+                            "Date:", obs_utm$observed_on, "<br>",
+                            "<a href= '", obs_utm$url_picture, 
+                            "' target='_blank'><img src='", 
+                            obs_utm$url_picture, 
+                            "' style='margin-top:2px;border-radius:4px;'> </a> "))
 ```
 
 ### ● `export_mnk_qgis()`
