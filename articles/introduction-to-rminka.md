@@ -214,7 +214,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              82371                413594
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              82371                413810
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -914,7 +914,7 @@ freq_top10 <- obs_place %>%
 
 ggplot(freq_top10, aes(x = n_obs, y = reorder(shrt_tax_name, n_obs))) +
         geom_col(fill = "steelblue") +
-        geom_text(aes(label = n_obs), hjust = -0.2, size = 3.5) +  # add n as label
+        geom_text(aes(label = n_obs), hjust = -0.2, size = 1) +  # add n as label
         scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +  # make room for labels
         labs(
               x = "Number of observations",
