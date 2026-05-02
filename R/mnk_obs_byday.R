@@ -129,7 +129,7 @@ mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
   if (!is.null(base_params$bounds)) {
     bounds <- base_params$bounds
     if (inherits(bounds, c("sf", "sfc"))) {
-      # Validate CRS is WGS84
+
       crs <- sf::st_crs(bounds)
       if (is.na(crs) || crs$epsg!= 4326) {
         stop("bounds must have CRS EPSG:4326 (WGS84). ",

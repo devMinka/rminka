@@ -45,10 +45,10 @@
 #' @examples
 #' \dontrun{
 #' # Download the first 10,000 observations for user 6 (xasalva) in 2024
-#' mnk_user_obs(user_id = 6, year = 2024)
+#' mnk_user_obs(user_id = 4, year = 2024)
 #'
 #' # Download all observations for August 2024 without record cap
-#' mnk_user_obs(user_id = 6, year = 2024, month = 8, limit_download = FALSE)
+#' mnk_user_obs(user_id = 4, year = 2024, month = 8, limit_download = FALSE)
 #' }
 #' @export
 mnk_user_obs <- function(user_id, year, month = NULL, day = NULL,

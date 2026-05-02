@@ -89,7 +89,6 @@ export_mnk_qgis <- function(..., file = NULL, crs = 4326, overwrite = TRUE) {
     }
   }
 
-  # write layers
   for (nm in layer_names) {
     x <- layers[[nm]]
     if (!inherits(x, "sf")) {
@@ -103,7 +102,6 @@ export_mnk_qgis <- function(..., file = NULL, crs = 4326, overwrite = TRUE) {
       x <- suppressWarnings(sf::st_make_valid(x))
     }
 
-    # Limpieza de columnas de lista (Correcto uso de vapply)
     is_list_col <- vapply(x, is.list, logical(1))
     is_sfc_col <- vapply(x, inherits, logical(1), what = "sfc")
     drop_cols <- is_list_col & !is_sfc_col
@@ -122,6 +120,5 @@ export_mnk_qgis <- function(..., file = NULL, crs = 4326, overwrite = TRUE) {
     )
   }
 
-  # Retorno invisible de la ruta normalizada (Buena práctica [2])
   invisible(normalizePath(file, winslash = "/", mustWork = FALSE))
 }
