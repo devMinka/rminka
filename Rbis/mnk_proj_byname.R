@@ -33,7 +33,7 @@ mnk_proj_byname <- function(query) {
   }
 
   base_url <- "https://api.minka-sdg.org"
-  # sin stringr: codifica espacios como %20, acentos, etc.
+
   q_enc <- utils::URLencode(query, reserved = TRUE)
   q_path <- paste0("/v1/projects/autocomplete?q=", q_enc)
 

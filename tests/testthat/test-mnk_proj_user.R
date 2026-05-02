@@ -25,7 +25,7 @@ test_that("handles HTTP error", {
     status_code = function(...) 404L,
     .package = "httr"
   )
-  # tu función imprime "Status: 404"
+
   expect_message(res <- mnk_proj_user(456), "Status:")
   expect_equal(nrow(res), 0)
   expect_equal(ncol(res), 16)
@@ -39,7 +39,7 @@ test_that("handles empty response", {
     content = function(...) "",
     .package = "httr"
   )
-  # tu versión no emite mensaje aquí
+
   res <- mnk_proj_user(1)
   expect_equal(nrow(res), 0)
 })
@@ -64,7 +64,7 @@ test_that("handles no results", {
     content = function(...) '{"results":[]}',
     .package = "httr"
   )
-  # tu versión tampoco emite mensaje aquí
+
   res <- mnk_proj_user(999)
   expect_equal(nrow(res), 0)
 })

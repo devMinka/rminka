@@ -92,6 +92,6 @@ mnk_proj_user <- function(project_id = NULL) {
   ids <- unlist(js$results[[1]]$user_ids %||% list())
   if (length(ids) == 0) return(empty_users)
 
-  # aquí está la magia: por cada id llamamos a tu mnk_user_info
+
   purrr::map_dfr(as.integer(ids), mnk_user_info)
 }

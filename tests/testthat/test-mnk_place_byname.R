@@ -79,7 +79,7 @@ test_that("mnk_place_byname handles malformed JSON or missing 'results' key", {
     expect_message(res <- mnk_place_byname("No results key"), "No places found")
     expect_equal(nrow(res), 0)
 
-    # ahora no hace stop, devuelve NA
+
     res_bad <- mnk_place_byname("Malformed location")
     expect_true(is.na(res_bad$location_latitud))
 

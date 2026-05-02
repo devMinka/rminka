@@ -47,7 +47,7 @@ mnk_place_byname <- function(query) {
   parsed_json <- jsonlite::fromJSON(response_content, simplifyVector = FALSE)
   if (is.null(parsed_json$results) || length(parsed_json$results) == 0) {
     message("No places found for your query.")
-    return(tibble::tibble()) # <- ahora devuelve tibble vacío, como las otras byname
+    return(tibble::tibble())
   }
 
   purrr::map_dfr(parsed_json$results, function(x) {
