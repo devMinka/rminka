@@ -16,14 +16,14 @@ knitr::opts_chunk$set(
 # rminka <a href="https://devminka.github.io/rminka/"><img src="https://raw.githubusercontent.com/devminka/rminka/main/man/figures/logo.png" alt="Logo de rminka" height="138" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://img.shields.io/codecov/c/github/devMinka/rminka/master.svg)](https://app.codecov.io/gh/devMinka/rminka)
+[![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://img.shields.io/codecov/c/github/devminka/rminka/master.svg)](https://app.codecov.io/gh/devminka/rminka)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last commit](https://img.shields.io/github/last-commit/devMinka/rminka/master?style=flat-square)](https://github.com/devMinka/rminka/commits/master)
-[![GitHub release](https://img.shields.io/github/v/release/devMinka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devMinka/rminka/releases)
-[![Contributors](https://img.shields.io/github/contributors/devMinka/rminka)](https://github.com/devMinka/rminka/graphs/contributors)
+[![Last commit](https://img.shields.io/github/last-commit/devminka/rminka/master?style=flat-square)](https://github.com/devminka/rminka/commits/master)
+[![GitHub release](https://img.shields.io/github/v/release/devminka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devminka/rminka/releases)
+[![Contributors](https://img.shields.io/github/contributors/devminka/rminka)](https://github.com/devminka/rminka/graphs/contributors)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/devminka/rminka/blob/main/CODE_OF_CONDUCT.md)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19666782.svg)](https://doi.org/10.5281/zenodo.19666782)
 <!-- badges: end -->
 
@@ -100,7 +100,7 @@ You can install the development version of rminka from [GitHub](https://github.c
 
 ``` r
 # install.packages("pak")
-pak::pak("devMinka/rminka")
+pak::pak("devminka/rminka")
 ```
 
 
@@ -108,9 +108,9 @@ pak::pak("devMinka/rminka")
 
 If you are new to `rminka` you are better off starting with a starting web page of `rminka` in the github page of the project.
 
-1. The main page directions is [rminka website](https://devMinka.github.io/rminka/)
+1. The main page directions is [rminka website](https://devminka.github.io/rminka/)
 
-1. The starting web page is [rminka starting](https://devMinka.github.io/rminka/articles/introduction-to-rminka.html)
+1. The starting web page is [rminka starting](https://devminka.github.io/rminka/articles/introduction-to-rminka.html)
 
 
 
@@ -128,7 +128,7 @@ There are two main places to get help with `rminka`:
 [community]: https://forum.posit.co/
 [so]: https://stackoverflow.com/
 
-If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/tidyverse/dplyr/issues). 
+If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/devminka/rminka/issues). 
 
 ## Code of Conduct
 
