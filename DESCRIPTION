@@ -32,7 +32,6 @@ Suggests:
     ggplot2,
     htmltools,
     httptest,
-    httptest2,
     knitr,
     leaflet,
     magick,
