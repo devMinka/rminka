@@ -155,7 +155,7 @@ By contributing to this project, you agree to abide by its terms.
 ## Contributing
 
 Contributions are welcome! Please see
-[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/master/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/master/inst/CONTRIBUTING.md)
 for guidelines.
 
 To contribute:
