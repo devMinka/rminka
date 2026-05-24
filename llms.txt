@@ -115,7 +115,7 @@ You can install the development version of rminka from
 ``` r
 
 # install.packages("pak")
-pak::pak("devMinka/rminka")
+pak::pak("devminka/rminka")
 ```
 
 ## Using rminka
@@ -124,10 +124,10 @@ If you are new to `rminka` you are better off starting with a starting
 web page of `rminka` in the github page of the project.
 
 1.  The main page directions is [rminka
-    website](https://devMinka.github.io/rminka/)
+    website](https://devminka.github.io/rminka/)
 
 2.  The starting web page is [rminka
-    starting](https://devMinka.github.io/rminka/articles/introduction-to-rminka.html)
+    starting](https://devminka.github.io/rminka/articles/introduction-to-rminka.html)
 
 ## Getting help
 
@@ -143,7 +143,7 @@ There are two main places to get help with `rminka`:
 
 If you encounter a clear bug, please file an issue with a minimal
 reproducible example on
-[GitHub](https://github.com/tidyverse/dplyr/issues).
+[GitHub](https://github.com/devminka/rminka/issues).
 
 ## Code of Conduct
 
