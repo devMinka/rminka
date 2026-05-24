@@ -16,6 +16,7 @@ Description: Provides tools to query, retrieve and process data from the
 License: GPL-3
 URL: https://devminka.github.io/rminka/, https://github.com/devminka/rminka
 BugReports: https://github.com/devminka/rminka/issues
+SystemRequirements: C++17, GDAL (>= 2.0.1), GEOS (>= 3.6.0), PROJ (>= 4.9.3)
 Imports:
     dplyr,
     httr,
@@ -43,4 +44,3 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
 Config/testthat/edition: 3
-Date: 2026-05-20
