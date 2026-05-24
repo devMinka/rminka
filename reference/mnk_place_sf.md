@@ -1,7 +1,7 @@
 # Get Minka Place as sf Object
 
-Retrieve a Minka place as a simple features (`sf`) object given its
-`place_id`. The function queries the Minka API and returns the place
+Retrieve a Minka place as a simple features (\`sf\`) object given its
+\`place_id\`. The function queries the Minka API and returns the place
 boundary geometry together with descriptive metadata. The source GeoJSON
 is always in EPSG:4326 (WGS 84). By default the output retains this CRS,
 but an alternative CRS may be requested.

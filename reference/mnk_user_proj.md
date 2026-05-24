@@ -43,7 +43,7 @@ column structure. Columns are:
 
 - place_id:
 
-  Associated place identifier, integer or `NA`.
+  Associated place identifier, integer or \`NA\`.
 
 - created_at:
 

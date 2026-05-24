@@ -38,13 +38,13 @@ mnk_place_obs(
 
 - quiet:
 
-  A logical value. If `TRUE`, all console messages will be suppressed.
+  A logical value. If \`TRUE\`, all console messages will be suppressed.
 
 - limit_download:
 
-  A logical value. If `TRUE` (default), the download is capped at 10,000
-  records per query subdivision. If `FALSE`, it attempts to download all
-  records.
+  A logical value. If \`TRUE\` (default), the download is capped at
+  10,000 records per query subdivision. If \`FALSE\`, it attempts to
+  download all records.
 
 ## Value
 

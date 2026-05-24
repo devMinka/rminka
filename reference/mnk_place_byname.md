@@ -17,8 +17,8 @@ mnk_place_byname(query)
 ## Value
 
 A tibble with one row per matching place. Returns an empty tibble with
-zero rows if no matches are found, or `NULL` invisibly on network error.
-Columns are:
+zero rows if no matches are found, or \`NULL\` invisibly on network
+error. Columns are:
 
 - place_id:
 

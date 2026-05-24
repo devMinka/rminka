@@ -29,20 +29,20 @@ mnk_user_obs(
 
 - month:
 
-  Optional month to filter, integer from 1 to 12. Defaults to `NULL`.
+  Optional month to filter, integer from 1 to 12. Defaults to \`NULL\`.
 
 - day:
 
-  Optional day to filter, integer from 1 to 31. Defaults to `NULL`.
+  Optional day to filter, integer from 1 to 31. Defaults to \`NULL\`.
 
 - quiet:
 
-  Logical; if `TRUE`, suppresses console messages.
+  Logical; if \`TRUE\`, suppresses console messages.
 
 - limit_download:
 
-  Logical; if `TRUE` (default), caps each query subdivision at 10,000
-  records. If `FALSE`, attempts to retrieve all records.
+  Logical; if \`TRUE\` (default), caps each query subdivision at 10,000
+  records. If \`FALSE\`, attempts to retrieve all records.
 
 ## Value
 

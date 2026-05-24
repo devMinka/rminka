@@ -58,7 +58,7 @@ it returns an empty tibble with the same column structure. Columns are:
 
 - orcid:
 
-  ORCID identifier, character or `NA`.
+  ORCID identifier, character or \`NA\`.
 
 - icon_url:
 

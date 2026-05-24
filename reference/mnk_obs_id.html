@@ -71,56 +71,56 @@ tibble.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>a one-row tibble with the observation data. The result is the
-flattened JSON response from the Minka API and contains more than 160
-columns covering taxon, user, photos, identifications, and quality
-metrics. Key fields include:</p><dl><dt>id</dt>
+  flattened JSON response from the Minka API and contains more than 160
+  columns covering taxon, user, photos, identifications, and quality
+  metrics. Key fields include:</p><dl><dt>id</dt>
 <dd><p>observation identifier, integer.</p></dd>
 
-<dt>uuid</dt>
+    <dt>uuid</dt>
 <dd><p>unique identifier, character.</p></dd>
 
-<dt>observed_on</dt>
+    <dt>observed_on</dt>
 <dd><p>observation date, character.</p></dd>
 
-<dt>created_at</dt>
+    <dt>created_at</dt>
 <dd><p>creation date, character.</p></dd>
 
-<dt>updated_at</dt>
+    <dt>updated_at</dt>
 <dd><p>last update, character.</p></dd>
 
-<dt>quality_grade</dt>
+    <dt>quality_grade</dt>
 <dd><p>quality grade, character.</p></dd>
 
-<dt>latitude</dt>
+    <dt>latitude</dt>
 <dd><p>latitude in WGS84, numeric.</p></dd>
 
-<dt>longitude</dt>
+    <dt>longitude</dt>
 <dd><p>longitude in WGS84, numeric.</p></dd>
 
-<dt>taxon.id</dt>
+    <dt>taxon.id</dt>
 <dd><p>taxon identifier, integer.</p></dd>
 
-<dt>taxon.name</dt>
+    <dt>taxon.name</dt>
 <dd><p>scientific name, character.</p></dd>
 
-<dt>taxon.rank</dt>
+    <dt>taxon.rank</dt>
 <dd><p>taxonomic rank, character.</p></dd>
 
-<dt>user.id</dt>
+    <dt>user.id</dt>
 <dd><p>observer identifier, integer.</p></dd>
 
-<dt>user.login</dt>
+    <dt>user.login</dt>
 <dd><p>observer login, character.</p></dd>
 
-<dt>photos</dt>
+    <dt>photos</dt>
 <dd><p>list column with photo metadata.</p></dd>
 
-<dt>identifications</dt>
+    <dt>identifications</dt>
 <dd><p>list column with identifications.</p></dd>
 
 
-</dl><p>Returns <code>NULL</code> invisibly if the observation is not found or the request
-fails.</p>
+</dl><p>Returns `NULL` invisibly if the observation is not found or the request
+  fails.</p>
     </div>
 
     <div class="section level2">

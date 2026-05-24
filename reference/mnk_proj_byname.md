@@ -30,7 +30,7 @@ zero rows if no matches are found. Columns are:
 
 - place_id:
 
-  Associated place identifier, integer or `NA`.
+  Associated place identifier, integer or \`NA\`.
 
 - slug:
 

@@ -85,98 +85,98 @@ months).</p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
-<dd><p>A logical value. If <code>TRUE</code>, all console messages will be
+<dd><p>A logical value. If `TRUE`, all console messages will be
 suppressed.</p></dd>
 
 
 <dt id="arg-limit-download">limit_download<a class="anchor" aria-label="anchor" href="#arg-limit-download"></a></dt>
-<dd><p>A logical value. If <code>TRUE</code> (default), the download is
-capped at 10,000 records per query subdivision. If <code>FALSE</code>, it attempts to
+<dd><p>A logical value. If `TRUE` (default), the download is
+capped at 10,000 records per query subdivision. If `FALSE`, it attempts to
 download all records.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A tibble with one row per observation. Returns an empty tibble with
-zero rows if no observations match the query. Columns are:</p><dl><dt>id</dt>
+  zero rows if no observations match the query. Columns are:</p><dl><dt>id</dt>
 <dd><p>Observation identifier, integer.</p></dd>
 
-<dt>observed_on</dt>
+  <dt>observed_on</dt>
 <dd><p>Observation date, character in YYYY-MM-DD format.</p></dd>
 
-<dt>year</dt>
+  <dt>year</dt>
 <dd><p>Year of observation, integer.</p></dd>
 
-<dt>month</dt>
+  <dt>month</dt>
 <dd><p>Month of observation, integer.</p></dd>
 
-<dt>week</dt>
+  <dt>week</dt>
 <dd><p>ISO week number, integer.</p></dd>
 
-<dt>day</dt>
+  <dt>day</dt>
 <dd><p>Day of month, integer.</p></dd>
 
-<dt>hour</dt>
+  <dt>hour</dt>
 <dd><p>Hour of observation, integer.</p></dd>
 
-<dt>created_at</dt>
+  <dt>created_at</dt>
 <dd><p>Record creation timestamp, character in ISO 8601 format.</p></dd>
 
-<dt>updated_at</dt>
+  <dt>updated_at</dt>
 <dd><p>Record update timestamp, character in ISO 8601 format.</p></dd>
 
-<dt>latitude</dt>
+  <dt>latitude</dt>
 <dd><p>Decimal latitude, numeric.</p></dd>
 
-<dt>longitude</dt>
+  <dt>longitude</dt>
 <dd><p>Decimal longitude, numeric.</p></dd>
 
-<dt>positional_accuracy</dt>
+  <dt>positional_accuracy</dt>
 <dd><p>Coordinate uncertainty in meters, integer.</p></dd>
 
-<dt>geoprivacy</dt>
+  <dt>geoprivacy</dt>
 <dd><p>Geoprivacy flag, logical.</p></dd>
 
-<dt>obscured</dt>
+  <dt>obscured</dt>
 <dd><p>Obscured coordinates flag, logical.</p></dd>
 
-<dt>uri</dt>
+  <dt>uri</dt>
 <dd><p>Observation url in Minka, character.</p></dd>
 
-<dt>url_picture</dt>
+  <dt>url_picture</dt>
 <dd><p>URL of observation image in Minka, character.</p></dd>
 
-<dt>quality_grade</dt>
+  <dt>quality_grade</dt>
 <dd><p>Data quality grade, character.</p></dd>
 
-<dt>taxon_id</dt>
+  <dt>taxon_id</dt>
 <dd><p>Taxon identifier, integer.</p></dd>
 
-<dt>taxon_name</dt>
+  <dt>taxon_name</dt>
 <dd><p>Scientific name, character.</p></dd>
 
-<dt>taxon_rank</dt>
+  <dt>taxon_rank</dt>
 <dd><p>Taxonomic rank, character.</p></dd>
 
-<dt>taxon_min_ancestry</dt>
+  <dt>taxon_min_ancestry</dt>
 <dd><p>Minimal ancestry string, character.</p></dd>
 
-<dt>taxon_endemic</dt>
+  <dt>taxon_endemic</dt>
 <dd><p>Endemic flag, logical.</p></dd>
 
-<dt>taxon_threatened</dt>
+  <dt>taxon_threatened</dt>
 <dd><p>Threatened flag, logical.</p></dd>
 
-<dt>taxon_introduced</dt>
+  <dt>taxon_introduced</dt>
 <dd><p>Introduced flag, logical.</p></dd>
 
-<dt>taxon_native</dt>
+  <dt>taxon_native</dt>
 <dd><p>Native flag, logical.</p></dd>
 
-<dt>user_id</dt>
+  <dt>user_id</dt>
 <dd><p>Observer identifier, integer.</p></dd>
 
-<dt>user_login</dt>
+  <dt>user_login</dt>
 <dd><p>Observer login, character.</p></dd>
 
 

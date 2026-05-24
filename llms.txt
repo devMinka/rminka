@@ -155,12 +155,12 @@ By contributing to this project, you agree to abide by its terms.
 ## Contributing
 
 Contributions are welcome! Please see
-[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/master/CONTRIBUTING.md)
 for guidelines.
 
 To contribute:
 
-1.  Fork the repo and create your branch from `main`.
+1.  Fork the repo and create your branch from `master`.
 2.  If you’ve added code, add tests.
 3.  Ensure the test suite passes: `devtools::test()`.
 4.  Make sure `R CMD check` is clean: `devtools::check()`.

@@ -87,8 +87,8 @@ fields include:
 
   list column with identifications.
 
-Returns `NULL` invisibly if the observation is not found or the request
-fails.
+Returns \`NULL\` invisibly if the observation is not found or the
+request fails.
 
 ## Examples
 
