@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rminka <a href="https://devminka.github.io/rminka/"><img src="man/figures/logo.png" alt="Logo de rminka" align="right" height="138" /></a>
+# rminka <a href="https://devminka.github.io/rminka/"><img src="https://raw.githubusercontent.com/devminka/rminka/main/man/figures/logo.png" alt="Logo de rminka" height="138" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devMinka/rminka/actions/workflows/R-CMD-check.yaml)
@@ -130,17 +130,13 @@ There are two main places to get help with `rminka`:
 
 If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/tidyverse/dplyr/issues). 
 
-
-
 ## Code of Conduct
-  
-  Please note that the rminka project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
-
+Please note that the rminka project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](https://github.com/devminka/rminka/blob/main/CONTRIBUTING.md) for guidelines.
 
 To contribute:
 

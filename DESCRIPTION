@@ -1,15 +1,22 @@
 Type: Package
 Package: rminka
-Title: Get Direct Access to Minka Data
-Version: 0.1.0.9000
-Authors@R: 
-    person("Ramon", "Servitje", , "rservitje25@gmail.com", role = c("aut", "cre"),
+Title: Direct Access to Minka Data
+Version: 0.1.1
+Authors@R:
+    person("Ramon", "Servitje", email = "rservitje25@gmail.com",
+           role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0001-8701-8953"))
-Description: Access data stored in the digital platform through its API,
-    providing tools for efficient processing and analysis within the R
-    environment.
-License: GPL (>= 3)
-Imports: 
+Description: Provides tools to query, retrieve and process data from the
+    Minka digital platform, a citizen-science biodiversity portal,
+    via its public API <https://minka-sdg.org>. Functions handle
+    authentication, download observations, and convert responses into
+    tidy data frames and simple features objects for spatial analysis.
+    The package streamlines reproducible workflows without requiring
+    manual data exports.
+License: GPL-3
+URL: https://devminka.github.io/rminka/, https://github.com/devminka/rminka
+BugReports: https://github.com/devminka/rminka/issues
+Imports:
     dplyr,
     httr,
     jsonlite,
@@ -20,24 +27,20 @@ Imports:
     sf,
     stringr,
     tibble
-Suggests: 
+Suggests:
+    ggplot2,
     htmltools,
-    httptest,
+    httptest2,
     knitr,
     leaflet,
+    magick,
     mockery,
     rmarkdown,
     testthat (>= 3.0.0),
-    tidyselect,
-    magick,
-    ggplot2
-VignetteBuilder: 
-    knitr
-Config/Needs/check: pkgbuild (>= 1.4.4)
-Config/testthat/edition: 3
+    tidyselect
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-URL: https://devminka.github.io/rminka/, https://github.com/devminka/rminka
-BugReports: https://github.com/devMinka/rminka/issues
+Config/testthat/edition: 3
+Date: 2026-05-20

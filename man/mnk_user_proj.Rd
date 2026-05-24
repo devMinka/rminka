@@ -29,6 +29,6 @@ from Minka and returns project metadata as a tibble.
 }
 \examples{
 \dontrun{
-mnk_user_proj(6)
+mnk_user_proj(4)
 }
 }
