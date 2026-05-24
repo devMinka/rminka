@@ -39,8 +39,8 @@ request is capped at 10,000 records.}
 }
 \value{
 a tibble with one row per observation and the same columns
-documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
-data is found.
+  documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
+  data is found.
 }
 \description{
 Downloads observation data from the Minka API for a specified date range.

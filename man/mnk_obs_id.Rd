@@ -13,28 +13,28 @@ mnk_obs_id(id, meta = FALSE)
 }
 \value{
 a one-row tibble with the observation data. The result is the
-flattened JSON response from the Minka API and contains more than 160
-columns covering taxon, user, photos, identifications, and quality
-metrics. Key fields include:
-\describe{
-\item{id}{observation identifier, integer.}
-\item{uuid}{unique identifier, character.}
-\item{observed_on}{observation date, character.}
-\item{created_at}{creation date, character.}
-\item{updated_at}{last update, character.}
-\item{quality_grade}{quality grade, character.}
-\item{latitude}{latitude in WGS84, numeric.}
-\item{longitude}{longitude in WGS84, numeric.}
-\item{taxon.id}{taxon identifier, integer.}
-\item{taxon.name}{scientific name, character.}
-\item{taxon.rank}{taxonomic rank, character.}
-\item{user.id}{observer identifier, integer.}
-\item{user.login}{observer login, character.}
-\item{photos}{list column with photo metadata.}
-\item{identifications}{list column with identifications.}
-}
-Returns \code{NULL} invisibly if the observation is not found or the request
-fails.
+  flattened JSON response from the Minka API and contains more than 160
+  columns covering taxon, user, photos, identifications, and quality
+  metrics. Key fields include:
+  \describe{
+    \item{id}{observation identifier, integer.}
+    \item{uuid}{unique identifier, character.}
+    \item{observed_on}{observation date, character.}
+    \item{created_at}{creation date, character.}
+    \item{updated_at}{last update, character.}
+    \item{quality_grade}{quality grade, character.}
+    \item{latitude}{latitude in WGS84, numeric.}
+    \item{longitude}{longitude in WGS84, numeric.}
+    \item{taxon.id}{taxon identifier, integer.}
+    \item{taxon.name}{scientific name, character.}
+    \item{taxon.rank}{taxonomic rank, character.}
+    \item{user.id}{observer identifier, integer.}
+    \item{user.login}{observer login, character.}
+    \item{photos}{list column with photo metadata.}
+    \item{identifications}{list column with identifications.}
+  }
+  Returns `NULL` invisibly if the observation is not found or the request
+  fails.
 }
 \description{
 Retrieves full details for a single Minka observation by its identifier.

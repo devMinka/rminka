@@ -11,21 +11,21 @@ mnk_user_proj(id_user)
 }
 \value{
 A tibble with one row per subscribed project. If no
-subscriptions are found or an error occurs, it returns an empty tibble
-with the same column structure. Columns are:
+  subscriptions are found or an error occurs, it returns an empty tibble
+  with the same column structure. Columns are:
 \describe{
-\item{id}{Project identifier, integer.}
-\item{title}{Project title, character.}
-\item{description}{Project description, character.}
-\item{slug}{URL slug, character.}
-\item{icon}{Icon URL, character.}
-\item{place_id}{Associated place identifier, integer or \code{NA}.}
-\item{created_at}{Creation date, character in ISO 8601 format.}
+  \item{id}{Project identifier, integer.}
+  \item{title}{Project title, character.}
+  \item{description}{Project description, character.}
+  \item{slug}{URL slug, character.}
+  \item{icon}{Icon URL, character.}
+  \item{place_id}{Associated place identifier, integer or `NA`.}
+  \item{created_at}{Creation date, character in ISO 8601 format.}
 }
 }
 \description{
 Retrieves projects to which a user is explicitly subscribed
-from Minka and returns project metadata as a tibble.
+  from Minka and returns project metadata as a tibble.
 }
 \examples{
 \dontrun{

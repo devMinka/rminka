@@ -15,7 +15,7 @@ with zero rows if no matches are found. Columns are:
 \describe{
 \item{id}{Project identifier, integer.}
 \item{title}{Project title, character.}
-\item{place_id}{Associated place identifier, integer or \code{NA}.}
+\item{place_id}{Associated place identifier, integer or `NA`.}
 \item{slug}{URL slug, character.}
 \item{created_at}{Creation timestamp, character.}
 \item{updated_at}{Last update timestamp, character.}

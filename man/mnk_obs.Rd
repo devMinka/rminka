@@ -69,33 +69,33 @@ coordinates.}
 \value{
 a tibble with one row per observation and the following columns:
 \describe{
-\item{id}{observation identifier, integer.}
-\item{observed_on}{observation date, character.}
-\item{year}{year component, integer.}
-\item{month}{month component, integer.}
-\item{week}{week component, integer.}
-\item{day}{day component, integer.}
-\item{hour}{hour component, integer.}
-\item{created_at}{creation timestamp, character.}
-\item{updated_at}{last update timestamp, character.}
-\item{latitude}{latitude in WGS84, numeric.}
-\item{longitude}{longitude in WGS84, numeric.}
-\item{positional_accuracy}{coordinate uncertainty in meters, integer.}
-\item{geoprivacy}{geoprivacy setting, character.}
-\item{obscured}{flag for obscured coordinates, logical.}
-\item{uri}{API resource URI, character.}
-\item{url_picture}{URL of first photo, character.}
-\item{quality_grade}{quality grade, character.}
-\item{taxon_id}{taxon identifier, integer.}
-\item{taxon_name}{scientific name, character.}
-\item{taxon_rank}{taxonomic rank, character.}
-\item{taxon_min_ancestry}{lowest species ancestry, character.}
-\item{taxon_endemic}{endemic flag, logical.}
-\item{taxon_threatened}{threatened flag, logical.}
-\item{taxon_introduced}{introduced flag, logical.}
-\item{taxon_native}{native flag, logical.}
-\item{user_id}{observer identifier, integer.}
-\item{user_login}{observer login, character.}
+  \item{id}{observation identifier, integer.}
+  \item{observed_on}{observation date, character.}
+  \item{year}{year component, integer.}
+  \item{month}{month component, integer.}
+  \item{week}{week component, integer.}
+  \item{day}{day component, integer.}
+  \item{hour}{hour component, integer.}
+  \item{created_at}{creation timestamp, character.}
+  \item{updated_at}{last update timestamp, character.}
+  \item{latitude}{latitude in WGS84, numeric.}
+  \item{longitude}{longitude in WGS84, numeric.}
+  \item{positional_accuracy}{coordinate uncertainty in meters, integer.}
+  \item{geoprivacy}{geoprivacy setting, character.}
+  \item{obscured}{flag for obscured coordinates, logical.}
+  \item{uri}{API resource URI, character.}
+  \item{url_picture}{URL of first photo, character.}
+  \item{quality_grade}{quality grade, character.}
+  \item{taxon_id}{taxon identifier, integer.}
+  \item{taxon_name}{scientific name, character.}
+  \item{taxon_rank}{taxonomic rank, character.}
+  \item{taxon_min_ancestry}{lowest species ancestry, character.}
+  \item{taxon_endemic}{endemic flag, logical.}
+  \item{taxon_threatened}{threatened flag, logical.}
+  \item{taxon_introduced}{introduced flag, logical.}
+  \item{taxon_native}{native flag, logical.}
+  \item{user_id}{observer identifier, integer.}
+  \item{user_login}{observer login, character.}
 }
 Returns an empty tibble if no data is found.
 }

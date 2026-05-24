@@ -24,7 +24,7 @@ Columns are:
 \item{species_count}{Number of observed species, integer.}
 \item{activity_count}{Activity score, integer.}
 \item{journal_posts_count}{Number of journal posts, integer.}
-\item{orcid}{ORCID identifier, character or \code{NA}.}
+\item{orcid}{ORCID identifier, character or `NA`.}
 \item{icon_url}{URL of profile image, character.}
 \item{site_id}{Site identifier, integer.}
 \item{roles}{List-column with user roles, list.}

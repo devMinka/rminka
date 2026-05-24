@@ -13,11 +13,11 @@ mnk_user_byname(query)
 A tibble with one row per matching user. If no matches are found,
 it returns an empty tibble with the same column structure. Columns are:
 \describe{
-\item{id}{User identifier, integer.}
-\item{login}{Username, character.}
-\item{name}{Full name, character.}
-\item{observations_count}{Number of observations, integer.}
-\item{created_at}{Account creation timestamp, POSIXct.}
+  \item{id}{User identifier, integer.}
+  \item{login}{Username, character.}
+  \item{name}{Full name, character.}
+  \item{observations_count}{Number of observations, integer.}
+  \item{created_at}{Account creation timestamp, POSIXct.}
 }
 }
 \description{

@@ -11,7 +11,7 @@ mnk_place_byname(query)
 }
 \value{
 A tibble with one row per matching place. Returns an empty tibble
-with zero rows if no matches are found, or \code{NULL} invisibly on network error.
+with zero rows if no matches are found, or `NULL` invisibly on network error.
 Columns are:
 \describe{
 \item{place_id}{Place identifier, integer.}

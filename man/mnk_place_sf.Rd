@@ -18,22 +18,22 @@ an EPSG code or any value accepted by \code{sf::st_crs()}. Defaults to
 An \code{sf} object with one row per place and the following columns.
 Returns \code{NULL} invisibly if the request fails or the response is empty:
 \describe{
-\item{place_id}{Place identifier, integer.}
-\item{name}{Place name, character.}
-\item{display_name}{Full display name, character.}
-\item{slug}{URL slug, character.}
-\item{uuid}{Universally unique identifier, character.}
-\item{place_type}{Type of place, character or \code{NA}.}
-\item{admin_level}{Administrative level, integer or \code{NA}.}
-\item{bbox_area}{Bounding box area, numeric.}
-\item{location}{Centroid as "lat,lon" string, character.}
-\item{geometry}{Simple feature geometry (POINT, POLYGON or MULTIPOLYGON),
-CRS 4326 unless transformed.}
+  \item{place_id}{Place identifier, integer.}
+  \item{name}{Place name, character.}
+  \item{display_name}{Full display name, character.}
+  \item{slug}{URL slug, character.}
+  \item{uuid}{Universally unique identifier, character.}
+  \item{place_type}{Type of place, character or \code{NA}.}
+  \item{admin_level}{Administrative level, integer or \code{NA}.}
+  \item{bbox_area}{Bounding box area, numeric.}
+  \item{location}{Centroid as "lat,lon" string, character.}
+  \item{geometry}{Simple feature geometry (POINT, POLYGON or MULTIPOLYGON),
+  CRS 4326 unless transformed.}
 }
 }
 \description{
-Retrieve a Minka place as a simple features (\code{sf}) object given
-its \code{place_id}. The function queries the Minka API and returns the place
+Retrieve a Minka place as a simple features (`sf`) object given
+its `place_id`. The function queries the Minka API and returns the place
 boundary geometry together with descriptive metadata. The source GeoJSON is
 always in EPSG:4326 (WGS 84). By default the output retains this CRS, but an
 alternative CRS may be requested.

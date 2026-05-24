@@ -17,7 +17,7 @@ release](https://img.shields.io/github/v/release/devminka/rminka?include_prerele
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Contributor
-Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/devminka/rminka/blob/main/CODE_OF_CONDUCT.md)
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/devminka/rminka/blob/master/CODE_OF_CONDUCT.md)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19666782.svg)](https://doi.org/10.5281/zenodo.19666782)
 <!-- badges: end -->
 
@@ -165,12 +165,12 @@ By contributing to this project, you agree to abide by its terms.
 ## Contributing
 
 Contributions are welcome! Please see
-[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/devminka/rminka/blob/master/CONTRIBUTING.md)
 for guidelines.
 
 To contribute:
 
-1.  Fork the repo and create your branch from `main`.
+1.  Fork the repo and create your branch from `master`.
 2.  If you’ve added code, add tests.
 3.  Ensure the test suite passes: `devtools::test()`.
 4.  Make sure `R CMD check` is clean: `devtools::check()`.

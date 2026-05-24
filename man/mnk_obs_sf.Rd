@@ -21,8 +21,8 @@ and \code{longitude} are always added for geometry.}
 }
 \value{
 an sf object with POINT geometry (EPSG:4326 by default) and the
-selected attributes. Returns an empty sf object if no valid coordinates
-are present.
+  selected attributes. Returns an empty sf object if no valid coordinates
+  are present.
 }
 \description{
 Converts a tibble returned by \code{\link{mnk_obs}} into an sf POINT
