@@ -24,10 +24,10 @@ prj_names
 #> # A tibble: 5 × 8
 #>      id title      place_id slug  created_at updated_at project_type description
 #>   <int> <chr>         <int> <chr> <chr>      <chr>      <chr>        <chr>      
-#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-04-1… collection   "La BioMAR…
-#> 2   418 BioMARató…      245 biom… 2025-03-2… 2026-04-1… collection   "La BioMAR…
-#> 3   419 BioMARató…      249 biom… 2025-03-2… 2025-10-3… collection   "La BioMAR…
-#> 4   420 BioMARató…      248 biom… 2025-03-2… 2025-08-2… collection   "La BioMAR…
+#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 2   418 BioMARató…      245 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 3   419 BioMARató…      249 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 4   420 BioMARató…      248 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
 #> 5   424 BioMARato…      701 biom… 2025-04-0… 2025-12-1… collection   "Descobre …
 
 # For this example 
@@ -57,7 +57,7 @@ prj_info
 #> # A tibble: 1 × 7
 #>      id title               created_at subscrib_users place_id slug  description
 #>   <int> <chr>               <chr>               <int>    <int> <chr> <chr>      
-#> 1   419 BioMARató 2025 (Ta… 2025-03-2…             24      249 biom… La BioMARa…
+#> 1   419 BioMARató 2025 (Ta… 2025-03-2…             23      249 biom… La BioMARa…
 ```
 
 ### ● `mnk_proj_user()`
@@ -71,20 +71,20 @@ using the project ID
 prj_user <- mnk_proj_user(419)
 
 prj_user
-#> # A tibble: 24 × 16
+#> # A tibble: 23 × 16
 #>       id login          name              created_at          observations_count
 #>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              82371
+#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              83172
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
-#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11219
+#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11332
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
-#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                591
+#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                592
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4470
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27553
-#> # ℹ 14 more rows
+#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4546
+#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27917
+#> # ℹ 13 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
 #> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,
 #> #   icon_url <chr>, site_id <int>, roles <list>, spam <lgl>, suspended <lgl>,
@@ -194,7 +194,7 @@ user_name
 #>      id login             name            observations_count created_at         
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              82371 2021-04-16 10:44:11
+#> 2     4 xasalva           "xavi salvador…              83172 2021-04-16 10:44:11
 #> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
 #> 4   857 xavibou           "Xavi Bou"                    1087 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
@@ -214,7 +214,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              82371                413868
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              83172                420171
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
