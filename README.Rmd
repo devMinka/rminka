@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# rminka <a href="https://devminka.github.io/rminka/"><img src="https://raw.githubusercontent.com/devminka/rminka/main/man/figures/logo.png" alt="Logo de rminka" height="138" /></a>
+# rminka <a href="https://devminka.github.io/rminka/"><img src="https://raw.githubusercontent.com/devminka/rminka/master/man/figures/logo.png" alt="Logo de rminka" height="138" style="float:right;"/></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
