@@ -57,7 +57,7 @@ This is a wrapper around \code{\link{mnk_obs}} that uses the
 \examples{
 \dontrun{
 # Download all observations updated since a date
-obs <- mnk_obs_update("2024-03-31", taxon_name = "Diplodus sargus")
+obs <- mnk_obs_update("2026-03-31", taxon_name = "Diplodus vulgaris")
 
 # Use with bounds (must be EPSG:4326)
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
