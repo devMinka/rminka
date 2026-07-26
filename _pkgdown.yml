@@ -65,6 +65,7 @@ reference:
       - mnk_obs_id
       - mnk_obs
       - mnk_obs_byday
+      - mnk_obs_update
   - title: Auxiliary functions
     desc: >
       A set of functions with different utilities that complement Minka's
