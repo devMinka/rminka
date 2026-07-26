@@ -1,8 +1,8 @@
-# Download Minka Observations by last Update date
+# Download Minka Observations by Last Update Date
 
-Downloads observation data from the Minka API for a last update from a
-date. Subdivides requests by month or day automatically to avoid the
-10,000 record API limit.
+Downloads observation data from the Minka API filtering by last update
+date. It automatically subdivides requests by month and day to avoid the
+10,000 record limit per request imposed by the Minka API.
 
 ## Usage
 
@@ -14,7 +14,9 @@ mnk_obs_update(day_update, ..., quiet = FALSE, limit_download = TRUE)
 
 - day_update:
 
-  date in 'yyyy-mm-dd' format.
+  Date from which to retrieve updated observations. Character string in
+  `"yyyy-mm-dd"` format or a `Date` object. Observations with
+  `updated_at >= day_update` will be returned.
 
 - ...:
 
@@ -77,29 +79,43 @@ mnk_obs_update(day_update, ..., quiet = FALSE, limit_download = TRUE)
 
 - quiet:
 
-  a logical value. If TRUE, suppresses console messages.
+  Logical. If `TRUE`, suppresses console progress messages. Default
+  `FALSE`.
 
 - limit_download:
 
-  a logical value. If TRUE (default), each subdivided request is capped
-  at 10,000 records.
+  Logical. If `TRUE` (default), each subdivided request is capped at
+  10,000 records as per API limitation.
 
 ## Value
 
-a tibble with one row per observation and the same columns documented in
-[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
+A `tibble` with one row per observation and the same columns documented
+in [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
 Returns an empty tibble if no data is found.
+
+## Details
+
+This is a wrapper around
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md) that
+uses the `updated_at` filter. If the total number of records since
+`day_update` exceeds 10,000, the function splits the query by
+year/month, and if necessary, by day.
+
+## See also
+
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md),
+[`mnk_obs_byday`](https://devminka.github.io/rminka/reference/mnk_obs_byday.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Download observations between two dates
-obs <- mnk_obs_update("2024-03-31",taxon_name = "Diplodus sargus")
+# Download all observations updated since a date
+obs <- mnk_obs_update("2024-03-31", taxon_name = "Diplodus sargus")
 
 # Use with bounds (must be EPSG:4326)
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs_byday("2024-01-01",
-bounds = barcelona, quiet = TRUE)
+obs_bc <- mnk_obs_update("2024-01-01",
+  bounds = barcelona, quiet = TRUE)
 } # }
 ```
