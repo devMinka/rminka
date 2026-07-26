@@ -84,32 +84,46 @@ update_download_chunk <- function(params, total_res, quiet, limit_download) {
 # MAIN FUNCTION
 
 ## ===================================================================
-#' Download Minka Observations by last Update date
+##' Download Minka Observations by Last Update Date
 #'
-#' Downloads observation data from the Minka API for a  last update from a date.
-#' Subdivides requests by month or day automatically to avoid the 10,000
-#' record API limit.
+#' @description Downloads observation data from the Minka API filtering by
+#'   last update date. It automatically subdivides requests by month and day
+#'   to avoid the 10,000 record limit per request imposed by the Minka API.
 #'
-#' @param day_update  date in 'yyyy-mm-dd' format.
-#' @param ... additional arguments passed to the API. See [mnk_obs()] for
-#'   details on available parameters.
-#' @param quiet a logical value. If TRUE, suppresses console messages.
-#' @param limit_download a logical value. If TRUE (default), each subdivided
-#'   request is capped at 10,000 records.
+#' @details This is a wrapper around \code{\link{mnk_obs}} that uses the
+#'   \code{updated_at} filter. If the total number of records since
+#'   \code{day_update} exceeds 10,000, the function splits the query by
+#'   year/month, and if necessary, by day.
+#'
+#' @param day_update Date from which to retrieve updated observations.
+#'   Character string in \code{"yyyy-mm-dd"} format or a \code{Date} object.
+#'   Observations with \code{updated_at >= day_update} will be returned.
+#' @param ... Additional arguments passed to \code{\link{mnk_obs}}. See
+#'   details for available filters like \code{taxon_name}, \code{bounds},
+#'   \code{project_id}, etc.
+#' @param quiet Logical. If \code{TRUE}, suppresses console progress messages.
+#'   Default \code{FALSE}.
+#' @param limit_download Logical. If \code{TRUE} (default), each subdivided
+#'   request is capped at 10,000 records as per API limitation.
+#'
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
-#' @return a tibble with one row per observation and the same columns
-#'   documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
-#'   data is found.
+#'
+#' @return A \code{tibble} with one row per observation and the same columns
+#'   documented in \code{\link{mnk_obs}}. Returns an empty tibble if no data
+#'   is found.
+#' @seealso \code{\link{mnk_obs}}, \code{\link{mnk_obs_byday}}
+#' @family minka download functions
 #' @export
+#'
 #' @examples
 #' \dontrun{
-#' # Download observations between two dates
-#' obs <- mnk_obs_update("2024-03-31",taxon_name = "Diplodus sargus")
+#' # Download all observations updated since a date
+#' obs <- mnk_obs_update("2024-03-31", taxon_name = "Diplodus sargus")
 #'
 #' # Use with bounds (must be EPSG:4326)
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-#' obs_bc <- mnk_obs_byday("2024-01-01",
-#' bounds = barcelona, quiet = TRUE)
+#' obs_bc <- mnk_obs_update("2024-01-01",
+#'   bounds = barcelona, quiet = TRUE)
 #' }
 mnk_obs_update <- function(day_update,..., quiet = FALSE, limit_download = TRUE) {
   date <- as.Date(day_update, format = "%Y-%m-%d")
