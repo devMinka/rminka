@@ -24,11 +24,11 @@ prj_names
 #> # A tibble: 5 × 8
 #>      id title      place_id slug  created_at updated_at project_type description
 #>   <int> <chr>         <int> <chr> <chr>      <chr>      <chr>        <chr>      
-#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-06-2… collection   "La BioMAR…
 #> 2   418 BioMARató…      245 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
 #> 3   419 BioMARató…      249 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
 #> 4   420 BioMARató…      248 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
-#> 5   424 BioMARato…      701 biom… 2025-04-0… 2025-12-1… collection   "Descobre …
+#> 5   424 BioMARato…      701 biom… 2025-04-0… 2026-06-1… collection   "Descobre …
 
 # For this example 
 
@@ -74,16 +74,16 @@ prj_user
 #> # A tibble: 23 × 16
 #>       id login          name              created_at          observations_count
 #>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              83172
+#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              84773
 #>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
-#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11332
+#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11936
 #>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
-#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                592
+#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                596
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               4546
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              27917
+#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               5575
+#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              29870
 #> # ℹ 13 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
 #> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,
@@ -117,7 +117,7 @@ participants_may_2025 <- obs_2025 %>%
   arrange(user_login)
 
 participants_may_2025
-#> # A tibble: 30 × 1
+#> # A tibble: 31 × 1
 #>    user_login          
 #>    <chr>               
 #>  1 aci                 
@@ -130,7 +130,7 @@ participants_may_2025
 #>  8 evararo             
 #>  9 francesca           
 #> 10 hectorserranocereijo
-#> # ℹ 20 more rows
+#> # ℹ 21 more rows
 ```
 
 ### ● `mnk_proj_obs()`
@@ -148,27 +148,27 @@ prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
 #> --- STARTING DOWNLOAD FOR MONTH: May 2025 ---
 #> 
 #> --- Evaluating month: May 2025 ---
-#> The month of May has 1173 records.
+#> The month of May has 1183 records.
 #>  -> Total <= 10,000. Downloading month in one go...
 #> 
 #> --- FINISHING... ---
-#> Download complete! A total of 1,173 records were obtained.
+#> Download complete! A total of 1,183 records were obtained.
 
 prj_obs[2:14]
-#> # A tibble: 1,173 × 13
+#> # A tibble: 1,183 × 13
 #>    observed_on  year month  week   day  hour created_at      updated_at latitude
 #>    <chr>       <int> <int> <int> <int> <int> <chr>           <chr>         <dbl>
-#>  1 2025-05-23   2025     5    21    23    11 2026-03-14T12:… 2026-03-1…     41.1
-#>  2 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  3 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  4 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  5 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  6 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  7 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-10-2…     41.2
-#>  8 2025-05-24   2025     5    21    24    19 2025-10-22T21:… 2025-11-0…     41.2
-#>  9 2025-05-24   2025     5    21    24    18 2025-10-22T21:… 2025-10-2…     41.2
-#> 10 2025-05-24   2025     5    21    24    18 2025-10-22T21:… 2025-10-2…     41.2
-#> # ℹ 1,163 more rows
+#>  1 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  2 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  3 2025-05-31   2025     5    22    31    11 2026-07-03T12:… 2026-07-0…     41.1
+#>  4 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  5 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  6 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  7 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  8 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#>  9 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#> 10 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
+#> # ℹ 1,173 more rows
 #> # ℹ 4 more variables: longitude <dbl>, positional_accuracy <int>,
 #> #   geoprivacy <chr>, obscured <lgl>
 ```
@@ -194,9 +194,9 @@ user_name
 #>      id login             name            observations_count created_at         
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              83172 2021-04-16 10:44:11
-#> 3  1178 xparellada        "Xavier Parell…                670 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1087 2023-07-28 13:27:50
+#> 2     4 xasalva           "xavi salvador…              84773 2021-04-16 10:44:11
+#> 3  1178 xparellada        "Xavier Parell…                895 2023-10-31 09:07:52
+#> 4   857 xavibou           "Xavi Bou"                    1249 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
@@ -214,7 +214,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              83172                420171
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              84773                449207
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -313,11 +313,12 @@ different terms until the desired place is identified.
 places <- mnk_place_byname("Forum")
 
 places[,1:6]
-#> # A tibble: 2 × 6
+#> # A tibble: 3 × 6
 #>   place_id slug                      name     area display_name location_latitud
 #>      <int> <chr>                     <chr>   <dbl> <chr>                   <dbl>
-#> 1      253 piscinas-del-forum-fecdas Pisc… 4.28e-5 Piscinas de…             41.4
-#> 2      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
+#> 1      820 atles-zona-de-banys-del-… Atle… 9.59e-6 Atles Zona …             41.4
+#> 2      253 piscinas-del-forum-fecdas Pisc… 4.28e-5 Piscinas de…             41.4
+#> 3      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
 ```
 
 ### ● `mnk_place_sf()`
@@ -710,21 +711,22 @@ obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-0
                              d2= "2024-05-25", quiet = TRUE, quality = "research")
 
 obs_undulata_2024
-#> # A tibble: 10 × 29
+#> # A tibble: 11 × 29
 #>        id observed_on  year month  week   day  hour created_at        updated_at
 #>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 457257 2024-02-17   2024     2     7    17    10 2025-05-20T10:44… 2025-05-2…
-#>  2 271165 2024-05-12   2024     5    19    12    11 2024-05-22T20:31… 2025-03-1…
-#>  3 270617 2024-05-11   2024     5    19    11    22 2024-05-21T22:52… 2024-05-2…
-#>  4 264653 2024-05-08   2024     5    19     8    21 2024-05-09T14:08… 2025-03-1…
-#>  5 253086 2024-04-15   2024     4    16    15    19 2024-04-16T18:19… 2024-04-1…
-#>  6 232230 2024-02-18   2024     2     7    18    10 2024-02-24T10:38… 2025-03-1…
-#>  7 230658 2024-02-18   2024     2     7    18    11 2024-02-19T19:25… 2024-02-2…
-#>  8 230538 2024-02-18   2024     2     7    18    10 2024-02-19T14:36… 2024-02-2…
-#>  9 229797 2024-02-18   2024     2     7    18    10 2024-02-18T21:41… 2024-02-1…
-#> 10 222442 2024-02-03   2024     2     5     3    11 2024-02-06T18:34… 2025-03-1…
+#>  1 766133 2024-05-11   2024     5    19    11     9 2026-06-14T19:34… 2026-06-1…
+#>  2 457257 2024-02-17   2024     2     7    17    10 2025-05-20T10:44… 2025-05-2…
+#>  3 271165 2024-05-12   2024     5    19    12    11 2024-05-22T20:31… 2025-03-1…
+#>  4 270617 2024-05-11   2024     5    19    11    22 2024-05-21T22:52… 2024-05-2…
+#>  5 264653 2024-05-08   2024     5    19     8    21 2024-05-09T14:08… 2025-03-1…
+#>  6 253086 2024-04-15   2024     4    16    15    19 2024-04-16T18:19… 2024-04-1…
+#>  7 232230 2024-02-18   2024     2     7    18    10 2024-02-24T10:38… 2025-03-1…
+#>  8 230658 2024-02-18   2024     2     7    18    11 2024-02-19T19:25… 2024-02-2…
+#>  9 230538 2024-02-18   2024     2     7    18    10 2024-02-19T14:36… 2024-02-2…
+#> 10 229797 2024-02-18   2024     2     7    18    10 2024-02-18T21:41… 2024-02-1…
+#> 11 222442 2024-02-03   2024     2     5     3    11 2024-02-06T18:34… 2025-03-1…
 #> # ℹ 20 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <lgl>, obscured <lgl>, uri <chr>,
+#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
 #> #   photo_url_square <chr>, photo_url_medium <chr>, quality_grade <chr>,
 #> #   species_guess <chr>, taxon_id <int>, taxon_name <chr>, taxon_rank <chr>,
 #> #   taxon_min_ancestry <chr>, taxon_endemic <lgl>, taxon_threatened <lgl>,

@@ -79,6 +79,9 @@ data based on different parameters.
   specific month, or a single day.
 - [`mnk_obs_byday()`](https://devminka.github.io/rminka/reference/mnk_obs_byday.md):
   Retrieves all observations within a date range in the same year.
+- [`mnk_obs_update()`](https://devminka.github.io/rminka/reference/mnk_obs_update.md):
+  Downloads observation data from the Minka API filtering by \#’ last
+  update date
 
 **e) Auxiliary functions:** A set of functions with different utilities
 that complement Minka’s observational data and help in processing them
