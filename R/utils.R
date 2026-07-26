@@ -3,7 +3,6 @@
 utils::globalVariables(c(
   "geojson_string",
   "sf_geometry",
-  ".data",
   "id",
   "title",
   "description",

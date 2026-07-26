@@ -1,4 +1,4 @@
-##' @title Download Project Observations by Year
+#' @title Download Project Observations by Year
 #' @description Downloads observations for a specific Minka project, filtered by
 #'   year and optionally by month and day. This is a convenience wrapper around
 #'   \code{\link{mnk_obs}}.
