@@ -733,6 +733,43 @@ obs_undulata_2024
 #> #   taxon_introduced <lgl>, taxon_native <lgl>, user_id <int>, user_login <chr>
 ```
 
+### ● `mnk_obs_update()`
+
+Downloads observations from the Minka API filtered by the date they were
+last updated. It’s the best way to keep a local database in sync without
+re-downloading everything. The date they were last updated is
+`day_update` in ‘yyyy-mm-dd’ format.
+
+``` r
+
+#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) update since 01-01-2024.
+
+obs_undulata_2024_updated <- mnk_obs_update(day_update = "2024-01-01", taxon_name = "Raja undulata", 
+                             quiet = TRUE, quality = "research")
+
+obs_undulata_2024_updated
+#> # A tibble: 271 × 29
+#>        id observed_on  year month  week   day  hour created_at        updated_at
+#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
+#>  1 801870 2026-06-20   2026     6    25    20    19 2026-06-30T19:55… 2026-07-0…
+#>  2 792543 2026-06-21   2026     6    25    21    15 2026-06-21T21:50… 2026-06-2…
+#>  3 788840 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
+#>  4 788838 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
+#>  5 788837 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
+#>  6 787635 2026-05-07   2026     5    19     7    10 2026-06-17T13:41… 2026-06-1…
+#>  7 766133 2024-05-11   2024     5    19    11     9 2026-06-14T19:34… 2026-06-1…
+#>  8 750173 2022-01-02   2022     1    52     2     8 2026-06-13T06:36… 2026-06-1…
+#>  9 726577 2026-05-27   2026     5    22    27    22 2026-05-29T18:09… 2026-05-2…
+#> 10 726576 2026-05-27   2026     5    22    27    22 2026-05-29T18:09… 2026-05-2…
+#> # ℹ 261 more rows
+#> # ℹ 20 more variables: latitude <dbl>, longitude <dbl>,
+#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
+#> #   photo_url_square <chr>, photo_url_medium <chr>, quality_grade <chr>,
+#> #   species_guess <chr>, taxon_id <int>, taxon_name <chr>, taxon_rank <chr>,
+#> #   taxon_min_ancestry <chr>, taxon_endemic <lgl>, taxon_threatened <lgl>,
+#> #   taxon_introduced <lgl>, taxon_native <lgl>, user_id <int>, …
+```
+
 ### *- Auxiliary functions*
 
 The examples below show how the helper functions work. The first two use

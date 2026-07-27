@@ -805,6 +805,41 @@ end date in ‘yyyy-mm-dd’ format</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   taxon_introduced &lt;lgl&gt;, taxon_native &lt;lgl&gt;, user_id &lt;int&gt;, user_login &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
+<h3 id="mnk_obs_update">● <code>mnk_obs_update()</code><a class="anchor" aria-label="anchor" href="#mnk_obs_update"></a>
+</h3>
+<p>Downloads observations from the Minka API filtered by the date they
+were last updated. It’s the best way to keep a local database in sync
+without re-downloading everything. The date they were last updated is
+<code>day_update</code> in ‘yyyy-mm-dd’ format.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) update since 01-01-2024.</span></span>
+<span></span>
+<span><span class="va">obs_undulata_2024_updated</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_update.html">mnk_obs_update</a></span><span class="op">(</span>day_update <span class="op">=</span> <span class="st">"2024-01-01"</span>, taxon_name <span class="op">=</span> <span class="st">"Raja undulata"</span>, </span>
+<span>                             quiet <span class="op">=</span> <span class="cn">TRUE</span>, quality <span class="op">=</span> <span class="st">"research"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">obs_undulata_2024_updated</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 271 × 29</span></span></span>
+<span><span class="co">#&gt;        id observed_on  year month  week   day  hour created_at        updated_at</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">801</span>870 2026-06-20   <span style="text-decoration: underline;">2</span>026     6    25    20    19 2026-06-30T19:55… 2026-07-0…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">792</span>543 2026-06-21   <span style="text-decoration: underline;">2</span>026     6    25    21    15 2026-06-21T21:50… 2026-06-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">788</span>840 2026-06-12   <span style="text-decoration: underline;">2</span>026     6    24    12    22 2026-06-17T22:49… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">788</span>838 2026-06-12   <span style="text-decoration: underline;">2</span>026     6    24    12    22 2026-06-17T22:49… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">788</span>837 2026-06-12   <span style="text-decoration: underline;">2</span>026     6    24    12    22 2026-06-17T22:49… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">787</span>635 2026-05-07   <span style="text-decoration: underline;">2</span>026     5    19     7    10 2026-06-17T13:41… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">766</span>133 2024-05-11   <span style="text-decoration: underline;">2</span>024     5    19    11     9 2026-06-14T19:34… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">750</span>173 2022-01-02   <span style="text-decoration: underline;">2</span>022     1    52     2     8 2026-06-13T06:36… 2026-06-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">726</span>577 2026-05-27   <span style="text-decoration: underline;">2</span>026     5    22    27    22 2026-05-29T18:09… 2026-05-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">726</span>576 2026-05-27   <span style="text-decoration: underline;">2</span>026     5    22    27    22 2026-05-29T18:09… 2026-05-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 261 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 20 more variables: latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   positional_accuracy &lt;int&gt;, geoprivacy &lt;chr&gt;, obscured &lt;lgl&gt;, uri &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   photo_url_square &lt;chr&gt;, photo_url_medium &lt;chr&gt;, quality_grade &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   species_guess &lt;chr&gt;, taxon_id &lt;int&gt;, taxon_name &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   taxon_min_ancestry &lt;chr&gt;, taxon_endemic &lt;lgl&gt;, taxon_threatened &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   taxon_introduced &lt;lgl&gt;, taxon_native &lt;lgl&gt;, user_id &lt;int&gt;, …</span></span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="auxiliary-functions">
 <u>- Auxiliary functions</u><a class="anchor" aria-label="anchor" href="#auxiliary-functions"></a>
 </h3>
@@ -825,7 +860,7 @@ EPSG:4326 (WGS84), but you can specify any CRS you need via the crs
 argument. Its basic usage has already been shown briefly in previous
 sections. Here we develop a detailed example using the <em>Torpedo
 torpedo</em> observations at the espigó Hotel W.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">obs_utm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_torpedo_bounds</span>, <span class="va">id</span>, <span class="va">taxon_name</span>,</span>
 <span>                      <span class="va">observed_on</span>, <span class="va">user_login</span>, <span class="va">quality_grade</span>, <span class="va">url_picture</span>,</span>
 <span>                      <span class="va">uri</span>, crs <span class="op">=</span> <span class="fl">25831</span><span class="op">)</span></span>
@@ -891,7 +926,7 @@ creating one layer per object. It is designed for a smooth GIS workflow
 removes list-columns that GDAL cannot write, and transforms features to
 the target CRS.</p>
 <p>We will apply it to the two examples from the previous section.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_mnk_qgis.html">export_mnk_qgis</a></span><span class="op">(</span>observations <span class="op">=</span><span class="va">obs_utm</span> ,file<span class="op">=</span><span class="st">"shape"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#In this first example we export the observations layer from the previous step (obs_utm)</span></span>
@@ -921,7 +956,7 @@ observation functions. In these cases, the goal is to obtain the
 observations tibble enriched with the complete taxonomy for each
 recorded species, including its marine,its freshwater, brackish, or
 extinct status.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#First example – single species</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/get_wrm_tax.html">get_wrm_tax</a></span><span class="op">(</span><span class="st">"Diplodus sargus"</span><span class="op">)</span></span>
@@ -963,7 +998,7 @@ extinct status.</p>
 name. In the following example it is used to generate a bar plot of
 observation frequencies for the species in the “obs_place” tibble, with
 the abbreviated names making the chart easier to read.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Create standardized abbreviations for scientific names</span></span>
 <span></span>
 <span><span class="va">obs_place</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op">%&gt;%</span></span>
