@@ -23,7 +23,7 @@ library(knitr)
 ## ----project1, include = TRUE , echo=TRUE-------------------------------------
 prj_names <- mnk_proj_byname("2025")
 
-prj_names 
+prj_names
 
 #In detail:
 
@@ -41,7 +41,7 @@ kable(as.data.frame(prj_info))
 
 ## ----project_info_users, include = TRUE , echo=TRUE---------------------------
 
-prj_info_us <- mnk_proj_info(419, users = TRUE)
+prj_info_us <- mnk_proj_info(419)
 
 prj_info_us
 

@@ -481,6 +481,20 @@ obs_undulata_2024
 ```
 
 
+### ● `mnk_obs_update()`
+ 
+Downloads observations from the Minka API filtered by the date they were last updated. It's the best way to keep a local database in sync without re-downloading everything. The date they were last updated  is `day_update` in 'yyyy-mm-dd' format.
+
+```{r obs_update, include = TRUE ,echo=TRUE}
+#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) update since 01-01-2024.
+
+obs_undulata_2024_updated <- mnk_obs_update(day_update = "2024-01-01", taxon_name = "Raja undulata", 
+                             quiet = TRUE, quality = "research")
+
+obs_undulata_2024_updated
+
+```
+
 ### <u>- Auxiliary functions</u>
 
 The examples below show how the helper functions work. The first two use the *Torpedo torpedo* observations at the Espigó Hotel W from the previous sections. The last two use separate, specific examples.
