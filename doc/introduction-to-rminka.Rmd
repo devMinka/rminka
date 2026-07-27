@@ -1,0 +1,120 @@
+---
+title: "Introduction to rminka"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to rminka}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup}
+library(rminka)
+```
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r carga, include=FALSE}
+library(dplyr)
+library(jsonlite)
+library(httr)
+#library(leaflet)
+#library(magick)
+library(rminka)
+library(tibble)
+library(knitr)
+```
+
+## About
+
+`rminka` is a wrapper for Minka APIs for accessing the observations.
+
+
+## Installation
+
+The easiest way to get `rminka` is to install from github repository with `pak`: 
+
+```{r install, eval = FALSE, echo= TRUE}
+pak::pak("Raiservi/rminka")
+```
+
+## Quickstart guide
+
+These functions are designed to be used together. For queries that span multiple years, you can easily loop through the years of interest, run the appropriate function, and then combine the resulting tibbles with `dplyr::bind_rows()`.
+> It is recommended to set the `quality` argument to `"research"` in order to 
+get more reliable data that has been validated by several contributors.
+
+### Project Queries
+
+A set of complementary  functions to find projects and their associated observations.
+
+**- Project Queries ** 
+
+* mnk_proj_byname 
+  Finds a project's ID using an approximate project name.
+```{r project1, include = TRUE , echo=TRUE}
+prj_names <- mnk_proj_byname("2025")
+
+prj_names 
+
+#In detail:
+
+kable(prj_names[,c(1:5)])
+
+```
+* mnk_proj_info
+   Retrieves detailed project information using its known ID.
+```{r project_info, include = TRUE , echo=TRUE}
+
+prj_info <- mnk_proj_info(420)
+
+prj_info
+
+kable(as.data.frame(prj_info))
+
+```
+It´s posible to known the users subscrived in this projects chnging de parameter 'user = TRUE'  and the function gives a list of the id users.
+
+```{r project_info_users, include = TRUE , echo=TRUE}
+
+prj_info_us <- mnk_proj_info(419, users = TRUE)
+
+prj_info_us
+
+kable(t(as.data.frame(prj_info_us)))
+
+```
+
+  
+**- mnk_proj_obs **
+   
+
+kable(as.data.frame(obs_prj))
+```
+
+**- User Queries ** 
+  
+* mnk_user_byname 
+
+```{r user_name, include = TRUE , echo=TRUE}
+
+user_name <- mnk_user_byname("ramon")
+
+user_name
+
+kable(as.data.frame(user_name))
+```
+
+* mnk_user_proj 
+
+```{r user_project, include = TRUE , echo=TRUE}
+
+user_project <- mnk_user_proj(6)
+
+user_project
+
+kable(as.data.frame(user_project))

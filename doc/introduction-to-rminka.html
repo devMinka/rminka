@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduction to rminka</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to rminka</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rminka)</span></code></pre></div>
+<div id="about" class="section level2">
+<h2>About</h2>
+<p><code>rminka</code> is a wrapper for Minka APIs for accessing the
+observations.</p>
+</div>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>The easiest way to get <code>rminka</code> is to install from github
+repository with <code>pak</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">&quot;Raiservi/rminka&quot;</span>)</span></code></pre></div>
+</div>
+<div id="quickstart-guide" class="section level2">
+<h2>Quickstart guide</h2>
+<p>These functions are designed to be used together. For queries that
+span multiple years, you can easily loop through the years of interest,
+run the appropriate function, and then combine the resulting tibbles
+with <code>dplyr::bind_rows()</code>. &gt; It is recommended to set the
+<code>quality</code> argument to <code>&quot;research&quot;</code> in order to get
+more reliable data that has been validated by several contributors.</p>
+<div id="project-queries" class="section level3">
+<h3>Project Queries</h3>
+<p>A set of complementary functions to find projects and their
+associated observations.</p>
+<p><strong>- Project Queries </strong></p>
+<ul>
+<li>mnk_proj_byname Finds a project’s ID using an approximate project
+name.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>prj_names <span class="ot">&lt;-</span> <span class="fu">mnk_proj_byname</span>(<span class="st">&quot;2025&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>prj_names </span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 8</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;       id title     place_id slug  created_at updated_at project_type description</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  1   417 BioMARat…      244 biom… 2025-03-2… 2025-10-3… collection   &quot;La BioMAR…</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;  2   418 BioMARat…      245 biom… 2025-03-2… 2025-08-2… collection   &quot;La BioMAR…</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;  3   419 BioMARat…      249 biom… 2025-03-2… 2025-10-3… collection   &quot;La BioMAR…</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;  4   420 BioMARat…      248 biom… 2025-03-2… 2025-08-2… collection   &quot;La BioMAR…</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;  5   424 BioMARat…      701 biom… 2025-04-0… 2025-12-1… collection   &quot;Descobre …</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;  6   233 Biodiver…       NA biod… 2023-12-0… 2025-04-2… umbrella     &quot;Aquest pr…</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;  7   228 Biodiver…      277 biod… 2023-12-0… 2025-05-0… collection   &quot;Aquest pr…</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;  8   224 Biodiver…      311 biod… 2023-12-0… 2025-05-0… collection   &quot;Aquest pr…</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;  9   415 Biodiver…      247 biod… 2025-03-2… 2025-05-2… collection   &quot;Recull de…</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 10   524 Exposici…      437 expo… 2025-11-0… 2025-11-1… collection   &quot;Conjunt d…</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#In detail:</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="fu">kable</span>(prj_names[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)])</span></code></pre></div>
+<table>
+<colgroup>
+<col width="2%" />
+<col width="40%" />
+<col width="4%" />
+<col width="38%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">title</th>
+<th align="right">place_id</th>
+<th align="left">slug</th>
+<th align="left">created_at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">417</td>
+<td align="left">BioMARató 2025 (Catalunya)</td>
+<td align="right">244</td>
+<td align="left">biomarato-2025-catalunya</td>
+<td align="left">2025-03-25T15:56:46+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">418</td>
+<td align="left">BioMARató 2025 (Girona)</td>
+<td align="right">245</td>
+<td align="left">biomarato-2025-girona</td>
+<td align="left">2025-03-25T15:58:46+00:00</td>
+</tr>
+<tr class="odd">
+<td align="right">419</td>
+<td align="left">BioMARató 2025 (Tarragona)</td>
+<td align="right">249</td>
+<td align="left">biomarato-2025-tarragona</td>
+<td align="left">2025-03-25T15:59:26+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">420</td>
+<td align="left">BioMARató 2025 (Barcelona)</td>
+<td align="right">248</td>
+<td align="left">biomarato-2025-barcelona</td>
+<td align="left">2025-03-25T17:00:14+01:00</td>
+</tr>
+<tr class="odd">
+<td align="right">424</td>
+<td align="left">BioMARatona 2025</td>
+<td align="right">701</td>
+<td align="left">biomaratona-2025</td>
+<td align="left">2025-04-04T18:46:30+02:00</td>
+</tr>
+<tr class="even">
+<td align="right">233</td>
+<td align="left">Biodiverciutat 2025 - Àrea Metropolitana de Barcelona
+(Repte Naturalista Urbà)</td>
+<td align="right">NA</td>
+<td align="left">biodiverciutat-2025-area-metropolitana-de-barcelona-repte-naturalista-urba</td>
+<td align="left">2023-12-05T15:55:12+00:00</td>
+</tr>
+<tr class="odd">
+<td align="right">228</td>
+<td align="left">Biodiverciutat 2025 - Castelldefels (Repte Naturalista
+Urbà)</td>
+<td align="right">277</td>
+<td align="left">biodiverciutat-2025-castelldefels-repte-naturalista-urba</td>
+<td align="left">2023-12-05T15:37:27+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">224</td>
+<td align="left">Biodiverciutat 2025 - Barcelona (Repte Naturalista
+Urbà)</td>
+<td align="right">311</td>
+<td align="left">biodiverciutat-2025-barcelona-repte-naturalista-urba</td>
+<td align="left">2023-12-05T10:14:10+00:00</td>
+</tr>
+<tr class="odd">
+<td align="right">415</td>
+<td align="left">Biodiversitat NauticinBlu 2025</td>
+<td align="right">247</td>
+<td align="left">biodiversitat-nauticinblu-2025</td>
+<td align="left">2025-03-20T09:25:07+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">524</td>
+<td align="left">Exposició de Bolets de la Serralada Litoral 2025</td>
+<td align="right">437</td>
+<td align="left">exposicio-de-bolets-de-la-serralada-litoral-2025</td>
+<td align="left">2025-11-06T15:28:06+00:00</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>mnk_proj_info Retrieves detailed project information using its known
+ID.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>prj_info <span class="ot">&lt;-</span> <span class="fu">mnk_proj_info</span>(<span class="dv">420</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>prj_info</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; $id</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; [1] 420</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; $title</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;BioMARató 2025 (Barcelona)&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; $created_at</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2025-03-25T17:00:14+01:00&quot;</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; $subscrib_users</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; [1] 16</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; $place_id</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; [1] 248</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; $slug</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; [1] &quot;biomarato-2025-barcelona&quot;</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; $description</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; [1] &quot;La BioMARató és un esdeveniment de ciència ciutadana que té l&#39;objectiu de conèixer la biodiversitat del litoral de Catalunya mitjançant una competició amistosa entre les persones participants. En aquest projecte es recullen les observacions marines i costaneres de la província de Barcelona.&quot;</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(prj_info))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="1%" />
+<col width="6%" />
+<col width="6%" />
+<col width="3%" />
+<col width="2%" />
+<col width="6%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">title</th>
+<th align="left">created_at</th>
+<th align="right">subscrib_users</th>
+<th align="right">place_id</th>
+<th align="left">slug</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">420</td>
+<td align="left">BioMARató 2025 (Barcelona)</td>
+<td align="left">2025-03-25T17:00:14+01:00</td>
+<td align="right">16</td>
+<td align="right">248</td>
+<td align="left">biomarato-2025-barcelona</td>
+<td align="left">La BioMARató és un esdeveniment de ciència ciutadana
+que té l’objectiu de conèixer la biodiversitat del litoral de Catalunya
+mitjançant una competició amistosa entre les persones participants. En
+aquest projecte es recullen les observacions marines i costaneres de la
+província de Barcelona.</td>
+</tr>
+</tbody>
+</table>
+<p>It´s posible to known the users subscrived in this projects chnging
+de parameter ‘user = TRUE’ and the function gives a list of the id
+users.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>prj_info_us <span class="ot">&lt;-</span> <span class="fu">mnk_proj_info</span>(<span class="dv">419</span>, <span class="at">users =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>prj_info_us</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; # A tibble: 24 × 1</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;    id_users</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;       &lt;int&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  1        4</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  2        6</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;  3       11</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  4       12</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;  5       13</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;  6       52</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;  7      159</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  8      166</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  9      197</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; 10      219</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; # ℹ 14 more rows</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">t</span>(<span class="fu">as.data.frame</span>(prj_info_us)))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="5%" />
+<col width="5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left">id_users</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="right">13</td>
+<td align="right">52</td>
+<td align="right">159</td>
+<td align="right">166</td>
+<td align="right">197</td>
+<td align="right">219</td>
+<td align="right">817</td>
+<td align="right">866</td>
+<td align="right">908</td>
+<td align="right">988</td>
+<td align="right">1081</td>
+<td align="right">1178</td>
+<td align="right">1659</td>
+<td align="right">2437</td>
+<td align="right">5214</td>
+<td align="right">5965</td>
+<td align="right">6023</td>
+<td align="right">7061</td>
+<td align="right">16772</td>
+<td align="right">17299</td>
+</tr>
+</tbody>
+</table>
+<p><strong>- mnk_proj_obs </strong></p>
+<p>kable(as.data.frame(obs_prj))</p>
+<pre><code>
+**- User Queries ** 
+  
+* mnk_user_byname 
+
+
+``` r
+
+user_name &lt;- mnk_user_byname(&quot;ramon&quot;)
+
+user_name
+#&gt; # A tibble: 6 × 5
+#&gt;      id login         name                     observations_count created_at    
+#&gt;   &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;                                 &lt;int&gt; &lt;chr&gt;         
+#&gt; 1  5098 ramon          &lt;NA&gt;                                     0 2024-07-15T09…
+#&gt; 2     6 ramonservitje &quot;&quot;                                     1259 2022-04-16T15…
+#&gt; 3 17845 ramonmares    &quot;Ramon de los mares&quot;                     21 2025-12-10T14…
+#&gt; 4   615 ramoncedeno    &lt;NA&gt;                                     1 2023-05-16T07…
+#&gt; 5  1631 ramontog      &quot;Ramón Montoya González&quot;                  0 2024-03-09T07…
+#&gt; 6  3748 ninifan       &quot;Ramon Reyes&quot;                             0 2024-06-08T01…
+
+kable(as.data.frame(user_name))</code></pre>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="15%" />
+<col width="26%" />
+<col width="21%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">login</th>
+<th align="left">name</th>
+<th align="right">observations_count</th>
+<th align="left">created_at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5098</td>
+<td align="left">ramon</td>
+<td align="left">NA</td>
+<td align="right">0</td>
+<td align="left">2024-07-15T09:47:24+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">ramonservitje</td>
+<td align="left"></td>
+<td align="right">1259</td>
+<td align="left">2022-04-16T15:47:14+00:00</td>
+</tr>
+<tr class="odd">
+<td align="right">17845</td>
+<td align="left">ramonmares</td>
+<td align="left">Ramon de los mares</td>
+<td align="right">21</td>
+<td align="left">2025-12-10T14:18:19+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">615</td>
+<td align="left">ramoncedeno</td>
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="left">2023-05-16T07:09:31+00:00</td>
+</tr>
+<tr class="odd">
+<td align="right">1631</td>
+<td align="left">ramontog</td>
+<td align="left">Ramón Montoya González</td>
+<td align="right">0</td>
+<td align="left">2024-03-09T07:12:03+00:00</td>
+</tr>
+<tr class="even">
+<td align="right">3748</td>
+<td align="left">ninifan</td>
+<td align="left">Ramon Reyes</td>
+<td align="right">0</td>
+<td align="left">2024-06-08T01:51:51+00:00</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>mnk_user_proj</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>user_project <span class="ot">&lt;-</span> <span class="fu">mnk_user_proj</span>(<span class="dv">6</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>user_project</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 7</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt;       id title                       description slug  icon  place_id created_at</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;                       &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;     </span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt;  1   338 ANERIS - Biodiversitat Mas… &quot;El projec… aner… http…      436 2024-09-0…</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;  2    44 Anthozoos del Barcelonés    &quot;Estudi de… anth… http…       NA 2022-09-2…</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;  3     9 BioMARató 2022 (Barcelona)  &quot;La BioMAR… biom… http…      248 2022-04-1…</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;  4    20 BioMARató 2022 (Catalunya)  &quot;La BioMAR… biom… http…      244 2022-04-1…</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;  5     1 BioMARató 2022 (Girona)     &quot;La BioMAR… biom… http…      245 2022-04-1…</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;  6    10 BioMARató 2022 (Tarragona)  &quot;La BioMAR… biom… http…      249 2022-04-1…</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  7   283 BioMARató 2024 (Catalunya)  &quot;La BioMAR… biom… http…      244 2024-03-2…</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;  8   280 BioMARató 2024 (Tarragona)  &quot;La BioMAR… biom… http…      249 2024-03-2…</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;  9   420 BioMARató 2025 (Barcelona)  &quot;La BioMAR… biom… http…      248 2025-03-2…</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 10   419 BioMARató 2025 (Tarragona)  &quot;La BioMAR… biom… http…      249 2025-03-2…</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as.data.frame</span>(user_project))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="0%" />
+<col width="6%" />
+<col width="75%" />
+<col width="6%" />
+<col width="7%" />
+<col width="0%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">title</th>
+<th align="left">description</th>
+<th align="left">slug</th>
+<th align="left">icon</th>
+<th align="right">place_id</th>
+<th align="left">created_at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">338</td>
+<td align="left">ANERIS - Biodiversitat Masia Blanca (Seguiment de
+Biodiversitat Marina a Comarruga))</td>
+<td align="left">El projecte Biodiversitat Masia Blanca és un projecte
+de ciència ciutadana on la finalitat és recollir totes les observacions
+de biodiversitat marina de la Reserva Marina de Masia Blanca, a
+Comarruga.</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Seguint amb la línia d’objectius del projecte, es pretén incrementar
+el valor del patrimoni natural que conté el municipi per mitjà d’accions
+divulgatives a la ciutadania, visitants i itinerants de la pròpia
+localitat. Biodiversitat Masia Blanca està encapçalat pel centre
+Oceanicos, en coordinació amb la Federació Catalana d’Activitats
+Subaquàtiques (FECDAS), i que es troba dins del projecte europeu ANERIS.
+Aquest projecte europeu impulsat per Institut de Ciències del Mar
+(ICM-CSIC) i que pretén fomentar la participació ciutadana com a mitjà
+per a l’obtenció de dades sobre biodiversitat, creant una xarxa
+d’observadors/es al llarg del litoral català.</p>
+<p>Segueix-nos i participa en el projecte i en totes les seves novetats!
+|aneris-biodiversitat-masia-blanca-seguiment-de-biodiversitat-marina-a-comarruga
+|<a href="https://minka-sdg.org/attachments/projects/icons/338/span2/LogoRodo-300x300.png?1725261395" class="uri">https://minka-sdg.org/attachments/projects/icons/338/span2/LogoRodo-300x300.png?1725261395</a>
+| 436|2024-09-02T07:16:36+00:00 | | 44|Anthozoos del Barcelonés |Estudi
+dels anthozoos del municipi del Barcelonés. |anthozoos-del-barcelones
+|<a href="https://minka-sdg.org/attachments/projects/icons/44/span2/Actinia_bl-1.png?1665227958" class="uri">https://minka-sdg.org/attachments/projects/icons/44/span2/Actinia_bl-1.png?1665227958</a>
+| NA|2022-09-28T17:49:39+00:00 | | 9|BioMARató 2022 (Barcelona) |La
+BioMARató es una manera divertida de competir de forma amistosa con
+otras provincias de la costa catalana y participar en uno de los mayores
+acontecimientos del año ciencia ciudadana marina.</p>
+<p>En este proyecto se recogen las observaciones de la BioMARató de la
+provincia de Barcelona |biomarato-2022-barcelona |<a href="https://minka-sdg.org/attachments/projects/icons/9/span2/icon.png?1650368280" class="uri">https://minka-sdg.org/attachments/projects/icons/9/span2/icon.png?1650368280</a>
+| 248|2022-04-19T11:38:01+00:00 | | 20|BioMARató 2022 (Catalunya) |La
+BioMARató es una manera divertida de competir de forma amistosa con
+otras provincias de la costa catalana y participar en uno de los mayores
+acontecimientos del año ciencia ciudadana marina.
+|biomarato-2022-catalunya |<a href="https://minka-sdg.org/attachments/projects/icons/20/span2/icon.png?1650378269" class="uri">https://minka-sdg.org/attachments/projects/icons/20/span2/icon.png?1650378269</a>
+| 244|2022-04-19T14:24:30+00:00 | | 1|BioMARató 2022 (Girona) |La
+BioMARató es una manera divertida de competir de forma amistosa con
+otras provincias de la costa catalana y participar en uno de los mayores
+acontecimientos del año ciencia ciudadana marina.</p>
+<p>En este proyecto se recogen las observaciones de la BioMARató de la
+provincia de Girona |biomarato-2022-girona |<a href="https://minka-sdg.org/attachments/projects/icons/1/span2/icon.png?1650363077" class="uri">https://minka-sdg.org/attachments/projects/icons/1/span2/icon.png?1650363077</a>
+| 245|2022-04-19T10:11:18+00:00 | | 10|BioMARató 2022 (Tarragona) |La
+BioMARató es una manera divertida de competir de forma amistosa con
+otras provincias de la costa catalana y participar en uno de los mayores
+acontecimientos del año ciencia ciudadana marina.</p>
+<p>En este proyecto se recogen las observaciones de la BioMARató de la
+provincia de Tarragona |biomarato-2022-tarragona |<a href="https://minka-sdg.org/attachments/projects/icons/10/span2/icon.png?1650368406" class="uri">https://minka-sdg.org/attachments/projects/icons/10/span2/icon.png?1650368406</a>
+| 249|2022-04-19T11:40:06+00:00 | | 283|BioMARató 2024 (Catalunya) |La
+BioMARató és un esdeveniment de ciència ciutadana que té l’objectiu de
+conèixer la biodiversitat del litoral de Catalunya mitjançant una
+competició amistosa entre les persones participants. En aquest projecte
+es recullen les observacions marines i costaneres de tota la costa
+catalana. |biomarato-2024-catalunya |<a href="https://minka-sdg.org/attachments/projects/icons/283/span2/logo_biomarato_social.png?1711375059" class="uri">https://minka-sdg.org/attachments/projects/icons/283/span2/logo_biomarato_social.png?1711375059</a>
+| 244|2024-03-25T13:52:39+00:00 | | 280|BioMARató 2024 (Tarragona) |La
+BioMARató és un esdeveniment de ciència ciutadana que té l’objectiu de
+conèixer la biodiversitat del litoral de Catalunya mitjançant una
+competició amistosa entre les persones participants. En aquest projecte
+es recullen les observacions marines i costaneres de la província de
+Tarragona. |biomarato-2024-tarragona |<a href="https://minka-sdg.org/attachments/projects/icons/280/span2/logo_biomarato_social.png?1711374606" class="uri">https://minka-sdg.org/attachments/projects/icons/280/span2/logo_biomarato_social.png?1711374606</a>
+| 249|2024-03-25T14:50:06+01:00 | | 420|BioMARató 2025 (Barcelona) |La
+BioMARató és un esdeveniment de ciència ciutadana que té l’objectiu de
+conèixer la biodiversitat del litoral de Catalunya mitjançant una
+competició amistosa entre les persones participants. En aquest projecte
+es recullen les observacions marines i costaneres de la província de
+Barcelona. |biomarato-2025-barcelona |<a href="https://minka-sdg.org/attachments/projects/icons/420/span2/logo_biomarato_social.png?1742918414" class="uri">https://minka-sdg.org/attachments/projects/icons/420/span2/logo_biomarato_social.png?1742918414</a>
+| 248|2025-03-25T17:00:14+01:00 | | 419|BioMARató 2025 (Tarragona) |La
+BioMARató és un esdeveniment de ciència ciutadana que té l’objectiu de
+conèixer la biodiversitat del litoral de Catalunya mitjançant una
+competició amistosa entre les persones participants. En aquest projecte
+es recullen les observacions marines i costaneres de la província de
+Tarragona. |biomarato-2025-tarragona |<a href="https://minka-sdg.org/attachments/projects/icons/419/span2/logo_biomarato_social.png?1742918365" class="uri">https://minka-sdg.org/attachments/projects/icons/419/span2/logo_biomarato_social.png?1742918365</a>
+| 249|2025-03-25T15:59:26+00:00 |</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
