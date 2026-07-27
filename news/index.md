@@ -1,5 +1,14 @@
 # Changelog
 
+## rminka 0.2.0
+
+## rminka 0.1.2
+
+- Added new function
+  [`mnk_obs_update()`](https://devminka.github.io/rminka/reference/mnk_obs_update.md)
+  to retrieve observations updated since a given date.
+- No changes to existing functions.
+
 ## rminka 0.1.1
 
 - Initial CRAN release.

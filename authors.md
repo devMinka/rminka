@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/devminka/rminka/blob/master/DESCRIPTION)
 
 Servitje R (2026). *rminka: Direct Access to Minka Data*. R package
-version 0.1.1, <https://devminka.github.io/rminka/>.
+version 0.2.0, <https://devminka.github.io/rminka/>.
 
     @Manual{,
       title = {rminka: Direct Access to Minka Data},
       author = {Ramon Servitje},
       year = {2026},
-      note = {R package version 0.1.1},
+      note = {R package version 0.2.0},
       url = {https://devminka.github.io/rminka/},
     }
