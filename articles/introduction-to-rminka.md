@@ -21,26 +21,10 @@ Here we use the query “biomarato 2025”.
 prj_names <- mnk_proj_byname("biomarato 2025")
 
 prj_names 
-#> # A tibble: 5 × 8
-#>      id title      place_id slug  created_at updated_at project_type description
-#>   <int> <chr>         <int> <chr> <chr>      <chr>      <chr>        <chr>      
-#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-06-2… collection   "La BioMAR…
-#> 2   418 BioMARató…      245 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
-#> 3   419 BioMARató…      249 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
-#> 4   420 BioMARató…      248 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
-#> 5   424 BioMARato…      701 biom… 2025-04-0… 2026-06-1… collection   "Descobre …
 
 # For this example 
 
 prj_names[,c(1:2)]
-#> # A tibble: 5 × 2
-#>      id title                     
-#>   <int> <chr>                     
-#> 1   417 BioMARató 2025 (Catalunya)
-#> 2   418 BioMARató 2025 (Girona)   
-#> 3   419 BioMARató 2025 (Tarragona)
-#> 4   420 BioMARató 2025 (Barcelona)
-#> 5   424 BioMARatona 2025
 ```
 
 ### ● `mnk_proj_info()`
@@ -54,10 +38,6 @@ For the Biomarató Tarragona 2025, the project ID is 419.
 prj_info <- mnk_proj_info(419)
 
 prj_info
-#> # A tibble: 1 × 7
-#>      id title               created_at subscrib_users place_id slug  description
-#>   <int> <chr>               <chr>               <int>    <int> <chr> <chr>      
-#> 1   419 BioMARató 2025 (Ta… 2025-03-2…             23      249 biom… La BioMARa…
 ```
 
 ### ● `mnk_proj_user()`
@@ -71,24 +51,6 @@ using the project ID
 prj_user <- mnk_proj_user(419)
 
 prj_user
-#> # A tibble: 23 × 16
-#>       id login          name              created_at          observations_count
-#>    <int> <chr>          <chr>             <dttm>                           <int>
-#>  1     4 xasalva        "xavi salvador c… 2021-04-16 10:44:11              84773
-#>  2     6 ramonservitje  ""                2022-04-16 15:47:14               1259
-#>  3    11 jaume-piera    "Jaume Piera"     2022-04-18 15:45:37              11936
-#>  4    12 sonialinan      NA               2022-04-19 12:53:18                410
-#>  5    13 adrisoacha     "Karen Soacha"    2022-04-21 09:40:57                596
-#>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
-#>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
-#>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               5607
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              29870
-#> # ℹ 13 more rows
-#> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
-#> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,
-#> #   icon_url <chr>, site_id <int>, roles <list>, spam <lgl>, suspended <lgl>,
-#> #   universal_search_rank <int>
 ```
 
 Note: The simplest way to retrieve all participants in a project —
@@ -145,32 +107,8 @@ optionally within a specific month. For the Biomarató Tarragona 2025
 ``` r
 
 prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
-#> --- STARTING DOWNLOAD FOR MONTH: May 2025 ---
-#> 
-#> --- Evaluating month: May 2025 ---
-#> The month of May has 1183 records.
-#>  -> Total <= 10,000. Downloading month in one go...
-#> 
-#> --- FINISHING... ---
-#> Download complete! A total of 1,183 records were obtained.
 
 prj_obs[2:14]
-#> # A tibble: 1,183 × 13
-#>    observed_on  year month  week   day  hour created_at      updated_at latitude
-#>    <chr>       <int> <int> <int> <int> <int> <chr>           <chr>         <dbl>
-#>  1 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  2 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  3 2025-05-31   2025     5    22    31    11 2026-07-03T12:… 2026-07-0…     41.1
-#>  4 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  5 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  6 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  7 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  8 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#>  9 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#> 10 2025-05-31   2025     5    22    31    12 2026-07-03T12:… 2026-07-0…     41.1
-#> # ℹ 1,173 more rows
-#> # ℹ 4 more variables: longitude <dbl>, positional_accuracy <int>,
-#> #   geoprivacy <chr>, obscured <lgl>
 ```
 
 ### *- User Queries*
@@ -190,15 +128,6 @@ desired user — Xavier Salvador — is then selected from that list.
 user_name <- mnk_user_byname("xavi")
 
 user_name
-#> # A tibble: 6 × 5
-#>      id login             name            observations_count created_at         
-#>   <int> <chr>             <chr>                        <int> <dttm>             
-#> 1    47 xavi               NA                              6 2022-05-06 10:47:06
-#> 2     4 xasalva           "xavi salvador…              84773 2021-04-16 10:44:11
-#> 3  1178 xparellada        "Xavier Parell…                895 2023-10-31 09:07:52
-#> 4   857 xavibou           "Xavi Bou"                    1249 2023-07-28 13:27:50
-#> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
-#> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
 ```
 
 ### ● `mnk_user_info()`
@@ -211,13 +140,6 @@ mnk_user_info(). For Xavier Salvador (login “xasalva”), the user ID is 4
 user_info <- mnk_user_info(4)
 
 user_info
-#> # A tibble: 1 × 16
-#>      id login name  created_at          observations_count identifications_count
-#>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              84773                449867
-#> # ℹ 10 more variables: species_count <int>, activity_count <int>,
-#> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
-#> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
 ```
 
 ### ● `mnk_user_proj()`
@@ -235,19 +157,6 @@ formally subscribed cannot be retrieved directly in R.
 user_project <- mnk_user_proj(4)
 
 user_project
-#> # A tibble: 10 × 7
-#>       id title                       description slug  icon  place_id created_at
-#>    <int> <chr>                       <chr>       <chr> <chr>    <int> <chr>     
-#>  1   522 (Principal) Biodiverciutat… "Aquest pr… prin… http…       NA 2025-10-2…
-#>  2   144 ANERIS - Biodiversitat D.C… "El projec… aner… http…      337 2023-06-0…
-#>  3   312 ANERIS - Biodiversitat Llo… "El projec… aner… http…      416 2024-06-1…
-#>  4   146 ANERIS - Biodiversitat UNI… "El projec… aner… http…      338 2023-06-0…
-#>  5   177 ANERIS - Biodiversitat al … "El projec… aner… http…      361 2023-08-2…
-#>  6   183 ANERIS - SASBA (Seguiment … "Descobrim… aner… http…      251 2023-10-0…
-#>  7    44 Anthozoos del Barcelonés    "Estudi de… anth… http…       NA 2022-09-2…
-#>  8   444 Arees verdes marines - Emp… "Aquest pr… aree… http…      712 2025-05-2…
-#>  9   448 BIODIVERSIDAD MARINA BADIA… "Estudio d… biod… http…      714 2025-05-2…
-#> 10   181 BM-PortSalvi                "El projec… bm-p… http…      367 2023-09-1…
 ```
 
 ### ● `mnk_user_obs()`
@@ -262,36 +171,8 @@ for example May, are obtained with
 ``` r
 
 user_obs <- mnk_user_obs(user_id= 4, year = 2025, month = 8)
-#> --- STARTING DOWNLOAD FOR MONTH: August 2025 ---
-#> 
-#> --- Evaluating month: August 2025 ---
-#> The month of August has 2347 records.
-#>  -> Total <= 10,000. Downloading month in one go...
-#> 
-#> --- FINISHING... ---
-#> Download complete! A total of 2,347 records were obtained.
 
 user_obs
-#> # A tibble: 2,347 × 27
-#>        id observed_on  year month  week   day  hour created_at        updated_at
-#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 596411 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  2 596410 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  3 596409 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  4 596408 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  5 596407 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  6 596406 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  7 596405 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  8 596404 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#>  9 596403 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#> 10 596402 2025-08-30   2025     8    35    30    12 2025-10-17T10:40… 2025-10-1…
-#> # ℹ 2,337 more rows
-#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
-#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
-#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
-#> #   user_id <int>, user_login <chr>
 ```
 
 ### *- Place Queries*
@@ -313,12 +194,6 @@ different terms until the desired place is identified.
 places <- mnk_place_byname("Forum")
 
 places[,1:6]
-#> # A tibble: 3 × 6
-#>   place_id slug                      name     area display_name location_latitud
-#>      <int> <chr>                     <chr>   <dbl> <chr>                   <dbl>
-#> 1      820 atles-zona-de-banys-del-… Atle… 9.59e-6 Atles Zona …             41.4
-#> 2      253 piscinas-del-forum-fecdas Pisc… 4.28e-5 Piscinas de…             41.4
-#> 3      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
 ```
 
 ### ● `mnk_place_sf()`
@@ -375,26 +250,6 @@ The resulting points can then be mapped with the leaflet package.
 obs_place <- mnk_place_obs(place_id = 253, year = 2025, month = 2, quiet = TRUE)
 
 obs_place
-#> # A tibble: 529 × 27
-#>        id observed_on  year month  week   day  hour created_at        updated_at
-#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 427205 2025-02-19   2025     2     8    19    11 2025-03-19T12:44… 2025-03-1…
-#>  2 427204 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  3 427203 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2026-01-2…
-#>  4 427202 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  5 427201 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  6 427200 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  7 427199 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  8 427198 2025-02-19   2025     2     8    19    12 2025-03-19T12:44… 2025-03-1…
-#>  9 427197 2025-02-19   2025     2     8    19    11 2025-03-19T12:44… 2025-03-1…
-#> 10 427196 2025-02-19   2025     2     8    19    11 2025-03-19T12:44… 2025-03-1…
-#> # ℹ 519 more rows
-#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
-#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
-#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
-#> #   user_id <int>, user_login <chr>
 
 #Turning the dataframe into an sf object with the mnk_obs_sf() function
 
@@ -421,10 +276,6 @@ leaflet(obs_sf) %>%
                            lat = ~latitude,
                            popup = popup_final) %>%
                 addLayersControl(baseGroups = c("Satélite", "OSM")) 
-```
-
-``` r
-
 
 #  Observations plus place maping
 
@@ -445,17 +296,6 @@ beforehand.
 obs_id <- mnk_obs_id(id = 553028)
 
 obs_id
-#> # A tibble: 1 × 166
-#>   quality_grade time_observed_at       taxon_geoprivacy annotations uuid      id
-#>   <chr>         <chr>                  <lgl>            <list>      <chr>  <int>
-#> 1 research      2025-08-22T12:22:00+0… NA               <list [0]>  b106… 553028
-#> # ℹ 160 more variables: cached_votes_total <int>,
-#> #   identifications_most_agree <lgl>, species_guess <chr>,
-#> #   identifications_most_disagree <lgl>, tags <list>,
-#> #   positional_accuracy <int>, comments_count <int>, site_id <int>,
-#> #   created_time_zone <chr>, license_code <chr>, observed_time_zone <chr>,
-#> #   quality_metrics <list>, public_positional_accuracy <int>,
-#> #   reviewed_by <list>, oauth_application_id <lgl>, flags <list>, …
 ```
 
 ### ● `mnk_obs()`
@@ -490,26 +330,6 @@ obs <- mnk_obs(taxon_name = "Raja", year = 2025, user_id = 4, quiet = TRUE,
                quality = "research")
 
 obs # show full dataframe
-#> # A tibble: 38 × 27
-#>        id observed_on  year month  week   day  hour created_at        updated_at
-#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 414056 2025-01-24   2025     1     4    24     0 2025-01-29T10:04… 2025-01-2…
-#>  2 427152 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
-#>  3 427148 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-2…
-#>  4 427142 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
-#>  5 427141 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
-#>  6 427140 2025-02-19   2025     2     8    19    20 2025-03-19T10:19… 2025-03-1…
-#>  7 422169 2025-02-27   2025     2     9    27    20 2025-02-28T11:17… 2025-02-2…
-#>  8 420087 2025-02-21   2025     2     8    21    15 2025-02-21T15:14… 2025-02-2…
-#>  9 429445 2025-03-27   2025     3    13    27    21 2025-03-30T18:52… 2025-03-3…
-#> 10 429443 2025-03-26   2025     3    13    26    21 2025-03-30T18:52… 2025-03-3…
-#> # ℹ 28 more rows
-#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
-#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
-#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
-#> #   user_id <int>, user_login <chr>
 
 # Get observations for species Raja brachyura in 2023 by user Xasalva (user_id= 4)
 
@@ -517,17 +337,6 @@ obs_brachyura <- mnk_obs(taxon_name = "Raja brachyura", year = 2023, user_id = 4
                          quiet = TRUE, quality = "research")
 
 obs_brachyura[, c(1,2, 10, 11, 16, 27)]  # show selected columns
-#> # A tibble: 8 × 6
-#>       id observed_on latitude longitude url_picture                   user_login
-#>    <int> <chr>          <dbl>     <dbl> <chr>                         <chr>     
-#> 1 107825 2023-01-20      41.9      3.21 https://minka-sdg.org/attach… xasalva   
-#> 2 110045 2023-02-17      41.7      2.94 https://minka-sdg.org/attach… xasalva   
-#> 3 108780 2023-02-01      41.7      2.94 https://minka-sdg.org/attach… xasalva   
-#> 4 207525 2023-11-25      41.9      3.21 https://minka-sdg.org/attach… xasalva   
-#> 5 211384 2023-12-21      41.7      2.94 https://minka-sdg.org/attach… xasalva   
-#> 6 211381 2023-12-20      41.7      2.94 https://minka-sdg.org/attach… xasalva   
-#> 7 210709 2023-12-16      41.7      2.94 https://minka-sdg.org/attach… xasalva   
-#> 8 210705 2023-12-16      41.7      2.94 https://minka-sdg.org/attach… xasalva
 ```
 
 Images from observations can be visualized and printed using the magick
@@ -561,9 +370,6 @@ img_undulata <- image_read(url_pic_undulata )
 
 img_undulata
 ```
-
-![Raja undulata observed by Xavier
-Salvador](introduction-to-rminka_files/figure-html/brachyura-pic-1.png)
 
 2.  *Bounding-box search*. Observations within a rectangular area are
     retrieved by supplying the coordinates of the southwest and
@@ -638,13 +444,8 @@ bound <- leaflet() %>%
                           highlightOptions = highlightOptions(weight = 3, 
                                                               bringToFront =TRUE)) %>%
                 addLayersControl(baseGroups = c("Satélite", "OSM"))
-#> Assuming "lng" and "lat" are longitude and latitude, respectively
 
 bound  # display map in document
-```
-
-``` r
-
 
 #Obtaining the observations within the study area
 
@@ -652,22 +453,6 @@ obs_torpedo_bounds <- mnk_obs(taxon_name = "Torpedo", year = 2024,
                       bounds = bounds , quality = "research", quiet = TRUE)
 
 obs_torpedo_bounds
-#> # A tibble: 7 × 27
-#>       id observed_on  year month  week   day  hour created_at         updated_at
-#>    <int> <chr>       <int> <int> <int> <int> <int> <chr>              <chr>     
-#> 1 244605 2024-03-22   2024     3    12    22    20 2024-03-24T18:34:… 2024-03-3…
-#> 2 244604 2024-03-22   2024     3    12    22    20 2024-03-24T18:34:… 2024-03-3…
-#> 3 244594 2024-03-22   2024     3    12    22    20 2024-03-24T18:34:… 2024-03-3…
-#> 4 304290 2024-07-20   2024     7    29    20    18 2024-07-20T18:36:… 2024-07-2…
-#> 5 301613 2024-07-16   2024     7    29    16    22 2024-07-17T09:30:… 2024-07-2…
-#> 6 315533 2024-08-01   2024     8    31     1     9 2024-08-03T09:08:… 2024-08-0…
-#> 7 315527 2024-08-01   2024     8    31     1     9 2024-08-03T09:08:… 2024-08-0…
-#> # ℹ 18 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   url_picture <chr>, quality_grade <chr>, taxon_id <int>, taxon_name <chr>,
-#> #   taxon_rank <chr>, taxon_min_ancestry <chr>, taxon_endemic <lgl>,
-#> #   taxon_threatened <lgl>, taxon_introduced <lgl>, taxon_native <lgl>,
-#> #   user_id <int>, user_login <chr>
 
 #Turning the dataframe into an sf object with the mnk_obs_sf() function and 
 #selecting some fields ("id","taxon_name","observed_on",.....) from the original
@@ -711,26 +496,6 @@ obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-0
                              d2= "2024-05-25", quiet = TRUE, quality = "research")
 
 obs_undulata_2024
-#> # A tibble: 11 × 29
-#>        id observed_on  year month  week   day  hour created_at        updated_at
-#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 766133 2024-05-11   2024     5    19    11     9 2026-06-14T19:34… 2026-06-1…
-#>  2 457257 2024-02-17   2024     2     7    17    10 2025-05-20T10:44… 2025-05-2…
-#>  3 271165 2024-05-12   2024     5    19    12    11 2024-05-22T20:31… 2025-03-1…
-#>  4 270617 2024-05-11   2024     5    19    11    22 2024-05-21T22:52… 2024-05-2…
-#>  5 264653 2024-05-08   2024     5    19     8    21 2024-05-09T14:08… 2025-03-1…
-#>  6 253086 2024-04-15   2024     4    16    15    19 2024-04-16T18:19… 2024-04-1…
-#>  7 232230 2024-02-18   2024     2     7    18    10 2024-02-24T10:38… 2025-03-1…
-#>  8 230658 2024-02-18   2024     2     7    18    11 2024-02-19T19:25… 2024-02-2…
-#>  9 230538 2024-02-18   2024     2     7    18    10 2024-02-19T14:36… 2024-02-2…
-#> 10 229797 2024-02-18   2024     2     7    18    10 2024-02-18T21:41… 2024-02-1…
-#> 11 222442 2024-02-03   2024     2     5     3    11 2024-02-06T18:34… 2025-03-1…
-#> # ℹ 20 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   photo_url_square <chr>, photo_url_medium <chr>, quality_grade <chr>,
-#> #   species_guess <chr>, taxon_id <int>, taxon_name <chr>, taxon_rank <chr>,
-#> #   taxon_min_ancestry <chr>, taxon_endemic <lgl>, taxon_threatened <lgl>,
-#> #   taxon_introduced <lgl>, taxon_native <lgl>, user_id <int>, user_login <chr>
 ```
 
 ### ● `mnk_obs_update()`
@@ -748,26 +513,6 @@ obs_undulata_2024_updated <- mnk_obs_update(day_update = "2024-01-01", taxon_nam
                              quiet = TRUE, quality = "research")
 
 obs_undulata_2024_updated
-#> # A tibble: 271 × 29
-#>        id observed_on  year month  week   day  hour created_at        updated_at
-#>     <int> <chr>       <int> <int> <int> <int> <int> <chr>             <chr>     
-#>  1 801870 2026-06-20   2026     6    25    20    19 2026-06-30T19:55… 2026-07-0…
-#>  2 792543 2026-06-21   2026     6    25    21    15 2026-06-21T21:50… 2026-06-2…
-#>  3 788840 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
-#>  4 788838 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
-#>  5 788837 2026-06-12   2026     6    24    12    22 2026-06-17T22:49… 2026-06-1…
-#>  6 787635 2026-05-07   2026     5    19     7    10 2026-06-17T13:41… 2026-06-1…
-#>  7 766133 2024-05-11   2024     5    19    11     9 2026-06-14T19:34… 2026-06-1…
-#>  8 750173 2022-01-02   2022     1    52     2     8 2026-06-13T06:36… 2026-06-1…
-#>  9 726577 2026-05-27   2026     5    22    27    22 2026-05-29T18:09… 2026-05-2…
-#> 10 726576 2026-05-27   2026     5    22    27    22 2026-05-29T18:09… 2026-05-2…
-#> # ℹ 261 more rows
-#> # ℹ 20 more variables: latitude <dbl>, longitude <dbl>,
-#> #   positional_accuracy <int>, geoprivacy <chr>, obscured <lgl>, uri <chr>,
-#> #   photo_url_square <chr>, photo_url_medium <chr>, quality_grade <chr>,
-#> #   species_guess <chr>, taxon_id <int>, taxon_name <chr>, taxon_rank <chr>,
-#> #   taxon_min_ancestry <chr>, taxon_endemic <lgl>, taxon_threatened <lgl>,
-#> #   taxon_introduced <lgl>, taxon_native <lgl>, user_id <int>, …
 ```
 
 ### *- Auxiliary functions*
@@ -891,12 +636,6 @@ its marine,its freshwater, brackish, or extinct status.
 #First example – single species
 
 get_wrm_tax("Diplodus sargus")
-#> # A tibble: 1 × 14
-#>   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus
-#>           <int> <chr>           <chr>   <chr>    <chr>  <chr> <chr> <chr>  <chr>
-#> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…
-#> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
-#> #   isTerrestrial <lgl>, isExtinct <lgl>
 
 #The taxonomy and metadata are retrieved for a single species, Diplodus sargus.
 
@@ -914,8 +653,6 @@ taxonomy_df <- map_dfr(
   ~ get_wrm_tax(.x),
   .id = "taxon_name"
 )
-#> No taxon found for the scientific name: 'Life'.
-#> No taxon found for the scientific name: 'Ichthyaetus audouinii'.
 
 #The complete observations tibble for the Forum pools can be rebuilt with taxonomy #information by performing a left_join() between obs_place and the taxonomy dataframe.
 
@@ -963,5 +700,3 @@ ggplot(freq_top10, aes(x = n_obs, y = reorder(shrt_tax_name, n_obs))) +
             ) +
         theme_minimal(base_size = 12)
 ```
-
-![](introduction-to-rminka_files/figure-html/shrt_name%20-1.png)
