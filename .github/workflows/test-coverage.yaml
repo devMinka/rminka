@@ -16,13 +16,13 @@ jobs:
         run: |
           cov <- covr::package_coverage()
           print(cov)
-          covr::to_cobertura(cov, filename="cobertura.xml")
+          covr::to_cobertura(cov)
         shell: Rscript {0}
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          file:./cobertura.xml
           slug: devMinka/rminka
-          files:./cobertura.xml
           verbose: true
-          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
