@@ -82,7 +82,7 @@ prj_user
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               5575
+#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               5607
 #> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              29870
 #> # ℹ 13 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
@@ -214,7 +214,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              84773                449459
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              84773                449867
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
