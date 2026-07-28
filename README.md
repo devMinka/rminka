@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://img.shields.io/codecov/c/github/devminka/rminka/master.svg)](https://app.codecov.io/gh/devminka/rminka)
+![Coverage](https://img.shields.io/badge/Coverage-99.11%25-brightgreen)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Last
