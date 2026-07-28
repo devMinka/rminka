@@ -7,13 +7,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   # para CRAN pon eval=FALSE en los chunks que llaman a la API
   # de momento lo dejamos TRUE para que veas que funciona
-  eval = TRUE,
+  eval = Sys.getenv("CI") == "",
   fig.align = "center",   # centered
   out.width = "600px"   # fixed size
   )
