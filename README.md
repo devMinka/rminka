@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rminka <a href="https://devminka.github.io/rminka/"><img src="https://raw.githubusercontent.com/devminka/rminka/master/man/figures/logo.png" alt="Logo de rminka" height="138" style="float:right;"/></a>
+# rminka <a href="https://devminka.github.io/rminka/"><img src="man/figures/logo.png" align="right" height="138" alt="Logo de rminka" /></a>
 
 <!-- badges: start -->
 
