@@ -1,4 +1,4 @@
-##' Get WoRMS Taxonomy
+#' Get WoRMS Taxonomy
 #'
 #' Downloads taxonomic information from the World Register of Marine Species
 #' (WoRMS) for a given scientific name. Returns the first exact match found.
@@ -33,7 +33,6 @@
 #' # Get data for a genus
 #' get_wrm_tax("Diplodus")
 #' }
-#' @export
 get_wrm_tax <- function(scientific_name) {
 
   if (is.null(scientific_name) ||!is.character(scientific_name) || length(scientific_name)!= 1 || nchar(trimws(scientific_name)) == 0) {

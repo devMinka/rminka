@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   # para CRAN pon eval=FALSE en los chunks que llaman a la API
   # de momento lo dejamos TRUE para que veas que funciona
-  eval = Sys.getenv("CI") == "",
+  #eval = Sys.getenv("CI") == "",
+  eval= TRUE,
   fig.align = "center",   # centered
   out.width = "600px"   # fixed size
   )
@@ -569,7 +570,7 @@ This function writes one or more sf objects to a GeoPackage (.gpkg), creating on
 
 We will apply it to the two examples from the previous section.
 
-```{r export_mnk , eval=FALSE, include = TRUE ,echo=TRUE}
+```{r export_mnk , eval=TRUE, include = TRUE ,echo=TRUE}
 export_mnk_qgis(observations =obs_utm ,file="shape")
 
 #In this first example we export the observations layer from the previous step (obs_utm)

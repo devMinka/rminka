@@ -1,5 +1,6 @@
-#' @title Generate Short Name from Scientific Name
-#' @description Creates a standardized abbreviation from a scientific name by
+#' Generate Short Name from Scientific Name
+#'
+#' Creates a standardized abbreviation from a scientific name by
 #'   taking the first three letters of each word, converting to lowercase, and
 #'   joining with periods. Accepts names with one to three words.
 #' @param scientific_name A character vector of scientific names. Each element

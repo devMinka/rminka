@@ -84,7 +84,7 @@ update_download_chunk <- function(params, total_res, quiet, limit_download) {
 # MAIN FUNCTION
 
 ## ===================================================================
-##' Download Minka Observations by Last Update Date
+#' Download Minka Observations by Last Update Date
 #'
 #' @description Downloads observation data from the Minka API filtering by
 #'   last update date. It automatically subdivides requests by month and day

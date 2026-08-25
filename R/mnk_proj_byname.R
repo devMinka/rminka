@@ -1,6 +1,8 @@
-#' @title Search Minka Projects by Name
-#' @description Retrieves projects whose title contains a given string from the
+#' Search Minka Projects by Name
+#'
+#' Retrieves projects whose title contains a given string from the
 #' Minka API.
+#'
 #' @details Queries the \code{/v1/projects/autocomplete} endpoint. This
 #' function is mainly used to obtain the project identifier for other functions.
 #' @param query a single character string contained in the project name.
@@ -58,13 +60,13 @@ mnk_proj_byname <- function(query) {
   }
 
   purrr::map_dfr(content$results, function(x) tibble::tibble(
-    id = rlang::`%||%`(x$id, NA_integer_),
-    title = rlang::`%||%`(x$title, NA_character_),
-    place_id = rlang::`%||%`(x$place_id, NA_integer_),
-    slug = rlang::`%||%`(x$slug, NA_character_),
-    created_at = rlang::`%||%`(x$created_at, NA_character_),
-    updated_at = rlang::`%||%`(x$updated_at, NA_character_),
-    project_type = rlang::`%||%`(x$project_type, NA_character_),
-    description = rlang::`%||%`(x$description, NA_character_)
+    id = `%||%`(x$id, NA_integer_),
+    title = `%||%`(x$title, NA_character_),
+    place_id = `%||%`(x$place_id, NA_integer_),
+    slug = `%||%`(x$slug, NA_character_),
+    created_at = `%||%`(x$created_at, NA_character_),
+    updated_at = `%||%`(x$updated_at, NA_character_),
+    project_type = `%||%`(x$project_type, NA_character_),
+    description = `%||%`(x$description, NA_character_)
   ))
 }

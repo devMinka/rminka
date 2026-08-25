@@ -1,6 +1,8 @@
-#' @title Search Minka Place by Name
-#' @description Retrieves places whose name contains a given string from the
+#' Search Minka Place by Name
+#'
+#' Retrieves places whose name contains a given string from the
 #' Minka API.
+#'
 #' @details Queries the \code{/v1/places/autocomplete} endpoint.
 #' @param query a single character string contained in the place name.
 #' @return A tibble with one row per matching place. Returns an empty tibble

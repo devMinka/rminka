@@ -1,5 +1,6 @@
-#' @title Search Minka Users by Login Name
-#' @description Retrieves users whose login name contains a given string from the
+#' Search Minka Users by Login Name
+#'
+#' Retrieves users whose login name contains a given string from the
 #' Minka API.
 #' @details Queries the \code{/v1/users/autocomplete} endpoint. This function is
 #' mainly used to obtain the user identifier for other functions.

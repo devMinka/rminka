@@ -1,7 +1,9 @@
-#' @title Download Place Observations by Year
-#' @description This is a convenience wrapper for \code{\link{mnk_obs}} to
+#' Download Place Observations by Year
+#'
+#' This is a convenience wrapper for \code{\link{mnk_obs}} to
 #' simplify downloading observations for a specific place, filtered by year and
 #' optionally by month and day.
+#'
 #' @param place_id The numeric ID or slug of the Minka place.
 #' @param year The numeric year for the query (required).
 #' @param month (Optional) The numeric month (1-12). Defaults to NULL (all
@@ -44,7 +46,8 @@
 #'   \item{user_login}{Observer login, character.}
 #' }
 #' @export
-#' @examples\dontrun{
+#' @examples
+#' \dontrun{
 #' # Download all observations for place 'barcelona' for the year 2024
 #' # (up to the download limit)
 #' place_data_2024 <- mnk_place_obs(place_id = "barcelona", year = 2024)

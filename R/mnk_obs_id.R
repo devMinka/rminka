@@ -52,7 +52,7 @@ mnk_obs_id <- function(id, meta = FALSE) {
   api_path <- "/v1/observations/"
   q_path <- paste0(api_path, id_char)
 
-  response <- httr::GET(base_url, path = q_path, as = "text")
+  response <- httr::GET(base_url, path = q_path)
 
   if (httr::http_error(response)) {
     status <- httr::status_code(response)
