@@ -125,7 +125,7 @@ If the project lasts only one year, or if you are only interested in the partici
 ```{r project_info_user2, include = TRUE , echo=TRUE, eval=TRUE}
 # 1. Download all observations for the project in may 2025
 
-obs_2025 <- mnk_proj_obs(419,year=2025, mont=5, quiet = TRUE)
+obs_2025 <- mnk_proj_obs(419,year=2025, month = 5, quiet = TRUE)
 
 # 2. Extract the unique participants
 
@@ -142,7 +142,7 @@ participants_may_2025
 
 Returns all observations for a project within a selected year, and optionally within a specific month. For the Biomarató Tarragona 2025 (project ID 419), observations for the entire year are obtained with `mnk_proj_obs(419, year = 2025)`, while observations for a single month — for example, May — are obtained with `mnk_proj_obs(419, year = 2025, month = 5)`.
 
-```{r project_obs:proj, include = TRUE , echo=TRUE}
+```{r project_obs_proj, include = TRUE , echo=TRUE}
 prj_obs <- mnk_proj_obs(419, year= 2025, month=5)
 
 prj_obs[2:14]
@@ -228,12 +228,12 @@ In the example the geometry is visualized with the leaflet package using the fun
 ```{r place_sf, include = TRUE , echo=TRUE}
 # 1. Downloading the geometry 
 
-place_forum <- mnk_place_sf(253)
+places_forum <- mnk_place_sf(253)
 
 # 2. Drawing the map
 
- forum_sf <-leaflet(place_forum) %>%
-                addProviderTiles("OpenStreetMap", group = "OSM") %>%
+ forum_sf <-leaflet(places_forum) %>%
+                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addPolygons(
                   color = "#2c4fb8",
@@ -278,7 +278,7 @@ popup_final <-  paste0( "ID: <a href='", obs_sf$uri,
 # Only the observations:
 
 leaflet(obs_sf) %>%
-                addProviderTiles("OpenStreetMap", group = "OSM") %>%
+                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addMarkers(lng = ~longitude,
                            lat = ~latitude,
@@ -409,7 +409,7 @@ pts <- data.frame(
 
 bound <- leaflet() %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
-                addProviderTiles("OpenStreetMap", group = "OSM") %>%
+                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
                 addCircleMarkers(             
                          data = pts,
                           radius = 20,
