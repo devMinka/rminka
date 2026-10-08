@@ -575,11 +575,10 @@ export_mnk_qgis(observations =obs_utm ,file="shape")
 
 #In this first example we export the observations layer from the previous step (obs_utm)
 #as a single point layer named "observations". The output file is named "shape" — the .gpkg
-#extension is added automatically.Because no path is specified, the file shape.gpkg is saved
-#in the current R working directory of the project.
+#extension is added automatically.Because no path is specified, the file shape.gpkg is saved in the current R working directory of the project.
 
-export_mnk_qgis(zone = places_forum , observations = obs_sf,
-                file = "C:/examples/forum.gpkg")
+tmp1 <- file.path(tempdir(), "shape")
+export_mnk_qgis(observations = obs_utm , file = tmp1)
 
 #In the second example export several layers at once. Here we write two layers 
 #into the same GeoPackage:

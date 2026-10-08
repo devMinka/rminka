@@ -17,39 +17,50 @@ byday_get_total_results <- function(p) {
 # Helper 2
 #' @noRd
 byday_process_results <- function(all_results) {
-  if (length(all_results) == 0) return(tibble::tibble())
+  if (length(all_results) == 0) {
+    return(tibble::tibble())
+  }
 
-  processed <- purrr::map(all_results, ~tibble::tibble(
-    id = rlang::`%||%`(.x$id, NA_integer_),
-    observed_on = rlang::`%||%`(.x$observed_on, NA),
-    year = rlang::`%||%`(.x$observed_on_details$year, NA_integer_),
-    month = rlang::`%||%`(.x$observed_on_details$month, NA_integer_),
-    week = rlang::`%||%`(.x$observed_on_details$week, NA_integer_),
-    day = rlang::`%||%`(.x$observed_on_details$day, NA_integer_),
-    hour = rlang::`%||%`(.x$observed_on_details$hour, NA_integer_),
-    created_at = rlang::`%||%`(.x$created_at, NA),
-    updated_at = rlang::`%||%`(.x$updated_at, NA),
-    latitude = rlang::`%||%`(.x$geojson$coordinates[[2]], NA_real_),
-    longitude = rlang::`%||%`(.x$geojson$coordinates[[1]], NA_real_),
-    positional_accuracy = rlang::`%||%`(.x$positional_accuracy, NA_integer_),
-    geoprivacy = rlang::`%||%`(.x$taxon_geoprivacy, NA),
-    obscured = rlang::`%||%`(.x$obscured, NA),
-    uri = rlang::`%||%`(.x$uri, NA),
-    photo_url_square = rlang::`%||%`(.x$taxon$default_photo$square_url, NA_character_),
-    photo_url_medium = rlang::`%||%`(.x$taxon$default_photo$medium_url, NA_character_),
-    quality_grade = rlang::`%||%`(.x$quality_grade, NA),
-    species_guess = rlang::`%||%`(.x$species_guess, NA),
-    taxon_id = rlang::`%||%`(.x$taxon$id, NA_integer_),
-    taxon_name = rlang::`%||%`(.x$taxon$name, NA),
-    taxon_rank = rlang::`%||%`(.x$taxon$rank, NA),
-    taxon_min_ancestry = rlang::`%||%`(.x$taxon$min_species_ancestry, NA),
-    taxon_endemic = rlang::`%||%`(.x$taxon$endemic, NA),
-    taxon_threatened = rlang::`%||%`(.x$taxon$threatened, NA),
-    taxon_introduced = rlang::`%||%`(.x$taxon$introduced, NA),
-    taxon_native = rlang::`%||%`(.x$taxon$native, NA),
-    user_id = rlang::`%||%`(.x$user$id, NA_integer_),
-    user_login = rlang::`%||%`(.x$user$login, NA)
-  ))
+  processed <- purrr::map(all_results, function(.x) {
+    foto_raw <- purrr::pluck(.x, "photos", 1, "url",.default = NA_character_)
+    if (is.na(foto_raw)) {
+      foto_raw <- purrr::pluck(.x, "observation_photos", 1, "photo", "url",.default = NA_character_)
+    }
+    picture_medium <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "medium") else NA_character_
+    picture_original <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "original") else NA_character_
+
+    tibble::tibble(
+      id = rlang::`%||%`(.x$id, NA_integer_),
+      observed_on = rlang::`%||%`(.x$observed_on, NA),
+      year = rlang::`%||%`(.x$observed_on_details$year, NA_integer_),
+      month = rlang::`%||%`(.x$observed_on_details$month, NA_integer_),
+      week = rlang::`%||%`(.x$observed_on_details$week, NA_integer_),
+      day = rlang::`%||%`(.x$observed_on_details$day, NA_integer_),
+      hour = rlang::`%||%`(.x$observed_on_details$hour, NA_integer_),
+      created_at = rlang::`%||%`(.x$created_at, NA),
+      updated_at = rlang::`%||%`(.x$updated_at, NA),
+      latitude = rlang::`%||%`(.x$geojson$coordinates[[2]], NA_real_),
+      longitude = rlang::`%||%`(.x$geojson$coordinates[[1]], NA_real_),
+      positional_accuracy = rlang::`%||%`(.x$positional_accuracy, NA_integer_),
+      geoprivacy = rlang::`%||%`(.x$taxon_geoprivacy, NA),
+      obscured = rlang::`%||%`(.x$obscured, NA),
+      uri = rlang::`%||%`(.x$uri, NA),
+      url_picture = picture_medium,
+      url_picture_original = picture_original,
+      quality_grade = rlang::`%||%`(.x$quality_grade, NA),
+      species_guess = rlang::`%||%`(.x$species_guess, NA),
+      taxon_id = rlang::`%||%`(.x$taxon$id, NA_integer_),
+      taxon_name = rlang::`%||%`(.x$taxon$name, NA),
+      taxon_rank = rlang::`%||%`(.x$taxon$rank, NA),
+      taxon_min_ancestry = rlang::`%||%`(.x$taxon$min_species_ancestry, NA),
+      taxon_endemic = rlang::`%||%`(.x$taxon$endemic, NA),
+      taxon_threatened = rlang::`%||%`(.x$taxon$threatened, NA),
+      taxon_introduced = rlang::`%||%`(.x$taxon$introduced, NA),
+      taxon_native = rlang::`%||%`(.x$taxon$native, NA),
+      user_id = rlang::`%||%`(.x$user$id, NA_integer_),
+      user_login = rlang::`%||%`(.x$user$login, NA)
+    )
+  })
   dplyr::bind_rows(processed)
 }
 

@@ -19,6 +19,14 @@ process_minka_results <- function(all_results) {
   }
 
   purrr::map_dfr(all_results, function(.x) {
+
+    foto_raw <- purrr::pluck(.x, "photos", 1, "url", .default = NA_character_)
+    if (is.na(foto_raw)) {
+      foto_raw <- purrr::pluck(.x, "observation_photos", 1, "photo", "url", .default = NA_character_)
+    }
+    picture_medium <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "medium") else NA_character_
+    picture_original <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "original") else NA_character_
+
     tibble::tibble(
       id =.x$id %||% NA_integer_,
       observed_on =.x$observed_on %||% NA_character_,
@@ -35,7 +43,8 @@ process_minka_results <- function(all_results) {
       geoprivacy =.x$taxon_geoprivacy %||% NA_character_,
       obscured =.x$obscured %||% NA,
       uri =.x$uri %||% NA_character_,
-      url_picture = purrr::pluck(.x, "observation_photos", 1, "photo", "url",.default = NA_character_),
+      url_picture = picture_medium,
+      url_picture_original = picture_original,
       quality_grade =.x$quality_grade %||% NA_character_,
       taxon_id = purrr::pluck(.x, "taxon", "id",.default = NA_integer_),
       taxon_name = purrr::pluck(.x, "taxon", "name",.default = NA_character_),
