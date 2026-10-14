@@ -19,6 +19,19 @@ process_minka_results <- function(all_results) {
   }
 
   purrr::map_dfr(all_results, function(.x) {
+
+    foto_raw <- purrr::pluck(.x, "photos", 1, "url", .default = NA_character_)
+
+    if (is.null(foto_raw) || length(foto_raw) == 0 || is.na(foto_raw)) {
+      foto_raw <- purrr::pluck(.x, "observation_photos", 1, "photo", "url", .default = NA_character_)
+    }
+
+    if (is.null(foto_raw) || length(foto_raw) == 0) foto_raw <- NA_character_
+
+    picture_icon <- foto_raw
+    picture_medium <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "medium") else NA_character_
+    picture_original <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "original") else NA_character_
+
     tibble::tibble(
       id =.x$id %||% NA_integer_,
       observed_on =.x$observed_on %||% NA_character_,
