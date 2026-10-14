@@ -5,7 +5,7 @@
 #' it ensures valid geometries, drops Z/M dimensions, removes list-columns that
 #' GDAL cannot write, and transforms to a target CRS.
 #'
-#' @param... One or more objects of class \code{sf}. Each object must be named;
+#' @param ... One or more objects of class \code{sf}. Each object must be named;
 #' the name is used as the layer name in the GeoPackage (e.g.,
 #' \code{export_mnk_qgis(points = pts, polygons = polys)}).
 #' @param file Character. Path to the output GeoPackage. It is highly
@@ -37,21 +37,16 @@
 #' informative error.
 #'
 #' @examples
-#' \dontrun{
-#' library(sf)
-#'
-#' # points
-#' pts <- st_as_sf(data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
-#' coords = c("x", "y"), crs = 4326)
-#'
-#' # polygon
-#' poly <- st_as_sf(st_sfc(
-#' st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
-#' c(0.7,41.1), c(0.7,40.8)))),
-#' crs = 4326))
-#' # The names of the layers will be exampl_points and  exampl_area
-#' export_mnk_qgis(exampl_points = pts, exampl_area = poly,
-#' file = tempfile(fileext = ".gpkg"))
+#' if (requireNamespace("sf", quietly = TRUE)) {
+#'   library(sf)
+#'   pts <- st_as_sf(data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
+#'                   coords = c("x", "y"), crs = 4326)
+#'   poly <- st_as_sf(st_sfc(
+#'     st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
+#'                           c(0.7,41.1), c(0.7,40.8)))),
+#'     crs = 4326))
+#'   export_mnk_qgis(exampl_points = pts, exampl_area = poly,
+#'                   file = tempfile(fileext = ".gpkg"))
 #' }
 #'
 #' @export

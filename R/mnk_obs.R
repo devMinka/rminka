@@ -223,6 +223,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #' @param quiet a logical value. If TRUE, suppresses console messages.
 #' @param limit_download a logical value. If TRUE (default), caps download at
 #'   10,000 records.
+#'
 #' @return a tibble with one row per observation and the following columns:
 #'\describe{
 #'   \item{id}{observation identifier, integer.}
@@ -254,7 +255,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   \item{user_login}{observer login, character.}
 #' }
 #' Returns an empty tibble if no data is found.
-#' @export
+#'
 #' @examples
 #' \dontrun{
 #' # Download firts 10.000 observations of taxon  from a project in 2025
@@ -266,6 +267,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #' obs_bc <- mnk_obs( year=2024, user_login = "xasalvador",
 #' bounds = barcelona, quiet = TRUE, limit_dowload = FALSE)
 #' }
+#' @export
 mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
                     user_id = NULL, project_id = NULL, place_id = NULL,
                     endemic = NULL, introduced = NULL, threatened = NULL,

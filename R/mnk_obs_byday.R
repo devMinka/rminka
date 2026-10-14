@@ -11,7 +11,7 @@ byday_get_total_results <- function(p) {
                     query = c(p, list(per_page = 1)))
   if (httr::http_error(resp)) return(0)
   total <- httr::content(resp, as = "parsed")$total_results
-  rlang::`%||%`(total, 0)
+  `%||%`(total, 0)
 }
 
 # Helper 2
@@ -20,35 +20,35 @@ byday_process_results <- function(all_results) {
   if (length(all_results) == 0) return(tibble::tibble())
 
   processed <- purrr::map(all_results, ~tibble::tibble(
-    id = rlang::`%||%`(.x$id, NA_integer_),
-    observed_on = rlang::`%||%`(.x$observed_on, NA),
-    year = rlang::`%||%`(.x$observed_on_details$year, NA_integer_),
-    month = rlang::`%||%`(.x$observed_on_details$month, NA_integer_),
-    week = rlang::`%||%`(.x$observed_on_details$week, NA_integer_),
-    day = rlang::`%||%`(.x$observed_on_details$day, NA_integer_),
-    hour = rlang::`%||%`(.x$observed_on_details$hour, NA_integer_),
-    created_at = rlang::`%||%`(.x$created_at, NA),
-    updated_at = rlang::`%||%`(.x$updated_at, NA),
-    latitude = rlang::`%||%`(.x$geojson$coordinates[[2]], NA_real_),
-    longitude = rlang::`%||%`(.x$geojson$coordinates[[1]], NA_real_),
-    positional_accuracy = rlang::`%||%`(.x$positional_accuracy, NA_integer_),
-    geoprivacy = rlang::`%||%`(.x$taxon_geoprivacy, NA),
-    obscured = rlang::`%||%`(.x$obscured, NA),
-    uri = rlang::`%||%`(.x$uri, NA),
-    photo_url_square = rlang::`%||%`(.x$taxon$default_photo$square_url, NA_character_),
-    photo_url_medium = rlang::`%||%`(.x$taxon$default_photo$medium_url, NA_character_),
-    quality_grade = rlang::`%||%`(.x$quality_grade, NA),
-    species_guess = rlang::`%||%`(.x$species_guess, NA),
-    taxon_id = rlang::`%||%`(.x$taxon$id, NA_integer_),
-    taxon_name = rlang::`%||%`(.x$taxon$name, NA),
-    taxon_rank = rlang::`%||%`(.x$taxon$rank, NA),
-    taxon_min_ancestry = rlang::`%||%`(.x$taxon$min_species_ancestry, NA),
-    taxon_endemic = rlang::`%||%`(.x$taxon$endemic, NA),
-    taxon_threatened = rlang::`%||%`(.x$taxon$threatened, NA),
-    taxon_introduced = rlang::`%||%`(.x$taxon$introduced, NA),
-    taxon_native = rlang::`%||%`(.x$taxon$native, NA),
-    user_id = rlang::`%||%`(.x$user$id, NA_integer_),
-    user_login = rlang::`%||%`(.x$user$login, NA)
+    id = `%||%`(.x$id, NA_integer_),
+    observed_on = `%||%`(.x$observed_on, NA),
+    year = `%||%`(.x$observed_on_details$year, NA_integer_),
+    month = `%||%`(.x$observed_on_details$month, NA_integer_),
+    week = `%||%`(.x$observed_on_details$week, NA_integer_),
+    day = `%||%`(.x$observed_on_details$day, NA_integer_),
+    hour = `%||%`(.x$observed_on_details$hour, NA_integer_),
+    created_at = `%||%`(.x$created_at, NA),
+    updated_at = `%||%`(.x$updated_at, NA),
+    latitude = `%||%`(.x$geojson$coordinates[[2]], NA_real_),
+    longitude = `%||%`(.x$geojson$coordinates[[1]], NA_real_),
+    positional_accuracy = `%||%`(.x$positional_accuracy, NA_integer_),
+    geoprivacy = `%||%`(.x$taxon_geoprivacy, NA),
+    obscured = `%||%`(.x$obscured, NA),
+    uri = `%||%`(.x$uri, NA),
+    photo_url_square = `%||%`(.x$taxon$default_photo$square_url, NA_character_),
+    photo_url_medium = `%||%`(.x$taxon$default_photo$medium_url, NA_character_),
+    quality_grade = `%||%`(.x$quality_grade, NA),
+    species_guess = `%||%`(.x$species_guess, NA),
+    taxon_id = `%||%`(.x$taxon$id, NA_integer_),
+    taxon_name = `%||%`(.x$taxon$name, NA),
+    taxon_rank = `%||%`(.x$taxon$rank, NA),
+    taxon_min_ancestry = `%||%`(.x$taxon$min_species_ancestry, NA),
+    taxon_endemic = `%||%`(.x$taxon$endemic, NA),
+    taxon_threatened = `%||%`(.x$taxon$threatened, NA),
+    taxon_introduced = `%||%`(.x$taxon$introduced, NA),
+    taxon_native = `%||%`(.x$taxon$native, NA),
+    user_id = `%||%`(.x$user$id, NA_integer_),
+    user_login = `%||%`(.x$user$login, NA)
   ))
   dplyr::bind_rows(processed)
 }
@@ -98,10 +98,11 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' @param limit_download a logical value. If TRUE (default), each subdivided
 #'   request is capped at 10,000 records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
+#'
 #' @return a tibble with one row per observation and the same columns
 #'   documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
 #'   data is found.
-#' @export
+#'
 #' @examples
 #' \dontrun{
 #' # Download observations between two dates
@@ -113,6 +114,7 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' obs_bc <- mnk_obs_byday("2024-01-01", "2024-01-07",
 #' bounds = barcelona, quiet = TRUE)
 #' }
+#' @export
 mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
   date1 <- as.Date(d1, format = "%Y-%m-%d")
   date2 <- as.Date(d2, format = "%Y-%m-%d")

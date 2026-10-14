@@ -233,7 +233,7 @@ places_forum <- mnk_place_sf(253)
 # 2. Drawing the map
 
  forum_sf <-leaflet(places_forum) %>%
-                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
+                addProviderTiles("OpenStreetMap", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addPolygons(
                   color = "#2c4fb8",
@@ -278,7 +278,7 @@ popup_final <-  paste0( "ID: <a href='", obs_sf$uri,
 # Only the observations:
 
 leaflet(obs_sf) %>%
-                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
+                addProviderTiles("OpenStreetMap", group = "OSM") %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
                 addMarkers(lng = ~longitude,
                            lat = ~latitude,
@@ -409,7 +409,7 @@ pts <- data.frame(
 
 bound <- leaflet() %>%
                 addProviderTiles("Esri.WorldImagery", group = "Satélite") %>%
-                addProviderTiles("providers$CartoDB.Positron", group = "OSM") %>%
+                addProviderTiles("OpenStreetMap", group = "OSM") %>%
                 addCircleMarkers(             
                          data = pts,
                           radius = 20,
@@ -580,6 +580,8 @@ export_mnk_qgis(observations =obs_utm ,file="shape")
 
 export_mnk_qgis(zone = places_forum , observations = obs_sf,
                 file = "C:/examples/forum.gpkg")
+
+
 
 #In the second example export several layers at once. Here we write two layers 
 #into the same GeoPackage:

@@ -22,7 +22,7 @@ mnk_proj_obs(
 
 \item{day}{optional numeric day (1-31). Defaults to NULL for all days.}
 
-\item{quiet}{logical. If TRUE, suppresses console messages. Defaults to FALSE.}
+\item{quiet}{logical.If TRUE, suppresses console messages. Defaults to FALSE.}
 
 \item{limit_download}{logical. If TRUE (default), caps download at 10,000
 records per query subdivision. If FALSE, attempts to download all records.}

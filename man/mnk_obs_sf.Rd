@@ -31,7 +31,7 @@ when present.
 }
 \examples{
 \dontrun{
-obs <- mnk_obs(taxon_name = "Parablennius pilicornis", year = 2024)
+obs <- mnk_obs(taxon_name = "Parablennius pilicornis", year = 2024,month = 7)
 obs_sf <- mnk_obs_sf(obs, id, taxon_name, observed_on)
 obs_sf
 }

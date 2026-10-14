@@ -1,12 +1,13 @@
-#' @title Download Project Observations by Year
-#' @description Downloads observations for a specific Minka project, filtered by
+#' Download Project Observations by Year
+#'
+#'  Downloads observations for a specific Minka project, filtered by
 #'   year and optionally by month and day. This is a convenience wrapper around
 #'   \code{\link{mnk_obs}}.
 #' @param project_id a single numeric project identifier.
 #' @param year a single numeric year (e.g., 2024).
 #' @param month optional numeric month (1-12). Defaults to NULL for all months.
 #' @param day optional numeric day (1-31). Defaults to NULL for all days.
-#' @param quiet logical. If TRUE, suppresses console messages. Defaults to FALSE.
+#' @param quiet logical.If TRUE, suppresses console messages. Defaults to FALSE.
 #' @param limit_download logical. If TRUE (default), caps download at 10,000
 #'   records per query subdivision. If FALSE, attempts to download all records.
 #' @return A tibble with one row per observation. Returns an empty tibble with
@@ -40,6 +41,7 @@
 #'   \item{user_id}{Observer identifier, integer.}
 #'   \item{user_login}{Observer login, character.}
 #' }
+#' @export
 #' @examples
 #' \dontrun{
 #' # Download all observations for project 419 for the year 2024
@@ -53,7 +55,6 @@
 #'   limit_download = FALSE
 #' )
 #' }
-#' @export
 mnk_proj_obs <- function(project_id, year, month = NULL, day = NULL,
                          quiet = FALSE, limit_download = TRUE) {
 

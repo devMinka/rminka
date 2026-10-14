@@ -5,6 +5,7 @@
 #'
 #' @param scientific_name a character string with the scientific name to
 #' search for, for example "Diplodus sargus" or "Diplodus".
+#'
 #' @return a one-row tibble with taxonomic and habitat flags. Returns
 #' \code{NULL} invisibly if the taxon is not found or the request fails.
 #' The tibble contains the following columns:
@@ -24,7 +25,7 @@
 #' \item{isTerrestrial}{terrestrial flag, logical.}
 #' \item{isExtinct}{extinct flag, logical.}
 #' }
-#' @export
+#'
 #' @examples
 #' \dontrun{
 #' # Get data for a species
@@ -33,6 +34,7 @@
 #' # Get data for a genus
 #' get_wrm_tax("Diplodus")
 #' }
+#' @export
 get_wrm_tax <- function(scientific_name) {
 
   if (is.null(scientific_name) ||!is.character(scientific_name) || length(scientific_name)!= 1 || nchar(trimws(scientific_name)) == 0) {
@@ -78,20 +80,20 @@ get_wrm_tax <- function(scientific_name) {
   taxon_data <- parsed_json[[1]]
 
   output_tibble <- tibble::tibble(
-    valid_AphiaID = rlang::`%||%`(taxon_data$valid_AphiaID, NA_integer_),
-    valid_name = rlang::`%||%`(taxon_data$valid_name, NA_character_),
-    rank = rlang::`%||%`(taxon_data$rank, NA_character_),
-    kingdom = rlang::`%||%`(taxon_data$kingdom, NA_character_),
-    phylum = rlang::`%||%`(taxon_data$phylum, NA_character_),
-    class = rlang::`%||%`(taxon_data$class, NA_character_),
-    order = rlang::`%||%`(taxon_data$order, NA_character_),
-    family = rlang::`%||%`(taxon_data$family, NA_character_),
-    genus = rlang::`%||%`(taxon_data$genus, NA_character_),
-    isMarine = as.logical(rlang::`%||%`(taxon_data$isMarine, NA)),
-    isBrackish = as.logical(rlang::`%||%`(taxon_data$isBrackish, NA)),
-    isFreshwater = as.logical(rlang::`%||%`(taxon_data$isFreshwater, NA)),
-    isTerrestrial = as.logical(rlang::`%||%`(taxon_data$isTerrestrial, NA)),
-    isExtinct = as.logical(rlang::`%||%`(taxon_data$isExtinct, NA))
+    valid_AphiaID = `%||%`(taxon_data$valid_AphiaID, NA_integer_),
+    valid_name = `%||%`(taxon_data$valid_name, NA_character_),
+    rank = `%||%`(taxon_data$rank, NA_character_),
+    kingdom = `%||%`(taxon_data$kingdom, NA_character_),
+    phylum = `%||%`(taxon_data$phylum, NA_character_),
+    class = `%||%`(taxon_data$class, NA_character_),
+    order = `%||%`(taxon_data$order, NA_character_),
+    family = `%||%`(taxon_data$family, NA_character_),
+    genus = `%||%`(taxon_data$genus, NA_character_),
+    isMarine = as.logical(`%||%`(taxon_data$isMarine, NA)),
+    isBrackish = as.logical(`%||%`(taxon_data$isBrackish, NA)),
+    isFreshwater = as.logical(`%||%`(taxon_data$isFreshwater, NA)),
+    isTerrestrial = as.logical(`%||%`(taxon_data$isTerrestrial, NA)),
+    isExtinct = as.logical(`%||%`(taxon_data$isExtinct, NA))
   )
 
   return(output_tibble)

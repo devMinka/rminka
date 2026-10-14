@@ -16,16 +16,14 @@
 #'   selected attributes. Returns an empty sf object if no valid coordinates
 #'   are present.
 #' @seealso \code{\link{mnk_obs}} for downloading observations.
-#' @importFrom dplyr select all_of any_of mutate across filter distinct
-#' @importFrom sf st_as_sf
-#' @importFrom rlang .data
-#' @export
+#'
 #' @examples
 #' \dontrun{
-#' obs <- mnk_obs(taxon_name = "Parablennius pilicornis", year = 2024)
+#' obs <- mnk_obs(taxon_name = "Parablennius pilicornis", year = 2024,month = 7)
 #' obs_sf <- mnk_obs_sf(obs, id, taxon_name, observed_on)
 #' obs_sf
 #' }
+#' @export
 mnk_obs_sf <- function(data, ..., crs = 4326, keep_coords = TRUE) {
   if (!inherits(data, "data.frame")) {
     stop("`data` must be a data.frame or tibble", call. = FALSE)

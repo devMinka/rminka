@@ -7,6 +7,7 @@
 #'
 #' @param id a single integer. The Minka observation identifier.
 #' @param meta a logical value. Reserved for future use. Currently ignored.
+#'
 #' @return a one-row tibble with the observation data. The result is the
 #'   flattened JSON response from the Minka API and contains more than 160
 #'   columns covering taxon, user, photos, identifications, and quality
@@ -30,7 +31,7 @@
 #'   }
 #'   Returns `NULL` invisibly if the observation is not found or the request
 #'   fails.
-#' @export
+#'
 #' @examples
 #' \dontrun{
 #' obs <- mnk_obs_id(6475)
@@ -38,6 +39,7 @@
 #' obs$taxon.name
 #' obs$quality_grade
 #' }
+#' @export
 mnk_obs_id <- function(id, meta = FALSE) {
 
   if (is.null(id) || length(id) == 0 || is.na(id[1]) ||!is.atomic(id) || length(id) > 1) {

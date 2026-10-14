@@ -70,13 +70,9 @@ optionally by month and day.
 }
 \examples{
 \dontrun{
-# Download all observations for place 'barcelona' for the year 2024
-# (up to the download limit)
-place_data_2024 <- mnk_place_obs(place_id = "barcelona", year = 2024)
-
-# Download all observations for place 123 for August 2025,
+# Download all observations for place 257 (Platja del Forum) for August 2025,
 # attempting to get all records without a limit.
-place_data_aug_2025 <- mnk_place_obs(place_id = 123, year = 2025, month = 8,
+place_data_aug_2025 <- mnk_place_obs(place_id = 257, year = 2025, month = 8,
 limit_download = FALSE)
 }
 }

@@ -5,6 +5,7 @@
 #'
 #' @details Queries the \code{/v1/places/autocomplete} endpoint.
 #' @param query a single character string contained in the place name.
+#'
 #' @return A tibble with one row per matching place. Returns an empty tibble
 #' with zero rows if no matches are found, or `NULL` invisibly on network error.
 #' Columns are:
@@ -17,6 +18,7 @@
 #' \item{location_latitud}{Latitude in decimal degrees, numeric.}
 #' \item{location_longitud}{Longitude in decimal degrees, numeric.}
 #' }
+#'
 #' @examples
 #' \dontrun{
 #' sant_feliu <- mnk_place_byname(query = "Sant Feliu")
@@ -53,17 +55,17 @@ mnk_place_byname <- function(query) {
   }
 
   purrr::map_dfr(parsed_json$results, function(x) {
-    loc_str <- rlang::`%||%`(x$location, NA_character_)
+    loc_str <-  `%||%`(x$location, NA_character_)
     loc_parts <- suppressWarnings(as.numeric(strsplit(loc_str, ",", fixed = TRUE)[[1]]))
     lat <- if (length(loc_parts)==2) loc_parts[1] else NA_real_
     lon <- if (length(loc_parts)==2) loc_parts[2] else NA_real_
 
     tibble::tibble(
-      place_id = suppressWarnings(as.integer(rlang::`%||%`(x$id, NA_integer_))),
-      slug = rlang::`%||%`(x$slug, NA_character_),
-      name = rlang::`%||%`(x$name, NA_character_),
-      area = suppressWarnings(as.numeric(rlang::`%||%`(x$bbox_area, NA_real_))),
-      display_name = rlang::`%||%`(x$display_name, NA_character_),
+      place_id = suppressWarnings(as.integer( `%||%`(x$id, NA_integer_))),
+      slug = `%||%`(x$slug, NA_character_),
+      name =  `%||%`(x$name, NA_character_),
+      area = suppressWarnings(as.numeric( `%||%`(x$bbox_area, NA_real_))),
+      display_name =  `%||%`(x$display_name, NA_character_),
       location_latitud = lat,
       location_longitud = lon
     )

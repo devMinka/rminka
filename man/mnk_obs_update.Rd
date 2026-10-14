@@ -4,12 +4,15 @@
 \alias{mnk_obs_update}
 \title{Download Minka Observations by Last Update Date}
 \usage{
-mnk_obs_update(day_update, ..., quiet = FALSE, limit_download = TRUE)
+mnk_obs_update(
+  updated_since = updated_since,
+  ...,
+  quiet = FALSE,
+  limit_download = TRUE
+)
 }
 \arguments{
-\item{day_update}{Date from which to retrieve updated observations.
-Character string in \code{"yyyy-mm-dd"} format or a \code{Date} object.
-Observations with \code{updated_at >= day_update} will be returned.}
+\item{updated_since}{start date in 'yyyy-mm-dd' format.}
 
 \item{...}{
   Arguments passed on to \code{\link[=mnk_obs]{mnk_obs}}
@@ -32,16 +35,15 @@ coordinates.}
 (WGS84) or a numeric vector c(nelat, nelng, swlat, swlng).}
   }}
 
-\item{quiet}{Logical. If \code{TRUE}, suppresses console progress messages.
-Default \code{FALSE}.}
+\item{quiet}{a logical value. If TRUE, suppresses console messages.}
 
-\item{limit_download}{Logical. If \code{TRUE} (default), each subdivided
-request is capped at 10,000 records as per API limitation.}
+\item{limit_download}{a logical value. If TRUE (default), each subdivided
+request is capped at 10,000 records.}
 }
 \value{
-A \code{tibble} with one row per observation and the same columns
-  documented in \code{\link{mnk_obs}}. Returns an empty tibble if no data
-  is found.
+a tibble with one row per observation and the same columns
+  documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
+  data is found.
 }
 \description{
 Downloads observation data from the Minka API filtering by
@@ -56,16 +58,13 @@ This is a wrapper around \code{\link{mnk_obs}} that uses the
 }
 \examples{
 \dontrun{
-# Download all observations updated since a date
-obs <- mnk_obs_update("2026-03-31", taxon_name = "Diplodus vulgaris")
+# Download observations between two dates
+obs <- mnk_obs_update(updated_since = "2026-07-01",
+    taxon_name = "Diplodus sargus")
 
 # Use with bounds (must be EPSG:4326)
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs_update("2024-01-01",
-  bounds = barcelona, quiet = TRUE)
+obs_bc <- mnk_obs_byday(updated_since = "2026-07-01",
+bounds = barcelona, quiet = TRUE)
 }
 }
-\seealso{
-\code{\link{mnk_obs}}, \code{\link{mnk_obs_byday}}
-}
-\concept{minka download functions}
