@@ -7,6 +7,18 @@ test_that("mnk_obs validates logical parameters", {
   expect_error(mnk_obs(taxon_name = "test", limit_download = "yes"), "'limit_download' must be TRUE or FALSE")
 })
 
+test_that("process_minka_results uses the documented original-photo column", {
+  photo_url <- "https://example.org/square.jpg"
+  result <- rminka:::process_minka_results(
+    list(list(id = 1, photos = list(list(url = photo_url))))
+  )
+
+  expect_equal(result$url_picture_icon, photo_url)
+  expect_equal(result$url_picture_med, "https://example.org/medium.jpg")
+  expect_equal(result$url_picture_orig, "https://example.org/original.jpg")
+  expect_false("ulr_picture_orig" %in% names(result))
+})
+
 test_that("mnk_obs validates the 'quality' parameter", {
   expect_error(mnk_obs(quality = "malo"), "must be 'casual' or 'research'")
 })

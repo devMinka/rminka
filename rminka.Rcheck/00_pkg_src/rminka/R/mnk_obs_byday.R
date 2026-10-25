@@ -17,9 +17,12 @@ byday_get_total_results <- function(p) {
 # Helper 2
 #' @noRd
 byday_process_results <- function(all_results) {
-  if (length(all_results) == 0) return(tibble::tibble())
+  if (length(all_results) == 0) {
+    return(tibble::tibble())
+  }
 
   processed <- purrr::map(all_results, ~tibble::tibble(
+
     id = `%||%`(.x$id, NA_integer_),
     observed_on = `%||%`(.x$observed_on, NA),
     year = `%||%`(.x$observed_on_details$year, NA_integer_),
@@ -50,6 +53,48 @@ byday_process_results <- function(all_results) {
     user_id = `%||%`(.x$user$id, NA_integer_),
     user_login = `%||%`(.x$user$login, NA)
   ))
+
+  processed <- purrr::map(all_results, function(.x) {
+    foto_raw <- purrr::pluck(.x, "photos", 1, "url",.default = NA_character_)
+    if (is.na(foto_raw)) {
+      foto_raw <- purrr::pluck(.x, "observation_photos", 1, "photo", "url",.default = NA_character_)
+    }
+    picture_medium <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "medium") else NA_character_
+    picture_original <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "original") else NA_character_
+
+    tibble::tibble(
+      id = rlang::`%||%`(.x$id, NA_integer_),
+      observed_on = rlang::`%||%`(.x$observed_on, NA),
+      year = rlang::`%||%`(.x$observed_on_details$year, NA_integer_),
+      month = rlang::`%||%`(.x$observed_on_details$month, NA_integer_),
+      week = rlang::`%||%`(.x$observed_on_details$week, NA_integer_),
+      day = rlang::`%||%`(.x$observed_on_details$day, NA_integer_),
+      hour = rlang::`%||%`(.x$observed_on_details$hour, NA_integer_),
+      created_at = rlang::`%||%`(.x$created_at, NA),
+      updated_at = rlang::`%||%`(.x$updated_at, NA),
+      latitude = rlang::`%||%`(.x$geojson$coordinates[[2]], NA_real_),
+      longitude = rlang::`%||%`(.x$geojson$coordinates[[1]], NA_real_),
+      positional_accuracy = rlang::`%||%`(.x$positional_accuracy, NA_integer_),
+      geoprivacy = rlang::`%||%`(.x$taxon_geoprivacy, NA),
+      obscured = rlang::`%||%`(.x$obscured, NA),
+      uri = rlang::`%||%`(.x$uri, NA),
+      url_picture = picture_medium,
+      url_picture_original = picture_original,
+      quality_grade = rlang::`%||%`(.x$quality_grade, NA),
+      species_guess = rlang::`%||%`(.x$species_guess, NA),
+      taxon_id = rlang::`%||%`(.x$taxon$id, NA_integer_),
+      taxon_name = rlang::`%||%`(.x$taxon$name, NA),
+      taxon_rank = rlang::`%||%`(.x$taxon$rank, NA),
+      taxon_min_ancestry = rlang::`%||%`(.x$taxon$min_species_ancestry, NA),
+      taxon_endemic = rlang::`%||%`(.x$taxon$endemic, NA),
+      taxon_threatened = rlang::`%||%`(.x$taxon$threatened, NA),
+      taxon_introduced = rlang::`%||%`(.x$taxon$introduced, NA),
+      taxon_native = rlang::`%||%`(.x$taxon$native, NA),
+      user_id = rlang::`%||%`(.x$user$id, NA_integer_),
+      user_login = rlang::`%||%`(.x$user$login, NA)
+    )
+  })
+
   dplyr::bind_rows(processed)
 }
 
@@ -84,18 +129,14 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 # MAIN FUNCTION
 
 ## ===================================================================
-##' Download Minka Observations by Last Update Date
+#' Download Minka Observations by Date Range
 #'
-#' Downloads observation data from the Minka API filtering by
-#'   last update date. It automatically subdivides requests by month and day
-#'   to avoid the 10,000 record limit per request imposed by the Minka API.
+#' Downloads observation data from the Minka API for a specified date range.
+#' Subdivides requests by month or day automatically to avoid the 10,000
+#' record API limit.
 #'
-#' @details This is a wrapper around \code{\link{mnk_obs}} that uses the
-#'   \code{updated_at} filter. If the total number of records since
-#'   \code{day_update} exceeds 10,000, the function splits the query by
-#'   year/month, and if necessary, by day.
-#'
-#' @param updated_since start date in 'yyyy-mm-dd' format.
+#' @param d1 start date in 'yyyy-mm-dd' format.
+#' @param d2 end date in 'yyyy-mm-dd' format.
 #' @param ... additional arguments passed to the API. See [mnk_obs()] for
 #'   details on available parameters.
 #' @param quiet a logical value. If TRUE, suppresses console messages.
@@ -110,19 +151,23 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' @examples
 #' \dontrun{
 #' # Download observations between two dates
-#' obs <- mnk_obs_update(updated_since = "2026-07-01",
-#'     taxon_name = "Diplodus sargus")
+#' obs <- mnk_obs_byday("2024-03-01", "2024-03-31",
+#' taxon_name = "Diplodus sargus")
 #'
 #' # Use with bounds (must be EPSG:4326)
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-#' obs_bc <- mnk_obs_byday(updated_since = "2026-07-01",
+#' obs_bc <- mnk_obs_byday("2024-01-01", "2024-01-07",
 #' bounds = barcelona, quiet = TRUE)
 #' }
 #' @export
-mnk_obs_update <- function(updated_since = updated_since,..., quiet = FALSE, limit_download = TRUE) {
-  update <- as.Date(updated_since, format = "%Y-%m-%d")
-  if (is.na(upddate)) {
-    stop("Update date must be in 'yyyy-mm-dd' format.")
+mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
+  date1 <- as.Date(d1, format = "%Y-%m-%d")
+  date2 <- as.Date(d2, format = "%Y-%m-%d")
+  if (is.na(date1) || is.na(date2)) {
+    stop("Dates d1 and d2 must be in 'yyyy-mm-dd' format.")
+  }
+  if (date1 > date2) {
+    stop("The start date (d1) cannot be after the end date (d2).")
   }
 
   all_params <- list(...)
@@ -172,12 +217,12 @@ mnk_obs_update <- function(updated_since = updated_since,..., quiet = FALSE, lim
     base_params <- c(base_params, processed_annotation)
   }
 
-  total_results <- update_get_total_results(c(base_params, updated_since=updated_since))
+  total_results <- byday_get_total_results(c(base_params, list(d1 = d1, d2 = d2)))
 
   if (!quiet) {
     if (total_results > 0) {
       message("Found a total of ", format(total_results, big.mark = ","),
-              " records between ", updated_since, " and ", lubridate::today , ".")
+              " records between ", d1, " and ", d2, ".")
     } else {
       message("No records found for the specified criteria.")
     }
@@ -185,18 +230,18 @@ mnk_obs_update <- function(updated_since = updated_since,..., quiet = FALSE, lim
   if (total_results == 0) return(tibble::tibble())
 
   if (total_results <= 10000) {
-    params <- c(base_params,updated_since=updated_since)
+    params <- c(base_params, list(d1 = d1, d2 = d2))
     return(byday_download_chunk(params, total_results, quiet, limit_download))
   }
 
   if (!quiet) message(" -> Total > 10,000. Subdividing request...")
   all_results_list <- list()
 
-  years_in_range <- unique(format(seq.Date(updated_since, lubridate::today(), by = "day"), "%Y"))
+  years_in_range <- unique(format(seq.Date(date1, date2, by = "day"), "%Y"))
 
   for (year_val in years_in_range) {
-    year_start_date <- max(updated_since, as.Date(paste0(year_val, "-01-01")))
-    year_end_date <- min(lubridate::today , as.Date(paste0(year_val, "-12-31")))
+    year_start_date <- max(date1, as.Date(paste0(year_val, "-01-01")))
+    year_end_date <- min(date2, as.Date(paste0(year_val, "-12-31")))
     months_in_range <- unique(format(seq.Date(year_start_date,
                                               year_end_date, by = "day"), "%Y-%m"))
 

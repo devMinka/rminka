@@ -33,7 +33,10 @@
 #'   \item{geoprivacy}{Geoprivacy flag, logical.}
 #'   \item{obscured}{Obscured coordinates flag, logical.}
 #'   \item{uri}{Observation url in Minka, character.}
-#'   \item{url_picture}{URL of observation image in Minka, character.}
+#'   \item{URL_image}{URL of the first photo at medium resolution, character.}
+#'   \item{url_picture_icon}{URL of first photo low resolution, character.}
+#'   \item{url_picture_med}{URL of first photo medium resolution, character.}
+#'   \item{url_picture_orig}{URL of first photo original resolution, character.}
 #'   \item{quality_grade}{Data quality grade, character.}
 #'   \item{taxon_id}{Taxon identifier, integer.}
 #'   \item{taxon_name}{Scientific name, character.}
@@ -58,7 +61,7 @@
 #' @export
 mnk_place_obs <- function(place_id, year, month = NULL, day = NULL, quiet = FALSE, limit_download = TRUE) {
 
-  mnk_obs(
+  observations <- mnk_obs(
     place_id = place_id,
     year = year,
     month = month,
@@ -66,5 +69,11 @@ mnk_place_obs <- function(place_id, year, month = NULL, day = NULL, quiet = FALS
     quiet = quiet,
     limit_download = limit_download
   )
+
+  if ("url_picture_med" %in% names(observations)) {
+    observations$URL_image <- observations$url_picture_med
+  }
+
+  observations
 
 }

@@ -48,7 +48,7 @@ process_minka_results <- function(all_results) {
       uri =.x$uri %||% NA_character_,
       url_picture_icon = picture_icon,
       url_picture_med = picture_medium,
-      ulr_picture_orig = picture_original,
+      url_picture_orig = picture_original,
       quality_grade =.x$quality_grade %||% NA_character_,
       taxon_id = purrr::pluck(.x, "taxon", "id",.default = NA_integer_),
       taxon_name = purrr::pluck(.x, "taxon", "name",.default = NA_character_),
@@ -205,9 +205,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 
 ## ===================================================================
 
-# MAIN FUNCTION
-
-## ===================================================================
+#==MAIN FUNCTION=======================================================
 
 #' Download Minka Observations
 #'
@@ -273,14 +271,15 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'
 #' @examples
 #' \dontrun{
-#' # Download firts 10.000 observations of taxon  from a project in 2025
+#' # Download the first 10,000 observations of a taxon from a project in 2025
 #' obs <- mnk_obs(project_id = 417, year = 2025,
 #' taxon_name = "Diplodus sargus" )
 #'
 #' # Download all records in 2024 from a user using bounds
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-#' obs_bc <- mnk_obs( year=2024, user_login = "xasalvador",
-#' bounds = barcelona, quiet = TRUE, limit_dowload = FALSE)
+#' obs_bc <- mnk_obs(year = 2024, user_id = 4,
+#'                   bounds = barcelona, quiet = TRUE,
+#'                   limit_download = FALSE)
 #' }
 #' @export
 mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
@@ -400,7 +399,7 @@ mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
         remaining_limit = remaining_limit
       )
 
-      if(month_result$count > 0){
+      if (month_result$count > 0){
         all_year_data[[length(all_year_data) + 1]] <- month_result$data
         remaining_limit <- remaining_limit - month_result$count
       }

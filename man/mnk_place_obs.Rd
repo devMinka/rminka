@@ -49,7 +49,10 @@ A tibble with one row per observation. Returns an empty tibble with
   \item{geoprivacy}{Geoprivacy flag, logical.}
   \item{obscured}{Obscured coordinates flag, logical.}
   \item{uri}{Observation url in Minka, character.}
-  \item{url_picture}{URL of observation image in Minka, character.}
+  \item{URL_image}{URL of the first photo at medium resolution, character.}
+  \item{url_picture_icon}{URL of first photo low resolution, character.}
+  \item{url_picture_med}{URL of first photo medium resolution, character.}
+  \item{url_picture_orig}{URL of first photo original resolution, character.}
   \item{quality_grade}{Data quality grade, character.}
   \item{taxon_id}{Taxon identifier, integer.}
   \item{taxon_name}{Scientific name, character.}

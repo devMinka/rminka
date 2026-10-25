@@ -13,31 +13,37 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  # para CRAN pon eval=FALSE en los chunks que llaman a la API
-  # de momento lo dejamos TRUE para que veas que funciona
-  #eval = Sys.getenv("CI") == "",
-  eval= TRUE,
-  fig.align = "center",   # centered
-  out.width = "600px"   # fixed size
-  )
+  fig.align = "center",
+  out.width = "600px"
+)
 
-library(dplyr)
-library(tibble)
-library(rminka)
-library(sf)
-library(leaflet)
-library(htmltools)
-library(magick)
-library(purrr)
-library(ggplot2)
+# --- Protecció per CRAN / win-builder ---
+# Si no hi ha internet o estem a CRAN, no avaluem els chunks de l'API
+is_cran_check <- !curl::has_internet() || identical(Sys.getenv("NOT_CRAN"), "")
+
+if (is_cran_check) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
+# Funció per no petar si falta un Suggest
+has <- function(p) requireNamespace(p, quietly = TRUE)
+
+# Carrega només si existeix, així la vinyeta es pot construir igual
+suppressPackageStartupMessages({
+  if (has("dplyr")) library(dplyr)
+  if (has("tibble")) library(tibble)
+  if (has("rminka")) library(rminka)
+  if (has("sf")) library(sf)
+  if (has("leaflet")) library(leaflet)
+  if (has("htmltools")) library(htmltools)
+  if (has("purrr")) library(purrr)
+  if (has("ggplot2")) library(ggplot2)
+  if (has("magick")) library(magick)
+})
 
 ```
-
-```{r leaflet-css, echo=FALSE, results='asis'} 
-
-cat('  
 <style>
-/*  solve css error marker */
+/*  imagen  marker */
 .leaflet-container img.leaflet-marker-icon,
 .leaflet-container img.leaflet-marker-shadow {
   max-width: none !important;
@@ -63,18 +69,17 @@ cat('
   display: block !important;
 }
 
-/* image center and size  */
-img {
+/* image center and size only images  */
+img:not(.leaflet-marker-icon):not(.leaflet-marker-shadow) {
   display: block;
   margin-left: auto !important;
   margin-right: auto !important;
   max-width: 900px !important;
   height: auto !important;
-}
 </style>
-')
 
-```
+
+
 This document introduces you to rminka basic set of tools, and shows you how to 
 apply them to obtain your desired information.
 Once you’ve installed, read vignette("rminka") to learn more.
@@ -261,7 +266,9 @@ obs_place
 
 #Turning the dataframe into an sf object with the mnk_obs_sf() function
 
-obs_sf <- mnk_obs_sf(obs_place,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
+# NUEVO: mnk_place_obs() expone URL_image para mostrar la foto mediana.
+obs_sf <- mnk_obs_sf(obs_place, "id", "taxon_name", "observed_on",
+                     "URL_image", "uri", "user_login")
 
 # Preparing the obtained data for later display in the marker popup
 
@@ -270,8 +277,8 @@ popup_final <-  paste0( "ID: <a href='", obs_sf$uri,
                         "Specie:", obs_sf$taxon_name, "<br>",
                         "Observer: ", obs_sf$user_login,"<br>",
                         "Date:", obs_sf$observed_on, "<br>",
-                        "<a href= '", obs_sf$url_picture, "' target='_blank'><img src='", 
-                        obs_sf$url_picture,
+                        "<a href='", obs_sf$URL_image, "' target='_blank'><img src='",
+                        obs_sf$URL_image,
                         "' style='margin-top:2px;border-radius:4px;'> </a> ")
 #finally plotins
 
@@ -298,7 +305,7 @@ leaflet(obs_sf) %>%
  
 Returns a single observation given its observation ID. This function is seldom used in practice, as observation IDs are not usually known beforehand.
 
-```{r obs_id, include = TRUE , echo=TRUE}
+```{r obs_id}
 obs_id <- mnk_obs_id(id = 553028)
 
 obs_id
@@ -315,7 +322,7 @@ To retrieve only validated records, use `quality = "research"`.Previous examples
 
 a) <u>Taxon search</u>. Observations for the genus Raja and for the species Raja brachyura during 2025 are obtained with `taxon_name = "Raja"` and `taxon_name = "Raja brachyura"` respectively.
 
-```{r obs, include = TRUE , echo=TRUE}
+```{r obs}
 #In this example don´t show messages in console (quiet= TRUE)
 
 # Get observations for genus Raja in 2025 by user Xavier Salvador ( user_id=4)
@@ -333,28 +340,29 @@ obs_brachyura <- mnk_obs(taxon_name = "Raja brachyura", year = 2023, user_id = 4
 obs_brachyura[, c(1,2, 10, 11, 16, 27)]  # show selected columns
 
 ```
-Images from observations can be visualized and printed using the magick package and the observation's `url_picture` as follow.
+**NUEVO:** Images from observations can be visualized and printed using the magick package and the observation's `url_picture_med` or `url_picture_orig` as follows.
 
-```{r brachyura-pic, echo=TRUE, out.width='85%', fig.align='center', fig.alt="Raja undulata observed by Xavier Salvador"}
+```{r brachyura-pic, out.width='85%', fig.align='center', fig.alt="Raja undulata observed by Xavier Salvador"}
 # Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)
 
 obs_undulata <- mnk_obs(taxon_name = "Raja undulata", year = 2022, user_id = 4, 
                          quiet = TRUE, quality = "research")
 
-# select 3rd observation and get picture URL (url_picture)
+# NUEVO: el nombre de la columna original es url_picture_orig.
+# Select the third observation and get its medium-resolution picture URL.
 
-url_pic_undulata <- as.character(obs_undulata$url_picture[3])
+url_pic_undulata <- as.character(obs_undulata$url_picture_med[3])
 
 # read image directly from URL
 
 img_undulata <- image_read(url_pic_undulata )
 
-  # add copyright caption at top
+  # add copyright caption at bottom
   img_undulata <- image_annotate(
     img_undulata,
     "© Xavier Salvador",
-    size = 10, 
-    gravity = "northwest", 
+    size = 15, 
+    gravity = "southeast", 
     color = "white", 
   ) 
 
@@ -366,12 +374,13 @@ img_undulata
 
 b) <u>Bounding-box search</u>. Observations within a rectangular area are retrieved by supplying the coordinates of the southwest and northeast corners. For example, to search around Platja de Sant Sebastià in Barcelona, define the bounding box and pass it to `mnk_obs()`.
 
-```{r obs_1, include = TRUE , echo=TRUE}
+```{r obs_1}
+
 # read shapefile of  study area using relative path 
 
-shp <- "../inst/extdata/espigo_w.shp"
+shp_path <- system.file("extdata", "espigo_w.shp", package = "rminka")
 
-espigo <- sf::st_read(shp, quiet = TRUE)
+espigo <- sf::st_read(shp_path, quiet = TRUE)
 
 # ensure WGS84 for leaflet (standard for web maps)
 
@@ -390,7 +399,7 @@ Applied to the Espigo del W example, this would be:
 The two points, pmax and pmin, will be displayed together with the study area
 of the Espigo del W in leaflet to help understand how the bounds parameter works.
 
-```{r bounds, include = TRUE , echo=TRUE}
+```{r bounds}
 #Pmin
 xmin <- 2.189147
 ymin <- 41.368182
@@ -444,7 +453,9 @@ obs_torpedo_bounds
 #selecting some fields ("id","taxon_name","observed_on",.....) from the original
 #data frame for to show later in leaflet popups.
 
-obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds,"id","taxon_name","observed_on", "url_picture", "uri", "user_login")
+# NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.
+obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds, "id", "taxon_name", "observed_on",
+                            "url_picture_med", "url_picture_orig", "uri", "user_login")
 
 # Preparing the obtained data for later display in the marker popup
 
@@ -453,9 +464,9 @@ popup_final_torpedo <-  paste0( "ID: <a href='", obs_bounds_sf$uri,
                         "Specie:", obs_bounds_sf$taxon_name, "<br>",
                         "Observer: ", obs_bounds_sf$user_login,"<br>",
                         "Date:", obs_bounds_sf$observed_on, "<br>",
-                        "<a href= '", obs_bounds_sf$url_picture, 
+                        "<a href='", obs_bounds_sf$url_picture_orig, 
                         "' target='_blank'><img src='", 
-                        obs_bounds_sf$url_picture, 
+                        obs_bounds_sf$url_picture_med, 
                         "' style='margin-top:2px;border-radius:4px;'> </a> ")
 
 #final plot
@@ -473,28 +484,13 @@ Works like `mnk_obs()` but uses an explicit date interval instead of year or mon
 `d1`: start date in 'yyyy-mm-dd' format
 `d2`: end date in 'yyyy-mm-dd' format
 
-```{r obs_byday, include = TRUE ,echo=TRUE}
+```{r obs_byday}
 #Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.
 
 obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
                              d2= "2024-05-25", quiet = TRUE, quality = "research")
 
 obs_undulata_2024
-
-```
-
-
-### ● `mnk_obs_update()`
- 
-Downloads observations from the Minka API filtered by the date they were last updated. It's the best way to keep a local database in sync without re-downloading everything. The date they were last updated  is `day_update` in 'yyyy-mm-dd' format.
-
-```{r obs_update, include = TRUE ,echo=TRUE}
-#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) update since 01-01-2024.
-
-obs_undulata_2024_updated <- mnk_obs_update(day_update = "2024-01-01", taxon_name = "Raja undulata", 
-                             quiet = TRUE, quality = "research")
-
-obs_undulata_2024_updated
 
 ```
 
@@ -508,14 +504,16 @@ This function converts an observations data frame into a spatial layer in sf for
 The function takes the latitude/longitude columns returned by `mnk_obs` or by any other function in the rminka package that returns an observations data frame — such as `mnk_proj_obs` or `mnk_user_obs` — and converts them into an sf POINT layer. By default the geometry is returned in CRS EPSG:4326 (WGS84), but you can specify any CRS you need via the crs argument.
 Its basic usage has already been shown briefly in previous sections. Here we develop a detailed example using the *Torpedo torpedo* observations at the espigó Hotel W.
 
-```{r sf_obs, include = TRUE ,echo=TRUE,message=FALSE, warning=FALSE}
+```{r sf_obs,message=FALSE, warning=FALSE}
+# NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
 obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
-                      observed_on, user_login, quality_grade, url_picture,
+                      observed_on, user_login, quality_grade,
+                      url_picture_med, url_picture_orig,
                       uri, crs = 25831)
 
 # The input obs_torpedo_bounds is a data frame with the full set of observation records. The
 #function keeps only the selected attribute columns (id, taxon_name, observed_on, user_login,
-#quality_grade, url_picture, uri); these are preserved in the output sf object together with
+#quality_grade, url_picture_med, url_picture_orig, uri); these are preserved in the output sf object together with
 #the generated geometry in obs_utm.
 
 #The crs = 25831 parameter overrides the default EPSG:4326. 
@@ -547,6 +545,7 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
         options = WMSTileOptions(format = "image/png", 
                                  transparent = TRUE, version = "1.3.0")) %>%
     
+# NUEVO: el enlace abre la imagen original y el marcador muestra la versión mediana.
       addCircleMarkers(
         data = obs_utm, 
         radius = 6,
@@ -558,9 +557,9 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
                             "Observer: ", obs_utm$user_login,"<br>",
                             "Quality:", obs_utm$quality_grade,"<br>",
                             "Date:", obs_utm$observed_on, "<br>",
-                            "<a href= '", obs_utm$url_picture, 
+                            "<a href='", obs_utm$url_picture_orig, 
                             "' target='_blank'><img src='", 
-                            obs_utm$url_picture, 
+                            obs_utm$url_picture_med, 
                             "' style='margin-top:2px;border-radius:4px;'> </a> "))
 ```
 
@@ -570,7 +569,7 @@ This function writes one or more sf objects to a GeoPackage (.gpkg), creating on
 
 We will apply it to the two examples from the previous section.
 
-```{r export_mnk , eval=TRUE, include = TRUE ,echo=TRUE}
+```{r export_mnk }
 export_mnk_qgis(observations =obs_utm ,file="shape")
 
 #In this first example we export the observations layer from the previous step (obs_utm)
@@ -596,7 +595,7 @@ export_mnk_qgis(observations = obs_utm , file = tmp1)
 This function downloads taxonomic information from the World Register of Marine Species [(WoRMS)](https://www.marinespecies.org/) for a given scientific name.
 Two examples are provided to illustrate its practical use, particularly when working with tibbles returned by observation functions. In these cases, the goal is to obtain the observations tibble enriched with the complete taxonomy for each recorded species, including its marine,its freshwater, brackish, or extinct status.
 
-```{r get_taxonom_mnk , include = TRUE ,echo=TRUE}
+```{r get_taxonom_mnk}
 #First example – single species
 
 get_wrm_tax("Diplodus sargus")
@@ -629,7 +628,7 @@ obs_place_tax <- obs_place %>%
 
 This function creates a standardized abbreviation from a scientific name. In the following example it is used to generate a bar plot of observation frequencies for the species in the "obs_place" tibble, with the abbreviated names making the chart easier to read.
 
-```{r shrt_name , include = TRUE ,echo=TRUE}
+```{r shrt_name }
 #Create standardized abbreviations for scientific names
 
 obs_place <- obs_place %>%
