@@ -21,8 +21,8 @@ byday_process_results <- function(all_results) {
     return(tibble::tibble())
   }
 
-<<<<<<< HEAD
   processed <- purrr::map(all_results, ~tibble::tibble(
+
     id = `%||%`(.x$id, NA_integer_),
     observed_on = `%||%`(.x$observed_on, NA),
     year = `%||%`(.x$observed_on_details$year, NA_integer_),
@@ -53,7 +53,7 @@ byday_process_results <- function(all_results) {
     user_id = `%||%`(.x$user$id, NA_integer_),
     user_login = `%||%`(.x$user$login, NA)
   ))
-=======
+
   processed <- purrr::map(all_results, function(.x) {
     foto_raw <- purrr::pluck(.x, "photos", 1, "url",.default = NA_character_)
     if (is.na(foto_raw)) {
@@ -94,7 +94,7 @@ byday_process_results <- function(all_results) {
       user_login = rlang::`%||%`(.x$user$login, NA)
     )
   })
->>>>>>> 8d40ee8568d82349e66580730dc9d95d8646ea38
+
   dplyr::bind_rows(processed)
 }
 

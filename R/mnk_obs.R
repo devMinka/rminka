@@ -46,7 +46,9 @@ process_minka_results <- function(all_results) {
       geoprivacy =.x$taxon_geoprivacy %||% NA_character_,
       obscured =.x$obscured %||% NA,
       uri =.x$uri %||% NA_character_,
-      url_picture = purrr::pluck(.x, "observation_photos", 1, "photo", "url",.default = NA_character_),
+      url_picture_icon = picture_icon,
+      url_picture_med = picture_medium,
+      ulr_picture_orig = picture_original,
       quality_grade =.x$quality_grade %||% NA_character_,
       taxon_id = purrr::pluck(.x, "taxon", "id",.default = NA_integer_),
       taxon_name = purrr::pluck(.x, "taxon", "name",.default = NA_character_),
@@ -252,7 +254,9 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   \item{geoprivacy}{geoprivacy setting, character.}
 #'   \item{obscured}{flag for obscured coordinates, logical.}
 #'   \item{uri}{API resource URI, character.}
-#'   \item{url_picture}{URL of first photo, character.}
+#'   \item{url_picture_icon}{URL of first photo low resolution, character.}
+#'   \item{url_picture_med}{URL of first photo medium resolution, character.}
+#'   \item{url_picture_orig}{URL of first photo original resolution, character.}
 #'   \item{quality_grade}{quality grade, character.}
 #'   \item{taxon_id}{taxon identifier, integer.}
 #'   \item{taxon_name}{scientific name, character.}
