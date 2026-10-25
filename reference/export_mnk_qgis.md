@@ -1,9 +1,9 @@
 # Export sf Minka Objects to a GeoPackage for QGIS
 
-Writes one or more `sf` objects to a GeoPackage (`.gpkg`) with one layer
-per object. The function is designed for a smooth QGIS workflow: it
-ensures valid geometries, drops Z/M dimensions, removes list-columns
-that GDAL cannot write, and transforms to a target CRS.
+Writes one or more `sf` objects to a GeoPackage (`.gpkg`), with one
+layer per object. The function prepares the data for QGIS by repairing
+invalid geometries, dropping Z/M dimensions, removing unsupported
+list-columns, and transforming each layer to a target CRS.
 
 ## Usage
 
@@ -15,16 +15,15 @@ export_mnk_qgis(..., file = NULL, crs = 4326, overwrite = TRUE)
 
 - ...:
 
-  One or more objects of class `sf`. Each object must be named; the name
-  is used as the layer name in the GeoPackage (e.g.,
-  `export_mnk_qgis(points = pts, polygons = polys)`).
+  One or more objects of class `sf`. Each object must have a unique,
+  non-empty name, which is used as its layer name in the GeoPackage. For
+  example, use `export_mnk_qgis(points = pts, polygons = polys)`.
 
 - file:
 
-  Character. Path to the output GeoPackage. It is highly recommended to
-  provide a full path. If a simple filename is provided, it will be
-  saved in the current working directory. The `.gpkg` extension is added
-  if missing.
+  A single, non-empty character path for the output GeoPackage. A simple
+  filename is saved in the current working directory. The `.gpkg`
+  extension is added if missing.
 
 - crs:
 
@@ -34,9 +33,10 @@ export_mnk_qgis(..., file = NULL, crs = 4326, overwrite = TRUE)
 
 - overwrite:
 
-  Logical. If `TRUE` and `file` exists, the file is deleted before
-  writing. If `FALSE` and the file exists, the function appends layers
-  (and will error if a layer name already exists). Default is `TRUE`.
+  A single logical value. If `TRUE` and `file` exists, the file is
+  deleted before writing. If `FALSE` and the file exists, layers are
+  appended; writing fails if a layer name already exists. Defaults to
+  `TRUE`.
 
 ## Value
 
@@ -45,7 +45,9 @@ for its side effect of writing the file.
 
 ## Details
 
-The function performs the following steps for each layer:
+Before changing the output file, the function checks that all inputs are
+named `sf` objects and that the layer names are unique. It then performs
+the following steps for each layer:
 
 1.  Transform to `crs` with
     [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html).
@@ -69,16 +71,21 @@ informative error.
 ## Examples
 
 ``` r
-if (requireNamespace("sf", quietly = TRUE)) {
-  library(sf)
-  pts <- st_as_sf(data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
-                  coords = c("x", "y"), crs = 4326)
-  poly <- st_as_sf(st_sfc(
-    st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
-                          c(0.7,41.1), c(0.7,40.8)))),
-    crs = 4326))
-  export_mnk_qgis(exampl_points = pts, exampl_area = poly,
-                  file = tempfile(fileext = ".gpkg"))
-}
-#> Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
+points <- sf::st_as_sf(
+  data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
+  coords = c("x", "y"),
+  crs = 4326
+)
+polygon <- sf::st_as_sf(
+  sf::st_sfc(
+    sf::st_polygon(list(rbind(
+      c(0.7, 40.8), c(1.0, 40.8), c(1.0, 41.1),
+      c(0.7, 41.1), c(0.7, 40.8)
+    ))),
+    crs = 4326
+  )
+)
+output_file <- tempfile(fileext = ".gpkg")
+export_mnk_qgis(points = points, area = polygon, file = output_file)
+unlink(output_file)
 ```

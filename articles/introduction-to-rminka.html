@@ -668,7 +668,7 @@ in Barcelona, define the bounding box and pass it to
 <span></span>
 <span><span class="co"># ensure WGS84 for leaflet (standard for web maps)</span></span>
 <span></span>
-<span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">espigo</span>, <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">espigo</span>, <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, the area can also be defined by a vector from two points,
 Pmax and Pmin, where the area is defined as:</p>
 <p><code>bounds &lt;- c(ymax, xmax, ymin, xmin)</code></p>
