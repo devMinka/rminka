@@ -1,8 +1,8 @@
 # Download Minka Observations by Date Range
 
 Downloads observation data from the Minka API for a specified date
-range. Subdivides requests by month or day automatically to avoid the
-10,000 record API limit.
+range. When the result set exceeds 10,000 records, requests are
+automatically subdivided by month or day to respect the API limit.
 
 ## Usage
 
@@ -14,11 +14,11 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 
 - d1:
 
-  start date in 'yyyy-mm-dd' format.
+  Start date in `YYYY-MM-DD` format.
 
 - d2:
 
-  end date in 'yyyy-mm-dd' format.
+  End date in `YYYY-MM-DD` format.
 
 - ...:
 
@@ -81,32 +81,42 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 
 - quiet:
 
-  a logical value. If TRUE, suppresses console messages.
+  Logical. If `TRUE`, suppresses console messages.
 
 - limit_download:
 
-  a logical value. If TRUE (default), each subdivided request is capped
-  at 10,000 records.
+  Logical. If `TRUE` (default), each request is capped at 10,000
+  records.
 
 ## Value
 
-A tibble with one row per observation and the shared fields documented
-in [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
-It adds `species_guess` and uses `url_picture` and
-`url_picture_original` for medium- and original-resolution photos.
-Returns an empty tibble if no data is found.
+A tibble with one row per observation. It contains the observation
+fields documented in
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md),
+plus `species_guess`. Medium- and original-resolution photo columns are
+named `url_picture` and `url_picture_original`, respectively. Returns an
+empty tibble if no data is found.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Download observations between two dates
-obs <- mnk_obs_byday("2024-03-01", "2024-03-31",
-taxon_name = "Diplodus sargus")
+# Download observations of a taxon during March 2024
+obs <- mnk_obs_byday(
+  d1 = "2024-03-01",
+  d2 = "2024-03-31",
+  taxon_name = "Diplodus sargus"
+)
 
-# Use with bounds (must be EPSG:4326)
+# Download observations within a bounding box during the first week of 2024
+# Bounds are ordered north latitude, east longitude, south latitude,
+# and west longitude.
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs_byday("2024-01-01", "2024-01-07",
-bounds = barcelona, quiet = TRUE)
+obs_bc <- mnk_obs_byday(
+  d1 = "2024-01-01",
+  d2 = "2024-01-07",
+  bounds = barcelona,
+  quiet = TRUE
+)
 } # }
 ```
