@@ -7,33 +7,33 @@
 get_wrm_tax(scientific_name)
 }
 \arguments{
-\item{scientific_name}{a character string with the scientific name to
-search for, for example "Diplodus sargus" or "Diplodus".}
+\item{scientific_name}{A single, non-empty character string containing a
+scientific name, such as \code{"Diplodus sargus"}.}
 }
 \value{
-a one-row tibble with taxonomic and habitat flags. Returns
-\code{NULL} invisibly if the taxon is not found or the request fails.
-The tibble contains the following columns:
+A one-row tibble with taxonomic and habitat information. Returns
+  \code{NULL} invisibly if no taxon is found or the request or response
+  cannot be processed. The tibble contains these columns:
 \describe{
 \item{valid_AphiaID}{WoRMS AphiaID, integer.}
-\item{valid_name}{accepted scientific name, character.}
-\item{rank}{taxonomic rank, character.}
-\item{kingdom}{kingdom, character.}
-\item{phylum}{phylum, character.}
-\item{class}{class, character.}
-\item{order}{order, character.}
-\item{family}{family, character.}
-\item{genus}{genus, character.}
-\item{isMarine}{marine flag, logical.}
-\item{isBrackish}{brackish flag, logical.}
-\item{isFreshwater}{freshwater flag, logical.}
-\item{isTerrestrial}{terrestrial flag, logical.}
-\item{isExtinct}{extinct flag, logical.}
+\item{valid_name}{Accepted scientific name, character.}
+\item{rank}{Taxonomic rank, character.}
+\item{kingdom}{Kingdom, character.}
+\item{phylum}{Phylum, character.}
+\item{class}{Class, character.}
+\item{order}{Order, character.}
+\item{family}{Family, character.}
+\item{genus}{Genus, character.}
+\item{isMarine}{Marine habitat flag, logical.}
+\item{isBrackish}{Brackish-water habitat flag, logical.}
+\item{isFreshwater}{Freshwater habitat flag, logical.}
+\item{isTerrestrial}{Terrestrial habitat flag, logical.}
+\item{isExtinct}{Extinct flag, logical.}
 }
 }
 \description{
 Downloads taxonomic information from the World Register of Marine Species
-(WoRMS) for a given scientific name. Returns the first exact match found.
+(WoRMS) for a scientific name and returns the first exact-name match.
 }
 \examples{
 \dontrun{

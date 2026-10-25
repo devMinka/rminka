@@ -8,7 +8,7 @@ test_that("get_wrm_tax handles network errors", {
     .package = "httr",
     {
       expect_message(
-        result <- get_wrm_tax("Qualquer nome"),
+        result <- get_wrm_tax("Some name"),
         regexp = "Network error: WoRMS API is unavailable or unreachable..*Failed to connect"
       )
       expect_null(result)
@@ -64,7 +64,6 @@ test_that("get_wrm_tax handles API returning empty JSON", {
 
 test_that("get_wrm_tax handles invalid or malformed JSON response", {
   skip_if_not_installed("httr")
-  skip_if_not_installed("jsonlite")
   mock_httr_GET_success <- function(url) {
     structure(list(
       status_code = 200L,
@@ -73,18 +72,17 @@ test_that("get_wrm_tax handles invalid or malformed JSON response", {
       headers = list("Content-Type" = "application/json")
     ), class = "response")
   }
-  mock_fromJSON_fails <- function(...) {
-    return(NULL)
-  }
-  with_mocked_bindings(.package = "httr", GET = mock_httr_GET_success, {
-    with_mocked_bindings(.package = "jsonlite", fromJSON = mock_fromJSON_fails, {
+  with_mocked_bindings(
+    GET = mock_httr_GET_success,
+    .package = "httr",
+    {
       expect_message(
         result <- get_wrm_tax("a species name"),
-        regexp = "API returned an empty or invalid response for: 'a species name'."
+        regexp = "Unable to parse WoRMS API response"
       )
       expect_null(result)
-    })
-  })
+    }
+  )
 })
 
 test_that("get_wrm_tax parses a valid JSON response correctly", {
@@ -96,7 +94,9 @@ test_that("get_wrm_tax parses a valid JSON response correctly", {
     "genus": "Diplodus", "isMarine": 1, "isBrackish": 1,
     "isFreshwater": 0, "isTerrestrial": 0, "isExtinct": 0
   }]'
+  requested_url <- NULL
   mock_httr_GET_success <- function(url) {
+    requested_url <<- url
     structure(list(
       status_code = 200L,
       content = charToRaw(valid_json),
@@ -113,6 +113,8 @@ test_that("get_wrm_tax parses a valid JSON response correctly", {
       expect_equal(nrow(result), 1)
       expect_equal(result$valid_name, "Diplodus sargus")
       expect_true(as.logical(result$isMarine))
+      expect_type(result$valid_AphiaID, "integer")
+      expect_match(requested_url, "AphiaRecordsByName/Diplodus%20sargus")
     }
   )
 })
@@ -123,6 +125,7 @@ test_that("get_wrm_tax throws error for invalid input", {
   expect_error(get_wrm_tax(12345), regexp = err_msg, fixed = TRUE)
   expect_error(get_wrm_tax(c("a", "b")), regexp = err_msg, fixed = TRUE)
   expect_error(get_wrm_tax("    "), regexp = err_msg, fixed = TRUE)
+  expect_error(get_wrm_tax(NA_character_), regexp = err_msg, fixed = TRUE)
 })
 
 test_that("get_wrm_tax works for a valid species name", {

@@ -604,32 +604,30 @@ export_mnk_qgis(observations = obs_utm , file = tmp1)
 ### ● `get_wrm_tax()`
 
 This function downloads taxonomic information from the World Register of Marine Species [(WoRMS)](https://www.marinespecies.org/) for a given scientific name.
-Two examples are provided to illustrate its practical use, particularly when working with tibbles returned by observation functions. In these cases, the goal is to obtain the observations tibble enriched with the complete taxonomy for each recorded species, including its marine,its freshwater, brackish, or extinct status.
+The examples show how to retrieve taxonomy for a single species and how to
+combine taxonomic information with observations returned by an observation
+function. The WoRMS response includes habitat flags, such as marine,
+brackish-water, freshwater, and terrestrial status, as well as an extinct flag.
 
 ```{r get_taxonom_mnk}
-#First example – single species
+# Retrieve taxonomy for a single species
 
 get_wrm_tax("Diplodus sargus")
 
-#The taxonomy and metadata are retrieved for a single species, Diplodus sargus.
+# Retrieve taxonomy for each species in the previous observation data.
 
-#Second example – community taxonomy
-#The taxonomy is retrieved for all species observed in the previous `mnk_place_obs`
-#call — all species recorded in the Forum pools area during February 2025 (obs_place).
-
-taxon_unic <- obs_place %>%
+unique_taxa <- obs_place %>%
   filter(!is.na(taxon_name)) %>%
   distinct(taxon_name) %>%
   pull(taxon_name)
 
 taxonomy_df <- map_dfr(
-  setNames(taxon_unic, taxon_unic),  
+  setNames(unique_taxa, unique_taxa),
   ~ get_wrm_tax(.x),
   .id = "taxon_name"
 )
 
-#The complete observations tibble for the Forum pools can be rebuilt with taxonomy #information by performing a left_join() between obs_place and the taxonomy dataframe.
-
+# Join the taxonomic information to the observation data.
 obs_place_tax <- obs_place %>%
   left_join(taxonomy_df, by = "taxon_name")
 
