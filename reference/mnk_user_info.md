@@ -87,7 +87,8 @@ it returns an empty tibble with the same column structure. Columns are:
 ## Details
 
 Queries the `/v1/users/{id}` endpoint. The `id_user` corresponds to the
-identifier in profile URLs such as <https://minka-sdg.org/users/6>.
+identifier in profile URLs such as
+<https://observe.minka-sdg.org/users/6>.
 
 ## Examples
 
