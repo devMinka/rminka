@@ -50,8 +50,6 @@ parameters.
   : Download Minka Observations
 - [`mnk_obs_byday()`](https://devminka.github.io/rminka/reference/mnk_obs_byday.md)
   : Download Minka Observations by Date Range
-- [`mnk_obs_update()`](https://devminka.github.io/rminka/reference/mnk_obs_update.md)
-  : Download Minka Observations by Last Update Date
 
 ## Auxiliary functions
 

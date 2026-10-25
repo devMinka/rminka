@@ -37,7 +37,7 @@ mnk_proj_obs(
 
 - quiet:
 
-  logical. If TRUE, suppresses console messages. Defaults to FALSE.
+  logical.If TRUE, suppresses console messages. Defaults to FALSE.
 
 - limit_download:
 

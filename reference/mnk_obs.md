@@ -167,9 +167,17 @@ a tibble with one row per observation and the following columns:
 
   API resource URI, character.
 
-- url_picture:
+- url_picture_icon:
 
-  URL of first photo, character.
+  URL of first photo low resolution, character.
+
+- url_picture_med:
+
+  URL of first photo medium resolution, character.
+
+- url_picture_orig:
+
+  URL of first photo original resolution, character.
 
 - quality_grade:
 
@@ -221,13 +229,14 @@ Returns an empty tibble if no data is found.
 
 ``` r
 if (FALSE) { # \dontrun{
-# Download firts 10.000 observations of taxon  from a project in 2025
+# Download the first 10,000 observations of a taxon from a project in 2025
 obs <- mnk_obs(project_id = 417, year = 2025,
 taxon_name = "Diplodus sargus" )
 
 # Download all records in 2024 from a user using bounds
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs( year=2024, user_login = "xasalvador",
-bounds = barcelona, quiet = TRUE, limit_dowload = FALSE)
+obs_bc <- mnk_obs(year = 2024, user_id = 4,
+                  bounds = barcelona, quiet = TRUE,
+                  limit_download = FALSE)
 } # }
 ```

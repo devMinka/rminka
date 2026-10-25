@@ -111,9 +111,21 @@ rows if no observations match the query. Columns are:
 
   Observation url in Minka, character.
 
-- url_picture:
+- URL_image:
 
-  URL of observation image in Minka, character.
+  URL of the first photo at medium resolution, character.
+
+- url_picture_icon:
+
+  URL of first photo low resolution, character.
+
+- url_picture_med:
+
+  URL of first photo medium resolution, character.
+
+- url_picture_orig:
+
+  URL of first photo original resolution, character.
 
 - quality_grade:
 
@@ -163,13 +175,9 @@ rows if no observations match the query. Columns are:
 
 ``` r
 if (FALSE) { # \dontrun{
-# Download all observations for place 'barcelona' for the year 2024
-# (up to the download limit)
-place_data_2024 <- mnk_place_obs(place_id = "barcelona", year = 2024)
-
-# Download all observations for place 123 for August 2025,
+# Download all observations for place 257 (Platja del Forum) for August 2025,
 # attempting to get all records without a limit.
-place_data_aug_2025 <- mnk_place_obs(place_id = 123, year = 2025, month = 8,
+place_data_aug_2025 <- mnk_place_obs(place_id = 257, year = 2025, month = 8,
 limit_download = FALSE)
 } # }
 ```
