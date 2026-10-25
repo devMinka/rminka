@@ -99,24 +99,25 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' Download Minka Observations by Date Range
 #'
 #' Downloads observation data from the Minka API for a specified date range.
-#' When the result set exceeds 10,000 records, requests are automatically
-#' subdivided by month or day to respect the API limit.
+#' When the result set exceeds 10,000 records, requests are subdivided by month
+#' or day to respect the API result limit.
 #'
 #' @param d1 Start date in \code{YYYY-MM-DD} format.
-#' @param d2 End date in \code{YYYY-MM-DD} format.
+#' @param d2 End date in \code{YYYY-MM-DD} format. Must be on or after
+#'   \code{d1}.
 #' @param ... Additional arguments passed to the API. See
 #'   \code{\link{mnk_obs}} for details on available parameters.
-#' @param quiet Logical. If \code{TRUE}, suppresses console messages.
-#' @param limit_download Logical. If \code{TRUE} (default), each request is
-#'   capped at 10,000 records. If \code{FALSE}, the function attempts to
+#' @param quiet Logical value. If \code{TRUE}, suppresses console messages.
+#' @param limit_download Logical value. If \code{TRUE} (default), each request
+#'   is capped at 10,000 records. If \code{FALSE}, the function attempts to
 #'   download all records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
 #'
 #' @return A tibble with one row per observation and the fields returned by
 #'   \code{\link{mnk_obs}}, except that photos are represented by
 #'   \code{url_picture} (medium resolution) and \code{url_picture_original}.
-#'   The result also includes \code{species_guess}. Returns an empty tibble if
-#'   no data is found.
+#'   The result also includes \code{species_guess}. An empty tibble is returned
+#'   if no observations are found.
 #'
 #' @examples
 #' \dontrun{

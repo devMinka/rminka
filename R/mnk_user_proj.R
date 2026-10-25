@@ -1,10 +1,10 @@
 #' @title Projects Subscribed by a Minka User
 #' @description Retrieves projects to which a user is explicitly subscribed
 #'   from Minka and returns project metadata as a tibble.
-#' @param id_user A single integer or numeric value identifying the user.
-#' @return A tibble with one row per subscribed project. If no
-#'   subscriptions are found or an error occurs, it returns an empty tibble
-#'   with the same column structure. Columns are:
+#' @param id_user A single finite numeric value identifying the user.
+#' @return A tibble with one row per subscribed project. If no subscriptions
+#'   are found or a network or HTTP request fails, the function returns an
+#'   empty tibble with the columns listed below.
 #' \describe{
 #'   \item{id}{Project identifier, integer.}
 #'   \item{title}{Project title, character.}
@@ -22,9 +22,12 @@
 #'
 mnk_user_proj <- function(id_user) {
 
-  if (is.null(id_user) || length(id_user) != 1 || !is.numeric(id_user) ||
-      is.na(id_user)) {
-    stop("You must provide a single, non-NA numeric 'id_user'.", call. = FALSE)
+  if (!is.numeric(id_user) || length(id_user) != 1 || is.na(id_user) ||
+      !is.finite(id_user)) {
+    stop(
+      "You must provide a single, finite numeric 'id_user'.",
+      call. = FALSE
+    )
   }
 
   empty_res <- tibble::tibble(

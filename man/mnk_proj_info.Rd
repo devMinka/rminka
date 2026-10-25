@@ -7,15 +7,16 @@
 mnk_proj_info(project_id = NULL, grpid = NULL)
 }
 \arguments{
-\item{project_id}{A single character string or number representing the unique
-Minka project identifier.}
+\item{project_id}{A single character string or number representing the
+unique Minka project identifier.}
 
 \item{grpid}{A single character string or number representing the group
 identifier (slug) for the project.}
 }
 \value{
-A single-row \code{tibble} with project metadata. If the project is
-  not found, returns an empty tibble with the same column structure.
+A one-row tibble with project metadata. If the project is not found
+  or the API request fails, the function returns an empty tibble with the
+  same column structure.
   Columns are:
 \describe{
   \item{id}{Project identifier, integer.}

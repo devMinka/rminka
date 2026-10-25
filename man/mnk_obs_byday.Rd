@@ -9,46 +9,52 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 \arguments{
 \item{d1}{Start date in \code{YYYY-MM-DD} format.}
 
-\item{d2}{End date in \code{YYYY-MM-DD} format.}
+\item{d2}{End date in \code{YYYY-MM-DD} format. Must be on or after
+\code{d1}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=mnk_obs]{mnk_obs}}
   \describe{
-    \item{\code{query}}{a generic query string for the 'q' parameter.}
-    \item{\code{taxon_name}}{a character string with the taxon name (common or
-scientific).}
-    \item{\code{taxon_id}}{a numeric ID for the taxon.}
-    \item{\code{user_id}}{a numeric ID for a specific user.}
-    \item{\code{project_id}}{a numeric ID for a specific project.}
-    \item{\code{place_id}}{a numeric ID for a specific place.}
-    \item{\code{endemic}}{a logical value. Filters for endemic species.}
-    \item{\code{introduced}}{a logical value. Filters for introduced species.}
-    \item{\code{threatened}}{a logical value. Filters for threatened species.}
-    \item{\code{quality}}{a character string. Must be 'casual' or 'research'.}
-    \item{\code{geo}}{a logical value. If TRUE, filters for observations with
+    \item{\code{query}}{A general search string passed to the API's \code{q} parameter.}
+    \item{\code{taxon_name}}{A common or scientific taxon name.}
+    \item{\code{taxon_id}}{A numeric identifier for a taxon.}
+    \item{\code{user_id}}{A numeric identifier or login name for a user.}
+    \item{\code{project_id}}{A numeric identifier or slug for a project.}
+    \item{\code{place_id}}{A numeric identifier or slug for a place.}
+    \item{\code{endemic}}{Logical value indicating whether to filter for endemic
+species.}
+    \item{\code{introduced}}{Logical value indicating whether to filter for introduced
+species.}
+    \item{\code{threatened}}{Logical value indicating whether to filter for threatened
+species.}
+    \item{\code{quality}}{Quality grade to include: \code{"casual"} or
+\code{"research"}.}
+    \item{\code{geo}}{Logical value. If \code{TRUE}, filters for observations with
 coordinates.}
-    \item{\code{annotation}}{a numeric vector of length 2 (term_id, term_value_id).}
-    \item{\code{bounds}}{a bounding box. Accepts an sf object with CRS EPSG:4326
-(WGS84) or a numeric vector c(nelat, nelng, swlat, swlng).}
+    \item{\code{annotation}}{Numeric vector of length two containing a term ID and a
+term value ID.}
+    \item{\code{bounds}}{Bounding box, supplied as an \code{sf} object in EPSG:4326
+(WGS 84) or as a numeric vector in the order
+\code{c(nelat, nelng, swlat, swlng)}.}
   }}
 
-\item{quiet}{Logical. If \code{TRUE}, suppresses console messages.}
+\item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
-\item{limit_download}{Logical. If \code{TRUE} (default), each request is
-capped at 10,000 records. If \code{FALSE}, the function attempts to
+\item{limit_download}{Logical value. If \code{TRUE} (default), each request
+is capped at 10,000 records. If \code{FALSE}, the function attempts to
 download all records.}
 }
 \value{
 A tibble with one row per observation and the fields returned by
   \code{\link{mnk_obs}}, except that photos are represented by
   \code{url_picture} (medium resolution) and \code{url_picture_original}.
-  The result also includes \code{species_guess}. Returns an empty tibble if
-  no data is found.
+  The result also includes \code{species_guess}. An empty tibble is returned
+  if no observations are found.
 }
 \description{
 Downloads observation data from the Minka API for a specified date range.
-When the result set exceeds 10,000 records, requests are automatically
-subdivided by month or day to respect the API limit.
+When the result set exceeds 10,000 records, requests are subdivided by month
+or day to respect the API result limit.
 }
 \examples{
 \dontrun{

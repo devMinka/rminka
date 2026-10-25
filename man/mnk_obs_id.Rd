@@ -7,46 +7,45 @@
 mnk_obs_id(id, meta = FALSE)
 }
 \arguments{
-\item{id}{a single non-empty character or numeric value identifying the
+\item{id}{A single non-empty character or numeric value identifying the
 Minka observation.}
 
-\item{meta}{a logical value. Reserved for future use. Currently ignored.}
+\item{meta}{Logical value reserved for future use. It is currently ignored.}
 }
 \value{
-a one-row tibble with the observation data. The result is the
-  flattened JSON response from the Minka API and contains more than 160
-  columns covering taxon, user, photos, identifications, and quality
+A one-row tibble containing the flattened Minka API response, with
+  fields for the taxon, observer, photos, identifications, and quality
   metrics. Key fields include:
   \describe{
-    \item{id}{observation identifier, integer.}
-    \item{uuid}{unique identifier, character.}
-    \item{observed_on}{observation date, character.}
-    \item{created_at}{creation date, character.}
-    \item{updated_at}{last update, character.}
-    \item{quality_grade}{quality grade, character.}
-    \item{latitude}{latitude in WGS84, numeric.}
-    \item{longitude}{longitude in WGS84, numeric.}
-    \item{taxon.id}{taxon identifier, integer.}
-    \item{taxon.name}{scientific name, character.}
-    \item{taxon.rank}{taxonomic rank, character.}
-    \item{user.id}{observer identifier, integer.}
-    \item{user.login}{observer login, character.}
-    \item{photos}{list column with photo metadata.}
-    \item{identifications}{list column with identifications.}
+    \item{id}{Observation identifier, integer.}
+    \item{uuid}{Unique identifier, character.}
+    \item{observed_on}{Observation date, character.}
+    \item{created_at}{Creation date, character.}
+    \item{updated_at}{Last update, character.}
+    \item{quality_grade}{Quality grade, character.}
+    \item{latitude}{Latitude in WGS84, numeric.}
+    \item{longitude}{Longitude in WGS84, numeric.}
+    \item{taxon.id}{Taxon identifier, integer.}
+    \item{taxon.name}{Scientific name, character.}
+    \item{taxon.rank}{Taxonomic rank, character.}
+    \item{user.id}{Observer identifier, integer.}
+    \item{user.login}{Observer login, character.}
+    \item{photos}{List-column containing photo metadata.}
+    \item{identifications}{List-column containing identifications.}
   }
-  Returns `NULL` invisibly if the observation is not found or the request
-  fails.
+  \code{NULL} is returned invisibly if the observation is not found, the
+  response is empty or has an unexpected structure, or the API returns an
+  HTTP error. Invalid JSON raises an error.
 }
 \description{
 Retrieves full details for a single Minka observation by its identifier.
-Queries the Minka API and returns the complete record flattened into a
-tibble.
+The Minka API response is flattened into a tibble.
 }
 \examples{
 \dontrun{
-obs <- mnk_obs_id(6475)
+obs <- mnk_obs_id(id = 3546)
 obs$id
-obs$taxon.name
+obs$species_guess
 obs$quality_grade
 }
 }

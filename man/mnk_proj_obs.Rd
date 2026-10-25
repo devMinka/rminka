@@ -14,27 +14,30 @@ mnk_proj_obs(
 )
 }
 \arguments{
-\item{project_id}{a single numeric project identifier.}
+\item{project_id}{Numeric project identifier or character project slug.}
 
-\item{year}{a single numeric year (e.g., 2024).}
+\item{year}{Numeric year to query.}
 
-\item{month}{optional numeric month (1-12). Defaults to NULL for all months.}
+\item{month}{Optional month to query, from 1 to 12. Defaults to
+\code{NULL} (all months).}
 
-\item{day}{optional numeric day (1-31). Defaults to NULL for all days.}
+\item{day}{Optional day to query, from 1 to 31. Defaults to \code{NULL}
+(all days).}
 
-\item{quiet}{Logical. If TRUE, suppresses console messages.
-Defaults to FALSE.}
+\item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
-\item{limit_download}{logical. If TRUE (default), caps download at 10,000
-records per query subdivision. If FALSE, attempts to download all records.}
+\item{limit_download}{Logical value. If \code{TRUE} (default), limits each
+query subdivision to 10,000 records. If \code{FALSE}, attempts to
+download all matching records.}
 }
 \value{
 A tibble with the observation columns documented in
-  \code{\link{mnk_obs}}. Returns an empty tibble if no observations match.
+  \code{\link{mnk_obs}}. An empty tibble is returned if no observations
+  match.
 }
 \description{
-Downloads observations for a specific Minka project, filtered by
-  year and optionally by month and day. This is a convenience wrapper around
+Downloads observations for a Minka project for a specified year and,
+  optionally, month and day. This is a convenience wrapper around
   \code{\link{mnk_obs}}.
 }
 \examples{
@@ -42,7 +45,7 @@ Downloads observations for a specific Minka project, filtered by
 # Download all observations for project 419 for the year 2024
 proj_data_2024 <- mnk_proj_obs(project_id = 419, year = 2024)
 
-# Download observations for project 419 for August 2025, without limit
+# Download project observations for August 2025 without a record cap
 proj_data_aug_2025 <- mnk_proj_obs(
   project_id = 419,
   year = 2025,

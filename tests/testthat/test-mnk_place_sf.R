@@ -37,10 +37,12 @@ mock_response_malformed_geojson_coords <- '{"total_results":1,"results":[{"id":6
 mock_response_completely_malformed_json <- '{"total_results":1,"results":[{"id":777,"geometry_geojson":{"type":"Point","coordinates":[0,0]}'
 
 test_that("mnk_place_sf handles invalid input 'place_id'", {
-  expect_error(mnk_place_sf(NULL), "single non-empty numerical 'place_id'")
-  expect_error(mnk_place_sf("abc"), "single non-empty numerical 'place_id'")
-  expect_error(mnk_place_sf(c(1,2)), "single non-empty numerical 'place_id'")
-  expect_error(mnk_place_sf(NA_real_), "single non-empty numerical 'place_id'")
+  expect_error(mnk_place_sf(NULL), "single finite integer 'place_id'")
+  expect_error(mnk_place_sf("abc"), "single finite integer 'place_id'")
+  expect_error(mnk_place_sf(c(1,2)), "single finite integer 'place_id'")
+  expect_error(mnk_place_sf(NA_real_), "single finite integer 'place_id'")
+  expect_error(mnk_place_sf(Inf), "single finite integer 'place_id'")
+  expect_error(mnk_place_sf(1.5), "single finite integer 'place_id'")
 })
 
 test_that("mnk_place_sf returns sf with metadata", {

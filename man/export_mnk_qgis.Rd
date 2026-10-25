@@ -15,9 +15,9 @@ For example, use \code{export_mnk_qgis(points = pts, polygons = polys)}.}
 A simple filename is saved in the current working directory. The
 \code{.gpkg} extension is added if missing.}
 
-\item{crs}{CRS to transform to before writing. Accepts anything valid for
-\code{sf::st_transform()} (e.g., \code{4326} or \code{"EPSG:4326"}).
-Default is \code{4326} (WGS 84).}
+\item{crs}{Coordinate reference system to transform to before writing.
+Accepts any value supported by \code{sf::st_transform()}, such as
+\code{4326} or \code{"EPSG:4326"}. Defaults to \code{4326} (WGS 84).}
 
 \item{overwrite}{A single logical value. If \code{TRUE} and \code{file}
 exists, the file is deleted before writing. If \code{FALSE} and the file

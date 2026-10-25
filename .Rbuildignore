@@ -17,3 +17,6 @@
 ^\.positai$
 ^\.vscode$
 ^LICENSE\.md$
+^.*\.Rcheck$
+^.*\.tar\.gz$
+^vignettes/shape\.gpkg$

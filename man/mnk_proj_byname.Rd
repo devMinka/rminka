@@ -7,12 +7,14 @@
 mnk_proj_byname(query)
 }
 \arguments{
-\item{query}{a single character string contained in the project name.}
+\item{query}{A single non-empty character string contained in a project
+title.}
 }
 \value{
-A tibble with one row per matching project. Returns an empty tibble
-  if no matches are found, or \code{NULL} invisibly if the API returns no
-  content or an HTTP error.
+A tibble with one row per matching project. If the API response
+  contains no projects or has an unexpected format, the function returns an
+  empty tibble with the columns listed below. If the API returns no content
+  or an HTTP error, it returns \code{NULL} invisibly.
   Columns are:
 \describe{
 \item{id}{Project identifier, integer.}
@@ -26,12 +28,11 @@ A tibble with one row per matching project. Returns an empty tibble
 }
 }
 \description{
-Retrieves projects whose title contains a given string from the
-Minka API.
+Retrieves projects whose title contains a given string from the Minka API.
 }
 \details{
 Queries the \code{/v1/projects/autocomplete} endpoint. This
-function is mainly used to obtain the project identifier for other functions.
+  function is mainly used to obtain project identifiers for other functions.
 }
 \examples{
 \dontrun{

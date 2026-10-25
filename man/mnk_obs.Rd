@@ -26,95 +26,111 @@ mnk_obs(
 )
 }
 \arguments{
-\item{query}{a generic query string for the 'q' parameter.}
+\item{query}{A general search string passed to the API's \code{q} parameter.}
 
-\item{taxon_name}{a character string with the taxon name (common or
-scientific).}
+\item{taxon_name}{A common or scientific taxon name.}
 
-\item{taxon_id}{a numeric ID for the taxon.}
+\item{taxon_id}{A numeric identifier for a taxon.}
 
-\item{user_id}{a numeric ID for a specific user.}
+\item{user_id}{A numeric identifier or login name for a user.}
 
-\item{project_id}{a numeric ID for a specific project.}
+\item{project_id}{A numeric identifier or slug for a project.}
 
-\item{place_id}{a numeric ID for a specific place.}
+\item{place_id}{A numeric identifier or slug for a place.}
 
-\item{endemic}{a logical value. Filters for endemic species.}
+\item{endemic}{Logical value indicating whether to filter for endemic
+species.}
 
-\item{introduced}{a logical value. Filters for introduced species.}
+\item{introduced}{Logical value indicating whether to filter for introduced
+species.}
 
-\item{threatened}{a logical value. Filters for threatened species.}
+\item{threatened}{Logical value indicating whether to filter for threatened
+species.}
 
-\item{quality}{a character string. Must be 'casual' or 'research'.}
+\item{quality}{Quality grade to include: \code{"casual"} or
+\code{"research"}.}
 
-\item{geo}{a logical value. If TRUE, filters for observations with
+\item{geo}{Logical value. If \code{TRUE}, filters for observations with
 coordinates.}
 
-\item{annotation}{a numeric vector of length 2 (term_id, term_value_id).}
+\item{annotation}{Numeric vector of length two containing a term ID and a
+term value ID.}
 
-\item{year}{a numeric value for the year.}
+\item{year}{Numeric year to include.}
 
-\item{month}{a numeric value for the month (1-12).}
+\item{month}{Numeric month to include, from 1 to 12.}
 
-\item{day}{a numeric value for the day (1-31).}
+\item{day}{Numeric day to include, from 1 to 31.}
 
-\item{bounds}{a bounding box. Accepts an sf object with CRS EPSG:4326
-(WGS84) or a numeric vector c(nelat, nelng, swlat, swlng).}
+\item{bounds}{Bounding box, supplied as an \code{sf} object in EPSG:4326
+(WGS 84) or as a numeric vector in the order
+\code{c(nelat, nelng, swlat, swlng)}.}
 
-\item{quiet}{a logical value. If TRUE, suppresses console messages.}
+\item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
-\item{limit_download}{a logical value. If TRUE (default), caps download at
-10,000 records.}
+\item{limit_download}{Logical value. If \code{TRUE} (default), limits the
+download to 10,000 records per query subdivision. If \code{FALSE},
+attempts to download all matching records.}
 }
 \value{
-a tibble with one row per observation and the following columns:
+A tibble with one row per observation and the following columns:
 \describe{
-  \item{id}{observation identifier, integer.}
-  \item{observed_on}{observation date, character.}
-  \item{year}{year component, integer.}
-  \item{month}{month component, integer.}
-  \item{week}{week component, integer.}
-  \item{day}{day component, integer.}
-  \item{hour}{hour component, integer.}
-  \item{created_at}{creation timestamp, character.}
-  \item{updated_at}{last update timestamp, character.}
-  \item{latitude}{latitude in WGS84, numeric.}
-  \item{longitude}{longitude in WGS84, numeric.}
-  \item{positional_accuracy}{coordinate uncertainty in meters, integer.}
-  \item{geoprivacy}{geoprivacy setting, character.}
-  \item{obscured}{flag for obscured coordinates, logical.}
+  \item{id}{Observation identifier, integer.}
+  \item{observed_on}{Observation date, character.}
+  \item{year}{Year component, integer.}
+  \item{month}{Month component, integer.}
+  \item{week}{Week component, integer.}
+  \item{day}{Day component, integer.}
+  \item{hour}{Hour component, integer.}
+  \item{created_at}{Creation timestamp, character.}
+  \item{updated_at}{Last update timestamp, character.}
+  \item{latitude}{Latitude in WGS 84, numeric.}
+  \item{longitude}{Longitude in WGS 84, numeric.}
+  \item{positional_accuracy}{Coordinate uncertainty in meters, integer.}
+  \item{geoprivacy}{Geoprivacy setting, character.}
+  \item{obscured}{Flag indicating obscured coordinates, logical.}
   \item{uri}{API resource URI, character.}
-  \item{url_picture_icon}{URL of first photo low resolution, character.}
-  \item{url_picture_med}{URL of first photo medium resolution, character.}
-  \item{url_picture_orig}{URL of first photo original resolution, character.}
-  \item{quality_grade}{quality grade, character.}
-  \item{taxon_id}{taxon identifier, integer.}
-  \item{taxon_name}{scientific name, character.}
-  \item{taxon_rank}{taxonomic rank, character.}
-  \item{taxon_min_ancestry}{lowest species ancestry, character.}
-  \item{taxon_endemic}{endemic flag, logical.}
-  \item{taxon_threatened}{threatened flag, logical.}
-  \item{taxon_introduced}{introduced flag, logical.}
-  \item{taxon_native}{native flag, logical.}
-  \item{user_id}{observer identifier, integer.}
-  \item{user_login}{observer login, character.}
+  \item{url_picture_icon}{URL of the first photo at icon resolution,
+  character.}
+  \item{url_picture_med}{URL of the first photo at medium resolution,
+  character.}
+  \item{url_picture_orig}{URL of the first photo at original resolution,
+  character.}
+  \item{quality_grade}{Quality grade, character.}
+  \item{taxon_id}{Taxon identifier, integer.}
+  \item{taxon_name}{Scientific name, character.}
+  \item{taxon_rank}{Taxonomic rank, character.}
+  \item{taxon_min_ancestry}{Lowest species ancestry, character.}
+  \item{taxon_endemic}{Endemic status, logical.}
+  \item{taxon_threatened}{Threatened status, logical.}
+  \item{taxon_introduced}{Introduced status, logical.}
+  \item{taxon_native}{Native status, logical.}
+  \item{user_id}{Observer identifier, integer.}
+  \item{user_login}{Observer login, character.}
 }
-Returns an empty tibble if no data is found.
+An empty tibble is returned if no observations are found.
 }
 \description{
 Downloads observation data from the Minka API. Handles pagination and
-rate limits automatically by subdividing large queries by month or day.
+API result limits by subdividing large queries by month or day.
 }
 \examples{
 \dontrun{
 # Download the first 10,000 observations of a taxon from a project in 2025
-obs <- mnk_obs(project_id = 417, year = 2025,
-taxon_name = "Diplodus sargus" )
+obs <- mnk_obs(
+  project_id = 417,
+  year = 2025,
+  taxon_name = "Diplodus sargus"
+)
 
-# Download all records in 2024 from a user using bounds
+# Download all 2024 observations for a user within a bounding box
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs(year = 2024, user_id = 4,
-                  bounds = barcelona, quiet = TRUE,
-                  limit_download = FALSE)
+obs_bc <- mnk_obs(
+  year = 2024,
+  user_id = 4,
+  bounds = barcelona,
+  quiet = TRUE,
+  limit_download = FALSE
+)
 }
 }

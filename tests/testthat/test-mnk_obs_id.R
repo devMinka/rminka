@@ -12,6 +12,9 @@ test_that("mnk_obs_id handles invalid ID input", {
   expect_error(mnk_obs_id(NULL), "You must provide a single, non-empty, non-NA ID for the observation.")
   expect_error(mnk_obs_id(numeric(0)), "You must provide a single, non-empty, non-NA ID for the observation.")
   expect_error(mnk_obs_id(NA), "You must provide a single, non-empty, non-NA ID for the observation.")
+  expect_error(mnk_obs_id(NA_character_), "You must provide a single, non-empty, non-NA ID for the observation.")
+  expect_error(mnk_obs_id(TRUE), "You must provide a single, non-empty, non-NA ID for the observation.")
+  expect_error(mnk_obs_id(Inf), "You must provide a single, non-empty, non-NA ID for the observation.")
   expect_error(mnk_obs_id(c(1, 2)), "You must provide a single, non-empty, non-NA ID for the observation.")
   expect_error(mnk_obs_id(" "), "You must provide a single, non-empty, non-NA ID for the observation.")
   expect_error(mnk_obs_id(""), "You must provide a single, non-empty, non-NA ID for the observation.")
@@ -20,7 +23,9 @@ test_that("mnk_obs_id handles invalid ID input", {
 test_that("mnk_obs_id returns a dataframe for a valid ID and API response", {
   skip_if_not_installed("httr")
   skip_if_not_installed("stringr")
+  requested_path <- NULL
   mock_httr_GET <- function(url = NULL, ..., path = NULL, as) {
+    requested_path <<- path
     id_from_path <- as.character(stringr::str_extract(path, "[0-9]+$"))
     response_content <- ""
     status_code <- 200L
@@ -39,6 +44,9 @@ test_that("mnk_obs_id returns a dataframe for a valid ID and API response", {
     expect_equal(nrow(result), 1)
     expect_true("id" %in% names(result))
     expect_equal(result$id, 3546)
+    result_character_id <- mnk_obs_id("3546")
+    expect_equal(result_character_id$id, 3546)
+    expect_equal(requested_path, "/v1/observations/3546")
   })
 })
 

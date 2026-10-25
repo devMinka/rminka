@@ -4,11 +4,11 @@
 #' @details Queries the \code{/v1/users/{id}} endpoint. The \code{id_user}
 #' corresponds to the identifier in profile URLs such as
 #' \url{https://observe.minka-sdg.org/users/6}.
-#' @param id_user A single atomic value, numeric or character, representing the
-#' user identifier.
-#' @return A one-row tibble with user metadata. If the user is not found or the
-#'   request fails, the function returns a one-row tibble with the same columns
-#'   filled with \code{NA}.
+#' @param id_user A single non-empty character string or finite numeric value
+#'   representing the user identifier.
+#' @return A one-row tibble with user metadata. If the user is not found or a
+#' network or HTTP request fails, the function returns a one-row tibble with
+#' the same columns filled with \code{NA}.
 #' Columns are:
 #' \describe{
 #' \item{id}{User identifier, integer.}
@@ -23,14 +23,14 @@
 #' \item{orcid}{ORCID identifier, character or `NA`.}
 #' \item{icon_url}{URL of profile image, character.}
 #' \item{site_id}{Site identifier, integer.}
-#' \item{roles}{List-column with user roles, list.}
+#' \item{roles}{List-column containing the user's roles.}
 #' \item{spam}{Spam flag, logical.}
 #' \item{suspended}{Suspended flag, logical.}
 #' \item{universal_search_rank}{Search rank, integer.}
 #' }
 #' @examples
 #' \dontrun{
-#' # Information about user_id 4
+#' # Retrieve information for user ID 4
 #' mnk_user_info(4)
 #' }
 #' @export
@@ -39,8 +39,20 @@ mnk_user_info <- function(id_user) {
   if (missing(id_user) || is.null(id_user)) {
     stop("'id_user' must be provided.", call. = FALSE)
   }
-  if (!is.atomic(id_user) || length(id_user) != 1) {
-    stop("'id_user' must be a single character string or number.", call. = FALSE)
+
+  valid_character_id <- is.character(id_user) &&
+    length(id_user) == 1 &&
+    !is.na(id_user) &&
+    nzchar(trimws(id_user))
+  valid_numeric_id <- is.numeric(id_user) &&
+    length(id_user) == 1 &&
+    !is.na(id_user) &&
+    is.finite(id_user)
+  if (!valid_character_id && !valid_numeric_id) {
+    stop(
+      "'id_user' must be a single non-empty character string or finite number.",
+      call. = FALSE
+    )
   }
 
   na_res <- tibble::tibble(

@@ -6,12 +6,13 @@
 #'   A Minka \code{grpid} or slug is typically the project name formatted with
 #'   hyphens (e.g., 'biomarato-barcelona-2025'). You can find it in the URL of
 #'   the project's page.
-#' @param project_id A single character string or number representing the unique
-#'   Minka project identifier.
+#' @param project_id A single character string or number representing the
+#'   unique Minka project identifier.
 #' @param grpid A single character string or number representing the group
 #'   identifier (slug) for the project.
-#' @return A single-row \code{tibble} with project metadata. If the project is
-#'   not found, returns an empty tibble with the same column structure.
+#' @return A one-row tibble with project metadata. If the project is not found
+#'   or the API request fails, the function returns an empty tibble with the
+#'   same column structure.
 #'   Columns are:
 #' \describe{
 #'   \item{id}{Project identifier, integer.}

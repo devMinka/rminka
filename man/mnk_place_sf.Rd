@@ -2,21 +2,21 @@
 % Please edit documentation in R/mnk_place_sf.R
 \name{mnk_place_sf}
 \alias{mnk_place_sf}
-\title{Get Minka Place as sf Object}
+\title{Get a Minka Place as an sf Object}
 \usage{
 mnk_place_sf(place_id, crs = 4326)
 }
 \arguments{
-\item{place_id}{a single integer identifier for a Minka place. Each place has
-a unique identifier.}
+\item{place_id}{A single finite integer identifier for a Minka place.}
 
-\item{crs}{coordinate reference system for the output geometry, supplied as
+\item{crs}{Coordinate reference system for the output geometry, supplied as
 an EPSG code or any value accepted by \code{sf::st_crs()}. Defaults to
-\code{4326}.}
+\code{4326}; \code{NULL} is treated as \code{4326}.}
 }
 \value{
-An \code{sf} object with one row per place and the following columns.
-Returns \code{NULL} invisibly if the request fails or the response is empty:
+An \code{sf} object with one row per place and the following
+  columns. Returns \code{NULL} invisibly if the API returns an HTTP error,
+  an empty body, or no matching place:
 \describe{
   \item{place_id}{Place identifier, integer.}
   \item{name}{Place name, character.}
@@ -26,17 +26,15 @@ Returns \code{NULL} invisibly if the request fails or the response is empty:
   \item{place_type}{Type of place, character or \code{NA}.}
   \item{admin_level}{Administrative level, integer or \code{NA}.}
   \item{bbox_area}{Bounding box area, numeric.}
-  \item{location}{Centroid as "lat,lon" string, character.}
-  \item{geometry}{Simple feature geometry (POINT, POLYGON or MULTIPOLYGON),
-  CRS 4326 unless transformed.}
+  \item{location}{Centroid as a latitude,longitude string.}
+  \item{geometry}{POINT, POLYGON, or MULTIPOLYGON geometry in CRS 4326
+  unless transformed. Missing or unreadable geometry is an empty POINT.}
 }
 }
 \description{
-Retrieve a Minka place as a simple features (`sf`) object given
-its `place_id`. The function queries the Minka API and returns the place
-boundary geometry together with descriptive metadata. The source GeoJSON is
-always in EPSG:4326 (WGS 84). By default the output retains this CRS, but an
-alternative CRS may be requested.
+Retrieves a Minka place as an \code{sf} object using its
+  \code{place_id}. The source GeoJSON is in EPSG:4326 (WGS 84). By default,
+  the output retains this CRS, but an alternative CRS may be requested.
 }
 \examples{
 \dontrun{

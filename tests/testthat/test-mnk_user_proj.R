@@ -1,8 +1,10 @@
 test_that("throws error for invalid id_user", {
-  expect_error(mnk_user_proj(NULL), "single, non-NA numeric")
-  expect_error(mnk_user_proj(NA_real_), "single, non-NA numeric")
-  expect_error(mnk_user_proj(c(1, 2)), "single, non-NA numeric")
-  expect_error(mnk_user_proj("a string"), "single, non-NA numeric")
+  expect_error(mnk_user_proj(NULL), "single, finite numeric")
+  expect_error(mnk_user_proj(NA_real_), "single, finite numeric")
+  expect_error(mnk_user_proj(Inf), "single, finite numeric")
+  expect_error(mnk_user_proj(c(1, 2)), "single, finite numeric")
+  expect_error(mnk_user_proj("a string"), "single, finite numeric")
+  expect_error(mnk_user_proj(TRUE), "single, finite numeric")
 })
 
 test_that("handles API HTTP errors", {

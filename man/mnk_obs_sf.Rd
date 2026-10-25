@@ -7,31 +7,36 @@
 mnk_obs_sf(data, ..., crs = 4326, keep_coords = TRUE)
 }
 \arguments{
-\item{data}{a data frame or tibble with at least \code{latitude} and
+\item{data}{A data frame or tibble with at least \code{latitude} and
 \code{longitude} columns, typically from \code{mnk_obs()}.}
 
-\item{...}{columns to retain, using tidyselect syntax. \code{latitude}
-and \code{longitude} are always added for geometry.}
+\item{...}{Columns to retain, using tidyselect syntax. \code{latitude} and
+\code{longitude} are always used to create geometry.}
 
-\item{crs}{coordinate reference system for the output, defaults to 4326
-(WGS84).}
+\item{crs}{Coordinate reference system for the output. Defaults to 4326
+(WGS 84).}
 
-\item{keep_coords}{logical. If TRUE, retains \code{latitude} and
-\code{longitude} as regular columns in addition to geometry.}
+\item{keep_coords}{Logical. If \code{TRUE}, retains \code{latitude} and
+\code{longitude} as columns in addition to geometry.}
 }
 \value{
-an sf object with POINT geometry (EPSG:4326 by default) and the
-  selected attributes. Returns an empty sf object if no valid coordinates
-  are present.
+An \code{sf} object with POINT geometry (EPSG:4326 by default) and
+  the selected attributes. Duplicate rows and rows with missing coordinates
+  are dropped. An empty \code{sf} object is returned if no valid coordinates
+  remain.
 }
 \description{
-Converts a tibble returned by \code{\link{mnk_obs}} into an sf POINT
-object. Keeps selected columns and coerces \code{observed_on} to Date
-when present.
+Converts a data frame returned by \code{\link{mnk_obs}} into an \code{sf}
+POINT object. Keeps selected columns and coerces \code{observed_on} to
+\code{Date} when present.
 }
 \examples{
 \dontrun{
-obs <- mnk_obs(taxon_name = "Parablennius pilicornis", year = 2024,month = 7)
+obs <- mnk_obs(
+  taxon_name = "Parablennius pilicornis",
+  year = 2024,
+  month = 7
+)
 obs_sf <- mnk_obs_sf(obs, id, taxon_name, observed_on)
 obs_sf
 }

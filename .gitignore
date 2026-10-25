@@ -2,6 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+*.Rcheck/
+*.tar.gz
+vignettes/shape.gpkg
 inst/doc
 docs
 .positai
