@@ -15,4 +15,5 @@
 ^vignettes/\.quarto$
 ^\.claude$
 ^\.positai$
+^\.vscode$
 ^LICENSE\.md$

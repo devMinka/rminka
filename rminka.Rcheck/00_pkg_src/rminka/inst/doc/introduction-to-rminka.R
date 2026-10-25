@@ -132,7 +132,6 @@ participants_may_2025
 # 
 # #Turning the dataframe into an sf object with the mnk_obs_sf() function
 # 
-# # NUEVO: mnk_place_obs() expone URL_image para mostrar la foto mediana.
 # obs_sf <- mnk_obs_sf(obs_place, "id", "taxon_name", "observed_on",
 #                      "URL_image", "uri", "user_login")
 # 
@@ -194,7 +193,6 @@ participants_may_2025
 # obs_undulata <- mnk_obs(taxon_name = "Raja undulata", year = 2022, user_id = 4,
 #                          quiet = TRUE, quality = "research")
 # 
-# # NUEVO: el nombre de la columna original es url_picture_orig.
 # # Select the third observation and get its medium-resolution picture URL.
 # 
 # url_pic_undulata <- as.character(obs_undulata$url_picture_med[3])
@@ -284,7 +282,6 @@ participants_may_2025
 # #selecting some fields ("id","taxon_name","observed_on",.....) from the original
 # #data frame for to show later in leaflet popups.
 # 
-# # NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.
 # obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds, "id", "taxon_name", "observed_on",
 #                             "url_picture_med", "url_picture_orig", "uri", "user_login")
 # 
@@ -316,7 +313,6 @@ participants_may_2025
 # 
 
 ## ----sf_obs,message=FALSE, warning=FALSE--------------------------------------
-# # NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
 # obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
 #                       observed_on, user_login, quality_grade,
 #                       url_picture_med, url_picture_orig,
@@ -356,7 +352,6 @@ participants_may_2025
 #         options = WMSTileOptions(format = "image/png",
 #                                  transparent = TRUE, version = "1.3.0")) %>%
 # 
-# # NUEVO: el enlace abre la imagen original y el marcador muestra la versión mediana.
 #       addCircleMarkers(
 #         data = obs_utm,
 #         radius = 6,

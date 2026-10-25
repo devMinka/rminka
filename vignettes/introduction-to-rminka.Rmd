@@ -17,18 +17,28 @@ knitr::opts_chunk$set(
   out.width = "600px"
 )
 
-# --- Protecció per CRAN / win-builder ---
-# Si no hi ha internet o estem a CRAN, no avaluem els chunks de l'API
-is_cran_check <- !curl::has_internet() || identical(Sys.getenv("NOT_CRAN"), "")
+# --- CRAN Protection-----------
+has_internet <- function() {
+  tryCatch({
+    response <- httr::GET(
+      "https://api.minka-sdg.org/v1/observations",
+      query = list(per_page = 1),
+      httr::timeout(5)
+    )
+    !httr::http_error(response)
+  }, error = function(e) FALSE)
+}
+
+is_cran_check <- identical(Sys.getenv("NOT_CRAN"), "") || !has_internet()
 
 if (is_cran_check) {
   knitr::opts_chunk$set(eval = FALSE)
 }
 
-# Funció per no petar si falta un Suggest
+# Library protection
 has <- function(p) requireNamespace(p, quietly = TRUE)
 
-# Carrega només si existeix, així la vinyeta es pot construir igual
+# Only loads if is installed
 suppressPackageStartupMessages({
   if (has("dplyr")) library(dplyr)
   if (has("tibble")) library(tibble)
@@ -53,7 +63,7 @@ suppressPackageStartupMessages({
   box-shadow: none !important;
 }
 .leaflet-popup-content img {
-  max-width: 100px !important;
+  max-width: 75px !important;
   height: auto !important;
   display: block;
   margin: 0 auto;
@@ -62,20 +72,21 @@ suppressPackageStartupMessages({
 /* leaflet center and size  */
 .leaflet, .html-widget {
   width:100% !important;
-  height: 60vh !important;   /* 60% de la altura de la ventana */
+  height: 60vh !important;
   max-height: 500px;    
   margin-left: auto !important;
   margin-right: auto !important;
   display: block !important;
 }
 
-/* image center and size only images  */
-img:not(.leaflet-marker-icon):not(.leaflet-marker-shadow) {
+/* NUEVO: center document images without changing any Leaflet map images. */
+img:not(.leaflet-marker-icon):not(.leaflet-marker-shadow):not(.leaflet-container img) {
   display: block;
   margin-left: auto !important;
   margin-right: auto !important;
   max-width: 900px !important;
   height: auto !important;
+}
 </style>
 
 
