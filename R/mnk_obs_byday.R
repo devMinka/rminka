@@ -132,16 +132,16 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' Download Minka Observations by Date Range
 #'
 #' Downloads observation data from the Minka API for a specified date range.
-#' Subdivides requests by month or day automatically to avoid the 10,000
-#' record API limit.
+#' When the result set exceeds 10,000 records, requests are automatically
+#' subdivided by month or day to respect the API limit.
 #'
-#' @param d1 start date in 'yyyy-mm-dd' format.
-#' @param d2 end date in 'yyyy-mm-dd' format.
-#' @param ... additional arguments passed to the API. See [mnk_obs()] for
-#'   details on available parameters.
-#' @param quiet a logical value. If TRUE, suppresses console messages.
-#' @param limit_download a logical value. If TRUE (default), each subdivided
-#'   request is capped at 10,000 records.
+#' @param d1 Start date in \code{YYYY-MM-DD} format.
+#' @param d2 End date in \code{YYYY-MM-DD} format.
+#' @param ... Additional arguments passed to the API. See
+#'   \code{\link{mnk_obs}} for details on available parameters.
+#' @param quiet Logical. If \code{TRUE}, suppresses console messages.
+#' @param limit_download Logical. If \code{TRUE} (default), each request is
+#'   capped at 10,000 records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
 #'
 #' @return A tibble with one row per observation. It contains the observation
@@ -152,14 +152,23 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #'
 #' @examples
 #' \dontrun{
-#' # Download observations between two dates
-#' obs <- mnk_obs_byday("2024-03-01", "2024-03-31",
-#' taxon_name = "Diplodus sargus")
+#' # Download observations of a taxon during March 2024
+#' obs <- mnk_obs_byday(
+#'   d1 = "2024-03-01",
+#'   d2 = "2024-03-31",
+#'   taxon_name = "Diplodus sargus"
+#' )
 #'
-#' # Use with bounds (must be EPSG:4326)
+#' # Download observations within a bounding box during the first week of 2024
+#' # Bounds are ordered north latitude, east longitude, south latitude,
+#' # and west longitude.
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-#' obs_bc <- mnk_obs_byday("2024-01-01", "2024-01-07",
-#' bounds = barcelona, quiet = TRUE)
+#' obs_bc <- mnk_obs_byday(
+#'   d1 = "2024-01-01",
+#'   d2 = "2024-01-07",
+#'   bounds = barcelona,
+#'   quiet = TRUE
+#' )
 #' }
 #' @export
 mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
