@@ -1,0 +1,23 @@
+* using log directory 'C:/Users/rai25/OneDrive/Documentos/01_PROJECTES R_/rminka/rminka.Rcheck'
+* using R version 4.3.3 (2024-02-29 ucrt)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* R was compiled by
+    gcc.exe (GCC) 12.3.0
+    GNU Fortran (GCC) 12.3.0
+* running under: Windows 11 x64 (build 26300)
+* using session charset: UTF-8
+* using option '--as-cran'
+* checking for file 'rminka/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'rminka' version '0.2.0'
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... [437s] NOTE
+Maintainer: 'Ramon Servitje <rservitje25@gmail.com>'
+
+Found the following (possibly) invalid URLs:
+  URL: https://minka-sdg.org/users/6 (moved to https://observe.minka-sdg.org/users/6)
+    From: man/mnk_user_info.Rd
+    Status: 200
+    Message: OK
+* checking package namespace information ... OK
+* checking package dependencies ...
