@@ -1,8 +1,8 @@
 # Get WoRMS Taxonomy
 
 Downloads taxonomic information from the World Register of Marine
-Species (WoRMS) for a given scientific name. Returns the first exact
-match found.
+Species (WoRMS) for a scientific name and returns the first exact-name
+match.
 
 ## Usage
 
@@ -14,14 +14,14 @@ get_wrm_tax(scientific_name)
 
 - scientific_name:
 
-  a character string with the scientific name to search for, for example
-  "Diplodus sargus" or "Diplodus".
+  A single, non-empty character string containing a scientific name,
+  such as `"Diplodus sargus"`.
 
 ## Value
 
-a one-row tibble with taxonomic and habitat flags. Returns `NULL`
-invisibly if the taxon is not found or the request fails. The tibble
-contains the following columns:
+A one-row tibble with taxonomic and habitat information. Returns `NULL`
+invisibly if no taxon is found or the request or response cannot be
+processed. The tibble contains these columns:
 
 - valid_AphiaID:
 
@@ -29,55 +29,55 @@ contains the following columns:
 
 - valid_name:
 
-  accepted scientific name, character.
+  Accepted scientific name, character.
 
 - rank:
 
-  taxonomic rank, character.
+  Taxonomic rank, character.
 
 - kingdom:
 
-  kingdom, character.
+  Kingdom, character.
 
 - phylum:
 
-  phylum, character.
+  Phylum, character.
 
 - class:
 
-  class, character.
+  Class, character.
 
 - order:
 
-  order, character.
+  Order, character.
 
 - family:
 
-  family, character.
+  Family, character.
 
 - genus:
 
-  genus, character.
+  Genus, character.
 
 - isMarine:
 
-  marine flag, logical.
+  Marine habitat flag, logical.
 
 - isBrackish:
 
-  brackish flag, logical.
+  Brackish-water habitat flag, logical.
 
 - isFreshwater:
 
-  freshwater flag, logical.
+  Freshwater habitat flag, logical.
 
 - isTerrestrial:
 
-  terrestrial flag, logical.
+  Terrestrial habitat flag, logical.
 
 - isExtinct:
 
-  extinct flag, logical.
+  Extinct flag, logical.
 
 ## Examples
 
