@@ -702,18 +702,23 @@ bound %>%
 
 Works like
 [`mnk_obs()`](https://devminka.github.io/rminka/reference/mnk_obs.md)
-but uses an explicit date interval instead of year or month parameters.
-The interval is defined by:
+but uses an explicit date interval. The interval is inclusive and is
+defined by:
 
-`d1`: start date in ‘yyyy-mm-dd’ format `d2`: end date in ‘yyyy-mm-dd’
-format
+- `d1`: Start date in `YYYY-MM-DD` format
+- `d2`: End date in `YYYY-MM-DD` format
 
 ``` r
 
-#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.
+# Retrieve research-grade observations of Raja undulata from January to May 2024.
 
-obs_undulata_2024 <- mnk_obs_byday(taxon_name = "Raja undulata", d1 = "2024-01-01", 
-                             d2= "2024-05-25", quiet = TRUE, quality = "research")
+obs_undulata_2024 <- mnk_obs_byday(
+  taxon_name = "Raja undulata",
+  d1 = "2024-01-01",
+  d2 = "2024-05-25",
+  quiet = TRUE,
+  quality = "research"
+)
 
 obs_undulata_2024
 #> # A tibble: 11 × 29

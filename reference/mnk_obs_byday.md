@@ -86,16 +86,15 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 - limit_download:
 
   Logical. If `TRUE` (default), each request is capped at 10,000
-  records.
+  records. If `FALSE`, the function attempts to download all records.
 
 ## Value
 
-A tibble with one row per observation. It contains the observation
-fields documented in
+A tibble with one row per observation and the fields returned by
 [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md),
-plus `species_guess`. Medium- and original-resolution photo columns are
-named `url_picture` and `url_picture_original`, respectively. Returns an
-empty tibble if no data is found.
+except that photos are represented by `url_picture` (medium resolution)
+and `url_picture_original`. The result also includes `species_guess`.
+Returns an empty tibble if no data is found.
 
 ## Examples
 

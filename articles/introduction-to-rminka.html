@@ -776,15 +776,24 @@ bounds parameter works.</p>
 <div class="section level3">
 <h3 id="mnk_obs_byday">● <code>mnk_obs_byday()</code><a class="anchor" aria-label="anchor" href="#mnk_obs_byday"></a>
 </h3>
-<p>Works like <code><a href="../reference/mnk_obs.html">mnk_obs()</a></code> but uses an explicit date interval
-instead of year or month parameters. The interval is defined by:</p>
-<p><code>d1</code>: start date in ‘yyyy-mm-dd’ format <code>d2</code>:
-end date in ‘yyyy-mm-dd’ format</p>
+<p>Works like <code><a href="../reference/mnk_obs.html">mnk_obs()</a></code> but uses an explicit date interval.
+The interval is inclusive and is defined by:</p>
+<ul>
+<li>
+<code>d1</code>: Start date in <code>YYYY-MM-DD</code> format</li>
+<li>
+<code>d2</code>: End date in <code>YYYY-MM-DD</code> format</li>
+</ul>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Retrieves observations for specie Raja undulata by user Xasalva (user_id= 4) the observations between 01-01-2024 and  25-05-2024.</span></span>
+<code class="sourceCode R"><span><span class="co"># Retrieve research-grade observations of Raja undulata from January to May 2024.</span></span>
 <span></span>
-<span><span class="va">obs_undulata_2024</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_byday.html">mnk_obs_byday</a></span><span class="op">(</span>taxon_name <span class="op">=</span> <span class="st">"Raja undulata"</span>, d1 <span class="op">=</span> <span class="st">"2024-01-01"</span>, </span>
-<span>                             d2<span class="op">=</span> <span class="st">"2024-05-25"</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span>, quality <span class="op">=</span> <span class="st">"research"</span><span class="op">)</span></span>
+<span><span class="va">obs_undulata_2024</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_byday.html">mnk_obs_byday</a></span><span class="op">(</span></span>
+<span>  taxon_name <span class="op">=</span> <span class="st">"Raja undulata"</span>,</span>
+<span>  d1 <span class="op">=</span> <span class="st">"2024-01-01"</span>,</span>
+<span>  d2 <span class="op">=</span> <span class="st">"2024-05-25"</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quality <span class="op">=</span> <span class="st">"research"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs_undulata_2024</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 29</span></span></span>
