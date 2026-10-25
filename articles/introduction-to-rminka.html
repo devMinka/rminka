@@ -106,12 +106,12 @@
   display: block !important;
 }
 
-/* NUEVO: center document images without changing any Leaflet map images. */
-img:not(.leaflet-marker-icon):not(.leaflet-marker-shadow):not(.leaflet-container img) {
+/* Center document images without affecting Leaflet maps or popups. */
+p > img,
+.figure img {
   display: block;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  max-width: 900px !important;
+  margin: 0 auto !important;
+  max-width: min(900px, 100%) !important;
   height: auto !important;
 }
 </style>
@@ -490,7 +490,7 @@ the leaflet package.</p>
 <span></span>
 <span><span class="co">#Turning the dataframe into an sf object with the mnk_obs_sf() function</span></span>
 <span></span>
-<span><span class="co"># NUEVO: mnk_place_obs() expone URL_image para mostrar la foto mediana.</span></span>
+<span><span class="co"># mnk_place_obs() exposes URL_image for displaying the medium-resolution photo.</span></span>
 <span><span class="va">obs_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_place</span>, <span class="st">"id"</span>, <span class="st">"taxon_name"</span>, <span class="st">"observed_on"</span>,</span>
 <span>                     <span class="st">"URL_image"</span>, <span class="st">"uri"</span>, <span class="st">"user_login"</span><span class="op">)</span></span>
 <span></span>
@@ -621,17 +621,16 @@ species Raja brachyura during 2025 are obtained with
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="text-decoration: underline;">211</span>381 2023-12-20      41.7      2.94 https://observe.minka-sdg.… FALSE       </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> <span style="text-decoration: underline;">210</span>709 2023-12-16      41.7      2.94 https://observe.minka-sdg.… FALSE       </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> <span style="text-decoration: underline;">210</span>705 2023-12-16      41.7      2.94 https://observe.minka-sdg.… FALSE</span></span></code></pre></div>
-<p><strong>NUEVO:</strong> Images from observations can be visualized
-and printed using the magick package and the observation’s
-<code>url_picture_med</code> or <code>url_picture_orig</code> as
-follows.</p>
+<p>Images from observations can be visualized and printed using the
+magick package and the observation’s <code>url_picture_med</code> or
+<code>url_picture_orig</code> as follows.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get observations for specie Raja undulata in 2022 by user Xasalva (user_id= 4)</span></span>
 <span></span>
 <span><span class="va">obs_undulata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs.html">mnk_obs</a></span><span class="op">(</span>taxon_name <span class="op">=</span> <span class="st">"Raja undulata"</span>, year <span class="op">=</span> <span class="fl">2022</span>, user_id <span class="op">=</span> <span class="fl">4</span>, </span>
 <span>                         quiet <span class="op">=</span> <span class="cn">TRUE</span>, quality <span class="op">=</span> <span class="st">"research"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># NUEVO: el nombre de la columna original es url_picture_orig.</span></span>
+<span><span class="co"># The original image column is named url_picture_orig.</span></span>
 <span><span class="co"># Select the third observation and get its medium-resolution picture URL.</span></span>
 <span></span>
 <span><span class="va">url_pic_undulata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">obs_undulata</span><span class="op">$</span><span class="va">url_picture_med</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
@@ -753,7 +752,7 @@ bounds parameter works.</p>
 <span><span class="co">#selecting some fields ("id","taxon_name","observed_on",.....) from the original</span></span>
 <span><span class="co">#data frame for to show later in leaflet popups.</span></span>
 <span></span>
-<span><span class="co"># NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.</span></span>
+<span><span class="co"># Keep the original URL for the link and the medium-resolution URL for the image.</span></span>
 <span><span class="va">obs_bounds_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_torpedo_bounds</span>, <span class="st">"id"</span>, <span class="st">"taxon_name"</span>, <span class="st">"observed_on"</span>,</span>
 <span>                            <span class="st">"url_picture_med"</span>, <span class="st">"url_picture_orig"</span>, <span class="st">"uri"</span>, <span class="st">"user_login"</span><span class="op">)</span></span>
 <span></span>
@@ -833,7 +832,7 @@ argument. Its basic usage has already been shown briefly in previous
 sections. Here we develop a detailed example using the <em>Torpedo
 torpedo</em> observations at the espigó Hotel W.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.</span></span>
+<code class="sourceCode R"><span><span class="co"># Select both resolutions to link to the original and display the medium-resolution image.</span></span>
 <span><span class="va">obs_utm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mnk_obs_sf.html">mnk_obs_sf</a></span><span class="op">(</span><span class="va">obs_torpedo_bounds</span>, <span class="va">id</span>, <span class="va">taxon_name</span>,</span>
 <span>                      <span class="va">observed_on</span>, <span class="va">user_login</span>, <span class="va">quality_grade</span>,</span>
 <span>                      <span class="va">url_picture_med</span>, <span class="va">url_picture_orig</span>,</span>
@@ -873,7 +872,7 @@ torpedo</em> observations at the espigó Hotel W.</p>
 <span>        options <span class="op">=</span> <span class="fu">WMSTileOptions</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"image/png"</span>, </span>
 <span>                                 transparent <span class="op">=</span> <span class="cn">TRUE</span>, version <span class="op">=</span> <span class="st">"1.3.0"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>    </span>
-<span><span class="co"># NUEVO: el enlace abre la imagen original y el marcador muestra la versión mediana.</span></span>
+<span><span class="co"># The link opens the original image; the marker displays the medium-resolution image.</span></span>
 <span>      <span class="fu">addCircleMarkers</span><span class="op">(</span></span>
 <span>        data <span class="op">=</span> <span class="va">obs_utm</span>, </span>
 <span>        radius <span class="op">=</span> <span class="fl">6</span>,</span>

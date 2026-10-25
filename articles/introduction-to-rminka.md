@@ -398,7 +398,7 @@ obs_place
 
 #Turning the dataframe into an sf object with the mnk_obs_sf() function
 
-# NUEVO: mnk_place_obs() expone URL_image para mostrar la foto mediana.
+# mnk_place_obs() exposes URL_image for displaying the medium-resolution photo.
 obs_sf <- mnk_obs_sf(obs_place, "id", "taxon_name", "observed_on",
                      "URL_image", "uri", "user_login")
 
@@ -532,9 +532,9 @@ obs_brachyura[, c(1,2, 10, 11, 16, 27)]  # show selected columns
 #> 8 210705 2023-12-16      41.7      2.94 https://observe.minka-sdg.… FALSE
 ```
 
-**NUEVO:** Images from observations can be visualized and printed using
-the magick package and the observation’s `url_picture_med` or
-`url_picture_orig` as follows.
+Images from observations can be visualized and printed using the magick
+package and the observation’s `url_picture_med` or `url_picture_orig` as
+follows.
 
 ``` r
 
@@ -543,7 +543,7 @@ the magick package and the observation’s `url_picture_med` or
 obs_undulata <- mnk_obs(taxon_name = "Raja undulata", year = 2022, user_id = 4, 
                          quiet = TRUE, quality = "research")
 
-# NUEVO: el nombre de la columna original es url_picture_orig.
+# The original image column is named url_picture_orig.
 # Select the third observation and get its medium-resolution picture URL.
 
 url_pic_undulata <- as.character(obs_undulata$url_picture_med[3])
@@ -678,7 +678,7 @@ obs_torpedo_bounds
 #selecting some fields ("id","taxon_name","observed_on",.....) from the original
 #data frame for to show later in leaflet popups.
 
-# NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.
+# Keep the original URL for the link and the medium-resolution URL for the image.
 obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds, "id", "taxon_name", "observed_on",
                             "url_picture_med", "url_picture_orig", "uri", "user_login")
 
@@ -760,7 +760,7 @@ torpedo* observations at the espigó Hotel W.
 
 ``` r
 
-# NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
+# Select both resolutions to link to the original and display the medium-resolution image.
 obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade,
                       url_picture_med, url_picture_orig,
@@ -800,7 +800,7 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
         options = WMSTileOptions(format = "image/png", 
                                  transparent = TRUE, version = "1.3.0")) %>%
     
-# NUEVO: el enlace abre la imagen original y el marcador muestra la versión mediana.
+# The link opens the original image; the marker displays the medium-resolution image.
       addCircleMarkers(
         data = obs_utm, 
         radius = 6,
