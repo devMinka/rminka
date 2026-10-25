@@ -572,7 +572,7 @@ the leaflet package.</p>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#Turning the dataframe into an sf object with the mnk_obs_sf() function</span></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co"># NUEVO: mnk_place_obs() expone URL_image para mostrar la foto mediana.</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co"> mnk_place_obs() expone URL_image para mostrar la foto mediana.</span></span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>obs_sf <span class="ot">&lt;-</span> <span class="fu">mnk_obs_sf</span>(obs_place, <span class="st">&quot;id&quot;</span>, <span class="st">&quot;taxon_name&quot;</span>, <span class="st">&quot;observed_on&quot;</span>,</span>
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>                     <span class="st">&quot;URL_image&quot;</span>, <span class="st">&quot;uri&quot;</span>, <span class="st">&quot;user_login&quot;</span>)</span>
 <span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
@@ -650,7 +650,7 @@ species Raja brachyura during 2025 are obtained with
 <span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>                         <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">quality =</span> <span class="st">&quot;research&quot;</span>)</span>
 <span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a></span>
 <span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>obs_brachyura[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">27</span>)]  <span class="co"># show selected columns</span></span></code></pre></div>
-<p><strong>NUEVO:</strong> Images from observations can be visualized
+Images from observations can be visualized
 and printed using the magick package and the observation’s
 <code>url_picture_med</code> or <code>url_picture_orig</code> as
 follows.</p>
@@ -659,7 +659,7 @@ follows.</p>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>obs_undulata <span class="ot">&lt;-</span> <span class="fu">mnk_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Raja undulata&quot;</span>, <span class="at">year =</span> <span class="dv">2022</span>, <span class="at">user_id =</span> <span class="dv">4</span>, </span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>                         <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">quality =</span> <span class="st">&quot;research&quot;</span>)</span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co"># NUEVO: el nombre de la columna original es url_picture_orig.</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
 <span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co"># Select the third observation and get its medium-resolution picture URL.</span></span>
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>url_pic_undulata <span class="ot">&lt;-</span> <span class="fu">as.character</span>(obs_undulata<span class="sc">$</span>url_picture_med[<span class="dv">3</span>])</span>
@@ -758,7 +758,6 @@ bounds parameter works.</p>
 <span id="cb17-51"><a href="#cb17-51" tabindex="-1"></a><span class="co">#selecting some fields (&quot;id&quot;,&quot;taxon_name&quot;,&quot;observed_on&quot;,.....) from the original</span></span>
 <span id="cb17-52"><a href="#cb17-52" tabindex="-1"></a><span class="co">#data frame for to show later in leaflet popups.</span></span>
 <span id="cb17-53"><a href="#cb17-53" tabindex="-1"></a></span>
-<span id="cb17-54"><a href="#cb17-54" tabindex="-1"></a><span class="co"># NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.</span></span>
 <span id="cb17-55"><a href="#cb17-55" tabindex="-1"></a>obs_bounds_sf <span class="ot">&lt;-</span> <span class="fu">mnk_obs_sf</span>(obs_torpedo_bounds, <span class="st">&quot;id&quot;</span>, <span class="st">&quot;taxon_name&quot;</span>, <span class="st">&quot;observed_on&quot;</span>,</span>
 <span id="cb17-56"><a href="#cb17-56" tabindex="-1"></a>                            <span class="st">&quot;url_picture_med&quot;</span>, <span class="st">&quot;url_picture_orig&quot;</span>, <span class="st">&quot;uri&quot;</span>, <span class="st">&quot;user_login&quot;</span>)</span>
 <span id="cb17-57"><a href="#cb17-57" tabindex="-1"></a></span>
@@ -810,7 +809,7 @@ EPSG:4326 (WGS84), but you can specify any CRS you need via the crs
 argument. Its basic usage has already been shown briefly in previous
 sections. Here we develop a detailed example using the <em>Torpedo
 torpedo</em> observations at the espigó Hotel W.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.</span></span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"/span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>obs_utm <span class="ot">&lt;-</span> <span class="fu">mnk_obs_sf</span>(obs_torpedo_bounds, id, taxon_name,</span>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                      observed_on, user_login, quality_grade,</span>
 <span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>                      url_picture_med, url_picture_orig,</span>

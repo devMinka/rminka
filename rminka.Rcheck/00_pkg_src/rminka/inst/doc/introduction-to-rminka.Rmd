@@ -451,7 +451,6 @@ obs_torpedo_bounds
 #selecting some fields ("id","taxon_name","observed_on",.....) from the original
 #data frame for to show later in leaflet popups.
 
-# NUEVO: conservar la URL original para el enlace y la mediana para mostrar la imagen.
 obs_bounds_sf <- mnk_obs_sf(obs_torpedo_bounds, "id", "taxon_name", "observed_on",
                             "url_picture_med", "url_picture_orig", "uri", "user_login")
 
@@ -503,7 +502,7 @@ The function takes the latitude/longitude columns returned by `mnk_obs` or by an
 Its basic usage has already been shown briefly in previous sections. Here we develop a detailed example using the *Torpedo torpedo* observations at the espigó Hotel W.
 
 ```{r sf_obs,message=FALSE, warning=FALSE}
-# NUEVO: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
+# O: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
 obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade,
                       url_picture_med, url_picture_orig,
@@ -542,9 +541,7 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
         layers = "orto",
         options = WMSTileOptions(format = "image/png", 
                                  transparent = TRUE, version = "1.3.0")) %>%
-    
-# NUEVO: el enlace abre la imagen original y el marcador muestra la versión mediana.
-      addCircleMarkers(
+  
         data = obs_utm, 
         radius = 6,
         color = "red",
