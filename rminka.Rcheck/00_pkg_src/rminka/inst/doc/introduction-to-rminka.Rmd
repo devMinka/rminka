@@ -502,7 +502,7 @@ The function takes the latitude/longitude columns returned by `mnk_obs` or by an
 Its basic usage has already been shown briefly in previous sections. Here we develop a detailed example using the *Torpedo torpedo* observations at the espigó Hotel W.
 
 ```{r sf_obs,message=FALSE, warning=FALSE}
-# O: seleccionar ambas resoluciones para enlazar al original y mostrar la mediana.
+
 obs_utm <- mnk_obs_sf(obs_torpedo_bounds, id, taxon_name,
                       observed_on, user_login, quality_grade,
                       url_picture_med, url_picture_orig,
@@ -527,8 +527,7 @@ crs25831 <- leafletCRS(
   code = "EPSG:25831",
   proj4def = "+proj=utm +zone=31 +ellps=GRS80 +units=m +no_defs",
   resolutions = c(8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1,0.5),
-  origin = c(0, 9000000)
-)
+  origin = c(0, 9000000))
 
 # Because the map is no longer in 3857, you cannot use standard OSM tiles. 
 #You need a WMS that serves imagery in the same CRS. 
@@ -542,9 +541,9 @@ leaflet(options = leafletOptions(crs25831, minZoom = 0, maxZoom = 14)) %>%
         options = WMSTileOptions(format = "image/png", 
                                  transparent = TRUE, version = "1.3.0")) %>%
   
+        addMarkers(
         data = obs_utm, 
         radius = 6,
-        color = "red",
         fillOpacity = 0.9,
         popup =  paste0( "ID: <a href='", obs_utm$uri,
                             "' target='_blank'>",obs_utm$id , "</a><br>",

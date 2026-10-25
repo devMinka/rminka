@@ -7,36 +7,37 @@
 export_mnk_qgis(..., file = NULL, crs = 4326, overwrite = TRUE)
 }
 \arguments{
-\item{...}{One or more objects of class \code{sf}. Each object must be named;
-the name is used as the layer name in the GeoPackage (e.g.,
-\code{export_mnk_qgis(points = pts, polygons = polys)}).}
+\item{...}{One or more objects of class \code{sf}. Each object must have a
+unique, non-empty name, which is used as its layer name in the GeoPackage.
+For example, use \code{export_mnk_qgis(points = pts, polygons = polys)}.}
 
-\item{file}{Character. Path to the output GeoPackage. It is highly
-recommended to provide a full path. If a simple filename is provided, it will
-be saved in the current working directory. The \code{.gpkg} extension is
-added if missing.}
+\item{file}{A single, non-empty character path for the output GeoPackage.
+A simple filename is saved in the current working directory. The
+\code{.gpkg} extension is added if missing.}
 
 \item{crs}{CRS to transform to before writing. Accepts anything valid for
 \code{sf::st_transform()} (e.g., \code{4326} or \code{"EPSG:4326"}).
 Default is \code{4326} (WGS 84).}
 
-\item{overwrite}{Logical. If \code{TRUE} and \code{file} exists, the file is
-deleted before writing. If \code{FALSE} and the file exists, the function
-appends layers (and will error if a layer name already exists). Default is
-\code{TRUE}.}
+\item{overwrite}{A single logical value. If \code{TRUE} and \code{file}
+exists, the file is deleted before writing. If \code{FALSE} and the file
+exists, layers are appended; writing fails if a layer name already exists.
+Defaults to \code{TRUE}.}
 }
 \value{
 Invisibly returns the normalized path to the written GeoPackage.
 Called for its side effect of writing the file.
 }
 \description{
-Writes one or more \code{sf} objects to a GeoPackage (\code{.gpkg}) with
-one layer per object. The function is designed for a smooth QGIS workflow:
-it ensures valid geometries, drops Z/M dimensions, removes list-columns that
-GDAL cannot write, and transforms to a target CRS.
+Writes one or more \code{sf} objects to a GeoPackage (\code{.gpkg}), with
+one layer per object. The function prepares the data for QGIS by repairing
+invalid geometries, dropping Z/M dimensions, removing unsupported
+list-columns, and transforming each layer to a target CRS.
 }
 \details{
-The function performs the following steps for each layer:
+Before changing the output file, the function checks that all inputs are
+named \code{sf} objects and that the layer names are unique. It then
+performs the following steps for each layer:
 \enumerate{
 \item Transform to \code{crs} with \code{sf::st_transform()}.
 \item Drop Z and M dimensions with \code{sf::st_zm()}.
@@ -49,16 +50,22 @@ cannot be removed (e.g., it is open in QGIS), the function stops with an
 informative error.
 }
 \examples{
-if (requireNamespace("sf", quietly = TRUE)) {
-  library(sf)
-  pts <- st_as_sf(data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
-                  coords = c("x", "y"), crs = 4326)
-  poly <- st_as_sf(st_sfc(
-    st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
-                          c(0.7,41.1), c(0.7,40.8)))),
-    crs = 4326))
-  export_mnk_qgis(exampl_points = pts, exampl_area = poly,
-                  file = tempfile(fileext = ".gpkg"))
-}
+points <- sf::st_as_sf(
+  data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
+  coords = c("x", "y"),
+  crs = 4326
+)
+polygon <- sf::st_as_sf(
+  sf::st_sfc(
+    sf::st_polygon(list(rbind(
+      c(0.7, 40.8), c(1.0, 40.8), c(1.0, 41.1),
+      c(0.7, 41.1), c(0.7, 40.8)
+    ))),
+    crs = 4326
+  )
+)
+output_file <- tempfile(fileext = ".gpkg")
+export_mnk_qgis(points = points, area = polygon, file = output_file)
+unlink(output_file)
 
 }
