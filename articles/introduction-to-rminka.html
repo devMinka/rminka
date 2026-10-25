@@ -205,11 +205,9 @@ observations with <code><a href="../reference/mnk_proj_obs.html">mnk_proj_obs()<
 unique values of user_login. Each observation includes the observer’s
 login, so the set of distinct logins corresponds to the project’s
 participants.</p>
-<p>If the project lasts only one year, or if you are only interested in
-the participants from a single month, a single function call is
-sufficient. For example, project 419 ran in 2025, so all its
-observations can be obtained with
-<code>mnk_proj_obs(419, year = 2025)</code>:</p>
+<p>To list the participants who contributed observations in a particular
+month, download that month’s observations and extract the unique
+observer logins. The example below does this for May 2025:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 1. Download all observations for the project in may 2025</span></span>
 <span></span>
@@ -452,13 +450,13 @@ the place name as an attribute.</p>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,"OSM",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satélite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[2.228,2.2309,2.2298,2.231,2.2291,2.2285,2.2267,2.2259,2.2243,2.2249,2.2275,2.228],"lat":[41.4054,41.4082,41.4091,41.4117,41.4112,41.4115,41.4118,41.4109,41.4089,41.4075,41.4057,41.4054]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#2c4fb8","weight":2,"opacity":1,"fill":true,"fillColor":"#2c4fb8","fillOpacity":0.4,"smoothFactor":1,"noClip":false},null,null,"Piscinas del Forum FECDAS",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"weight":3,"bringToFront":true}]},{"method":"addLayersControl","args":[["Satélite","OSM"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]}],"limits":{"lat":[41.4054,41.4118],"lng":[2.2243,2.231]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level3">
-<h3 id="mnk_places_obs">● <code>mnk_places_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_places_obs"></a>
+<h3 id="mnk_place_obs">● <code>mnk_place_obs()</code><a class="anchor" aria-label="anchor" href="#mnk_place_obs"></a>
 </h3>
-<p>Returns all observations recorded within a place within a selected
-year, and optionally within a specific month. The result is returned as
-a data frame without geometry. For Piscines del Fòrum, observations for
-february 2025 are obtained with
-<code>mnk_places_obs(place_id, year = 2025, month =2)</code>.</p>
+<p>Returns observations recorded within a place for a selected year and,
+optionally, month or day. The result is returned as a data frame without
+geometry. For Piscines del Fòrum, observations for February 2025 are
+obtained with
+<code>mnk_place_obs(place_id = 253, year = 2025, month = 2)</code>.</p>
 <p>Although the output has no geometry, it can be converted to an
 <code>sf</code> object with the helper function
 <code><a href="../reference/mnk_obs_sf.html">mnk_obs_sf()</a></code>. The resulting points can then be mapped with
@@ -945,7 +943,7 @@ extinct status.</p>
 <span><span class="co">#The taxonomy and metadata are retrieved for a single species, Diplodus sargus.</span></span>
 <span></span>
 <span><span class="co">#Second example – community taxonomy</span></span>
-<span><span class="co">#The taxonomy is retrieved for all species observed in the previous `mnk_place_ob` </span></span>
+<span><span class="co">#The taxonomy is retrieved for all species observed in the previous `mnk_place_obs`</span></span>
 <span><span class="co">#call — all species recorded in the Forum pools area during February 2025 (obs_place).</span></span>
 <span></span>
 <span><span class="va">taxon_unic</span> <span class="op">&lt;-</span> <span class="va">obs_place</span> <span class="op">%&gt;%</span></span>
