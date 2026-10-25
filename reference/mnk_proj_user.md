@@ -1,13 +1,11 @@
-# Get Project Users With Metadata
+# Get Project Users with Metadata
 
-Queries the Minka API for a given project identifier, extracts the
-associated user identifiers, and returns a tibble with full metadata for
-each participant by calling
+Retrieves the user identifiers associated with a Minka project and
+returns each user's profile metadata in a tibble using
 [`mnk_user_info()`](https://devminka.github.io/rminka/reference/mnk_user_info.md).
-The function is type-stable: it always returns a tibble with the same
-sixteen columns, even when the project does not exist or the API request
-fails. Individual user lookup failures produce a row of `NA` values and
-do not interrupt the overall query.
+The result has sixteen columns. A project lookup that fails because of a
+network or HTTP error returns a zero-row tibble. Network or HTTP errors
+for individual user lookups produce rows containing `NA` values.
 
 ## Usage
 
@@ -19,12 +17,13 @@ mnk_proj_user(project_id = NULL)
 
 - project_id:
 
-  A single atomic character or numeric value giving the project
-  identifier. Vectors of length greater than one are not accepted.
+  A single non-empty character string or finite numeric value giving the
+  project identifier. Missing values and blank strings are not accepted.
 
 ## Value
 
-A tibble with one row per participant and sixteen columns:
+A tibble with one row per project participant and the following sixteen
+columns:
 
 - id:
 

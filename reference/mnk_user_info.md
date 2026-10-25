@@ -12,14 +12,14 @@ mnk_user_info(id_user)
 
 - id_user:
 
-  A single atomic value, numeric or character, representing the user
-  identifier.
+  A single non-empty character string or finite numeric value
+  representing the user identifier.
 
 ## Value
 
-A one-row tibble with user metadata. If the user is not found or the
-request fails, the function returns a one-row tibble with the same
-columns filled with `NA`. Columns are:
+A one-row tibble with user metadata. If the user is not found or a
+network or HTTP request fails, the function returns a one-row tibble
+with the same columns filled with `NA`. Columns are:
 
 - id:
 
@@ -71,7 +71,7 @@ columns filled with `NA`. Columns are:
 
 - roles:
 
-  List-column with user roles, list.
+  List-column containing the user's roles.
 
 - spam:
 
@@ -95,7 +95,7 @@ identifier in profile URLs such as
 
 ``` r
 if (FALSE) { # \dontrun{
-# Information about user_id 4
+# Retrieve information for user ID 4
 mnk_user_info(4)
 } # }
 ```

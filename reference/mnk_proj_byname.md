@@ -13,13 +13,14 @@ mnk_proj_byname(query)
 
 - query:
 
-  a single character string contained in the project name.
+  A single non-empty character string contained in a project title.
 
 ## Value
 
-A tibble with one row per matching project. Returns an empty tibble if
-no matches are found, or `NULL` invisibly if the API returns no content
-or an HTTP error. Columns are:
+A tibble with one row per matching project. If the API response contains
+no projects or has an unexpected format, the function returns an empty
+tibble with the columns listed below. If the API returns no content or
+an HTTP error, it returns `NULL` invisibly. Columns are:
 
 - id:
 
@@ -56,7 +57,7 @@ or an HTTP error. Columns are:
 ## Details
 
 Queries the `/v1/projects/autocomplete` endpoint. This function is
-mainly used to obtain the project identifier for other functions.
+mainly used to obtain project identifiers for other functions.
 
 ## Examples
 

@@ -2,7 +2,7 @@
 
 Downloads observation data from the Minka API for a specified date
 range. When the result set exceeds 10,000 records, requests are
-automatically subdivided by month or day to respect the API limit.
+subdivided by month or day to respect the API result limit.
 
 ## Usage
 
@@ -18,7 +18,7 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 
 - d2:
 
-  End date in `YYYY-MM-DD` format.
+  End date in `YYYY-MM-DD` format. Must be on or after `d1`.
 
 - ...:
 
@@ -27,65 +27,66 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 
   `query`
 
-  :   a generic query string for the 'q' parameter.
+  :   A general search string passed to the API's `q` parameter.
 
   `taxon_name`
 
-  :   a character string with the taxon name (common or scientific).
+  :   A common or scientific taxon name.
 
   `taxon_id`
 
-  :   a numeric ID for the taxon.
+  :   A numeric identifier for a taxon.
 
   `user_id`
 
-  :   a numeric ID for a specific user.
+  :   A numeric identifier or login name for a user.
 
   `project_id`
 
-  :   a numeric ID for a specific project.
+  :   A numeric identifier or slug for a project.
 
   `place_id`
 
-  :   a numeric ID for a specific place.
+  :   A numeric identifier or slug for a place.
 
   `endemic`
 
-  :   a logical value. Filters for endemic species.
+  :   Logical value indicating whether to filter for endemic species.
 
   `introduced`
 
-  :   a logical value. Filters for introduced species.
+  :   Logical value indicating whether to filter for introduced species.
 
   `threatened`
 
-  :   a logical value. Filters for threatened species.
+  :   Logical value indicating whether to filter for threatened species.
 
   `quality`
 
-  :   a character string. Must be 'casual' or 'research'.
+  :   Quality grade to include: `"casual"` or `"research"`.
 
   `geo`
 
-  :   a logical value. If TRUE, filters for observations with
+  :   Logical value. If `TRUE`, filters for observations with
       coordinates.
 
   `annotation`
 
-  :   a numeric vector of length 2 (term_id, term_value_id).
+  :   Numeric vector of length two containing a term ID and a term value
+      ID.
 
   `bounds`
 
-  :   a bounding box. Accepts an sf object with CRS EPSG:4326 (WGS84) or
-      a numeric vector c(nelat, nelng, swlat, swlng).
+  :   Bounding box, supplied as an `sf` object in EPSG:4326 (WGS 84) or
+      as a numeric vector in the order `c(nelat, nelng, swlat, swlng)`.
 
 - quiet:
 
-  Logical. If `TRUE`, suppresses console messages.
+  Logical value. If `TRUE`, suppresses console messages.
 
 - limit_download:
 
-  Logical. If `TRUE` (default), each request is capped at 10,000
+  Logical value. If `TRUE` (default), each request is capped at 10,000
   records. If `FALSE`, the function attempts to download all records.
 
 ## Value
@@ -93,8 +94,8 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 A tibble with one row per observation and the fields returned by
 [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md),
 except that photos are represented by `url_picture` (medium resolution)
-and `url_picture_original`. The result also includes `species_guess`.
-Returns an empty tibble if no data is found.
+and `url_picture_original`. The result also includes `species_guess`. An
+empty tibble is returned if no observations are found.
 
 ## Examples
 

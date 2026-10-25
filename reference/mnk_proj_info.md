@@ -23,9 +23,9 @@ mnk_proj_info(project_id = NULL, grpid = NULL)
 
 ## Value
 
-A single-row `tibble` with project metadata. If the project is not
-found, returns an empty tibble with the same column structure. Columns
-are:
+A one-row tibble with project metadata. If the project is not found or
+the API request fails, the function returns an empty tibble with the
+same column structure. Columns are:
 
 - id:
 

@@ -10,7 +10,7 @@ observations.
 - [`mnk_proj_info()`](https://devminka.github.io/rminka/reference/mnk_proj_info.md)
   : Get Metadata for a Minka Project
 - [`mnk_proj_user()`](https://devminka.github.io/rminka/reference/mnk_proj_user.md)
-  : Get Project Users With Metadata
+  : Get Project Users with Metadata
 - [`mnk_proj_obs()`](https://devminka.github.io/rminka/reference/mnk_proj_obs.md)
   : Download Project Observations by Year
 
@@ -33,9 +33,9 @@ Functions to find places and retrieve their spatial data and their
 associated observations.
 
 - [`mnk_place_byname()`](https://devminka.github.io/rminka/reference/mnk_place_byname.md)
-  : Search Minka Place by Name
+  : Search Minka Places by Name
 - [`mnk_place_sf()`](https://devminka.github.io/rminka/reference/mnk_place_sf.md)
-  : Get Minka Place as sf Object
+  : Get a Minka Place as an sf Object
 - [`mnk_place_obs()`](https://devminka.github.io/rminka/reference/mnk_place_obs.md)
   : Download Place Observations by Year
 

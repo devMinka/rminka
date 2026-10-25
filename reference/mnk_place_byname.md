@@ -1,4 +1,4 @@
-# Search Minka Place by Name
+# Search Minka Places by Name
 
 Retrieves places whose name contains a given string from the Minka API.
 
@@ -12,13 +12,14 @@ mnk_place_byname(query)
 
 - query:
 
-  a single character string contained in the place name.
+  A single non-empty character string contained in a place name.
 
 ## Value
 
 A tibble with one row per matching place. Returns an empty tibble with
-zero rows if no matches are found, or \`NULL\` invisibly on network
-error. Columns are:
+the columns listed below if no matches are found. Returns `NULL`
+invisibly if the API returns an empty body or an HTTP error. Columns
+are:
 
 - place_id:
 
@@ -56,6 +57,6 @@ Queries the `/v1/places/autocomplete` endpoint.
 
 ``` r
 if (FALSE) { # \dontrun{
-sant_feliu <- mnk_place_byname(query = "Sant Feliu")
+places <- mnk_place_byname(query = "Sant Feliu")
 } # }
 ```

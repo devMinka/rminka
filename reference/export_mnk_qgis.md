@@ -27,9 +27,10 @@ export_mnk_qgis(..., file = NULL, crs = 4326, overwrite = TRUE)
 
 - crs:
 
-  CRS to transform to before writing. Accepts anything valid for
-  [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
-  (e.g., `4326` or `"EPSG:4326"`). Default is `4326` (WGS 84).
+  Coordinate reference system to transform to before writing. Accepts
+  any value supported by
+  [`sf::st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html),
+  such as `4326` or `"EPSG:4326"`. Defaults to `4326` (WGS 84).
 
 - overwrite:
 

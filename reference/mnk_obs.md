@@ -1,7 +1,7 @@
 # Download Minka Observations
 
 Downloads observation data from the Minka API. Handles pagination and
-rate limits automatically by subdividing large queries by month or day.
+API result limits by subdividing large queries by month or day.
 
 ## Usage
 
@@ -32,136 +32,138 @@ mnk_obs(
 
 - query:
 
-  a generic query string for the 'q' parameter.
+  A general search string passed to the API's `q` parameter.
 
 - taxon_name:
 
-  a character string with the taxon name (common or scientific).
+  A common or scientific taxon name.
 
 - taxon_id:
 
-  a numeric ID for the taxon.
+  A numeric identifier for a taxon.
 
 - user_id:
 
-  a numeric ID for a specific user.
+  A numeric identifier or login name for a user.
 
 - project_id:
 
-  a numeric ID for a specific project.
+  A numeric identifier or slug for a project.
 
 - place_id:
 
-  a numeric ID for a specific place.
+  A numeric identifier or slug for a place.
 
 - endemic:
 
-  a logical value. Filters for endemic species.
+  Logical value indicating whether to filter for endemic species.
 
 - introduced:
 
-  a logical value. Filters for introduced species.
+  Logical value indicating whether to filter for introduced species.
 
 - threatened:
 
-  a logical value. Filters for threatened species.
+  Logical value indicating whether to filter for threatened species.
 
 - quality:
 
-  a character string. Must be 'casual' or 'research'.
+  Quality grade to include: `"casual"` or `"research"`.
 
 - geo:
 
-  a logical value. If TRUE, filters for observations with coordinates.
+  Logical value. If `TRUE`, filters for observations with coordinates.
 
 - annotation:
 
-  a numeric vector of length 2 (term_id, term_value_id).
+  Numeric vector of length two containing a term ID and a term value ID.
 
 - year:
 
-  a numeric value for the year.
+  Numeric year to include.
 
 - month:
 
-  a numeric value for the month (1-12).
+  Numeric month to include, from 1 to 12.
 
 - day:
 
-  a numeric value for the day (1-31).
+  Numeric day to include, from 1 to 31.
 
 - bounds:
 
-  a bounding box. Accepts an sf object with CRS EPSG:4326 (WGS84) or a
-  numeric vector c(nelat, nelng, swlat, swlng).
+  Bounding box, supplied as an `sf` object in EPSG:4326 (WGS 84) or as a
+  numeric vector in the order `c(nelat, nelng, swlat, swlng)`.
 
 - quiet:
 
-  a logical value. If TRUE, suppresses console messages.
+  Logical value. If `TRUE`, suppresses console messages.
 
 - limit_download:
 
-  a logical value. If TRUE (default), caps download at 10,000 records.
+  Logical value. If `TRUE` (default), limits the download to 10,000
+  records per query subdivision. If `FALSE`, attempts to download all
+  matching records.
 
 ## Value
 
-a tibble with one row per observation and the following columns:
+A tibble with one row per observation and the following columns:
 
 - id:
 
-  observation identifier, integer.
+  Observation identifier, integer.
 
 - observed_on:
 
-  observation date, character.
+  Observation date, character.
 
 - year:
 
-  year component, integer.
+  Year component, integer.
 
 - month:
 
-  month component, integer.
+  Month component, integer.
 
 - week:
 
-  week component, integer.
+  Week component, integer.
 
 - day:
 
-  day component, integer.
+  Day component, integer.
 
 - hour:
 
-  hour component, integer.
+  Hour component, integer.
 
 - created_at:
 
-  creation timestamp, character.
+  Creation timestamp, character.
 
 - updated_at:
 
-  last update timestamp, character.
+  Last update timestamp, character.
 
 - latitude:
 
-  latitude in WGS84, numeric.
+  Latitude in WGS 84, numeric.
 
 - longitude:
 
-  longitude in WGS84, numeric.
+  Longitude in WGS 84, numeric.
 
 - positional_accuracy:
 
-  coordinate uncertainty in meters, integer.
+  Coordinate uncertainty in meters, integer.
 
 - geoprivacy:
 
-  geoprivacy setting, character.
+  Geoprivacy setting, character.
 
 - obscured:
 
-  flag for obscured coordinates, logical.
+  Flag indicating obscured coordinates, logical.
 
 - uri:
 
@@ -169,74 +171,81 @@ a tibble with one row per observation and the following columns:
 
 - url_picture_icon:
 
-  URL of first photo low resolution, character.
+  URL of the first photo at icon resolution, character.
 
 - url_picture_med:
 
-  URL of first photo medium resolution, character.
+  URL of the first photo at medium resolution, character.
 
 - url_picture_orig:
 
-  URL of first photo original resolution, character.
+  URL of the first photo at original resolution, character.
 
 - quality_grade:
 
-  quality grade, character.
+  Quality grade, character.
 
 - taxon_id:
 
-  taxon identifier, integer.
+  Taxon identifier, integer.
 
 - taxon_name:
 
-  scientific name, character.
+  Scientific name, character.
 
 - taxon_rank:
 
-  taxonomic rank, character.
+  Taxonomic rank, character.
 
 - taxon_min_ancestry:
 
-  lowest species ancestry, character.
+  Lowest species ancestry, character.
 
 - taxon_endemic:
 
-  endemic flag, logical.
+  Endemic status, logical.
 
 - taxon_threatened:
 
-  threatened flag, logical.
+  Threatened status, logical.
 
 - taxon_introduced:
 
-  introduced flag, logical.
+  Introduced status, logical.
 
 - taxon_native:
 
-  native flag, logical.
+  Native status, logical.
 
 - user_id:
 
-  observer identifier, integer.
+  Observer identifier, integer.
 
 - user_login:
 
-  observer login, character.
+  Observer login, character.
 
-Returns an empty tibble if no data is found.
+An empty tibble is returned if no observations are found.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 # Download the first 10,000 observations of a taxon from a project in 2025
-obs <- mnk_obs(project_id = 417, year = 2025,
-taxon_name = "Diplodus sargus" )
+obs <- mnk_obs(
+  project_id = 417,
+  year = 2025,
+  taxon_name = "Diplodus sargus"
+)
 
-# Download all records in 2024 from a user using bounds
+# Download all 2024 observations for a user within a bounding box
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs(year = 2024, user_id = 4,
-                  bounds = barcelona, quiet = TRUE,
-                  limit_download = FALSE)
+obs_bc <- mnk_obs(
+  year = 2024,
+  user_id = 4,
+  bounds = barcelona,
+  quiet = TRUE,
+  limit_download = FALSE
+)
 } # }
 ```

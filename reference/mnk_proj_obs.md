@@ -1,7 +1,7 @@
 # Download Project Observations by Year
 
-Downloads observations for a specific Minka project, filtered by year
-and optionally by month and day. This is a convenience wrapper around
+Downloads observations for a Minka project for a specified year and,
+optionally, month and day. This is a convenience wrapper around
 [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
 
 ## Usage
@@ -21,34 +21,35 @@ mnk_proj_obs(
 
 - project_id:
 
-  a single numeric project identifier.
+  Numeric project identifier or character project slug.
 
 - year:
 
-  a single numeric year (e.g., 2024).
+  Numeric year to query.
 
 - month:
 
-  optional numeric month (1-12). Defaults to NULL for all months.
+  Optional month to query, from 1 to 12. Defaults to `NULL` (all
+  months).
 
 - day:
 
-  optional numeric day (1-31). Defaults to NULL for all days.
+  Optional day to query, from 1 to 31. Defaults to `NULL` (all days).
 
 - quiet:
 
-  Logical. If TRUE, suppresses console messages. Defaults to FALSE.
+  Logical value. If `TRUE`, suppresses console messages.
 
 - limit_download:
 
-  logical. If TRUE (default), caps download at 10,000 records per query
-  subdivision. If FALSE, attempts to download all records.
+  Logical value. If `TRUE` (default), limits each query subdivision to
+  10,000 records. If `FALSE`, attempts to download all matching records.
 
 ## Value
 
 A tibble with the observation columns documented in
-[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
-Returns an empty tibble if no observations match.
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md). An
+empty tibble is returned if no observations match.
 
 ## Examples
 
@@ -57,7 +58,7 @@ if (FALSE) { # \dontrun{
 # Download all observations for project 419 for the year 2024
 proj_data_2024 <- mnk_proj_obs(project_id = 419, year = 2024)
 
-# Download observations for project 419 for August 2025, without limit
+# Download project observations for August 2025 without a record cap
 proj_data_aug_2025 <- mnk_proj_obs(
   project_id = 419,
   year = 2025,

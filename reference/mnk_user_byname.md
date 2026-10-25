@@ -13,12 +13,13 @@ mnk_user_byname(query)
 
 - query:
 
-  A single character string contained in the user login name.
+  A single non-empty character string contained in a user login name.
 
 ## Value
 
-A tibble with one row per matching user. If no matches are found, it
-returns an empty tibble with the same column structure. Columns are:
+A tibble with one row per matching user. If no users match, the response
+has an unexpected format, or an HTTP error occurs, the function returns
+an empty tibble with the columns listed below.
 
 - id:
 

@@ -58,8 +58,8 @@
 
 
 <dl><dt id="arg-project-id">project_id<a class="anchor" aria-label="anchor" href="#arg-project-id"></a></dt>
-<dd><p>A single character string or number representing the unique
-Minka project identifier.</p></dd>
+<dd><p>A single character string or number representing the
+unique Minka project identifier.</p></dd>
 
 
 <dt id="arg-grpid">grpid<a class="anchor" aria-label="anchor" href="#arg-grpid"></a></dt>
@@ -69,8 +69,9 @@ identifier (slug) for the project.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A single-row <code>tibble</code> with project metadata. If the project is
-  not found, returns an empty tibble with the same column structure.
+    <p>A one-row tibble with project metadata. If the project is not found
+  or the API request fails, the function returns an empty tibble with the
+  same column structure.
   Columns are:</p><dl><dt>id</dt>
 <dd><p>Project identifier, integer.</p></dd>
 

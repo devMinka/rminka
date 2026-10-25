@@ -1,8 +1,7 @@
 # Get Minka Observation Details
 
 Retrieves full details for a single Minka observation by its identifier.
-Queries the Minka API and returns the complete record flattened into a
-tibble.
+The Minka API response is flattened into a tibble.
 
 ## Usage
 
@@ -14,90 +13,90 @@ mnk_obs_id(id, meta = FALSE)
 
 - id:
 
-  a single non-empty character or numeric value identifying the Minka
+  A single non-empty character or numeric value identifying the Minka
   observation.
 
 - meta:
 
-  a logical value. Reserved for future use. Currently ignored.
+  Logical value reserved for future use. It is currently ignored.
 
 ## Value
 
-a one-row tibble with the observation data. The result is the flattened
-JSON response from the Minka API and contains more than 160 columns
-covering taxon, user, photos, identifications, and quality metrics. Key
-fields include:
+A one-row tibble containing the flattened Minka API response, with
+fields for the taxon, observer, photos, identifications, and quality
+metrics. Key fields include:
 
 - id:
 
-  observation identifier, integer.
+  Observation identifier, integer.
 
 - uuid:
 
-  unique identifier, character.
+  Unique identifier, character.
 
 - observed_on:
 
-  observation date, character.
+  Observation date, character.
 
 - created_at:
 
-  creation date, character.
+  Creation date, character.
 
 - updated_at:
 
-  last update, character.
+  Last update, character.
 
 - quality_grade:
 
-  quality grade, character.
+  Quality grade, character.
 
 - latitude:
 
-  latitude in WGS84, numeric.
+  Latitude in WGS84, numeric.
 
 - longitude:
 
-  longitude in WGS84, numeric.
+  Longitude in WGS84, numeric.
 
 - taxon.id:
 
-  taxon identifier, integer.
+  Taxon identifier, integer.
 
 - taxon.name:
 
-  scientific name, character.
+  Scientific name, character.
 
 - taxon.rank:
 
-  taxonomic rank, character.
+  Taxonomic rank, character.
 
 - user.id:
 
-  observer identifier, integer.
+  Observer identifier, integer.
 
 - user.login:
 
-  observer login, character.
+  Observer login, character.
 
 - photos:
 
-  list column with photo metadata.
+  List-column containing photo metadata.
 
 - identifications:
 
-  list column with identifications.
+  List-column containing identifications.
 
-Returns \`NULL\` invisibly if the observation is not found or the
-request fails.
+`NULL` is returned invisibly if the observation is not found, the
+response is empty or has an unexpected structure, or the API returns an
+HTTP error. Invalid JSON raises an error.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-obs <- mnk_obs_id(6475)
+obs <- mnk_obs_id(id = 3546)
 obs$id
-obs$taxon.name
+obs$species_guess
 obs$quality_grade
 } # }
 ```

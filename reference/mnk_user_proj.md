@@ -13,13 +13,13 @@ mnk_user_proj(id_user)
 
 - id_user:
 
-  A single integer or numeric value identifying the user.
+  A single finite numeric value identifying the user.
 
 ## Value
 
 A tibble with one row per subscribed project. If no subscriptions are
-found or an error occurs, it returns an empty tibble with the same
-column structure. Columns are:
+found or a network or HTTP request fails, the function returns an empty
+tibble with the columns listed below.
 
 - id:
 

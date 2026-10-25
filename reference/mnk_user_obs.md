@@ -1,7 +1,7 @@
 # Download User Observations by Year
 
-Downloads observations for a specific user, filtered by year and
-optionally by month and day. This is a convenience wrapper for
+Downloads observations for a user for a specified year and, optionally,
+month and day. This is a convenience wrapper around
 [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
 
 ## Usage
@@ -21,43 +21,49 @@ mnk_user_obs(
 
 - user_id:
 
-  A user identifier, either numeric ID or character login.
+  Numeric user identifier or character login name.
 
 - year:
 
-  The year to query, as a single integer.
+  Numeric year to query.
 
 - month:
 
-  Optional month to filter, integer from 1 to 12. Defaults to \`NULL\`.
+  Optional month to query, from 1 to 12. Defaults to `NULL` (all
+  months).
 
 - day:
 
-  Optional day to filter, integer from 1 to 31. Defaults to \`NULL\`.
+  Optional day to query, from 1 to 31. Defaults to `NULL` (all days).
 
 - quiet:
 
-  Logical; if \`TRUE\`, suppresses console messages.
+  Logical value. If `TRUE`, suppresses console messages.
 
 - limit_download:
 
-  Logical; if \`TRUE\` (default), caps each query subdivision at 10,000
-  records. If \`FALSE\`, attempts to retrieve all records.
+  Logical value. If `TRUE` (default), limits each query subdivision to
+  10,000 records. If `FALSE`, attempts to download all matching records.
 
 ## Value
 
 A tibble with the observation columns documented in
-[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
-Returns an empty tibble if no observations match.
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md). An
+empty tibble is returned if no observations match.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Download the first 10,000 observations for user 4 in 2024
+# Download up to 10,000 observations for user 4 in 2024
 mnk_user_obs(user_id = 4, year = 2024)
 
-# Download all observations for August 2024 without record cap
-mnk_user_obs(user_id = 4, year = 2024, month = 8, limit_download = FALSE)
+# Download observations for August 2024 without a record cap
+mnk_user_obs(
+  user_id = 4,
+  year = 2024,
+  month = 8,
+  limit_download = FALSE
+)
 } # }
 ```

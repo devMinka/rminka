@@ -1,6 +1,6 @@
 # Get WoRMS Taxonomy
 
-Downloads taxonomic information from the World Register of Marine
+Retrieves taxonomic information from the World Register of Marine
 Species (WoRMS) for a scientific name and returns the first exact-name
 match.
 
@@ -19,9 +19,9 @@ get_wrm_tax(scientific_name)
 
 ## Value
 
-A one-row tibble with taxonomic and habitat information. Returns `NULL`
-invisibly if no taxon is found or the request or response cannot be
-processed. The tibble contains these columns:
+A one-row tibble with taxonomic and habitat information. `NULL` is
+returned invisibly if no taxon is found or the request or response
+cannot be processed. The tibble contains the following columns:
 
 - valid_AphiaID:
 
@@ -83,10 +83,10 @@ processed. The tibble contains these columns:
 
 ``` r
 if (FALSE) { # \dontrun{
-# Get data for a species
+# Retrieve taxonomy for a species
 get_wrm_tax("Diplodus sargus")
 
-# Get data for a genus
+# Retrieve taxonomy for a genus
 get_wrm_tax("Diplodus")
 } # }
 ```

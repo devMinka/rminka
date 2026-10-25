@@ -58,14 +58,14 @@
 
 
 <dl><dt id="arg-id-user">id_user<a class="anchor" aria-label="anchor" href="#arg-id-user"></a></dt>
-<dd><p>A single integer or numeric value identifying the user.</p></dd>
+<dd><p>A single finite numeric value identifying the user.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble with one row per subscribed project. If no
-  subscriptions are found or an error occurs, it returns an empty tibble
-  with the same column structure. Columns are:</p><dl><dt>id</dt>
+    <p>A tibble with one row per subscribed project. If no subscriptions
+  are found or a network or HTTP request fails, the function returns an
+  empty tibble with the columns listed below.</p><dl><dt>id</dt>
 <dd><p>Project identifier, integer.</p></dd>
 
   <dt>title</dt>

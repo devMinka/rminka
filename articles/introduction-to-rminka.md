@@ -436,12 +436,12 @@ leaflet(obs_sf) %>%
 
 ### ●`mnk_obs_id()`
 
-Returns a single observation given its observation ID. This function is
-seldom used in practice, as observation IDs are not usually known
-beforehand.
+Retrieves the full record for a known Minka observation ID, including
+its taxonomic, location, and identification details.
 
 ``` r
 
+# Retrieve the observation with ID 553028.
 obs_id <- mnk_obs_id(id = 553028)
 
 obs_id
@@ -833,24 +833,20 @@ We will apply it to the two examples from the previous section.
 
 ``` r
 
-export_mnk_qgis(observations =obs_utm ,file="shape")
+output_file <- tempfile(fileext = ".gpkg")
+export_mnk_qgis(observations = obs_utm, file = output_file)
+unlink(output_file)
 
-#In this first example we export the observations layer from the previous step (obs_utm)
-#as a single point layer named "observations". The output file is named "shape" — the .gpkg
-#extension is added automatically.Because no path is specified, the file shape.gpkg is saved in the current R working directory of the project.
+# The output path is temporary, so the example does not create a file in the
+# package source directory.
+#
+# Multiple named sf objects can also be exported as separate GeoPackage layers:
 
-tmp1 <- file.path(tempdir(), "shape")
-export_mnk_qgis(observations = obs_utm , file = tmp1)
+# * places_forum: a polygon defining the Forum pools area, saved as layer "zone"
 
-
-
-#In the second example export several layers at once. Here we write two layers 
-#into the same GeoPackage:
-
-# *  places_forum — a polygon defining the Forum pools area, saved as layer "zone"
-
-# * obs_sf — point observations from the Forum pools, saved as layer "observations"
-#Both layers are stored in forum.gpkg inside the "examples" folder.
+# * obs_sf: point observations from the Forum pools, saved as layer
+#   "observations"
+# Both layers can be written to the same GeoPackage file.
 ```
 
 ### ● `get_wrm_tax()`

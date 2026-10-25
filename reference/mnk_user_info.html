@@ -58,15 +58,15 @@ API.</p>
 
 
 <dl><dt id="arg-id-user">id_user<a class="anchor" aria-label="anchor" href="#arg-id-user"></a></dt>
-<dd><p>A single atomic value, numeric or character, representing the
-user identifier.</p></dd>
+<dd><p>A single non-empty character string or finite numeric value
+representing the user identifier.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A one-row tibble with user metadata. If the user is not found or the
-  request fails, the function returns a one-row tibble with the same columns
-  filled with <code>NA</code>.
+    <p>A one-row tibble with user metadata. If the user is not found or a
+network or HTTP request fails, the function returns a one-row tibble with
+the same columns filled with <code>NA</code>.
 Columns are:</p><dl><dt>id</dt>
 <dd><p>User identifier, integer.</p></dd>
 
@@ -104,7 +104,7 @@ Columns are:</p><dl><dt>id</dt>
 <dd><p>Site identifier, integer.</p></dd>
 
 <dt>roles</dt>
-<dd><p>List-column with user roles, list.</p></dd>
+<dd><p>List-column containing the user's roles.</p></dd>
 
 <dt>spam</dt>
 <dd><p>Spam flag, logical.</p></dd>
@@ -127,7 +127,7 @@ corresponds to the identifier in profile URLs such as
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Information about user_id 4</span></span></span>
+<span class="r-in"><span><span class="co"># Retrieve information for user ID 4</span></span></span>
 <span class="r-in"><span><span class="fu">mnk_user_info</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
