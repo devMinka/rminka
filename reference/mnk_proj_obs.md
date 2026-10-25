@@ -37,7 +37,7 @@ mnk_proj_obs(
 
 - quiet:
 
-  logical.If TRUE, suppresses console messages. Defaults to FALSE.
+  Logical. If TRUE, suppresses console messages. Defaults to FALSE.
 
 - limit_download:
 
@@ -46,116 +46,9 @@ mnk_proj_obs(
 
 ## Value
 
-A tibble with one row per observation. Returns an empty tibble with zero
-rows if no observations match the query. Columns are:
-
-- id:
-
-  Observation identifier, integer.
-
-- observed_on:
-
-  Observation date, character in YYYY-MM-DD format.
-
-- year:
-
-  Year of observation, integer.
-
-- month:
-
-  Month of observation, integer.
-
-- week:
-
-  ISO week number, integer.
-
-- day:
-
-  Day of month, integer.
-
-- hour:
-
-  Hour of observation, integer.
-
-- created_at:
-
-  Record creation timestamp, character in ISO 8601 format.
-
-- updated_at:
-
-  Record update timestamp, character in ISO 8601 format.
-
-- latitude:
-
-  Decimal latitude, numeric.
-
-- longitude:
-
-  Decimal longitude, numeric.
-
-- positional_accuracy:
-
-  Coordinate uncertainty in meters, integer.
-
-- geoprivacy:
-
-  Geoprivacy flag, logical.
-
-- obscured:
-
-  Obscured coordinates flag, logical.
-
-- uri:
-
-  Observation url in Minka, character.
-
-- url_picture:
-
-  URL of observation image in Minka, character.
-
-- quality_grade:
-
-  Data quality grade, character.
-
-- taxon_id:
-
-  Taxon identifier, integer.
-
-- taxon_name:
-
-  Scientific name, character.
-
-- taxon_rank:
-
-  Taxonomic rank, character.
-
-- taxon_min_ancestry:
-
-  Minimal ancestry string, character.
-
-- taxon_endemic:
-
-  Endemic flag, logical.
-
-- taxon_threatened:
-
-  Threatened flag, logical.
-
-- taxon_introduced:
-
-  Introduced flag, logical.
-
-- taxon_native:
-
-  Native flag, logical.
-
-- user_id:
-
-  Observer identifier, integer.
-
-- user_login:
-
-  Observer login, character.
+A tibble with the observation columns documented in
+[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
+Returns an empty tibble if no observations match.
 
 ## Examples
 

@@ -132,10 +132,9 @@ accepted.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function performs a GET request to
-<code>https://api.minka-sdg.org/v1/projects?id={project_id}</code>, extracts
-<code>results[[1]]$user_ids</code>, and applies
-<code><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">purrr::map_dfr()</a></code> over <code><a href="mnk_user_info.html">mnk_user_info()</a></code>.</p>
+    <p>The function queries the project endpoint, extracts its user
+  identifiers, and retrieves each user's metadata with
+  <code><a href="mnk_user_info.html">mnk_user_info()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

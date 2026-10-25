@@ -90,8 +90,10 @@ mnk_obs_byday(d1, d2, ..., quiet = FALSE, limit_download = TRUE)
 
 ## Value
 
-a tibble with one row per observation and the same columns documented in
-[`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
+A tibble with one row per observation and the shared fields documented
+in [`mnk_obs`](https://devminka.github.io/rminka/reference/mnk_obs.md).
+It adds `species_guess` and uses `url_picture` and
+`url_picture_original` for medium- and original-resolution photos.
 Returns an empty tibble if no data is found.
 
 ## Examples

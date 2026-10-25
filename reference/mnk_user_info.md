@@ -17,8 +17,9 @@ mnk_user_info(id_user)
 
 ## Value
 
-A tibble with one row containing user metadata. If no matches are found,
-it returns an empty tibble with the same column structure. Columns are:
+A one-row tibble with user metadata. If the user is not found or the
+request fails, the function returns a one-row tibble with the same
+columns filled with `NA`. Columns are:
 
 - id:
 

@@ -83,7 +83,7 @@ prj_user
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
 #>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               6517
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              32170
+#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              32208
 #> # ℹ 13 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
 #> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,

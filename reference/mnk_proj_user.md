@@ -92,11 +92,8 @@ A tibble with one row per participant and sixteen columns:
 
 ## Details
 
-The function performs a GET request to
-`https://api.minka-sdg.org/v1/projects?id={project_id}`, extracts
-`results[[1]]$user_ids`, and applies
-[`purrr::map_dfr()`](https://purrr.tidyverse.org/reference/map_dfr.html)
-over
+The function queries the project endpoint, extracts its user
+identifiers, and retrieves each user's metadata with
 [`mnk_user_info()`](https://devminka.github.io/rminka/reference/mnk_user_info.md).
 
 ## See also

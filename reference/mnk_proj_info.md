@@ -1,7 +1,7 @@
 # Get Metadata for a Minka Project
 
-Retrieves detailed information for a specific Minka project using either
-its unique `project_id` or its group identifier (`grpid`).
+Retrieves detailed information for a specific Minka project using its
+unique `project_id` or group identifier (`grpid`).
 
 ## Usage
 
@@ -41,7 +41,7 @@ are:
 
 - subscrib_users:
 
-  Total number of subscribed users, integer.
+  Number of users subscribed to the project, integer.
 
 - place_id:
 
@@ -57,7 +57,7 @@ are:
 
 ## Details
 
-You must provide either `project_id` or `grpid`. If you do not know the
+Provide exactly one of `project_id` or `grpid`. If you do not know the
 identifier, use
 [`mnk_proj_byname`](https://devminka.github.io/rminka/reference/mnk_proj_byname.md)
 to find it. A Minka `grpid` or slug is typically the project name

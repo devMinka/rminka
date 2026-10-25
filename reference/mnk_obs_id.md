@@ -14,7 +14,8 @@ mnk_obs_id(id, meta = FALSE)
 
 - id:
 
-  a single integer. The Minka observation identifier.
+  a single non-empty character or numeric value identifying the Minka
+  observation.
 
 - meta:
 

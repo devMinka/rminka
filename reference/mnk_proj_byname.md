@@ -17,8 +17,9 @@ mnk_proj_byname(query)
 
 ## Value
 
-A tibble with one row per matching project. Returns an empty tibble with
-zero rows if no matches are found. Columns are:
+A tibble with one row per matching project. Returns an empty tibble if
+no matches are found, or `NULL` invisibly if the API returns no content
+or an HTTP error. Columns are:
 
 - id:
 
