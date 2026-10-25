@@ -8,6 +8,20 @@ test_that("mnk_obs_byday handles small date ranges in one go", {
   })
 })
 
+test_that("mnk_obs_byday returns its documented photo and species columns", {
+  result <- byday_process_results(list(list(
+    id = 101L,
+    species_guess = "Test species",
+    photos = list(list(url = "https://example.org/square.jpg"))
+  )))
+
+  expect_true(all(c(
+    "species_guess", "url_picture", "url_picture_original"
+  ) %in% names(result)))
+  expect_equal(result$url_picture, "https://example.org/medium.jpg")
+  expect_equal(result$url_picture_original, "https://example.org/original.jpg")
+})
+
 test_that("mnk_obs_byday subdivides requests when total results are large", {
   skip_if_not_installed("tibble")
   testthat::local_mocked_bindings(

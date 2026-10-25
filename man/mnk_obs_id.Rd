@@ -7,7 +7,8 @@
 mnk_obs_id(id, meta = FALSE)
 }
 \arguments{
-\item{id}{a single integer. The Minka observation identifier.}
+\item{id}{a single non-empty character or numeric value identifying the
+Minka observation.}
 
 \item{meta}{a logical value. Reserved for future use. Currently ignored.}
 }

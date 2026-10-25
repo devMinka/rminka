@@ -38,9 +38,10 @@ coordinates.}
 request is capped at 10,000 records.}
 }
 \value{
-a tibble with one row per observation and the same columns
-  documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
-  data is found.
+A tibble with one row per observation and the shared fields
+  documented in \code{\link{mnk_obs}}. It adds \code{species_guess} and
+  uses \code{url_picture} and \code{url_picture_original} for medium- and
+  original-resolution photos. Returns an empty tibble if no data is found.
 }
 \description{
 Downloads observation data from the Minka API for a specified date range.

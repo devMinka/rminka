@@ -5,7 +5,8 @@
 #' Queries the Minka API and returns the complete record flattened into a
 #' tibble.
 #'
-#' @param id a single integer. The Minka observation identifier.
+#' @param id a single non-empty character or numeric value identifying the
+#'   Minka observation.
 #' @param meta a logical value. Reserved for future use. Currently ignored.
 #'
 #' @return a one-row tibble with the observation data. The result is the

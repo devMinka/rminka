@@ -21,7 +21,7 @@ A single-row \code{tibble} with project metadata. If the project is
   \item{id}{Project identifier, integer.}
   \item{title}{Project title, character.}
   \item{created_at}{Creation timestamp, character in ISO 8601 format.}
-  \item{subscrib_users}{Total number of subscribed users, integer.}
+  \item{subscrib_users}{Number of users subscribed to the project, integer.}
   \item{place_id}{Associated place identifier, integer or \code{NA}.}
   \item{slug}{URL slug, character.}
   \item{description}{Project description, character.}
@@ -29,10 +29,10 @@ A single-row \code{tibble} with project metadata. If the project is
 }
 \description{
 Retrieves detailed information for a specific Minka project
-  using either its unique \code{project_id} or its group identifier (\code{grpid}).
+  using its unique \code{project_id} or group identifier (\code{grpid}).
 }
 \details{
-You must provide either \code{project_id} or \code{grpid}. If you
+Provide exactly one of \code{project_id} or \code{grpid}. If you
   do not know the identifier, use \code{\link{mnk_proj_byname}} to find it.
   A Minka \code{grpid} or slug is typically the project name formatted with
   hyphens (e.g., 'biomarato-barcelona-2025'). You can find it in the URL of

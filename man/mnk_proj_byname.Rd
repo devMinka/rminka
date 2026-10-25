@@ -11,7 +11,9 @@ mnk_proj_byname(query)
 }
 \value{
 A tibble with one row per matching project. Returns an empty tibble
-with zero rows if no matches are found. Columns are:
+  if no matches are found, or \code{NULL} invisibly if the API returns no
+  content or an HTTP error.
+  Columns are:
 \describe{
 \item{id}{Project identifier, integer.}
 \item{title}{Project title, character.}

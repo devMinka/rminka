@@ -42,10 +42,9 @@ request fails. Individual user lookup failures produce a row of
 \code{NA} values and do not interrupt the overall query.
 }
 \details{
-The function performs a GET request to
-\code{https://api.minka-sdg.org/v1/projects?id={project_id}}, extracts
-\code{results[[1]]$user_ids}, and applies
-\code{purrr::map_dfr()} over \code{mnk_user_info()}.
+The function queries the project endpoint, extracts its user
+  identifiers, and retrieves each user's metadata with
+  \code{mnk_user_info()}.
 }
 \examples{
 \dontrun{

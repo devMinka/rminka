@@ -1,5 +1,12 @@
 test_that("handles invalid input", {
-  expect_error(mnk_proj_info(), "must provide either")
+  expect_error(mnk_proj_info(), "exactly one")
+})
+
+test_that("rejects both project identifiers", {
+  expect_error(
+    mnk_proj_info(project_id = 420, grpid = "test-project"),
+    "exactly one"
+  )
 })
 
 test_that("handles network error", {
@@ -61,7 +68,7 @@ test_that("handles no results response", {
   expect_equal(nrow(result), 0)
 })
 
-test_that("returns project info from fourth result", {
+test_that("returns project info from a single result", {
   skip_if_not_installed("httr")
   json <- '{"results":[{"id":420,"title":"Test Project","created_at":"2023-01-01T12:00:00Z","place_id":101,"slug":"test-project","description":"A test description.","user_ids":[10,20,30]}]}'
   testthat::local_mocked_bindings(

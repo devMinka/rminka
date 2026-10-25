@@ -6,8 +6,9 @@
 #' \url{https://observe.minka-sdg.org/users/6}.
 #' @param id_user A single atomic value, numeric or character, representing the
 #' user identifier.
-#' @return A tibble with one row containing user metadata. If no matches are
-#' found, it returns an empty tibble with the same column structure.
+#' @return A one-row tibble with user metadata. If the user is not found or the
+#'   request fails, the function returns a one-row tibble with the same columns
+#'   filled with \code{NA}.
 #' Columns are:
 #' \describe{
 #' \item{id}{User identifier, integer.}

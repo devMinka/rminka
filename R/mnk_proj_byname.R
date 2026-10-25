@@ -7,7 +7,9 @@
 #' function is mainly used to obtain the project identifier for other functions.
 #' @param query a single character string contained in the project name.
 #' @return A tibble with one row per matching project. Returns an empty tibble
-#' with zero rows if no matches are found. Columns are:
+#'   if no matches are found, or \code{NULL} invisibly if the API returns no
+#'   content or an HTTP error.
+#'   Columns are:
 #' \describe{
 #' \item{id}{Project identifier, integer.}
 #' \item{title}{Project title, character.}

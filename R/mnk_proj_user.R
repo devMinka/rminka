@@ -30,11 +30,9 @@
 #' \item{suspended}{Logical. Suspension flag.}
 #' \item{universal_search_rank}{Integer. Search rank.}
 #' }
-#' @details
-#' The function performs a GET request to
-#' \code{https://api.minka-sdg.org/v1/projects?id={project_id}}, extracts
-#' \code{results[[1]]$user_ids}, and applies
-#' \code{purrr::map_dfr()} over \code{mnk_user_info()}.
+#' @details The function queries the project endpoint, extracts its user
+#'   identifiers, and retrieves each user's metadata with
+#'   \code{mnk_user_info()}.
 #' @seealso \code{\link{mnk_user_info}}, \code{\link{mnk_proj_info}}
 #' @examples
 #' \dontrun{
@@ -42,10 +40,6 @@
 #' dplyr::glimpse(users)
 #' }
 #' @export
-mnk_proj_user <- function(project_id = NULL) {
-  #... function code...
-}
-
 mnk_proj_user <- function(project_id = NULL) {
 
   if (is.null(project_id)) stop("You must provide 'project_id'.", call. = FALSE)
