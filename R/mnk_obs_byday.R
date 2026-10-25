@@ -144,10 +144,11 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #'   request is capped at 10,000 records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
 #'
-#' @return A tibble with one row per observation and the shared fields
-#'   documented in \code{\link{mnk_obs}}. It adds \code{species_guess} and
-#'   uses \code{url_picture} and \code{url_picture_original} for medium- and
-#'   original-resolution photos. Returns an empty tibble if no data is found.
+#' @return A tibble with one row per observation. It contains the observation
+#'   fields documented in \code{\link{mnk_obs}}, plus \code{species_guess}.
+#'   Medium- and original-resolution photo columns are named
+#'   \code{url_picture} and \code{url_picture_original}, respectively.
+#'   Returns an empty tibble if no data is found.
 #'
 #' @examples
 #' \dontrun{
