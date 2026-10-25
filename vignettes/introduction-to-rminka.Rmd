@@ -136,7 +136,7 @@ prj_user
 ```
 Note: The simplest way to retrieve all participants in a project — including those who are not subscribed — is to download the project's observations with `mnk_proj_obs()` and then extract the unique values of user_login. Each observation includes the observer's login, so the set of distinct logins corresponds to the project's participants.
 
-If the project lasts only one year, or if you are only interested in the participants from a single month, a single function call is sufficient. For example, project 419 ran in 2025, so all its observations can be obtained with `mnk_proj_obs(419, year = 2025)`:
+To list the participants who contributed observations in a particular month, download that month's observations and extract the unique observer logins. The example below does this for May 2025:
 
 ```{r project_info_user2, include = TRUE , echo=TRUE, eval=TRUE}
 # 1. Download all observations for the project in may 2025
@@ -264,9 +264,9 @@ places_forum <- mnk_place_sf(253)
 
 ```
 
-### ● `mnk_places_obs()`
+### ● `mnk_place_obs()`
 
-Returns all observations recorded within a place within a selected year, and optionally within a specific month. The result is returned as a data frame without geometry. For Piscines del Fòrum, observations for february  2025 are obtained with `mnk_places_obs(place_id, year = 2025, month =2)`.
+Returns observations recorded within a place for a selected year and, optionally, month or day. The result is returned as a data frame without geometry. For Piscines del Fòrum, observations for February 2025 are obtained with `mnk_place_obs(place_id = 253, year = 2025, month = 2)`.
 
 Although the output has no geometry, it can be converted to an `sf` object with the helper function `mnk_obs_sf()`. The resulting points can then be mapped with the leaflet package.
 
@@ -614,7 +614,7 @@ get_wrm_tax("Diplodus sargus")
 #The taxonomy and metadata are retrieved for a single species, Diplodus sargus.
 
 #Second example – community taxonomy
-#The taxonomy is retrieved for all species observed in the previous `mnk_place_ob` 
+#The taxonomy is retrieved for all species observed in the previous `mnk_place_obs`
 #call — all species recorded in the Forum pools area during February 2025 (obs_place).
 
 taxon_unic <- obs_place %>%
