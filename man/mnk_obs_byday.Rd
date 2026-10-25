@@ -35,14 +35,15 @@ coordinates.}
 \item{quiet}{Logical. If \code{TRUE}, suppresses console messages.}
 
 \item{limit_download}{Logical. If \code{TRUE} (default), each request is
-capped at 10,000 records.}
+capped at 10,000 records. If \code{FALSE}, the function attempts to
+download all records.}
 }
 \value{
-A tibble with one row per observation. It contains the observation
-  fields documented in \code{\link{mnk_obs}}, plus \code{species_guess}.
-  Medium- and original-resolution photo columns are named
-  \code{url_picture} and \code{url_picture_original}, respectively.
-  Returns an empty tibble if no data is found.
+A tibble with one row per observation and the fields returned by
+  \code{\link{mnk_obs}}, except that photos are represented by
+  \code{url_picture} (medium resolution) and \code{url_picture_original}.
+  The result also includes \code{species_guess}. Returns an empty tibble if
+  no data is found.
 }
 \description{
 Downloads observation data from the Minka API for a specified date range.

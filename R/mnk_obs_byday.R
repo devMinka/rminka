@@ -21,39 +21,6 @@ byday_process_results <- function(all_results) {
     return(tibble::tibble())
   }
 
-  processed <- purrr::map(all_results, ~tibble::tibble(
-
-    id = `%||%`(.x$id, NA_integer_),
-    observed_on = `%||%`(.x$observed_on, NA),
-    year = `%||%`(.x$observed_on_details$year, NA_integer_),
-    month = `%||%`(.x$observed_on_details$month, NA_integer_),
-    week = `%||%`(.x$observed_on_details$week, NA_integer_),
-    day = `%||%`(.x$observed_on_details$day, NA_integer_),
-    hour = `%||%`(.x$observed_on_details$hour, NA_integer_),
-    created_at = `%||%`(.x$created_at, NA),
-    updated_at = `%||%`(.x$updated_at, NA),
-    latitude = `%||%`(.x$geojson$coordinates[[2]], NA_real_),
-    longitude = `%||%`(.x$geojson$coordinates[[1]], NA_real_),
-    positional_accuracy = `%||%`(.x$positional_accuracy, NA_integer_),
-    geoprivacy = `%||%`(.x$taxon_geoprivacy, NA),
-    obscured = `%||%`(.x$obscured, NA),
-    uri = `%||%`(.x$uri, NA),
-    photo_url_square = `%||%`(.x$taxon$default_photo$square_url, NA_character_),
-    photo_url_medium = `%||%`(.x$taxon$default_photo$medium_url, NA_character_),
-    quality_grade = `%||%`(.x$quality_grade, NA),
-    species_guess = `%||%`(.x$species_guess, NA),
-    taxon_id = `%||%`(.x$taxon$id, NA_integer_),
-    taxon_name = `%||%`(.x$taxon$name, NA),
-    taxon_rank = `%||%`(.x$taxon$rank, NA),
-    taxon_min_ancestry = `%||%`(.x$taxon$min_species_ancestry, NA),
-    taxon_endemic = `%||%`(.x$taxon$endemic, NA),
-    taxon_threatened = `%||%`(.x$taxon$threatened, NA),
-    taxon_introduced = `%||%`(.x$taxon$introduced, NA),
-    taxon_native = `%||%`(.x$taxon$native, NA),
-    user_id = `%||%`(.x$user$id, NA_integer_),
-    user_login = `%||%`(.x$user$login, NA)
-  ))
-
   processed <- purrr::map(all_results, function(.x) {
     foto_raw <- purrr::pluck(.x, "photos", 1, "url",.default = NA_character_)
     if (is.na(foto_raw)) {
@@ -141,14 +108,15 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #'   \code{\link{mnk_obs}} for details on available parameters.
 #' @param quiet Logical. If \code{TRUE}, suppresses console messages.
 #' @param limit_download Logical. If \code{TRUE} (default), each request is
-#'   capped at 10,000 records.
+#'   capped at 10,000 records. If \code{FALSE}, the function attempts to
+#'   download all records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
 #'
-#' @return A tibble with one row per observation. It contains the observation
-#'   fields documented in \code{\link{mnk_obs}}, plus \code{species_guess}.
-#'   Medium- and original-resolution photo columns are named
-#'   \code{url_picture} and \code{url_picture_original}, respectively.
-#'   Returns an empty tibble if no data is found.
+#' @return A tibble with one row per observation and the fields returned by
+#'   \code{\link{mnk_obs}}, except that photos are represented by
+#'   \code{url_picture} (medium resolution) and \code{url_picture_original}.
+#'   The result also includes \code{species_guess}. Returns an empty tibble if
+#'   no data is found.
 #'
 #' @examples
 #' \dontrun{
@@ -171,12 +139,25 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' )
 #' }
 #' @export
-mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
-  date1 <- as.Date(d1, format = "%Y-%m-%d")
-  date2 <- as.Date(d2, format = "%Y-%m-%d")
-  if (is.na(date1) || is.na(date2)) {
+mnk_obs_byday <- function(d1, d2, ..., quiet = FALSE, limit_download = TRUE) {
+  is_valid_date <- function(x) {
+    is.character(x) && length(x) == 1L && !is.na(x) &&
+      grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x) &&
+      !is.na(as.Date(x, format = "%Y-%m-%d"))
+  }
+  if (!is_valid_date(d1) || !is_valid_date(d2)) {
     stop("Dates d1 and d2 must be in 'yyyy-mm-dd' format.")
   }
+  if (!is.logical(quiet) || length(quiet) != 1L || is.na(quiet)) {
+    stop("'quiet' must be TRUE or FALSE.", call. = FALSE)
+  }
+  if (!is.logical(limit_download) || length(limit_download) != 1L ||
+      is.na(limit_download)) {
+    stop("'limit_download' must be TRUE or FALSE.", call. = FALSE)
+  }
+
+  date1 <- as.Date(d1)
+  date2 <- as.Date(d2)
   if (date1 > date2) {
     stop("The start date (d1) cannot be after the end date (d2).")
   }
