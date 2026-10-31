@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://codecov.io/gh/devMinka/rminka)
+[![codecov](https://codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://app.codecov.io/gh/devMinka/rminka)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Last commit](https://img.shields.io/github/last-commit/devminka/rminka/master?style=flat-square)](https://github.com/devminka/rminka/commits/master)
 [![GitHub release](https://img.shields.io/github/v/release/devminka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devminka/rminka/releases)
@@ -48,49 +48,41 @@ The goals of the `rminka`  package are:
 
 **a) User Queries:** Functions to find users and their contributed observations.
 
-*   `mnk_user_byname()`: Finds a user's ID ( user_id) from their approximate login name.
-*   `mnk_user_info()`: Retrieves detailed user information using its known ID (user_id)
-*   `mnk_user_proj()`: Find the projects to which a user has explicitly subscribed based on their user_id.
-*   `mnk_user_obs()`: Retrieves all observations contributed by that user for a given year ( all the year or only a specific month) from their user_id.
+*   `mnk_user_byname()`: Finds a user's ID (`user_id`) from an approximate login name.
+*   `mnk_user_info()`: Retrieves detailed information for a user by ID.
+*   `mnk_user_proj()`: Finds the projects to which a user has subscribed.
+*   `mnk_user_obs()`: Retrieves a user's observations for a given year, optionally filtered by month or day.
 
 
 **b) Project Queries:** A set of complementary functions to find projects and their associated observations.
 
-*   `mnk_proj_byname()`: Finds a project's ID (project_id) using an approximate project name.
-*   `mnk_proj_info()`: Retrieves detailed project information using its known ID (project_id).
-*   `mnk_proj_user()`: Find the users, and associated metadata, explicitly subscribed to a given project by the project_id.
-*   `mnk_proj_obs()`: Fetches all observations for a specific year within that project.
+*   `mnk_proj_byname()`: Finds a project's ID (`project_id`) using an approximate project name.
+*   `mnk_proj_info()`: Retrieves detailed information for a project by ID or slug.
+*   `mnk_proj_user()`: Retrieves users subscribed to a project, along with their metadata.
+*   `mnk_proj_obs()`: Fetches observations for a project in a given year, optionally filtered by month or day.
 
 **c) Place Queries:** Functions to find places and retrieve their spatial data.
 
-*   `mnk_place_byname()`: Finds the place´s ID (place_id) for a location using 
-an approximate place name.
-*   `mnk_place_sf()`: Returns the `sf` geometry for a place given its place_id, 
-ready for plotting with packages like `ggplot2` or `leaflet`.
-*   `mnk_place_obs()`: Retrieves all observations for a place for a given year 
-(all the year or only a specific month) from their place_id .
+*   `mnk_place_byname()`: Finds a place's ID (`place_id`) using an approximate place name.
+*   `mnk_place_sf()`: Returns a place's `sf` geometry, ready for use with packages such as `ggplot2` or `leaflet`.
+*   `mnk_place_obs()`: Retrieves observations for a place in a given year, optionally filtered by month or day.
 
 
 **d) Observation Queries:** A variety of functions to fetch observation data 
 based on different parameters.
 
-*   `mnk_obs_id()`: Retrieves a single observation's complete data using its unique ID (id).
-*   `mnk_obs()`: Fetches observations based on various parameters for a full year, a specific month, or a single day.
-*   `mnk_obs_byday()`: Retrieves all observations within a date range in the same year.
-*   `mnk_obs_update()`: Downloads observation data from the Minka API filtering by last update date
+*   `mnk_obs_id()`: Retrieves a single observation's complete record by ID.
+*   `mnk_obs()`: Fetches observations using various filters, including year, month, or day.
+*   `mnk_obs_byday()`: Retrieves observations within a specified date range.
+*   `mnk_obs_update()`: Downloads observations updated on or after a specified date.
 
 **e) Auxiliary functions:**  A set of functions with different utilities that complement Minka's observational data and help in processing them when used in 
 other R packages (`vegan`, `dismo`, `labdsv` or others).
 
-*   `export_mnk_qgis()`: Converts one or more `sf` layers with 
-different geometry types (points and polygons) to GeoPackage (.gpkg) format usualy used in Qgis. 
-By default, it uses CRS=4326 (WGS 84), but the same function can transform to a
-different CRS.
-*   `mnk_obs_sf()`: This function converts a Minka observation tibble into a geometric sf layer. The same function allows you to select what information it will contain (none by default). It also uses CRS=4326 (WGS 84) by default, but the same function can transform it to a different CRS.
-*   `get_wrm_tax()`: Retrieves the complete taxonomy and additional data (e.g., 
-marine or terrestrial ) from  [WoRMS](https://www.marinespecies.org/) for a given scientific name.
-*   `shrt_name()`: Returns the CEP name (abbreviated scientific name) with 
-separation point, given a scientific name.
+*   `export_mnk_qgis()`: Exports one or more `sf` layers to a GeoPackage (`.gpkg`) for use in QGIS. It uses EPSG:4326 (WGS 84) by default and can transform layers to another CRS.
+*   `mnk_obs_sf()`: Converts observation data to an `sf` point layer and lets you select additional attributes. The output uses EPSG:4326 (WGS 84) by default, with an option to transform it to another CRS.
+*   `get_wrm_tax()`: Retrieves taxonomic information and habitat flags from [WoRMS](https://www.marinespecies.org/) for a scientific name.
+*   `shrt_name()`: Abbreviates scientific names by taking the first three letters of each word and separating them with periods.
 
 These functions are designed to be used together. For queries that span multiple years, you can easily loop through the years of interest, run the appropriate function, and then combine the resulting tibbles with `dplyr::bind_rows()`.
 
@@ -107,11 +99,11 @@ pak::pak("devminka/rminka")
 
 ## Using rminka
 
-If you are new to `rminka` you are better off starting with a starting web page of `rminka` in the github page of the project.
+If you are new to `rminka`, start with the package website or introductory vignette.
 
-1. The main page directions is [rminka website](https://devminka.github.io/rminka/)
+1. Visit the [rminka website](https://devminka.github.io/rminka/) for package documentation.
 
-1. The starting web page is [rminka starting](https://devminka.github.io/rminka/articles/introduction-to-rminka.html)
+1. Read the [introduction to rminka](https://devminka.github.io/rminka/articles/introduction-to-rminka.html) to get started.
 
 
 

@@ -1,0 +1,7 @@
+id,taxon_name,observed_on,user_login,quality_grade,url_picture,uri,longitude,latitude
+1001,Torpedo torpedo,2024-05-01,example_user,research,,,2.1901,41.3690
+1002,Torpedo torpedo,2024-05-08,example_user,research,,,2.1918,41.3702
+1003,Raja brachyura,2023-06-03,example_user,research,,,2.1908,41.3694
+1004,Raja undulata,2024-04-17,example_user,research,,,2.1922,41.3708
+1005,Diplodus sargus,2025-02-05,example_user,casual,,,2.1911,41.3697
+1006,Parablennius pilicornis,2025-02-11,example_user,research,,,2.1920,41.3705

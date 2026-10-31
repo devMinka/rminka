@@ -105,13 +105,13 @@ rate limits automatically by subdividing large queries by month or day.
 }
 \examples{
 \dontrun{
-# Download firts 10.000 observations of taxon  from a project in 2025
+# Download the first 10,000 observations of a taxon from a project in 2025
 obs <- mnk_obs(project_id = 417, year = 2025,
 taxon_name = "Diplodus sargus" )
 
 # Download all records in 2024 from a user using bounds
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-obs_bc <- mnk_obs( year=2024, user_login = "xasalvador",
-bounds = barcelona, quiet = TRUE, limit_dowload = FALSE)
+obs_bc <- mnk_obs( year=2024, user_id = 4,
+bounds = barcelona, quiet = TRUE, limit_download = FALSE)
 }
 }

@@ -49,8 +49,8 @@
 #' st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
 #' c(0.7,41.1), c(0.7,40.8)))),
 #' crs = 4326))
-#' # The names of the layers will be exampl_points and  exampl_area
-#' export_mnk_qgis(exampl_points = pts, exampl_area = poly,
+#' # The layer names will be example_points and example_area.
+#' export_mnk_qgis(example_points = pts, example_area = poly,
 #' file = tempfile(fileext = ".gpkg"))
 #' }
 #'

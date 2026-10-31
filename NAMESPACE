@@ -3,7 +3,6 @@
 export(export_mnk_qgis)
 export(get_wrm_tax)
 export(mnk_obs)
-export(mnk_obs_1)
 export(mnk_obs_byday)
 export(mnk_obs_id)
 export(mnk_obs_sf)

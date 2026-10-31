@@ -31,9 +31,9 @@ test_that("writes multiple named layers", {
   )
   tmp <- tempfile(fileext = ".gpkg")
   on.exit(unlink(tmp), add = TRUE)
-  export_mnk_qgis(exampl_points = pts, exampl_area = poly, file = tmp)
+  export_mnk_qgis(example_points = pts, example_area = poly, file = tmp)
   layers <- sf::st_layers(tmp)$name
-  expect_setequal(layers, c("exampl_points", "exampl_area"))
+  expect_setequal(layers, c("example_points", "example_area"))
 })
 
 test_that("transforms to target crs", {

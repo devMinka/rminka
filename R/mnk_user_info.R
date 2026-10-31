@@ -3,7 +3,7 @@
 #' API.
 #' @details Queries the \code{/v1/users/{id}} endpoint. The \code{id_user}
 #' corresponds to the identifier in profile URLs such as
-#' \url{https://minka-sdg.org/users/6}.
+#' \url{https://observe.minka-sdg.org/users/6}.
 #' @param id_user A single atomic value, numeric or character, representing the
 #' user identifier.
 #' @return A tibble with one row containing user metadata. If no matches are
