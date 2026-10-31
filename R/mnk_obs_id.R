@@ -2,50 +2,61 @@
 #' Get Minka Observation Details
 #'
 #' Retrieves full details for a single Minka observation by its identifier.
-#' Queries the Minka API and returns the complete record flattened into a
-#' tibble.
+#' The Minka API response is flattened into a tibble.
 #'
-#' @param id a single integer. The Minka observation identifier.
-#' @param meta a logical value. Reserved for future use. Currently ignored.
-#' @return a one-row tibble with the observation data. The result is the
-#'   flattened JSON response from the Minka API and contains more than 160
-#'   columns covering taxon, user, photos, identifications, and quality
+#' @param id A single non-empty character or numeric value identifying the
+#'   Minka observation.
+#' @param meta Logical value reserved for future use. It is currently ignored.
+#'
+#' @return A one-row tibble containing the flattened Minka API response, with
+#'   fields for the taxon, observer, photos, identifications, and quality
 #'   metrics. Key fields include:
 #'   \describe{
-#'     \item{id}{observation identifier, integer.}
-#'     \item{uuid}{unique identifier, character.}
-#'     \item{observed_on}{observation date, character.}
-#'     \item{created_at}{creation date, character.}
-#'     \item{updated_at}{last update, character.}
-#'     \item{quality_grade}{quality grade, character.}
-#'     \item{latitude}{latitude in WGS84, numeric.}
-#'     \item{longitude}{longitude in WGS84, numeric.}
-#'     \item{taxon.id}{taxon identifier, integer.}
-#'     \item{taxon.name}{scientific name, character.}
-#'     \item{taxon.rank}{taxonomic rank, character.}
-#'     \item{user.id}{observer identifier, integer.}
-#'     \item{user.login}{observer login, character.}
-#'     \item{photos}{list column with photo metadata.}
-#'     \item{identifications}{list column with identifications.}
+#'     \item{id}{Observation identifier, integer.}
+#'     \item{uuid}{Unique identifier, character.}
+#'     \item{observed_on}{Observation date, character.}
+#'     \item{created_at}{Creation date, character.}
+#'     \item{updated_at}{Last update, character.}
+#'     \item{quality_grade}{Quality grade, character.}
+#'     \item{latitude}{Latitude in WGS84, numeric.}
+#'     \item{longitude}{Longitude in WGS84, numeric.}
+#'     \item{taxon.id}{Taxon identifier, integer.}
+#'     \item{taxon.name}{Scientific name, character.}
+#'     \item{taxon.rank}{Taxonomic rank, character.}
+#'     \item{user.id}{Observer identifier, integer.}
+#'     \item{user.login}{Observer login, character.}
+#'     \item{photos}{List-column containing photo metadata.}
+#'     \item{identifications}{List-column containing identifications.}
 #'   }
-#'   Returns `NULL` invisibly if the observation is not found or the request
-#'   fails.
-#' @export
+#'   \code{NULL} is returned invisibly if the observation is not found, the
+#'   response is empty or has an unexpected structure, or the API returns an
+#'   HTTP error. Invalid JSON raises an error.
+#'
 #' @examples
 #' \dontrun{
-#' obs <- mnk_obs_id(6475)
+#' obs <- mnk_obs_id(id = 3546)
 #' obs$id
-#' obs$taxon.name
+#' obs$species_guess
 #' obs$quality_grade
 #' }
+#' @export
 mnk_obs_id <- function(id, meta = FALSE) {
 
-  if (is.null(id) || length(id) == 0 || is.na(id[1]) ||!is.atomic(id) || length(id) > 1) {
-    stop("You must provide a single, non-empty, non-NA ID for the observation.")
+  valid_type <- is.character(id) || is.numeric(id)
+  if (!valid_type || length(id) != 1L || is.na(id[1]) ||
+      (is.numeric(id) && !is.finite(id))) {
+    stop(
+      "You must provide a single, non-empty, non-NA ID for the observation.",
+      call. = FALSE
+    )
   }
-  id_char <- as.character(id[1])
-  if (nchar(trimws(id_char)) == 0) {
-    stop("You must provide a single, non-empty, non-NA ID for the observation.")
+
+  id_char <- as.character(id)
+  if (!nzchar(trimws(id_char))) {
+    stop(
+      "You must provide a single, non-empty, non-NA ID for the observation.",
+      call. = FALSE
+    )
   }
 
   base_url <- "https://api.minka-sdg.org"
@@ -74,13 +85,15 @@ mnk_obs_id <- function(id, meta = FALSE) {
     stop("Failed to parse JSON response for observation ID ", id_char, ": ", e$message)
   })
 
-  if (!is.list(parsed_json_full) &&!is.data.frame(parsed_json_full)) {
+  if (!is.list(parsed_json_full) && !is.data.frame(parsed_json_full)) {
     message("No data found or unexpected JSON structure (atomic type) for observation ID ",
             id_char, ".")
     return(invisible(NULL))
   }
 
-  if (!is.null(parsed_json_full$results) && is.data.frame(parsed_json_full$results) && nrow(parsed_json_full$results) > 0) {
+  if (!is.null(parsed_json_full$results) &&
+      is.data.frame(parsed_json_full$results) &&
+      nrow(parsed_json_full$results) > 0) {
     df_result <- parsed_json_full$results
     if (nrow(df_result) > 1) {
       warning("Multiple observations found for ID ", id_char, ". Returning only the first one.")
@@ -93,5 +106,5 @@ mnk_obs_id <- function(id, meta = FALSE) {
     return(invisible(NULL))
   }
 
-  return(tibble::as_tibble(df_result))
+  tibble::as_tibble(df_result)
 }

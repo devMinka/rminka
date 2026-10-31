@@ -16,67 +16,38 @@ mnk_place_obs(
 \arguments{
 \item{place_id}{The numeric ID or slug of the Minka place.}
 
-\item{year}{The numeric year for the query (required).}
+\item{year}{Numeric year to query.}
 
-\item{month}{(Optional) The numeric month (1-12). Defaults to NULL (all
+\item{month}{Optional month from 1 to 12. Defaults to \code{NULL} (all
 months).}
 
-\item{day}{(Optional) The numeric day (1-31). Defaults to NULL (all days).}
+\item{day}{Optional day from 1 to 31. Defaults to \code{NULL} (all days).}
 
-\item{quiet}{A logical value. If `TRUE`, all console messages will be
-suppressed.}
+\item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
-\item{limit_download}{A logical value. If `TRUE` (default), the download is
-capped at 10,000 records per query subdivision. If `FALSE`, it attempts to
-download all records.}
+\item{limit_download}{Logical value. If \code{TRUE} (default), limits each
+query subdivision to 10,000 records. If \code{FALSE}, attempts to
+download all matching records.}
 }
 \value{
-A tibble with one row per observation. Returns an empty tibble with
-  zero rows if no observations match the query. Columns are:
-\describe{
-  \item{id}{Observation identifier, integer.}
-  \item{observed_on}{Observation date, character in YYYY-MM-DD format.}
-  \item{year}{Year of observation, integer.}
-  \item{month}{Month of observation, integer.}
-  \item{week}{ISO week number, integer.}
-  \item{day}{Day of month, integer.}
-  \item{hour}{Hour of observation, integer.}
-  \item{created_at}{Record creation timestamp, character in ISO 8601 format.}
-  \item{updated_at}{Record update timestamp, character in ISO 8601 format.}
-  \item{latitude}{Decimal latitude, numeric.}
-  \item{longitude}{Decimal longitude, numeric.}
-  \item{positional_accuracy}{Coordinate uncertainty in meters, integer.}
-  \item{geoprivacy}{Geoprivacy flag, logical.}
-  \item{obscured}{Obscured coordinates flag, logical.}
-  \item{uri}{Observation url in Minka, character.}
-  \item{url_picture}{URL of observation image in Minka, character.}
-  \item{quality_grade}{Data quality grade, character.}
-  \item{taxon_id}{Taxon identifier, integer.}
-  \item{taxon_name}{Scientific name, character.}
-  \item{taxon_rank}{Taxonomic rank, character.}
-  \item{taxon_min_ancestry}{Minimal ancestry string, character.}
-  \item{taxon_endemic}{Endemic flag, logical.}
-  \item{taxon_threatened}{Threatened flag, logical.}
-  \item{taxon_introduced}{Introduced flag, logical.}
-  \item{taxon_native}{Native flag, logical.}
-  \item{user_id}{Observer identifier, integer.}
-  \item{user_login}{Observer login, character.}
-}
+A tibble with the observation columns documented in
+  \code{\link{mnk_obs}}, with an additional \code{URL_image} column when
+  \code{url_picture_med} is present. This column contains the medium-size
+  image URL. An empty tibble is returned if no observations match.
 }
 \description{
-This is a convenience wrapper for \code{\link{mnk_obs}} to
-simplify downloading observations for a specific place, filtered by year and
-optionally by month and day.
+Downloads observations for a Minka place for a specified year and,
+  optionally, month and day. This is a convenience wrapper around
+  \code{\link{mnk_obs}}.
 }
 \examples{
 \dontrun{
-# Download all observations for place 'barcelona' for the year 2024
-# (up to the download limit)
-place_data_2024 <- mnk_place_obs(place_id = "barcelona", year = 2024)
-
-# Download all observations for place 123 for August 2025,
-# attempting to get all records without a limit.
-place_data_aug_2025 <- mnk_place_obs(place_id = 123, year = 2025, month = 8,
-limit_download = FALSE)
+# Download place observations for August 2025 without a record cap
+place_data_aug_2025 <- mnk_place_obs(
+  place_id = 257,
+  year = 2025,
+  month = 8,
+  limit_download = FALSE
+)
 }
 }

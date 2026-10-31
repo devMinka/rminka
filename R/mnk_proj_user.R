@@ -1,17 +1,15 @@
-#' @title
-#' Get Project Users With Metadata
-#' @description
-#' Queries the Minka API for a given project identifier, extracts the
-#' associated user identifiers, and returns a tibble with full metadata
-#' for each participant by calling \code{mnk_user_info()}.
-#' The function is type-stable: it always returns a tibble with the same
-#' sixteen columns, even when the project does not exist or the API
-#' request fails. Individual user lookup failures produce a row of
-#' \code{NA} values and do not interrupt the overall query.
-#' @param project_id A single atomic character or numeric value giving
-#' the project identifier. Vectors of length greater than one are not
-#' accepted.
-#' @return A tibble with one row per participant and sixteen columns:
+#' @title Get Project Users with Metadata
+#' @description Retrieves the user identifiers associated with a Minka project
+#'   and returns each user's profile metadata in a tibble using
+#'   \code{mnk_user_info()}. The result has sixteen columns. A project lookup
+#'   that fails because of a network or HTTP error returns a zero-row tibble.
+#'   Network or HTTP errors for individual user lookups produce rows containing
+#'   \code{NA} values.
+#' @param project_id A single non-empty character string or finite numeric
+#'   value giving the project identifier. Missing values and blank strings are
+#'   not accepted.
+#' @return A tibble with one row per project participant and the following
+#'   sixteen columns:
 #' \describe{
 #' \item{id}{Integer. User identifier.}
 #' \item{login}{Character. Username.}
@@ -30,11 +28,9 @@
 #' \item{suspended}{Logical. Suspension flag.}
 #' \item{universal_search_rank}{Integer. Search rank.}
 #' }
-#' @details
-#' The function performs a GET request to
-#' \code{https://api.minka-sdg.org/v1/projects?id={project_id}}, extracts
-#' \code{results[[1]]$user_ids}, and applies
-#' \code{purrr::map_dfr()} over \code{mnk_user_info()}.
+#' @details The function queries the project endpoint, extracts its user
+#'   identifiers, and retrieves each user's metadata with
+#'   \code{mnk_user_info()}.
 #' @seealso \code{\link{mnk_user_info}}, \code{\link{mnk_proj_info}}
 #' @examples
 #' \dontrun{
@@ -43,14 +39,21 @@
 #' }
 #' @export
 mnk_proj_user <- function(project_id = NULL) {
-  #... function code...
-}
-
-mnk_proj_user <- function(project_id = NULL) {
 
   if (is.null(project_id)) stop("You must provide 'project_id'.", call. = FALSE)
-  if (!is.atomic(project_id) || length(project_id)!= 1) {
-    stop("'project_id' must be a single character string or number.", call. = FALSE)
+  valid_character_id <- is.character(project_id) &&
+    length(project_id) == 1 &&
+    !is.na(project_id) &&
+    nzchar(trimws(project_id))
+  valid_numeric_id <- is.numeric(project_id) &&
+    length(project_id) == 1 &&
+    !is.na(project_id) &&
+    is.finite(project_id)
+  if (!valid_character_id && !valid_numeric_id) {
+    stop(
+      "'project_id' must be a single non-empty character string or finite number.",
+      call. = FALSE
+    )
   }
 
   empty_users <- tibble::tibble(

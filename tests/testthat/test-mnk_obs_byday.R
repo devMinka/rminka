@@ -8,6 +8,20 @@ test_that("mnk_obs_byday handles small date ranges in one go", {
   })
 })
 
+test_that("mnk_obs_byday returns its documented photo and species columns", {
+  result <- byday_process_results(list(list(
+    id = 101L,
+    species_guess = "Test species",
+    photos = list(list(url = "https://example.org/square.jpg"))
+  )))
+
+  expect_true(all(c(
+    "species_guess", "url_picture", "url_picture_original"
+  ) %in% names(result)))
+  expect_equal(result$url_picture, "https://example.org/medium.jpg")
+  expect_equal(result$url_picture_original, "https://example.org/original.jpg")
+})
+
 test_that("mnk_obs_byday subdivides requests when total results are large", {
   skip_if_not_installed("tibble")
   testthat::local_mocked_bindings(
@@ -145,8 +159,25 @@ test_that("byday_download_chunk stops when API returns empty results", {
 })
 
 test_that("mnk_obs_byday validates dates", {
-  expect_error(mnk_obs_byday("2024-13-01","2024-01-02"), "must be in 'yyyy-mm-dd'")
-  expect_error(mnk_obs_byday("2024-02-01","2024-01-01"), "cannot be after")
+  date_error <- "must be in 'yyyy-mm-dd'"
+  expect_error(mnk_obs_byday("2024-13-01", "2024-01-02"), date_error)
+  expect_error(mnk_obs_byday("2024-1-01", "2024-01-02"), date_error)
+  expect_error(mnk_obs_byday("2024-02-31", "2024-03-01"), date_error)
+  expect_error(mnk_obs_byday(c("2024-01-01", "2024-01-02"), "2024-01-03"),
+               date_error)
+  expect_error(mnk_obs_byday(NA_character_, "2024-01-02"), date_error)
+  expect_error(mnk_obs_byday("2024-02-01", "2024-01-01"), "cannot be after")
+})
+
+test_that("mnk_obs_byday validates logical options", {
+  expect_error(
+    mnk_obs_byday("2024-01-01", "2024-01-01", quiet = NA),
+    "'quiet' must be TRUE or FALSE"
+  )
+  expect_error(
+    mnk_obs_byday("2024-01-01", "2024-01-01", limit_download = c(TRUE, FALSE)),
+    "'limit_download' must be TRUE or FALSE"
+  )
 })
 
 test_that("mnk_obs_byday validates bounds and annotation", {

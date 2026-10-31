@@ -44,6 +44,26 @@ test_that("mnk_place_obs passes all optional parameters correctly", {
   )
 })
 
+test_that("mnk_place_obs exposes URL_image while preserving photo columns", {
+  expected <- tibble::tibble(
+    url_picture_icon = "https://example.org/square.jpg",
+    url_picture_med = "https://example.org/medium.jpg",
+    url_picture_orig = "https://example.org/original.jpg"
+  )
+  mockery::stub(
+    where = mnk_place_obs,
+    what = "mnk_obs",
+    how = mockery::mock(expected)
+  )
+
+  result <- mnk_place_obs(place_id = 123, year = 2025)
+
+  expect_equal(result$URL_image, expected$url_picture_med)
+  expect_equal(result$url_picture_icon, expected$url_picture_icon)
+  expect_equal(result$url_picture_med, expected$url_picture_med)
+  expect_equal(result$url_picture_orig, expected$url_picture_orig)
+})
+
 test_that("mnk_place_obs requires place_id and year", {
   expect_error(
     mnk_place_obs(year = 2024),

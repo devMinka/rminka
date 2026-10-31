@@ -6,7 +6,11 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
+<<<<<<< HEAD
 [![codecov](https://codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://app.codecov.io/gh/devMinka/rminka)
+=======
+[![codecov](https://app.codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://app.codecov.io/gh/devMinka/rminka)
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Last
@@ -83,6 +87,7 @@ spatial data.
 **d) Observation Queries:** A variety of functions to fetch observation
 data based on different parameters.
 
+<<<<<<< HEAD
 - `mnk_obs_id()`: Retrieves a single observation's complete record by
   ID.
 - `mnk_obs()`: Fetches observations using various filters, including
@@ -91,6 +96,14 @@ data based on different parameters.
   range.
 - `mnk_obs_update()`: Downloads observations updated on or after a
   specified date.
+=======
+- `mnk_obs_id()`: Retrieves a single observation’s complete data using
+  its unique ID (id).
+- `mnk_obs()`: Fetches observations based on various parameters for a
+  full year, a specific month, or a single day.
+- `mnk_obs_byday()`: Retrieves all observations within a date range in
+  the same year.
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 
 **e) Auxiliary functions:** A set of functions with different utilities
 that complement Minka’s observational data and help in processing them

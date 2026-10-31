@@ -90,7 +90,17 @@ test_that("errors when no layers provided", {
 test_that("errors when layers are unnamed", {
   skip_if_not_installed("sf")
   pts <- sf::st_as_sf(data.frame(id = 1, x = 0, y = 0), coords = c("x","y"), crs = 4326)
-  expect_error(export_mnk_qgis(pts, file = tempfile()), "All inputs must be named")
+  expect_error(export_mnk_qgis(pts, file = tempfile()), "non-empty names")
+})
+
+test_that("errors when layer names are duplicated", {
+  skip_if_not_installed("sf")
+  pts <- sf::st_as_sf(data.frame(id = 1, x = 0, y = 0), coords = c("x", "y"),
+                      crs = 4326)
+  expect_error(
+    export_mnk_qgis(layer = pts, layer = pts, file = tempfile()),
+    "layer names must be unique"
+  )
 })
 
 test_that("errors when object is not sf", {
@@ -108,6 +118,21 @@ test_that("overwrite TRUE replaces existing file", {
   export_mnk_qgis(b = pts2, file = tmp, overwrite = TRUE)
   layers <- sf::st_layers(tmp)$name
   expect_equal(layers, "b")
+})
+
+test_that("invalid layers do not delete an existing file", {
+  skip_if_not_installed("sf")
+  pts <- sf::st_as_sf(data.frame(id = 1, x = 0, y = 0), coords = c("x", "y"),
+                      crs = 4326)
+  tmp <- tempfile(fileext = ".gpkg")
+  on.exit(unlink(tmp), add = TRUE)
+  export_mnk_qgis(existing = pts, file = tmp)
+
+  expect_error(
+    export_mnk_qgis(invalid = data.frame(id = 2), file = tmp, overwrite = TRUE),
+    "is not an sf object"
+  )
+  expect_equal(sf::st_layers(tmp)$name, "existing")
 })
 
 test_that("overwrite FALSE appends layers", {
@@ -141,5 +166,14 @@ test_that("errors when file is missing", {
   pts <- sf::st_as_sf(data.frame(id = 1, x = 0, y = 0),
                       coords = c("x","y"), crs = 4326)
 
-  expect_error(export_mnk_qgis(pts = pts), "You must provide a 'file' path")
+  expect_error(export_mnk_qgis(pts = pts), "single, non-empty character path")
+})
+
+test_that("validates file and overwrite arguments", {
+  expect_error(export_mnk_qgis(pts = 1, file = c("a.gpkg", "b.gpkg")),
+               "single, non-empty character path")
+  expect_error(export_mnk_qgis(pts = 1, file = ""),
+               "single, non-empty character path")
+  expect_error(export_mnk_qgis(pts = 1, file = tempfile(), overwrite = NA),
+               "single TRUE or FALSE")
 })

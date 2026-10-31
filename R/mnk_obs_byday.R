@@ -11,7 +11,7 @@ byday_get_total_results <- function(p) {
                     query = c(p, list(per_page = 1)))
   if (httr::http_error(resp)) return(0)
   total <- httr::content(resp, as = "parsed")$total_results
-  rlang::`%||%`(total, 0)
+  `%||%`(total, 0)
 }
 
 # Helper 2
@@ -61,6 +61,7 @@ byday_process_results <- function(all_results) {
       user_login = rlang::`%||%`(.x$user$login, NA)
     )
   })
+
   dplyr::bind_rows(processed)
 }
 
@@ -98,38 +99,66 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #' Download Minka Observations by Date Range
 #'
 #' Downloads observation data from the Minka API for a specified date range.
-#' Subdivides requests by month or day automatically to avoid the 10,000
-#' record API limit.
+#' When the result set exceeds 10,000 records, requests are subdivided by month
+#' or day to respect the API result limit.
 #'
-#' @param d1 start date in 'yyyy-mm-dd' format.
-#' @param d2 end date in 'yyyy-mm-dd' format.
-#' @param ... additional arguments passed to the API. See [mnk_obs()] for
-#'   details on available parameters.
-#' @param quiet a logical value. If TRUE, suppresses console messages.
-#' @param limit_download a logical value. If TRUE (default), each subdivided
-#'   request is capped at 10,000 records.
+#' @param d1 Start date in \code{YYYY-MM-DD} format.
+#' @param d2 End date in \code{YYYY-MM-DD} format. Must be on or after
+#'   \code{d1}.
+#' @param ... Additional arguments passed to the API. See
+#'   \code{\link{mnk_obs}} for details on available parameters.
+#' @param quiet Logical value. If \code{TRUE}, suppresses console messages.
+#' @param limit_download Logical value. If \code{TRUE} (default), each request
+#'   is capped at 10,000 records. If \code{FALSE}, the function attempts to
+#'   download all records.
 #' @inheritDotParams mnk_obs -year -month -day -quiet -limit_download
-#' @return a tibble with one row per observation and the same columns
-#'   documented in \code{\link{mnk_obs}}. Returns an empty tibble if no
-#'   data is found.
-#' @export
+#'
+#' @return A tibble with one row per observation and the fields returned by
+#'   \code{\link{mnk_obs}}, except that photos are represented by
+#'   \code{url_picture} (medium resolution) and \code{url_picture_original}.
+#'   The result also includes \code{species_guess}. An empty tibble is returned
+#'   if no observations are found.
+#'
 #' @examples
 #' \dontrun{
-#' # Download observations between two dates
-#' obs <- mnk_obs_byday("2024-03-01", "2024-03-31",
-#' taxon_name = "Diplodus sargus")
+#' # Download observations of a taxon during March 2024
+#' obs <- mnk_obs_byday(
+#'   d1 = "2024-03-01",
+#'   d2 = "2024-03-31",
+#'   taxon_name = "Diplodus sargus"
+#' )
 #'
-#' # Use with bounds (must be EPSG:4326)
+#' # Download observations within a bounding box during the first week of 2024
+#' # Bounds are ordered north latitude, east longitude, south latitude,
+#' # and west longitude.
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-#' obs_bc <- mnk_obs_byday("2024-01-01", "2024-01-07",
-#' bounds = barcelona, quiet = TRUE)
+#' obs_bc <- mnk_obs_byday(
+#'   d1 = "2024-01-01",
+#'   d2 = "2024-01-07",
+#'   bounds = barcelona,
+#'   quiet = TRUE
+#' )
 #' }
-mnk_obs_byday <- function(d1, d2,..., quiet = FALSE, limit_download = TRUE) {
-  date1 <- as.Date(d1, format = "%Y-%m-%d")
-  date2 <- as.Date(d2, format = "%Y-%m-%d")
-  if (is.na(date1) || is.na(date2)) {
+#' @export
+mnk_obs_byday <- function(d1, d2, ..., quiet = FALSE, limit_download = TRUE) {
+  is_valid_date <- function(x) {
+    is.character(x) && length(x) == 1L && !is.na(x) &&
+      grepl("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", x) &&
+      !is.na(as.Date(x, format = "%Y-%m-%d"))
+  }
+  if (!is_valid_date(d1) || !is_valid_date(d2)) {
     stop("Dates d1 and d2 must be in 'yyyy-mm-dd' format.")
   }
+  if (!is.logical(quiet) || length(quiet) != 1L || is.na(quiet)) {
+    stop("'quiet' must be TRUE or FALSE.", call. = FALSE)
+  }
+  if (!is.logical(limit_download) || length(limit_download) != 1L ||
+      is.na(limit_download)) {
+    stop("'limit_download' must be TRUE or FALSE.", call. = FALSE)
+  }
+
+  date1 <- as.Date(d1)
+  date2 <- as.Date(d2)
   if (date1 > date2) {
     stop("The start date (d1) cannot be after the end date (d2).")
   }

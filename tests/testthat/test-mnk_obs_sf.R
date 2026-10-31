@@ -56,6 +56,19 @@ test_that("filters rows with missing coordinates", {
   expect_equal(out$id, c(1, 4))
 })
 
+test_that("returns an empty sf object when all coordinates are missing", {
+  skip_if_not_installed("sf")
+  df <- data.frame(
+    id = 1:2,
+    latitude = c(NA_real_, 41),
+    longitude = c(2, NA_real_)
+  )
+  out <- mnk_obs_sf(df, id)
+  expect_s3_class(out, "sf")
+  expect_equal(nrow(out), 0)
+  expect_s3_class(sf::st_geometry(out), "sfc_POINT")
+})
+
 test_that("removes duplicate rows", {
   skip_if_not_installed("sf")
   df <- data.frame(
@@ -76,6 +89,13 @@ test_that("errors when latitude or longitude are missing", {
   df2 <- data.frame(id = 1, latitude = 1, lon = 2)
   expect_error(mnk_obs_sf(df1, id), "must contain `latitude` and `longitude`")
   expect_error(mnk_obs_sf(df2, id), "must contain `latitude` and `longitude`")
+})
+
+test_that("validates keep_coords", {
+  df <- data.frame(id = 1, latitude = 41, longitude = 2)
+  expect_error(mnk_obs_sf(df, id, keep_coords = NA), "single, non-missing logical")
+  expect_error(mnk_obs_sf(df, id, keep_coords = c(TRUE, FALSE)), "single, non-missing logical")
+  expect_error(mnk_obs_sf(df, id, keep_coords = 1), "single, non-missing logical")
 })
 
 test_that("accepts tidyselect helpers", {

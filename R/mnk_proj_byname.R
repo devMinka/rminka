@@ -1,13 +1,16 @@
 #' Search Minka Projects by Name
 #'
-#' Retrieves projects whose title contains a given string from the
-#' Minka API.
+#' Retrieves projects whose title contains a given string from the Minka API.
 #'
 #' @details Queries the \code{/v1/projects/autocomplete} endpoint. This
-#' function is mainly used to obtain the project identifier for other functions.
-#' @param query a single character string contained in the project name.
-#' @return A tibble with one row per matching project. Returns an empty tibble
-#' with zero rows if no matches are found. Columns are:
+#'   function is mainly used to obtain project identifiers for other functions.
+#' @param query A single non-empty character string contained in a project
+#'   title.
+#' @return A tibble with one row per matching project. If the API response
+#'   contains no projects or has an unexpected format, the function returns an
+#'   empty tibble with the columns listed below. If the API returns no content
+#'   or an HTTP error, it returns \code{NULL} invisibly.
+#'   Columns are:
 #' \describe{
 #' \item{id}{Project identifier, integer.}
 #' \item{title}{Project title, character.}
@@ -26,15 +29,26 @@
 #' @export
 mnk_proj_byname <- function(query) {
 
-  if (is.null(query) || length(query) == 0 || is.na(query[1]) ||
-      !is.character(query) || nchar(trimws(query[1])) == 0) {
-    stop("You must provide a single, non-empty, non-NA character 'query' for the project search.")
-  }
-  if (length(query) > 1) {
-    stop("You must provide a single query string. Only one query is accepted.")
+  if (missing(query) || is.null(query) || !is.character(query) ||
+      length(query) != 1 || is.na(query) || !nzchar(trimws(query))) {
+    stop(
+      "You must provide a single, non-empty, non-NA character 'query' for the project search.",
+      call. = FALSE
+    )
   }
 
   base_url <- "https://api.minka-sdg.org"
+
+  empty_res <- tibble::tibble(
+    id = integer(),
+    title = character(),
+    place_id = integer(),
+    slug = character(),
+    created_at = character(),
+    updated_at = character(),
+    project_type = character(),
+    description = character()
+  )
 
   q_enc <- utils::URLencode(query, reserved = TRUE)
   q_path <- paste0("/v1/projects/autocomplete?q=", q_enc)
@@ -54,9 +68,10 @@ mnk_proj_byname <- function(query) {
     return(invisible(NULL))
   }
 
-  if (!is.list(content) || is.null(content$results) || length(content$results) == 0) {
+  if (!is.list(content) || !is.list(content$results) ||
+      length(content$results) == 0) {
     message("No projects found for query '", query, "'.")
-    return(tibble::tibble())
+    return(empty_res)
   }
 
   purrr::map_dfr(content$results, function(x) tibble::tibble(

@@ -4,6 +4,10 @@
 .Ruserdata
 *.Rcheck/
 *.tar.gz
+<<<<<<< HEAD
+=======
+vignettes/shape.gpkg
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 inst/doc
 docs
 .positai

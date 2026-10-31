@@ -2,17 +2,18 @@
 % Please edit documentation in R/mnk_place_byname.R
 \name{mnk_place_byname}
 \alias{mnk_place_byname}
-\title{Search Minka Place by Name}
+\title{Search Minka Places by Name}
 \usage{
 mnk_place_byname(query)
 }
 \arguments{
-\item{query}{a single character string contained in the place name.}
+\item{query}{A single non-empty character string contained in a place name.}
 }
 \value{
 A tibble with one row per matching place. Returns an empty tibble
-with zero rows if no matches are found, or `NULL` invisibly on network error.
-Columns are:
+  with the columns listed below if no matches are found. Returns
+  \code{NULL} invisibly if the API returns an empty body or an HTTP error.
+  Columns are:
 \describe{
 \item{place_id}{Place identifier, integer.}
 \item{slug}{URL slug, character.}
@@ -24,14 +25,13 @@ Columns are:
 }
 }
 \description{
-Retrieves places whose name contains a given string from the
-Minka API.
+Retrieves places whose name contains a given string from the Minka API.
 }
 \details{
 Queries the \code{/v1/places/autocomplete} endpoint.
 }
 \examples{
 \dontrun{
-sant_feliu <- mnk_place_byname(query = "Sant Feliu")
+places <- mnk_place_byname(query = "Sant Feliu")
 }
 }

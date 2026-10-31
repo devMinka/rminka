@@ -14,65 +14,43 @@ mnk_user_obs(
 )
 }
 \arguments{
-\item{user_id}{A user identifier, either numeric ID or character login.}
+\item{user_id}{Numeric user identifier or character login name.}
 
-\item{year}{The year to query, as a single integer.}
+\item{year}{Numeric year to query.}
 
-\item{month}{Optional month to filter, integer from 1 to 12. Defaults to
-`NULL`.}
+\item{month}{Optional month to query, from 1 to 12. Defaults to
+\code{NULL} (all months).}
 
-\item{day}{Optional day to filter, integer from 1 to 31. Defaults to `NULL`.}
+\item{day}{Optional day to query, from 1 to 31. Defaults to \code{NULL}
+(all days).}
 
-\item{quiet}{Logical; if `TRUE`, suppresses console messages.}
+\item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
-\item{limit_download}{Logical; if `TRUE` (default), caps each query
-subdivision at 10,000 records. If `FALSE`, attempts to retrieve all
-records.}
+\item{limit_download}{Logical value. If \code{TRUE} (default), limits each
+query subdivision to 10,000 records. If \code{FALSE}, attempts to
+download all matching records.}
 }
 \value{
-A tibble with one row per observation. Returns an empty tibble with
-  zero rows if no observations match the query. Columns are:
-\describe{
-  \item{id}{Observation identifier, integer.}
-  \item{observed_on}{Observation date, character in YYYY-MM-DD format.}
-  \item{year}{Year of observation, integer.}
-  \item{month}{Month of observation, integer.}
-  \item{week}{ISO week number, integer.}
-  \item{day}{Day of month, integer.}
-  \item{hour}{Hour of observation, integer.}
-  \item{created_at}{Record creation timestamp, character in ISO 8601 format.}
-  \item{updated_at}{Record update timestamp, character in ISO 8601 format.}
-  \item{latitude}{Decimal latitude, numeric.}
-  \item{longitude}{Decimal longitude, numeric.}
-  \item{positional_accuracy}{Coordinate uncertainty in meters, integer.}
-  \item{geoprivacy}{Geoprivacy flag, logical.}
-  \item{obscured}{Obscured coordinates flag, logical.}
-  \item{uri}{Observation url in Minka, character.}
-  \item{url_picture}{URL of observation image in Minka, character.}
-  \item{quality_grade}{Data quality grade, character.}
-  \item{taxon_id}{Taxon identifier, integer.}
-  \item{taxon_name}{Scientific name, character.}
-  \item{taxon_rank}{Taxonomic rank, character.}
-  \item{taxon_min_ancestry}{Minimal ancestry string, character.}
-  \item{taxon_endemic}{Endemic flag, logical.}
-  \item{taxon_threatened}{Threatened flag, logical.}
-  \item{taxon_introduced}{Introduced flag, logical.}
-  \item{taxon_native}{Native flag, logical.}
-  \item{user_id}{Observer identifier, integer.}
-  \item{user_login}{Observer login, character.}
-}
+A tibble with the observation columns documented in
+  \code{\link{mnk_obs}}. An empty tibble is returned if no observations
+  match.
 }
 \description{
-Downloads observations for a specific user, filtered by year
-  and optionally by month and day. This is a convenience wrapper for
+Downloads observations for a user for a specified year and,
+  optionally, month and day. This is a convenience wrapper around
   \code{\link{mnk_obs}}.
 }
 \examples{
 \dontrun{
-# Download the first 10,000 observations for user 6 (xasalva) in 2024
+# Download up to 10,000 observations for user 4 in 2024
 mnk_user_obs(user_id = 4, year = 2024)
 
-# Download all observations for August 2024 without record cap
-mnk_user_obs(user_id = 4, year = 2024, month = 8, limit_download = FALSE)
+# Download observations for August 2024 without a record cap
+mnk_user_obs(
+  user_id = 4,
+  year = 2024,
+  month = 8,
+  limit_download = FALSE
+)
 }
 }

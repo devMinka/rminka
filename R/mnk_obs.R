@@ -10,8 +10,8 @@
 #' Processes raw observation results from the Minka API and returns a clean
 #' tibble. Handles missing fields gracefully by inserting NA values.
 #'
-#' @param all_results a list containing the raw observation data from the API.
-#' @return a tibble with structured observation data.
+#' @param all_results A list containing raw observation data from the API.
+#' @return A tibble with structured observation data.
 #' @noRd
 process_minka_results <- function(all_results) {
   if (length(all_results) == 0) {
@@ -21,11 +21,14 @@ process_minka_results <- function(all_results) {
   purrr::map_dfr(all_results, function(.x) {
 
     foto_raw <- purrr::pluck(.x, "photos", 1, "url", .default = NA_character_)
-    if (is.na(foto_raw)) {
+    if (is.null(foto_raw) || length(foto_raw) == 0 || is.na(foto_raw)) {
       foto_raw <- purrr::pluck(.x, "observation_photos", 1, "photo", "url", .default = NA_character_)
     }
-    picture_medium <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "medium") else NA_character_
-    picture_original <- if (!is.na(foto_raw)) stringr::str_replace(foto_raw, "square", "original") else NA_character_
+    if (is.null(foto_raw) || length(foto_raw) == 0) foto_raw <- NA_character_
+
+    picture_icon <- foto_raw
+    picture_medium <- if (!is.na(foto_raw)) sub("square", "medium", foto_raw, fixed = TRUE) else NA_character_
+    picture_original <- if (!is.na(foto_raw)) sub("square", "original", foto_raw, fixed = TRUE) else NA_character_
 
     tibble::tibble(
       id =.x$id %||% NA_integer_,
@@ -43,8 +46,9 @@ process_minka_results <- function(all_results) {
       geoprivacy =.x$taxon_geoprivacy %||% NA_character_,
       obscured =.x$obscured %||% NA,
       uri =.x$uri %||% NA_character_,
-      url_picture = picture_medium,
-      url_picture_original = picture_original,
+      url_picture_icon = picture_icon,
+      url_picture_med = picture_medium,
+      url_picture_orig = picture_original,
       quality_grade =.x$quality_grade %||% NA_character_,
       taxon_id = purrr::pluck(.x, "taxon", "id",.default = NA_integer_),
       taxon_name = purrr::pluck(.x, "taxon", "name",.default = NA_character_),
@@ -67,13 +71,13 @@ process_minka_results <- function(all_results) {
 #' Downloads paginated data from the Minka API for a given set of query
 #' parameters. Fetches data in chunks up to the user-defined limit.
 #'
-#' @param params a list of query parameters for the API call.
-#' @param total_res optional. The total number of results to expect, to avoid an
-#' initial ping.
-#' @param quiet a logical value. If TRUE, suppresses all messages.
-#' @param numeric_limit the numeric maximum number of records to download for
-#' this specific call.
-#' @return a list containing `$data` (a tibble) and `$count` (number of rows).
+#' @param params A list of query parameters for the API call.
+#' @param total_res Optional total number of results reported by the API.
+#'   If \code{NULL}, the function requests the total before downloading data.
+#' @param quiet Logical value. If \code{TRUE}, suppresses all messages.
+#' @param numeric_limit Maximum number of records to download in this call.
+#' @return A list containing \code{$data} (a tibble) and \code{$count} (the
+#'   number of rows).
 #' @noRd
 download_paginated_data <- function(params, total_res = NULL, quiet = FALSE, numeric_limit = 10000) {
   API_MAX_PER_PAGE <- 200
@@ -135,13 +139,14 @@ download_paginated_data <- function(params, total_res = NULL, quiet = FALSE, num
 #' Downloads data for a given month, respecting the remaining download limit.
 #' Subdivides by day if monthly total exceeds the API limit.
 #'
-#' @param base_params a list of base query parameters.
-#' @param year the year to download.
-#' @param current_month the month to download.
-#' @param quiet a logical value. If TRUE, suppresses messages.
-#' @param remaining_limit the maximum number of records to download in this and
-#' subsequent calls.
-#' @return a list containing `$data` (a tibble) and `$count` (number of rows).
+#' @param base_params A list of base query parameters.
+#' @param year Year to download.
+#' @param current_month Month to download.
+#' @param quiet Logical value. If \code{TRUE}, suppresses messages.
+#' @param remaining_limit Maximum number of records available for this and
+#'   subsequent calls.
+#' @return A list containing \code{$data} (a tibble) and \code{$count} (the
+#'   number of rows).
 #' @noRd
 download_month_data <- function(base_params, year, current_month, quiet = FALSE, remaining_limit) {
   if (remaining_limit <= 0) {
@@ -201,15 +206,14 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 
 ## ===================================================================
 
-# MAIN FUNCTION
-
-## ===================================================================
+#==MAIN FUNCTION=======================================================
 
 #' Download Minka Observations
 #'
 #' Downloads observation data from the Minka API. Handles pagination and
-#' rate limits automatically by subdividing large queries by month or day.
+#' API result limits by subdividing large queries by month or day.
 #'
+<<<<<<< HEAD
 #' @param query a generic query string for the 'q' parameter.
 #' @param taxon_name a character string with the taxon name (common or
 #'   scientific).
@@ -248,33 +252,104 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   \item{positional_accuracy}{coordinate uncertainty in meters, integer.}
 #'   \item{geoprivacy}{geoprivacy setting, character.}
 #'   \item{obscured}{flag for obscured coordinates, logical.}
+=======
+#' @param query A general search string passed to the API's \code{q} parameter.
+#' @param taxon_name A common or scientific taxon name.
+#' @param taxon_id A numeric identifier for a taxon.
+#' @param user_id A numeric identifier or login name for a user.
+#' @param project_id A numeric identifier or slug for a project.
+#' @param place_id A numeric identifier or slug for a place.
+#' @param endemic Logical value indicating whether to filter for endemic
+#'   species.
+#' @param introduced Logical value indicating whether to filter for introduced
+#'   species.
+#' @param threatened Logical value indicating whether to filter for threatened
+#'   species.
+#' @param quality Quality grade to include: \code{"casual"} or
+#'   \code{"research"}.
+#' @param geo Logical value. If \code{TRUE}, filters for observations with
+#'   coordinates.
+#' @param annotation Numeric vector of length two containing a term ID and a
+#'   term value ID.
+#' @param year Numeric year to include.
+#' @param month Numeric month to include, from 1 to 12.
+#' @param day Numeric day to include, from 1 to 31.
+#' @param bounds Bounding box, supplied as an \code{sf} object in EPSG:4326
+#'   (WGS 84) or as a numeric vector in the order
+#'   \code{c(nelat, nelng, swlat, swlng)}.
+#' @param quiet Logical value. If \code{TRUE}, suppresses console messages.
+#' @param limit_download Logical value. If \code{TRUE} (default), limits the
+#'   download to 10,000 records per query subdivision. If \code{FALSE},
+#'   attempts to download all matching records.
+#'
+#' @return A tibble with one row per observation and the following columns:
+#' \describe{
+#'   \item{id}{Observation identifier, integer.}
+#'   \item{observed_on}{Observation date, character.}
+#'   \item{year}{Year component, integer.}
+#'   \item{month}{Month component, integer.}
+#'   \item{week}{Week component, integer.}
+#'   \item{day}{Day component, integer.}
+#'   \item{hour}{Hour component, integer.}
+#'   \item{created_at}{Creation timestamp, character.}
+#'   \item{updated_at}{Last update timestamp, character.}
+#'   \item{latitude}{Latitude in WGS 84, numeric.}
+#'   \item{longitude}{Longitude in WGS 84, numeric.}
+#'   \item{positional_accuracy}{Coordinate uncertainty in meters, integer.}
+#'   \item{geoprivacy}{Geoprivacy setting, character.}
+#'   \item{obscured}{Flag indicating obscured coordinates, logical.}
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #'   \item{uri}{API resource URI, character.}
-#'   \item{url_picture}{URL of first photo, character.}
-#'   \item{quality_grade}{quality grade, character.}
-#'   \item{taxon_id}{taxon identifier, integer.}
-#'   \item{taxon_name}{scientific name, character.}
-#'   \item{taxon_rank}{taxonomic rank, character.}
-#'   \item{taxon_min_ancestry}{lowest species ancestry, character.}
-#'   \item{taxon_endemic}{endemic flag, logical.}
-#'   \item{taxon_threatened}{threatened flag, logical.}
-#'   \item{taxon_introduced}{introduced flag, logical.}
-#'   \item{taxon_native}{native flag, logical.}
-#'   \item{user_id}{observer identifier, integer.}
-#'   \item{user_login}{observer login, character.}
+#'   \item{url_picture_icon}{URL of the first photo at icon resolution,
+#'   character.}
+#'   \item{url_picture_med}{URL of the first photo at medium resolution,
+#'   character.}
+#'   \item{url_picture_orig}{URL of the first photo at original resolution,
+#'   character.}
+#'   \item{quality_grade}{Quality grade, character.}
+#'   \item{taxon_id}{Taxon identifier, integer.}
+#'   \item{taxon_name}{Scientific name, character.}
+#'   \item{taxon_rank}{Taxonomic rank, character.}
+#'   \item{taxon_min_ancestry}{Lowest species ancestry, character.}
+#'   \item{taxon_endemic}{Endemic status, logical.}
+#'   \item{taxon_threatened}{Threatened status, logical.}
+#'   \item{taxon_introduced}{Introduced status, logical.}
+#'   \item{taxon_native}{Native status, logical.}
+#'   \item{user_id}{Observer identifier, integer.}
+#'   \item{user_login}{Observer login, character.}
 #' }
-#' Returns an empty tibble if no data is found.
-#' @export
+#' An empty tibble is returned if no observations are found.
+#'
 #' @examples
 #' \dontrun{
 #' # Download the first 10,000 observations of a taxon from a project in 2025
+<<<<<<< HEAD
 #' obs <- mnk_obs(project_id = 417, year = 2025,
 #' taxon_name = "Diplodus sargus" )
+=======
+#' obs <- mnk_obs(
+#'   project_id = 417,
+#'   year = 2025,
+#'   taxon_name = "Diplodus sargus"
+#' )
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #'
-#' # Download all records in 2024 from a user using bounds
+#' # Download all 2024 observations for a user within a bounding box
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
+<<<<<<< HEAD
 #' obs_bc <- mnk_obs( year=2024, user_id = 4,
 #' bounds = barcelona, quiet = TRUE, limit_download = FALSE)
+=======
+#' obs_bc <- mnk_obs(
+#'   year = 2024,
+#'   user_id = 4,
+#'   bounds = barcelona,
+#'   quiet = TRUE,
+#'   limit_download = FALSE
+#' )
+>>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #' }
+#' @export
 mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
                     user_id = NULL, project_id = NULL, place_id = NULL,
                     endemic = NULL, introduced = NULL, threatened = NULL,
@@ -392,7 +467,7 @@ mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,
         remaining_limit = remaining_limit
       )
 
-      if(month_result$count > 0){
+      if (month_result$count > 0){
         all_year_data[[length(all_year_data) + 1]] <- month_result$data
         remaining_limit <- remaining_limit - month_result$count
       }

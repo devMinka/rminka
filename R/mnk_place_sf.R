@@ -1,16 +1,14 @@
-#' @title Get Minka Place as sf Object
-#' @description Retrieve a Minka place as a simple features (`sf`) object given
-#' its `place_id`. The function queries the Minka API and returns the place
-#' boundary geometry together with descriptive metadata. The source GeoJSON is
-#' always in EPSG:4326 (WGS 84). By default the output retains this CRS, but an
-#' alternative CRS may be requested.
-#' @param place_id a single integer identifier for a Minka place. Each place has
-#' a unique identifier.
-#' @param crs coordinate reference system for the output geometry, supplied as
-#' an EPSG code or any value accepted by \code{sf::st_crs()}. Defaults to
-#' \code{4326}.
-#' @return An \code{sf} object with one row per place and the following columns.
-#' Returns \code{NULL} invisibly if the request fails or the response is empty:
+#' @title Get a Minka Place as an sf Object
+#' @description Retrieves a Minka place as an \code{sf} object using its
+#'   \code{place_id}. The source GeoJSON is in EPSG:4326 (WGS 84). By default,
+#'   the output retains this CRS, but an alternative CRS may be requested.
+#' @param place_id A single finite integer identifier for a Minka place.
+#' @param crs Coordinate reference system for the output geometry, supplied as
+#'   an EPSG code or any value accepted by \code{sf::st_crs()}. Defaults to
+#'   \code{4326}; \code{NULL} is treated as \code{4326}.
+#' @return An \code{sf} object with one row per place and the following
+#'   columns. Returns \code{NULL} invisibly if the API returns an HTTP error,
+#'   an empty body, or no matching place:
 #' \describe{
 #'   \item{place_id}{Place identifier, integer.}
 #'   \item{name}{Place name, character.}
@@ -20,9 +18,9 @@
 #'   \item{place_type}{Type of place, character or \code{NA}.}
 #'   \item{admin_level}{Administrative level, integer or \code{NA}.}
 #'   \item{bbox_area}{Bounding box area, numeric.}
-#'   \item{location}{Centroid as "lat,lon" string, character.}
-#'   \item{geometry}{Simple feature geometry (POINT, POLYGON or MULTIPOLYGON),
-#'   CRS 4326 unless transformed.}
+#'   \item{location}{Centroid as a latitude,longitude string.}
+#'   \item{geometry}{POINT, POLYGON, or MULTIPOLYGON geometry in CRS 4326
+#'   unless transformed. Missing or unreadable geometry is an empty POINT.}
 #' }
 #' @examples
 #' \dontrun{
@@ -35,8 +33,12 @@
 #' @export
 mnk_place_sf <- function(place_id, crs = 4326) {
 
-  if (!is.numeric(place_id) || length(place_id)!= 1 || is.na(place_id)) {
-    stop("You must provide a single non-empty numerical 'place_id'.", call. = FALSE)
+  if (!is.numeric(place_id) || length(place_id) != 1 || is.na(place_id) ||
+      !is.finite(place_id) || place_id != trunc(place_id)) {
+    stop(
+      "You must provide a single finite integer 'place_id'.",
+      call. = FALSE
+    )
   }
 
   if (missing(crs) || is.null(crs)) crs <- 4326
@@ -104,8 +106,10 @@ mnk_place_sf <- function(place_id, crs = 4326) {
     sf_object <- sf::st_transform(sf_object, crs)
   }
 
-  sf_object <- sf_object[, c("place_id","name","display_name","slug","uuid",
-                             "place_type","admin_level","bbox_area","location","geometry")]
+  sf_object <- sf_object[, c(
+    "place_id", "name", "display_name", "slug", "uuid", "place_type",
+    "admin_level", "bbox_area", "location", "geometry"
+  )]
 
   return(sf_object)
 }

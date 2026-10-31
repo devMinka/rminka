@@ -7,12 +7,13 @@
 mnk_user_info(id_user)
 }
 \arguments{
-\item{id_user}{A single atomic value, numeric or character, representing the
-user identifier.}
+\item{id_user}{A single non-empty character string or finite numeric value
+representing the user identifier.}
 }
 \value{
-A tibble with one row containing user metadata. If no matches are
-found, it returns an empty tibble with the same column structure.
+A one-row tibble with user metadata. If the user is not found or a
+network or HTTP request fails, the function returns a one-row tibble with
+the same columns filled with \code{NA}.
 Columns are:
 \describe{
 \item{id}{User identifier, integer.}
@@ -27,7 +28,7 @@ Columns are:
 \item{orcid}{ORCID identifier, character or `NA`.}
 \item{icon_url}{URL of profile image, character.}
 \item{site_id}{Site identifier, integer.}
-\item{roles}{List-column with user roles, list.}
+\item{roles}{List-column containing the user's roles.}
 \item{spam}{Spam flag, logical.}
 \item{suspended}{Suspended flag, logical.}
 \item{universal_search_rank}{Search rank, integer.}
@@ -44,7 +45,7 @@ corresponds to the identifier in profile URLs such as
 }
 \examples{
 \dontrun{
-# Information about user_id 4
+# Retrieve information for user ID 4
 mnk_user_info(4)
 }
 }

@@ -1,23 +1,24 @@
 #' @title Get Metadata for a Minka Project
 #' @description Retrieves detailed information for a specific Minka project
-#'   using either its unique \code{project_id} or its group identifier (\code{grpid}).
-#' @details You must provide either \code{project_id} or \code{grpid}. If you
+#'   using its unique \code{project_id} or group identifier (\code{grpid}).
+#' @details Provide exactly one of \code{project_id} or \code{grpid}. If you
 #'   do not know the identifier, use \code{\link{mnk_proj_byname}} to find it.
 #'   A Minka \code{grpid} or slug is typically the project name formatted with
 #'   hyphens (e.g., 'biomarato-barcelona-2025'). You can find it in the URL of
 #'   the project's page.
-#' @param project_id A single character string or number representing the unique
-#'   Minka project identifier.
+#' @param project_id A single character string or number representing the
+#'   unique Minka project identifier.
 #' @param grpid A single character string or number representing the group
 #'   identifier (slug) for the project.
-#' @return A single-row \code{tibble} with project metadata. If the project is
-#'   not found, returns an empty tibble with the same column structure.
+#' @return A one-row tibble with project metadata. If the project is not found
+#'   or the API request fails, the function returns an empty tibble with the
+#'   same column structure.
 #'   Columns are:
 #' \describe{
 #'   \item{id}{Project identifier, integer.}
 #'   \item{title}{Project title, character.}
 #'   \item{created_at}{Creation timestamp, character in ISO 8601 format.}
-#'   \item{subscrib_users}{Total number of subscribed users, integer.}
+#'   \item{subscrib_users}{Number of users subscribed to the project, integer.}
 #'   \item{place_id}{Associated place identifier, integer or \code{NA}.}
 #'   \item{slug}{URL slug, character.}
 #'   \item{description}{Project description, character.}
@@ -33,8 +34,8 @@
 #' }
 mnk_proj_info <- function(project_id = NULL, grpid = NULL) {
 
-  if (is.null(project_id) && is.null(grpid)) {
-    stop("You must provide either 'project_id' or 'grpid'.", call. = FALSE)
+  if (is.null(project_id) == is.null(grpid)) {
+    stop("Provide exactly one of 'project_id' or 'grpid'.", call. = FALSE)
   }
 
   empty_meta <- tibble::tibble(

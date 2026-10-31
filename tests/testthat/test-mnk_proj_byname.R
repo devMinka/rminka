@@ -3,7 +3,8 @@ test_that("mnk_proj_byname throws error for invalid query", {
   expect_error(mnk_proj_byname(NA_character_), "You must provide a single, non-empty, non-NA character 'query' for the project search.")
   expect_error(mnk_proj_byname(""), "You must provide a single, non-empty, non-NA character 'query' for the project search.")
   expect_error(mnk_proj_byname("   "), "You must provide a single, non-empty, non-NA character 'query' for the project search.")
-  expect_error(mnk_proj_byname(c("query1", "query2")), "You must provide a single query string. Only one query is accepted.")
+  expect_error(mnk_proj_byname(c("query1", "query2")), "You must provide a single, non-empty")
+  expect_error(mnk_proj_byname(list("query")), "You must provide a single, non-empty")
 })
 
 test_that("mnk_proj_byname handles API HTTP errors", {
@@ -101,6 +102,13 @@ test_that("mnk_proj_byname handles JSON with no projects found", {
       expect_message(result <- mnk_proj_byname("no_projects"), regexp = "No projects found for query 'no_projects'.")
       expect_s3_class(result, "data.frame")
       expect_equal(nrow(result), 0)
+      expect_named(
+        result,
+        c(
+          "id", "title", "place_id", "slug", "created_at", "updated_at",
+          "project_type", "description"
+        )
+      )
     }
   )
 })

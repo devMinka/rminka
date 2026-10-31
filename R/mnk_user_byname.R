@@ -1,12 +1,13 @@
 #' Search Minka Users by Login Name
 #'
-#' Retrieves users whose login name contains a given string from the
-#' Minka API.
+#' Retrieves users whose login name contains a given string from the Minka API.
 #' @details Queries the \code{/v1/users/autocomplete} endpoint. This function is
 #' mainly used to obtain the user identifier for other functions.
-#' @param query A single character string contained in the user login name.
-#' @return A tibble with one row per matching user. If no matches are found,
-#' it returns an empty tibble with the same column structure. Columns are:
+#' @param query A single non-empty character string contained in a user login
+#'   name.
+#' @return A tibble with one row per matching user. If no users match, the
+#'   response has an unexpected format, or an HTTP error occurs, the function
+#'   returns an empty tibble with the columns listed below.
 #' \describe{
 #'   \item{id}{User identifier, integer.}
 #'   \item{login}{Username, character.}
@@ -23,8 +24,11 @@
 mnk_user_byname <- function(query) {
 
   if (missing(query) || is.null(query) || !is.character(query) ||
-      length(query) != 1 || is.na(query)) {
-    stop("'query' must be a single, non-NA character string.", call. = FALSE)
+      length(query) != 1 || is.na(query) || !nzchar(trimws(query))) {
+    stop(
+      "'query' must be a single, non-empty, non-NA character string.",
+      call. = FALSE
+    )
   }
 
   base_url <- "https://api.minka-sdg.org"
@@ -47,7 +51,10 @@ mnk_user_byname <- function(query) {
 
   content <- httr::content(response, as = "parsed")
 
-  if (is.list(content) && !is.null(content$results)) {
+  if (is.list(content) && is.list(content$results)) {
+    if (length(content$results) == 0) {
+      return(empty_res)
+    }
     purrr::map_dfr(content$results, function(x) tibble::tibble(
       id = x$id %||% NA_integer_,
       login = x$login %||% NA_character_,

@@ -1,0 +1,4 @@
+{
+    "chat.disableAIFeatures": false,
+    "dotnetAcquisitionExtension.installTimeoutValue": 1200
+}

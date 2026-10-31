@@ -50,6 +50,13 @@ test_that("mnk_place_byname handles no results from API", {
     expect_message(result <- mnk_place_byname("No existente"), "No places found for your query.")
     expect_s3_class(result, "tbl_df")
     expect_equal(nrow(result), 0)
+    expect_named(
+      result,
+      c(
+        "place_id", "slug", "name", "area", "display_name",
+        "location_latitud", "location_longitud"
+      )
+    )
   })
 })
 

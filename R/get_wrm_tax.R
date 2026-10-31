@@ -1,45 +1,52 @@
 #' Get WoRMS Taxonomy
 #'
-#' Downloads taxonomic information from the World Register of Marine Species
-#' (WoRMS) for a given scientific name. Returns the first exact match found.
+#' Retrieves taxonomic information from the World Register of Marine Species
+#' (WoRMS) for a scientific name and returns the first exact-name match.
 #'
-#' @param scientific_name a character string with the scientific name to
-#' search for, for example "Diplodus sargus" or "Diplodus".
-#' @return a one-row tibble with taxonomic and habitat flags. Returns
-#' \code{NULL} invisibly if the taxon is not found or the request fails.
-#' The tibble contains the following columns:
+#' @param scientific_name A single, non-empty character string containing a
+#'   scientific name, such as \code{"Diplodus sargus"}.
+#'
+#' @return A one-row tibble with taxonomic and habitat information.
+#'   \code{NULL} is returned invisibly if no taxon is found or the request or
+#'   response cannot be processed. The tibble contains the following columns:
 #' \describe{
 #' \item{valid_AphiaID}{WoRMS AphiaID, integer.}
-#' \item{valid_name}{accepted scientific name, character.}
-#' \item{rank}{taxonomic rank, character.}
-#' \item{kingdom}{kingdom, character.}
-#' \item{phylum}{phylum, character.}
-#' \item{class}{class, character.}
-#' \item{order}{order, character.}
-#' \item{family}{family, character.}
-#' \item{genus}{genus, character.}
-#' \item{isMarine}{marine flag, logical.}
-#' \item{isBrackish}{brackish flag, logical.}
-#' \item{isFreshwater}{freshwater flag, logical.}
-#' \item{isTerrestrial}{terrestrial flag, logical.}
-#' \item{isExtinct}{extinct flag, logical.}
+#' \item{valid_name}{Accepted scientific name, character.}
+#' \item{rank}{Taxonomic rank, character.}
+#' \item{kingdom}{Kingdom, character.}
+#' \item{phylum}{Phylum, character.}
+#' \item{class}{Class, character.}
+#' \item{order}{Order, character.}
+#' \item{family}{Family, character.}
+#' \item{genus}{Genus, character.}
+#' \item{isMarine}{Marine habitat flag, logical.}
+#' \item{isBrackish}{Brackish-water habitat flag, logical.}
+#' \item{isFreshwater}{Freshwater habitat flag, logical.}
+#' \item{isTerrestrial}{Terrestrial habitat flag, logical.}
+#' \item{isExtinct}{Extinct flag, logical.}
 #' }
-#' @export
+#'
 #' @examples
 #' \dontrun{
-#' # Get data for a species
+#' # Retrieve taxonomy for a species
 #' get_wrm_tax("Diplodus sargus")
 #'
-#' # Get data for a genus
+#' # Retrieve taxonomy for a genus
 #' get_wrm_tax("Diplodus")
 #' }
+#' @export
 get_wrm_tax <- function(scientific_name) {
 
-  if (is.null(scientific_name) ||!is.character(scientific_name) || length(scientific_name)!= 1 || nchar(trimws(scientific_name)) == 0) {
-    stop("'scientific_name' must be a single non-empty character string.")
+  if (is.null(scientific_name) || !is.character(scientific_name) ||
+      length(scientific_name) != 1L || is.na(scientific_name) ||
+      !nzchar(trimws(scientific_name))) {
+    stop(
+      "'scientific_name' must be a single non-empty character string.",
+      call. = FALSE
+    )
   }
 
-  encoded_name <- gsub(" ", "%20", scientific_name)
+  encoded_name <- utils::URLencode(scientific_name, reserved = TRUE)
 
   api_url <- sprintf(
     "https://www.marinespecies.org/rest/AphiaRecordsByName/%s?like=false&marine_only=false&offset=1",
@@ -68,30 +75,44 @@ get_wrm_tax <- function(scientific_name) {
     return(invisible(NULL))
   }
 
-  parsed_json <- jsonlite::fromJSON(response_content, simplifyVector = FALSE)
+  parsed_json <- tryCatch(
+    jsonlite::fromJSON(response_content, simplifyVector = FALSE),
+    error = function(e) {
+      message("Unable to parse WoRMS API response: ", conditionMessage(e))
+      NULL
+    }
+  )
 
   if (is.null(parsed_json) || length(parsed_json) == 0) {
     message("API returned an empty or invalid response for: '", scientific_name, "'.")
     return(invisible(NULL))
   }
 
+  if (!is.list(parsed_json) || !is.list(parsed_json[[1]])) {
+    message("WoRMS API returned an unexpected response for: '",
+            scientific_name, "'.")
+    return(invisible(NULL))
+  }
+
   taxon_data <- parsed_json[[1]]
 
   output_tibble <- tibble::tibble(
-    valid_AphiaID = rlang::`%||%`(taxon_data$valid_AphiaID, NA_integer_),
-    valid_name = rlang::`%||%`(taxon_data$valid_name, NA_character_),
-    rank = rlang::`%||%`(taxon_data$rank, NA_character_),
-    kingdom = rlang::`%||%`(taxon_data$kingdom, NA_character_),
-    phylum = rlang::`%||%`(taxon_data$phylum, NA_character_),
-    class = rlang::`%||%`(taxon_data$class, NA_character_),
-    order = rlang::`%||%`(taxon_data$order, NA_character_),
-    family = rlang::`%||%`(taxon_data$family, NA_character_),
-    genus = rlang::`%||%`(taxon_data$genus, NA_character_),
-    isMarine = as.logical(rlang::`%||%`(taxon_data$isMarine, NA)),
-    isBrackish = as.logical(rlang::`%||%`(taxon_data$isBrackish, NA)),
-    isFreshwater = as.logical(rlang::`%||%`(taxon_data$isFreshwater, NA)),
-    isTerrestrial = as.logical(rlang::`%||%`(taxon_data$isTerrestrial, NA)),
-    isExtinct = as.logical(rlang::`%||%`(taxon_data$isExtinct, NA))
+    valid_AphiaID = as.integer(
+      `%||%`(taxon_data$valid_AphiaID, NA_integer_)
+    ),
+    valid_name = `%||%`(taxon_data$valid_name, NA_character_),
+    rank = `%||%`(taxon_data$rank, NA_character_),
+    kingdom = `%||%`(taxon_data$kingdom, NA_character_),
+    phylum = `%||%`(taxon_data$phylum, NA_character_),
+    class = `%||%`(taxon_data$class, NA_character_),
+    order = `%||%`(taxon_data$order, NA_character_),
+    family = `%||%`(taxon_data$family, NA_character_),
+    genus = `%||%`(taxon_data$genus, NA_character_),
+    isMarine = as.logical(`%||%`(taxon_data$isMarine, NA)),
+    isBrackish = as.logical(`%||%`(taxon_data$isBrackish, NA)),
+    isFreshwater = as.logical(`%||%`(taxon_data$isFreshwater, NA)),
+    isTerrestrial = as.logical(`%||%`(taxon_data$isTerrestrial, NA)),
+    isExtinct = as.logical(`%||%`(taxon_data$isExtinct, NA))
   )
 
   return(output_tibble)

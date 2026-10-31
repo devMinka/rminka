@@ -1,8 +1,12 @@
 test_that("mnk_proj_user validates input", {
   expect_error(mnk_proj_user(), "must provide 'project_id'")
   expect_error(mnk_proj_user(NULL), "must provide 'project_id'")
-  expect_error(mnk_proj_user(c(1, 2)), "single character string or number")
-  expect_error(mnk_proj_user(list(1)), "single character string or number")
+  expect_error(mnk_proj_user(c(1, 2)), "single non-empty character string or finite number")
+  expect_error(mnk_proj_user(NA_real_), "single non-empty character string or finite number")
+  expect_error(mnk_proj_user(Inf), "single non-empty character string or finite number")
+  expect_error(mnk_proj_user(" "), "single non-empty character string or finite number")
+  expect_error(mnk_proj_user(list(1)), "single non-empty character string or finite number")
+  expect_error(mnk_proj_user(TRUE), "single non-empty character string or finite number")
 })
 
 test_that("handles network error", {
