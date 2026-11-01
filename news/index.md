@@ -1,5 +1,10 @@
 # Changelog
 
+## rminka 0.3.0
+
+- Minor documentation updates, vignette fixes, and website improvements
+  for CRAN submission.
+
 ## rminka 0.2.0
 
 - No changes to existing functions.
