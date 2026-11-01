@@ -1,3 +1,5 @@
+# rminka 0.3.0
+
 # rminka 0.2.0
 
 * No changes to existing functions.
