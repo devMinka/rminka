@@ -5,10 +5,13 @@
 
 <!-- badges: start -->
 
+
 [![R-CMD-check](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/devminka/rminka/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://app.codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://app.codecov.io/gh/devMinka/rminka)
+[![codecov](https://codecov.io/gh/devMinka/rminka/graph/badge.svg?token=6B1YX1ALHE)](https://app.codecov.io/gh/devMinka/rminka)
+![CRAN submission: pending review](https://img.shields.io/badge/CRAN%20submission-pending%20review-orange)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+
 [![Last
 commit](https://img.shields.io/github/last-commit/devminka/rminka/master?style=flat-square)](https://github.com/devminka/rminka/commits/master)
 [![GitHub
