@@ -69,6 +69,23 @@ test_that("returns an empty sf object when all coordinates are missing", {
   expect_s3_class(sf::st_geometry(out), "sfc_POINT")
 })
 
+test_that("returns an empty sf object without coordinates when keep_coords is FALSE", {
+  skip_if_not_installed("sf")
+  df <- data.frame(
+    id = 1,
+    latitude = NA_real_,
+    longitude = NA_real_
+  )
+
+  out <- mnk_obs_sf(df, id, keep_coords = FALSE, crs = 3857)
+
+  expect_s3_class(out, "sf")
+  expect_s3_class(sf::st_geometry(out), "sfc_POINT")
+  expect_equal(nrow(out), 0)
+  expect_equal(sf::st_crs(out)$epsg, 3857)
+  expect_false(any(c("latitude", "longitude") %in% names(out)))
+})
+
 test_that("removes duplicate rows", {
   skip_if_not_installed("sf")
   df <- data.frame(
