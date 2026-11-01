@@ -1,5 +1,16 @@
 # rminka
 
+[![Last
+commit](https://img.shields.io/github/last-commit/devminka/rminka/master?style=flat-square)](https://github.com/devminka/rminka/commits/master)
+[![GitHub
+release](https://img.shields.io/github/v/release/devminka/rminka?include_prereleases&sort=semver&label=version)](https://github.com/devminka/rminka/releases)
+[![Contributors](https://img.shields.io/github/contributors/devminka/rminka)](https://github.com/devminka/rminka/graphs/contributors)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Contributor
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/devminka/rminka/blob/master/inst/CODE_OF_CONDUCT.md)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21625825.svg)](https://doi.org/10.5281/zenodo.21625825)
+
 ## Usage
 
 Minka is a citizen science platform created by the research group

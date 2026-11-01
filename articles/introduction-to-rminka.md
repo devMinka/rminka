@@ -858,6 +858,7 @@ taxonomy_df <- map_dfr(
   ~ get_wrm_tax(.x),
   .id = "taxon_name"
 )
+#> WoRMS API request failed. Status code: 500
 #> No taxon found for the scientific name: 'Life'.
 #> No taxon found for the scientific name: 'Ichthyaetus audouinii'.
 
