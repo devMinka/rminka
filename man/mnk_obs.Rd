@@ -69,7 +69,7 @@ term value ID.}
 \item{quiet}{Logical value. If \code{TRUE}, suppresses console messages.}
 
 \item{limit_download}{Logical value. If \code{TRUE} (default), limits the
-download to 10,000 records per query subdivision. If \code{FALSE},
+total download to 10,000 records. If \code{FALSE},
 attempts to download all matching records.}
 }
 \value{
@@ -117,23 +117,10 @@ API result limits by subdividing large queries by month or day.
 \examples{
 \dontrun{
 # Download the first 10,000 observations of a taxon from a project in 2025
-<<<<<<< HEAD
 obs <- mnk_obs(project_id = 417, year = 2025,
 taxon_name = "Diplodus sargus" )
-=======
-obs <- mnk_obs(
-  project_id = 417,
-  year = 2025,
-  taxon_name = "Diplodus sargus"
-)
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
-
 # Download all 2024 observations for a user within a bounding box
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
-<<<<<<< HEAD
-obs_bc <- mnk_obs( year=2024, user_id = 4,
-bounds = barcelona, quiet = TRUE, limit_download = FALSE)
-=======
 obs_bc <- mnk_obs(
   year = 2024,
   user_id = 4,
@@ -141,6 +128,5 @@ obs_bc <- mnk_obs(
   quiet = TRUE,
   limit_download = FALSE
 )
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 }
 }

@@ -213,46 +213,6 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #' Downloads observation data from the Minka API. Handles pagination and
 #' API result limits by subdividing large queries by month or day.
 #'
-<<<<<<< HEAD
-#' @param query a generic query string for the 'q' parameter.
-#' @param taxon_name a character string with the taxon name (common or
-#'   scientific).
-#' @param taxon_id a numeric ID for the taxon.
-#' @param user_id a numeric ID for a specific user.
-#' @param project_id a numeric ID for a specific project.
-#' @param place_id a numeric ID for a specific place.
-#' @param endemic a logical value. Filters for endemic species.
-#' @param introduced a logical value. Filters for introduced species.
-#' @param threatened a logical value. Filters for threatened species.
-#' @param quality a character string. Must be 'casual' or 'research'.
-#' @param geo a logical value. If TRUE, filters for observations with
-#'  coordinates.
-#' @param annotation a numeric vector of length 2 (term_id, term_value_id).
-#' @param year a numeric value for the year.
-#' @param month a numeric value for the month (1-12).
-#' @param day a numeric value for the day (1-31).
-#' @param bounds a bounding box. Accepts an sf object with CRS EPSG:4326
-#'   (WGS84) or a numeric vector c(nelat, nelng, swlat, swlng).
-#' @param quiet a logical value. If TRUE, suppresses console messages.
-#' @param limit_download a logical value. If TRUE (default), caps download at
-#'   10,000 records.
-#' @return a tibble with one row per observation and the following columns:
-#' \describe{
-#'   \item{id}{observation identifier, integer.}
-#'   \item{observed_on}{observation date, character.}
-#'   \item{year}{year component, integer.}
-#'   \item{month}{month component, integer.}
-#'   \item{week}{week component, integer.}
-#'   \item{day}{day component, integer.}
-#'   \item{hour}{hour component, integer.}
-#'   \item{created_at}{creation timestamp, character.}
-#'   \item{updated_at}{last update timestamp, character.}
-#'   \item{latitude}{latitude in WGS84, numeric.}
-#'   \item{longitude}{longitude in WGS84, numeric.}
-#'   \item{positional_accuracy}{coordinate uncertainty in meters, integer.}
-#'   \item{geoprivacy}{geoprivacy setting, character.}
-#'   \item{obscured}{flag for obscured coordinates, logical.}
-=======
 #' @param query A general search string passed to the API's \code{q} parameter.
 #' @param taxon_name A common or scientific taxon name.
 #' @param taxon_id A numeric identifier for a taxon.
@@ -279,7 +239,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   \code{c(nelat, nelng, swlat, swlng)}.
 #' @param quiet Logical value. If \code{TRUE}, suppresses console messages.
 #' @param limit_download Logical value. If \code{TRUE} (default), limits the
-#'   download to 10,000 records per query subdivision. If \code{FALSE},
+#'   total download to 10,000 records. If \code{FALSE},
 #'   attempts to download all matching records.
 #'
 #' @return A tibble with one row per observation and the following columns:
@@ -298,7 +258,6 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   \item{positional_accuracy}{Coordinate uncertainty in meters, integer.}
 #'   \item{geoprivacy}{Geoprivacy setting, character.}
 #'   \item{obscured}{Flag indicating obscured coordinates, logical.}
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #'   \item{uri}{API resource URI, character.}
 #'   \item{url_picture_icon}{URL of the first photo at icon resolution,
 #'   character.}
@@ -323,23 +282,10 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #' @examples
 #' \dontrun{
 #' # Download the first 10,000 observations of a taxon from a project in 2025
-<<<<<<< HEAD
 #' obs <- mnk_obs(project_id = 417, year = 2025,
 #' taxon_name = "Diplodus sargus" )
-=======
-#' obs <- mnk_obs(
-#'   project_id = 417,
-#'   year = 2025,
-#'   taxon_name = "Diplodus sargus"
-#' )
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
-#'
 #' # Download all 2024 observations for a user within a bounding box
 #' barcelona <- c(41.5, 2.3, 41.2, 2.0)
-<<<<<<< HEAD
-#' obs_bc <- mnk_obs( year=2024, user_id = 4,
-#' bounds = barcelona, quiet = TRUE, limit_download = FALSE)
-=======
 #' obs_bc <- mnk_obs(
 #'   year = 2024,
 #'   user_id = 4,
@@ -347,7 +293,6 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #'   quiet = TRUE,
 #'   limit_download = FALSE
 #' )
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #' }
 #' @export
 mnk_obs <- function(query = NULL, taxon_name = NULL, taxon_id = NULL,

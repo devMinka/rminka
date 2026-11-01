@@ -4,18 +4,11 @@
 #' @details Queries the \code{/v1/users/{id}} endpoint. The \code{id_user}
 #' corresponds to the identifier in profile URLs such as
 #' \url{https://observe.minka-sdg.org/users/6}.
-<<<<<<< HEAD
-#' @param id_user A single atomic value, numeric or character, representing the
-#' user identifier.
-#' @return A tibble with one row containing user metadata. If no matches are
-#' found, it returns an empty tibble with the same column structure.
-=======
 #' @param id_user A single non-empty character string or finite numeric value
 #'   representing the user identifier.
 #' @return A one-row tibble with user metadata. If the user is not found or a
 #' network or HTTP request fails, the function returns a one-row tibble with
 #' the same columns filled with \code{NA}.
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #' Columns are:
 #' \describe{
 #' \item{id}{User identifier, integer.}

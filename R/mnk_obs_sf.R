@@ -66,6 +66,8 @@ mnk_obs_sf <- function(data, ..., crs = 4326, keep_coords = TRUE) {
       out <- dplyr::select(out, -dplyr::all_of(c("latitude", "longitude")))
     }
     geometry <- sf::st_sfc(sf::st_point(), crs = crs)[0]
+    class(geometry) <- c("sfc_POINT", "sfc")
+    attr(geometry, "classes") <- NULL
     return(sf::st_sf(out, geometry = geometry))
   }
 

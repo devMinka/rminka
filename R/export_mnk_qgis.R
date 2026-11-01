@@ -38,7 +38,6 @@
 #' informative error.
 #'
 #' @examples
-<<<<<<< HEAD
 #' \dontrun{
 #' library(sf)
 #'
@@ -55,7 +54,6 @@
 #' export_mnk_qgis(example_points = pts, example_area = poly,
 #' file = tempfile(fileext = ".gpkg"))
 #' }
-=======
 #' points <- sf::st_as_sf(
 #'   data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
 #'   coords = c("x", "y"),
@@ -73,7 +71,6 @@
 #' output_file <- tempfile(fileext = ".gpkg")
 #' export_mnk_qgis(points = points, area = polygon, file = output_file)
 #' unlink(output_file)
->>>>>>> bf4ca235f6b66d7675102aeef9429d1610689383
 #'
 #' @export
 export_mnk_qgis <- function(..., file = NULL, crs = 4326, overwrite = TRUE) {
