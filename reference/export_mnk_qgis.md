@@ -72,6 +72,22 @@ informative error.
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
+library(sf)
+
+# points
+pts <- st_as_sf(data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
+coords = c("x", "y"), crs = 4326)
+
+# polygon
+poly <- st_as_sf(st_sfc(
+st_polygon(list(rbind(c(0.7,40.8), c(1.0,40.8), c(1.0,41.1),
+c(0.7,41.1), c(0.7,40.8)))),
+crs = 4326))
+# The layer names will be example_points and example_area.
+export_mnk_qgis(example_points = pts, example_area = poly,
+file = tempfile(fileext = ".gpkg"))
+} # }
 points <- sf::st_as_sf(
   data.frame(id = 1:2, x = c(0.8, 0.9), y = c(40.9, 41.0)),
   coords = c("x", "y"),

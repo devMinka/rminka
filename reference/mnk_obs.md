@@ -101,9 +101,8 @@ mnk_obs(
 
 - limit_download:
 
-  Logical value. If `TRUE` (default), limits the download to 10,000
-  records per query subdivision. If `FALSE`, attempts to download all
-  matching records.
+  Logical value. If `TRUE` (default), limits the total download to
+  10,000 records. If `FALSE`, attempts to download all matching records.
 
 ## Value
 
@@ -232,12 +231,8 @@ An empty tibble is returned if no observations are found.
 ``` r
 if (FALSE) { # \dontrun{
 # Download the first 10,000 observations of a taxon from a project in 2025
-obs <- mnk_obs(
-  project_id = 417,
-  year = 2025,
-  taxon_name = "Diplodus sargus"
-)
-
+obs <- mnk_obs(project_id = 417, year = 2025,
+taxon_name = "Diplodus sargus" )
 # Download all 2024 observations for a user within a bounding box
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
 obs_bc <- mnk_obs(
