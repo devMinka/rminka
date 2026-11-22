@@ -33,7 +33,7 @@
 #'   HTTP error. Invalid JSON raises an error.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' obs <- mnk_obs_id(id = 3546)
 #' obs$id
 #' obs$species_guess

@@ -120,7 +120,7 @@ byday_download_chunk <- function(params, total_res, quiet, limit_download) {
 #'   if no observations are found.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Download observations of a taxon during March 2024
 #' obs <- mnk_obs_byday(
 #'   d1 = "2024-03-01",

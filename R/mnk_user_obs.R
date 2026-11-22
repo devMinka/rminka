@@ -16,7 +16,7 @@
 #'   \code{\link{mnk_obs}}. An empty tibble is returned if no observations
 #'   match.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Download up to 10,000 observations for user 4 in 2024
 #' mnk_user_obs(user_id = 4, year = 2024)
 #'

@@ -44,7 +44,7 @@ corresponds to the identifier in profile URLs such as
 \url{https://observe.minka-sdg.org/users/6}.
 }
 \examples{
-\dontrun{
+\donttest{
 # Retrieve information for user ID 4
 mnk_user_info(4)
 }

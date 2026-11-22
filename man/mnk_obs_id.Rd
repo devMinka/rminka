@@ -42,7 +42,7 @@ Retrieves full details for a single Minka observation by its identifier.
 The Minka API response is flattened into a tibble.
 }
 \examples{
-\dontrun{
+\donttest{
 obs <- mnk_obs_id(id = 3546)
 obs$id
 obs$species_guess

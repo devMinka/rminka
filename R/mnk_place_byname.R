@@ -20,7 +20,7 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' places <- mnk_place_byname(query = "Sant Feliu")
 #' }
 #' @export

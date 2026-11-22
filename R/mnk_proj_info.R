@@ -25,7 +25,7 @@
 #' }
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Get metadata for project ID 420
 #' mnk_proj_info(project_id = 420)
 #'

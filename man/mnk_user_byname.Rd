@@ -30,7 +30,7 @@ Queries the \code{/v1/users/autocomplete} endpoint. This function is
 mainly used to obtain the user identifier for other functions.
 }
 \examples{
-\dontrun{
+\donttest{
 # Search for users whose login contains "xavier"
 mnk_user_byname(query = "xavier")
 }

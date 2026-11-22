@@ -31,15 +31,15 @@ POINT object. Keeps selected columns and coerces \code{observed_on} to
 \code{Date} when present.
 }
 \examples{
-\dontrun{
-obs <- mnk_obs(
-  taxon_name = "Parablennius pilicornis",
-  year = 2024,
-  month = 7
+obs <- data.frame(
+  id = 1,
+  latitude = 41,
+  longitude = 2,
+  observed_on = "2024-07-01",
+  taxon_name = "Parablennius pilicornis"
 )
-obs_sf <- mnk_obs_sf(obs, id, taxon_name, observed_on)
+obs_sf <- mnk_obs_sf(obs, id, taxon_name)
 obs_sf
-}
 }
 \seealso{
 \code{\link{mnk_obs}} for downloading observations.

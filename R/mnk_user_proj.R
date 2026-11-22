@@ -15,7 +15,7 @@
 #'   \item{created_at}{Creation date, character in ISO 8601 format.}
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' mnk_user_proj(4)
 #' }
 #' @export

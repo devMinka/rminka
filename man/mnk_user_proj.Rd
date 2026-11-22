@@ -28,7 +28,7 @@ Retrieves projects to which a user is explicitly subscribed
   from Minka and returns project metadata as a tibble.
 }
 \examples{
-\dontrun{
+\donttest{
 mnk_user_proj(4)
 }
 }

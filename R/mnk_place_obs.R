@@ -20,7 +20,7 @@
 #'   image URL. An empty tibble is returned if no observations match.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 
 #' # Download place observations for August 2025 without a record cap
 #' place_data_aug_2025 <- mnk_place_obs(

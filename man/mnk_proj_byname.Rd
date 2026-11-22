@@ -35,7 +35,7 @@ Queries the \code{/v1/projects/autocomplete} endpoint. This
   function is mainly used to obtain project identifiers for other functions.
 }
 \examples{
-\dontrun{
+\donttest{
 # Search for projects containing "Biomarato 2025"
 mnk_proj_byname(query = "Biomarato 2025")
 }

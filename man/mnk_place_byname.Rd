@@ -31,7 +31,7 @@ Retrieves places whose name contains a given string from the Minka API.
 Queries the \code{/v1/places/autocomplete} endpoint.
 }
 \examples{
-\dontrun{
+\donttest{
 places <- mnk_place_byname(query = "Sant Feliu")
 }
 }

@@ -22,7 +22,7 @@
 #' \item{description}{Project description, character.}
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Search for projects containing "Biomarato 2025"
 #' mnk_proj_byname(query = "Biomarato 2025")
 #' }

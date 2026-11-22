@@ -18,7 +18,7 @@
 #'   match.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Download all observations for project 419 for the year 2024
 #' proj_data_2024 <- mnk_proj_obs(project_id = 419, year = 2024)
 #'

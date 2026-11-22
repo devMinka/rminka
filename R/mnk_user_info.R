@@ -29,7 +29,7 @@
 #' \item{universal_search_rank}{Search rank, integer.}
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Retrieve information for user ID 4
 #' mnk_user_info(4)
 #' }

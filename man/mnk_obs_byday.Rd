@@ -57,7 +57,7 @@ When the result set exceeds 10,000 records, requests are subdivided by month
 or day to respect the API result limit.
 }
 \examples{
-\dontrun{
+\donttest{
 # Download observations of a taxon during March 2024
 obs <- mnk_obs_byday(
   d1 = "2024-03-01",

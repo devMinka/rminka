@@ -280,7 +280,7 @@ download_month_data <- function(base_params, year, current_month, quiet = FALSE,
 #' An empty tibble is returned if no observations are found.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Download the first 10,000 observations of a taxon from a project in 2025
 #' obs <- mnk_obs(project_id = 417, year = 2025,
 #' taxon_name = "Diplodus sargus" )

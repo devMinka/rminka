@@ -36,7 +36,7 @@ Retrieves taxonomic information from the World Register of Marine Species
 (WoRMS) for a scientific name and returns the first exact-name match.
 }
 \examples{
-\dontrun{
+\donttest{
 # Retrieve taxonomy for a species
 get_wrm_tax("Diplodus sargus")
 

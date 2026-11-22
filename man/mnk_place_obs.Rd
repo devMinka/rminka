@@ -41,7 +41,7 @@ Downloads observations for a Minka place for a specified year and,
   \code{\link{mnk_obs}}.
 }
 \examples{
-\dontrun{
+\donttest{
 # Download place observations for August 2025 without a record cap
 place_data_aug_2025 <- mnk_place_obs(
   place_id = 257,

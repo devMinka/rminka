@@ -16,7 +16,7 @@
 #'   \item{created_at}{Account creation timestamp, POSIXct.}
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Search for users whose login contains "xavier"
 #' mnk_user_byname(query = "xavier")
 #' }

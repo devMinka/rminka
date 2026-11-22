@@ -37,7 +37,7 @@ Retrieves a Minka place as an \code{sf} object using its
   the output retains this CRS, but an alternative CRS may be requested.
 }
 \examples{
-\dontrun{
+\donttest{
 # Retrieve place 253 in WGS 84
 place <- mnk_place_sf(place_id = 253)
 

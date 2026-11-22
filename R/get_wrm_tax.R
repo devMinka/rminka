@@ -27,7 +27,7 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Retrieve taxonomy for a species
 #' get_wrm_tax("Diplodus sargus")
 #'

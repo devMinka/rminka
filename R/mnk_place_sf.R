@@ -23,7 +23,7 @@
 #'   unless transformed. Missing or unreadable geometry is an empty POINT.}
 #' }
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Retrieve place 253 in WGS 84
 #' place <- mnk_place_sf(place_id = 253)
 #'

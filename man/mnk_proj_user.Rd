@@ -47,7 +47,7 @@ The function queries the project endpoint, extracts its user
   \code{mnk_user_info()}.
 }
 \examples{
-\dontrun{
+\donttest{
 users <- mnk_proj_user(420)
 dplyr::glimpse(users)
 }

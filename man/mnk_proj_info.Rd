@@ -40,7 +40,7 @@ Provide exactly one of \code{project_id} or \code{grpid}. If you
   the project's page.
 }
 \examples{
-\dontrun{
+\donttest{
 # Get metadata for project ID 420
 mnk_proj_info(project_id = 420)
 

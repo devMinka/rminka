@@ -33,7 +33,7 @@
 #'   \code{mnk_user_info()}.
 #' @seealso \code{\link{mnk_user_info}}, \code{\link{mnk_proj_info}}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' users <- mnk_proj_user(420)
 #' dplyr::glimpse(users)
 #' }
