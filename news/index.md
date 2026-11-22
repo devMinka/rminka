@@ -4,6 +4,8 @@
 
 - Minor documentation updates, vignette fixes, and website improvements
   for CRAN submission.
+- Updated executable examples to use CRAN-compatible `\donttest{}`
+  blocks.
 
 ## rminka 0.2.0
 

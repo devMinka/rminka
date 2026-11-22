@@ -93,10 +93,13 @@ HTTP error. Invalid JSON raises an error.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 obs <- mnk_obs_id(id = 3546)
 obs$id
+#> [1] 3546
 obs$species_guess
+#> [1] "Gobius incognitus"
 obs$quality_grade
-} # }
+#> [1] "research"
+# }
 ```

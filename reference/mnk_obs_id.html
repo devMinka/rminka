@@ -39,7 +39,7 @@ The Minka API response is flattened into a tibble."><meta property="og:image" co
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get Minka Observation Details</h1>
-      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/v0.3.0/R/mnk_obs_id.R" class="external-link"><code>R/mnk_obs_id.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/master/R/mnk_obs_id.R" class="external-link"><code>R/mnk_obs_id.R</code></a></small>
       <div class="d-none name"><code>mnk_obs_id.Rd</code></div>
     </div>
 
@@ -123,12 +123,15 @@ Minka observation.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu">mnk_obs_id</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3546</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obs</span><span class="op">$</span><span class="va">id</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3546</span>
 <span class="r-in"><span><span class="va">obs</span><span class="op">$</span><span class="va">species_guess</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Gobius incognitus"</span>
 <span class="r-in"><span><span class="va">obs</span><span class="op">$</span><span class="va">quality_grade</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "research"</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -73,11 +73,11 @@ matching place:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Retrieve place 253 in WGS 84
 place <- mnk_place_sf(place_id = 253)
 
 # Retrieve the same place reprojected to ETRS89 / UTM zone 31N
 place_25831 <- mnk_place_sf(place_id = 253, crs = 25831)
-} # }
+# }
 ```

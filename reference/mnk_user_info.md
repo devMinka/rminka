@@ -94,8 +94,15 @@ identifier in profile URLs such as
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Retrieve information for user ID 4
 mnk_user_info(4)
-} # }
+#> # A tibble: 1 × 16
+#>      id login name  created_at          observations_count identifications_count
+#>   <int> <chr> <chr> <dttm>                           <int>                 <int>
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              85319                477480
+#> # ℹ 10 more variables: species_count <int>, activity_count <int>,
+#> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
+#> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
+# }
 ```

@@ -39,7 +39,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Projects Subscribed by a Minka User</h1>
-      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/v0.3.0/R/mnk_user_proj.R" class="external-link"><code>R/mnk_user_proj.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/master/R/mnk_user_proj.R" class="external-link"><code>R/mnk_user_proj.R</code></a></small>
       <div class="d-none name"><code>mnk_user_proj.Rd</code></div>
     </div>
 
@@ -91,9 +91,22 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">mnk_user_proj</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       id title                       description slug  icon  place_id created_at</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>   522 (Principal) Biodiverciutat… <span style="color: #949494;">"</span>Aquest pr… prin… http…       <span style="color: #BB0000;">NA</span> 2025-10-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>   144 ANERIS - Biodiversitat D.C… <span style="color: #949494;">"</span>El projec… aner… http…      337 2023-06-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>   312 ANERIS - Biodiversitat Llo… <span style="color: #949494;">"</span>El projec… aner… http…      416 2024-06-1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>   146 ANERIS - Biodiversitat UNI… <span style="color: #949494;">"</span>El projec… aner… http…      338 2023-06-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>   177 ANERIS - Biodiversitat al … <span style="color: #949494;">"</span>El projec… aner… http…      361 2023-08-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>   183 ANERIS - SASBA (Seguiment … <span style="color: #949494;">"</span>Descobrim… aner… http…      251 2023-10-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>    44 Anthozoos del Barcelonés    <span style="color: #949494;">"</span>Estudi de… anth… http…       <span style="color: #BB0000;">NA</span> 2022-09-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>   444 Arees verdes marines - Emp… <span style="color: #949494;">"</span>Aquest pr… aree… http…      712 2025-05-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>   448 BIODIVERSIDAD MARINA BADIA… <span style="color: #949494;">"</span>Biodivers… biod… http…      714 2025-05-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>   181 BM-PortSalvi                <span style="color: #949494;">"</span>El projec… bm-p… http…      367 2023-09-1…</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

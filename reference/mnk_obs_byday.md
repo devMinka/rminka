@@ -100,13 +100,14 @@ empty tibble is returned if no observations are found.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Download observations of a taxon during March 2024
 obs <- mnk_obs_byday(
   d1 = "2024-03-01",
   d2 = "2024-03-31",
   taxon_name = "Diplodus sargus"
 )
+#> Found a total of 39 records between 2024-03-01 and 2024-03-31.
 
 # Download observations within a bounding box during the first week of 2024
 # Bounds are ordered north latitude, east longitude, south latitude,
@@ -118,5 +119,5 @@ obs_bc <- mnk_obs_byday(
   bounds = barcelona,
   quiet = TRUE
 )
-} # }
+# }
 ```

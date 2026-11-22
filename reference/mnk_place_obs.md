@@ -55,7 +55,7 @@ returned if no observations match.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Download place observations for August 2025 without a record cap
 place_data_aug_2025 <- mnk_place_obs(
   place_id = 257,
@@ -63,5 +63,13 @@ place_data_aug_2025 <- mnk_place_obs(
   month = 8,
   limit_download = FALSE
 )
-} # }
+#> --- STARTING DOWNLOAD FOR MONTH: August 2025 ---
+#> 
+#> --- Evaluating month: August 2025 ---
+#> The month of August has 213 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- FINISHING... ---
+#> Download complete! A total of 213 records were obtained.
+# }
 ```

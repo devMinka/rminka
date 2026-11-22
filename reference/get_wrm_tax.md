@@ -82,11 +82,23 @@ cannot be processed. The tibble contains the following columns:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Retrieve taxonomy for a species
 get_wrm_tax("Diplodus sargus")
+#> # A tibble: 1 × 14
+#>   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus
+#>           <int> <chr>           <chr>   <chr>    <chr>  <chr> <chr> <chr>  <chr>
+#> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Spar… Spari… Dipl…
+#> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
+#> #   isTerrestrial <lgl>, isExtinct <lgl>
 
 # Retrieve taxonomy for a genus
 get_wrm_tax("Diplodus")
-} # }
+#> # A tibble: 1 × 14
+#>   valid_AphiaID valid_name rank  kingdom  phylum   class     order  family genus
+#>           <int> <chr>      <chr> <chr>    <chr>    <chr>     <chr>  <chr>  <chr>
+#> 1        126076 Diplodus   Genus Animalia Chordata Teleostei Spari… Spari… Dipl…
+#> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
+#> #   isTerrestrial <lgl>, isExtinct <lgl>
+# }
 ```

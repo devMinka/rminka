@@ -62,8 +62,16 @@ mainly used to obtain project identifiers for other functions.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Search for projects containing "Biomarato 2025"
 mnk_proj_byname(query = "Biomarato 2025")
-} # }
+#> # A tibble: 5 × 8
+#>      id title      place_id slug  created_at updated_at project_type description
+#>   <int> <chr>         <int> <chr> <chr>      <chr>      <chr>        <chr>      
+#> 1   417 BioMARató…      244 biom… 2025-03-2… 2026-06-2… collection   "La BioMAR…
+#> 2   418 BioMARató…      245 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 3   419 BioMARató…      249 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 4   420 BioMARató…      248 biom… 2025-03-2… 2026-05-0… collection   "La BioMAR…
+#> 5   424 BioMARato…      701 biom… 2025-04-0… 2026-09-0… collection   "Descobre …
+# }
 ```

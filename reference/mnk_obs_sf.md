@@ -48,13 +48,20 @@ downloading observations.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-obs <- mnk_obs(
-  taxon_name = "Parablennius pilicornis",
-  year = 2024,
-  month = 7
+obs <- data.frame(
+  id = 1,
+  latitude = 41,
+  longitude = 2,
+  observed_on = "2024-07-01",
+  taxon_name = "Parablennius pilicornis"
 )
-obs_sf <- mnk_obs_sf(obs, id, taxon_name, observed_on)
+obs_sf <- mnk_obs_sf(obs, id, taxon_name)
 obs_sf
-} # }
+#> Simple feature collection with 1 feature and 5 fields
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 2 ymin: 41 xmax: 2 ymax: 41
+#> Geodetic CRS:  WGS 84
+#>   id              taxon_name latitude longitude observed_on     geometry
+#> 1  1 Parablennius pilicornis       41         2  2024-07-01 POINT (2 41)
 ```

@@ -49,8 +49,17 @@ used to obtain the user identifier for other functions.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Search for users whose login contains "xavier"
 mnk_user_byname(query = "xavier")
-} # }
+#> # A tibble: 6 × 5
+#>      id login      name                   observations_count created_at         
+#>   <int> <chr>      <chr>                               <int> <dttm>             
+#> 1   155 xavier     NA                                     88 2022-07-15 11:51:35
+#> 2  1178 xparellada Xavier Parellada                     1674 2023-10-31 09:07:52
+#> 3   798 xavidp     Xavier de Pedro Puente                306 2023-07-06 16:43:21
+#> 4  2408 xaviermas  NA                                     44 2024-05-04 17:49:55
+#> 5 16275 xavierlln  Xavier Llurba                         184 2025-03-23 07:07:25
+#> 6  1214 monsblaus  Xavier Llopis                         178 2023-11-14 13:53:24
+# }
 ```

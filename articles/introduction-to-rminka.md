@@ -81,8 +81,8 @@ prj_user
 #>  6    52 joselu_00      "José Luís Guijo… 2022-05-10 13:38:20                404
 #>  7   159 jaumesaltiveri "Jaume Saltiveri" 2022-07-17 13:30:45                  2
 #>  8   166 anomalia       "anomalia"        2022-07-19 07:56:08                 23
-#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               6517
-#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              32302
+#>  9   197 peixderoca24   "Guillem Mayor S… 2022-08-08 12:58:18               6603
+#> 10   219 ealcaniz       "Edu Alcaniz"     2022-08-27 15:52:52              32470
 #> # ℹ 13 more rows
 #> # ℹ 11 more variables: identifications_count <int>, species_count <int>,
 #> #   activity_count <int>, journal_posts_count <int>, orcid <chr>,
@@ -190,7 +190,7 @@ user_name
 #>   <int> <chr>             <chr>                        <int> <dttm>             
 #> 1    47 xavi               NA                              6 2022-05-06 10:47:06
 #> 2     4 xasalva           "xavi salvador…              85319 2021-04-16 10:44:11
-#> 3  1178 xparellada        "Xavier Parell…               1580 2023-10-31 09:07:52
+#> 3  1178 xparellada        "Xavier Parell…               1674 2023-10-31 09:07:52
 #> 4   857 xavibou           "Xavi Bou"                    1581 2023-07-28 13:27:50
 #> 5  1042 xavi-de-yzaguirre ""                             459 2023-09-26 13:18:42
 #> 6 17242 xavisanjuan        NA                            390 2025-07-20 16:21:42
@@ -210,7 +210,7 @@ user_info
 #> # A tibble: 1 × 16
 #>      id login name  created_at          observations_count identifications_count
 #>   <int> <chr> <chr> <dttm>                           <int>                 <int>
-#> 1     4 xasa… xavi… 2021-04-16 10:44:11              85319                474994
+#> 1     4 xasa… xavi… 2021-04-16 10:44:11              85319                477480
 #> # ℹ 10 more variables: species_count <int>, activity_count <int>,
 #> #   journal_posts_count <int>, orcid <chr>, icon_url <chr>, site_id <int>,
 #> #   roles <list>, spam <lgl>, suspended <lgl>, universal_search_rank <int>
@@ -306,9 +306,9 @@ places[,1:6]
 #> # A tibble: 3 × 6
 #>   place_id slug                      name     area display_name location_latitud
 #>      <int> <chr>                     <chr>   <dbl> <chr>                   <dbl>
-#> 1      253 piscinas-del-forum-fecdas Pisc… 4.28e-5 Piscinas de…             41.4
-#> 2      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
-#> 3      820 atles-zona-de-banys-del-… Atle… 9.59e-6 Atles Zona …             41.4
+#> 1      257 platja-banys-del-forum    Plat… 1.28e-5 Platja Bany…             41.4
+#> 2      820 atles-zona-de-banys-del-… Atle… 9.59e-6 Atles Zona …             41.4
+#> 3      253 piscinas-del-forum-fecdas Pisc… 4.28e-5 Piscinas de…             41.4
 ```
 
 ### ● `mnk_place_sf()`
@@ -842,7 +842,7 @@ get_wrm_tax("Diplodus sargus")
 #> # A tibble: 1 × 14
 #>   valid_AphiaID valid_name      rank    kingdom  phylum class order family genus
 #>           <int> <chr>           <chr>   <chr>    <chr>  <chr> <chr> <chr>  <chr>
-#> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Eupe… Spari… Dipl…
+#> 1        127053 Diplodus sargus Species Animalia Chord… Tele… Spar… Spari… Dipl…
 #> # ℹ 5 more variables: isMarine <lgl>, isBrackish <lgl>, isFreshwater <lgl>,
 #> #   isTerrestrial <lgl>, isExtinct <lgl>
 

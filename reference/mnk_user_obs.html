@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download User Observations by Year</h1>
-      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/v0.3.0/R/mnk_user_obs.R" class="external-link"><code>R/mnk_user_obs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/master/R/mnk_user_obs.R" class="external-link"><code>R/mnk_user_obs.R</code></a></small>
       <div class="d-none name"><code>mnk_user_obs.Rd</code></div>
     </div>
 
@@ -104,9 +104,67 @@ download all matching records.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Download up to 10,000 observations for user 4 in 2024</span></span></span>
 <span class="r-in"><span><span class="fu">mnk_user_obs</span><span class="op">(</span>user_id <span class="op">=</span> <span class="fl">4</span>, year <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- STARTING ANNUAL DOWNLOAD FOR THE YEAR 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: January 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of January has 1818 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: February 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of February has 911 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: March 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of March has 2139 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: April 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of April has 1042 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: May 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of May has 536 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: June 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of June has 1045 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: July 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of July has 1802 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: August 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of August has 1360 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> NOTE: Fetching only the first 707 of 1,360 available records due to limit.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Download limit reached. Stopping.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- FINISHING... ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Download complete! A total of 10,000 records were obtained.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10,000 × 29</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        id observed_on  year month  week   day  hour created_at        updated_at</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">222</span>196 2024-01-12   <span style="text-decoration: underline;">2</span>024     1     2    12     1 2024-02-06T08:07… 2024-12-1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">220</span>874 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:11… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">220</span>873 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:11… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">220</span>872 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:11… 2024-02-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">220</span>871 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:11… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">220</span>870 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:11… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">220</span>869 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:10… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">220</span>868 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:10… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">220</span>867 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:10… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">220</span>866 2024-01-24   <span style="text-decoration: underline;">2</span>024     1     4    24    23 2024-01-31T19:10… 2024-01-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9,990 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 20 more variables: latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   positional_accuracy &lt;int&gt;, geoprivacy &lt;chr&gt;, obscured &lt;lgl&gt;, uri &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   url_picture_icon &lt;chr&gt;, url_picture_med &lt;chr&gt;, url_picture_orig &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   quality_grade &lt;chr&gt;, taxon_id &lt;int&gt;, taxon_name &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxon_min_ancestry &lt;chr&gt;, taxon_endemic &lt;lgl&gt;, taxon_threatened &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxon_introduced &lt;lgl&gt;, taxon_native &lt;lgl&gt;, user_id &lt;int&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download observations for August 2024 without a record cap</span></span></span>
 <span class="r-in"><span><span class="fu">mnk_user_obs</span><span class="op">(</span></span></span>
@@ -115,7 +173,35 @@ download all matching records.</p></dd>
 <span class="r-in"><span>  month <span class="op">=</span> <span class="fl">8</span>,</span></span>
 <span class="r-in"><span>  limit_download <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- STARTING DOWNLOAD FOR MONTH: August 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: August 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of August has 1360 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- FINISHING... ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Download complete! A total of 1,360 records were obtained.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,360 × 29</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        id observed_on  year month  week   day  hour created_at        updated_at</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="text-decoration: underline;">348</span>388 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:02… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="text-decoration: underline;">348</span>387 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:02… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="text-decoration: underline;">348</span>386 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">348</span>385 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">348</span>384 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">348</span>383 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">348</span>382 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">348</span>381 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    13 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="text-decoration: underline;">348</span>380 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    12 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="text-decoration: underline;">348</span>379 2024-08-31   <span style="text-decoration: underline;">2</span>024     8    35    31    12 2024-09-02T13:01… 2024-09-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1,350 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 20 more variables: latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   positional_accuracy &lt;int&gt;, geoprivacy &lt;chr&gt;, obscured &lt;lgl&gt;, uri &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   url_picture_icon &lt;chr&gt;, url_picture_med &lt;chr&gt;, url_picture_orig &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   quality_grade &lt;chr&gt;, taxon_id &lt;int&gt;, taxon_name &lt;chr&gt;, taxon_rank &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxon_min_ancestry &lt;chr&gt;, taxon_endemic &lt;lgl&gt;, taxon_threatened &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   taxon_introduced &lt;lgl&gt;, taxon_native &lt;lgl&gt;, user_id &lt;int&gt;, …</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

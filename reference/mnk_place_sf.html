@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get a Minka Place as an sf Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/v0.3.0/R/mnk_place_sf.R" class="external-link"><code>R/mnk_place_sf.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/master/R/mnk_place_sf.R" class="external-link"><code>R/mnk_place_sf.R</code></a></small>
       <div class="d-none name"><code>mnk_place_sf.Rd</code></div>
     </div>
 
@@ -110,13 +110,13 @@ an EPSG code or any value accepted by <code><a href="https://r-spatial.github.io
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve place 253 in WGS 84</span></span></span>
 <span class="r-in"><span><span class="va">place</span> <span class="op">&lt;-</span> <span class="fu">mnk_place_sf</span><span class="op">(</span>place_id <span class="op">=</span> <span class="fl">253</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Retrieve the same place reprojected to ETRS89 / UTM zone 31N</span></span></span>
 <span class="r-in"><span><span class="va">place_25831</span> <span class="op">&lt;-</span> <span class="fu">mnk_place_sf</span><span class="op">(</span>place_id <span class="op">=</span> <span class="fl">253</span>, crs <span class="op">=</span> <span class="fl">25831</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

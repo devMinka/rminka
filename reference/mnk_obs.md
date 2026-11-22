@@ -229,10 +229,56 @@ An empty tibble is returned if no observations are found.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Download the first 10,000 observations of a taxon from a project in 2025
 obs <- mnk_obs(project_id = 417, year = 2025,
 taxon_name = "Diplodus sargus" )
+#> --- STARTING ANNUAL DOWNLOAD FOR THE YEAR 2025 ---
+#> 
+#> --- Evaluating month: January 2025 ---
+#> No records were found for January 2025
+#> 
+#> --- Evaluating month: February 2025 ---
+#> No records were found for February 2025
+#> 
+#> --- Evaluating month: March 2025 ---
+#> No records were found for March 2025
+#> 
+#> --- Evaluating month: April 2025 ---
+#> No records were found for April 2025
+#> 
+#> --- Evaluating month: May 2025 ---
+#> The month of May has 115 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: June 2025 ---
+#> The month of June has 210 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: July 2025 ---
+#> The month of July has 234 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: August 2025 ---
+#> The month of August has 391 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: September 2025 ---
+#> The month of September has 300 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: October 2025 ---
+#> The month of October has 89 records.
+#>  -> Total <= 10,000. Downloading month in one go...
+#> 
+#> --- Evaluating month: November 2025 ---
+#> No records were found for November 2025
+#> 
+#> --- Evaluating month: December 2025 ---
+#> No records were found for December 2025
+#> 
+#> --- FINISHING... ---
+#> Download complete! A total of 1,339 records were obtained.
 # Download all 2024 observations for a user within a bounding box
 barcelona <- c(41.5, 2.3, 41.2, 2.0)
 obs_bc <- mnk_obs(
@@ -242,5 +288,5 @@ obs_bc <- mnk_obs(
   quiet = TRUE,
   limit_download = FALSE
 )
-} # }
+# }
 ```

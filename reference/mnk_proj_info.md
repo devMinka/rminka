@@ -67,11 +67,19 @@ it in the URL of the project's page.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Get metadata for project ID 420
 mnk_proj_info(project_id = 420)
+#> # A tibble: 1 × 7
+#>      id title               created_at subscrib_users place_id slug  description
+#>   <int> <chr>               <chr>               <int>    <int> <chr> <chr>      
+#> 1   420 BioMARató 2025 (Ba… 2025-03-2…             15      248 biom… La BioMARa…
 
 # Get metadata using the project slug
 mnk_proj_info(grpid = "biomarato-barcelona-2025")
-} # }
+#> # A tibble: 1 × 7
+#>      id title               created_at subscrib_users place_id slug  description
+#>   <int> <chr>               <chr>               <int>    <int> <chr> <chr>      
+#> 1   420 BioMARató 2025 (Ba… 2025-03-2…             15      248 biom… La BioMARa…
+# }
 ```

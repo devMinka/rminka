@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download Project Observations by Year</h1>
-      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/v0.3.0/R/mnk_proj_obs.R" class="external-link"><code>R/mnk_proj_obs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/devminka/rminka/blob/master/R/mnk_proj_obs.R" class="external-link"><code>R/mnk_proj_obs.R</code></a></small>
       <div class="d-none name"><code>mnk_proj_obs.Rd</code></div>
     </div>
 
@@ -104,9 +104,49 @@ download all matching records.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Download all observations for project 419 for the year 2024</span></span></span>
 <span class="r-in"><span><span class="va">proj_data_2024</span> <span class="op">&lt;-</span> <span class="fu">mnk_proj_obs</span><span class="op">(</span>project_id <span class="op">=</span> <span class="fl">419</span>, year <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- STARTING ANNUAL DOWNLOAD FOR THE YEAR 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: January 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for January 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: February 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for February 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: March 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for March 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: April 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for April 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: May 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for May 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: June 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for June 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: July 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for July 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: August 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for August 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: September 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for September 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: October 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for October 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: November 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for November 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: December 2024 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No records were found for December 2024</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- FINISHING... ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No data could be downloaded for the specified criteria.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Download project observations for August 2025 without a record cap</span></span></span>
 <span class="r-in"><span><span class="va">proj_data_aug_2025</span> <span class="op">&lt;-</span> <span class="fu">mnk_proj_obs</span><span class="op">(</span></span></span>
@@ -115,7 +155,15 @@ download all matching records.</p></dd>
 <span class="r-in"><span>  month <span class="op">=</span> <span class="fl">8</span>,</span></span>
 <span class="r-in"><span>  limit_download <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- STARTING DOWNLOAD FOR MONTH: August 2025 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- Evaluating month: August 2025 ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The month of August has 5640 records.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  -&gt; Total &lt;= 10,000. Downloading month in one go...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> --- FINISHING... ---</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Download complete! A total of 5,640 records were obtained.</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

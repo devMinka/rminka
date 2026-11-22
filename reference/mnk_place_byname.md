@@ -56,7 +56,7 @@ Queries the `/v1/places/autocomplete` endpoint.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 places <- mnk_place_byname(query = "Sant Feliu")
-} # }
+# }
 ```
